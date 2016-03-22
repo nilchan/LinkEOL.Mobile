@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style type="text/css">
+			/*跨webview需要手动指定位置*/
+			/*header.mui-bar {
+				display: none!important;
+			}*/
+			
+			body,
+			.mui-content {
+				background: #f1f1f1!important;
+			}
+			.mui-bar-nav~.mui-content {
+				padding-top: 0px;
+			}
+			.mui-input-group:after,
+			.mui-input-group:before,
+			.mui-input-group {
+				background: #f1f1f1!important;
+			}
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				font-size: 16px;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				background: #fff!important;
+			}
+			.mui-segmented-control .mui-control-item {
+				border-left: none!important;
+			}
+			.mui-segmented-control {
+				border-radius: 50px!important;
+				display: block;
+				height: 30px;
+			}
+			.mui-control-item1 {
+				vertical-align: top;
+				border-radius: 60px 0 0 60px;
+				line-height: 28px!important;
+			}
+			.mui-control-item2 {
+				vertical-align: top;
+				border-radius: 0 60px 60px 0;
+				line-height: 28px!important;
+			}
+			.mui-radio.mui-left input[type='radio'] {
+				left: 10px;
+			}
+			.mui-navigate-right:after {
+				right: 30%;
+			}
+			.mui-popover {
+				top: 84px;
+			}
+			.mui-scroll-wrapper {
+				top: 45px;
+				bottom: 50px;
+			}
+		</style>
+	</head>
+
+	<body style="background:#f1f1f1;">
+		<header class="mui-bar mui-bar-nav works-list-mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<!--<em class="iconfont" data-bind="click:goMessageList">&#xe628;<span class="mui-badge mui-badge-warning" data-bind="text: UnreadCount, visible: UnreadCount() > 0"></span></em>-->
+			<!--<em class="iconfont" data-bind="event:{tap: gotoAddWorks}">&#xe633;</em>-->
+			<h1 id="title" class="mui-title">选择作品</h1>
+		</header>
+
+		<div class="mui-content">
+			<!--<div id="popSubjects" class="mui-popover">
+				<div id="subject-scroll" class="mui-scroll-wrapper wrapper-margin">
+					<div class="mui-scroll">
+						<ul class="mui-table-view" data-bind="foreach: {data: tmplSubjectClasses, as: 'class1'}">
+							<li class="mui-table-view-cell mui-collapse ah-scroll">
+								<a class="mui-navigate-right navigate-font" href="#" data-bind="text: subjectClassName"></a>
+								<div class="mui-collapse-content" data-bind="foreach: {data: tmplSubjects, as: 'subject'}">
+									<span data-bind="text: subject.subjectName, event: {'tap': selectSubject}, visible: (subject.subjectClass == class1.subjectClass), css:{'table-current': (subject.id == currentSubject().id && subject.subjectClass == currentSubject().subjectClass)}"></span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div id="middlePopover2" class="mui-popover popover-height">
+				<ul id="list2" class="mui-table-view">
+					<li class="mui-table-view-cell navigate-font">
+						<a href="#">日期</a>
+					</li>
+					<li class="mui-table-view-cell navigate-font">
+						<a href="#">状态</a>
+					</li>
+				</ul>
+			</div>
+			<div class="works-list-select">
+				<ul id="nav1">
+					<li class="mui-collapse" id="workListSubject">
+						<a class="mui-navigate-right" id="dbSubject">科目</a>
+					</li>
+					<li class="mui-collapse" id="workListSort">
+						<a class="mui-navigate-right" id="dbSort">排序</a>
+					</li>
+				</ul>
+			</div>
+			-->
+			<div id="item1" class=" mui-control-content mui-active" style="position:static;margin-bottom: 60px!important;">
+				<div id="pullrefresh" class="mui-scroll-wrapper specialHeader">
+					<div class="mui-scroll">
+						<!--作品显示页-->
+						<ul class="mui-input-group" data-bind="foreach:{data:worksList}">
+							<li class="mui-table-view-cell works-list" data-bind="event:{tap:clickOne}">
+								<a href="javascript:void(0);">
+									<div class="works-list-check-bgColor" data-bind="visible: selected"></div>
+									<div class="works-list-works" data-bind="style: {'background-image': 'url(' + (common.StrIsNull(info.VideoThumbnail) == '' ? '../../images/video-big-default.png' : common.getThumbnail(info.VideoThumbnail)) +')'}">
+										<span class="works-list-date-bg"></span>
+										<span class="works-list-date-font" data-bind="text:info.AddTime.split(' ')[0]">2015-12-17</span>
+									</div>
+									<div class="works-list-right">
+										<div class="works-list-title">
+											<span class="works-list-title-span" data-bind="text:info.Title">张小杰的作品</span>
+										</div>
+										<div class="works-list-subject" data-bind="text:info.SubjectName">钢琴</div>
+										<!-- 名师点评样式  -->
+										<div class="Famous-comment" data-bind="visible: info.IsFamous && info.IsRecommend==false">
+											<img width="50" src="../../images/Famous-comment.png">
+										</div>
+										<!-- 名师推荐样式  -->
+										<div class="Famous-teacher" data-bind="visible: info.IsRecommend">
+											<img width="50" src="../../images/Famous-teacher.png">
+										</div>
+									</div>
+									<div class="works-list-f">
+										<ul class="works-list-f-left">
+											<li class="aline-left">
+												<i class="iconfont">&#xe661;</i>
+												<!--ko text:info.ReadCount-->
+												<!--/ko-->
+											</li>
+											<li class="aline-right">
+												<i class="iconfont">&#xe663;</i>
+												<!--ko text:info.LikeCount-->
+												<!--/ko-->
+											</li>
+										</ul>
+
+									</div>
+									<em class="teacher-list-check worksListAllWorks-list-check">
+										<img data-bind="attr:{src: '../../images/radio-check'+(selected() ? '-active' : '')+'.png'}" />
+									</em>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<nav class="mui-bar mui-bar-tab" data-bind="visible: displayCheck">
+				<a class="ah-mui-tab-item works-list-mui-tab-label mui-action-back">
+					<span class="mui-tab-label ">取消</span>
+				</a>
+				<a class="ah-mui-tab-item works-list-mui-tab-btn" data-bind="click: gotoSubmitClass">
+					<span class="mui-tab-label works-list-mui-btn">确定</span>
+				</a>
+			</nav>
+
+		</div>
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/mui/mui.picker.min.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/works/workList.js" type="text/javascript" charset="utf-8"></script>
+
+	</body>
+
+</html>

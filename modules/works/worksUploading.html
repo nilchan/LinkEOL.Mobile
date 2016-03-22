@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
+			<i class="iconfont mui-action-back" style="width:40px; height:40px; margin-left: -10px; padding-left: 10px ; display: inline-block;">&#xe683;</i>
+			<h1 class="mui-title">上传列表</h1>
+			<i class="iconfont" style="width:40px; height:40px; margin-right: -20px; display: inline-block;" data-bind="click: gotoAddWorks">&#xe633;</i>
+		</header>
+		<div class="mui-content addWork-mui-content" data-bind="foreach: {data: tasks, as: 'task'}">
+			<div class="addWorksPlan-div">
+				<em>
+	                <img src="../../images/addWorkspPlan.png" />
+	            </em>
+				<span data-bind="text: StateText">正在上传</span>
+				<i class="iconfont">&#xe639;</i>
+				<i class="iconfont">&#xe61b;</i>
+				<span data-bind="text: WorkTitle">"希望之星"钢琴演奏</span>
+				<div class="addWorksPlan-graph">
+					<strong id="bar" style="width:1%;" data-bind="text: Ratio, style: {'width': Percentage}"></strong>
+				</div>
+				<span data-bind="text: Speed">12k</span>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../../script/common/upload.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script src="../../script/works/worksUploading.js" type="text/javascript" charset="utf-8"></script>-->
+		<script type="text/javascript">
+			mui.init();
+		</script>
+	</body>
+
+</html>

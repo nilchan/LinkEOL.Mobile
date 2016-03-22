@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../content/mui/mui.min.css" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/my/messageList.css" rel="stylesheet" />
+		<style>
+			body{
+				background: #F1F1F1;
+			}					
+			.pull-left-pic {
+			    color:#fff!important;
+			    font-size:0.96rem;
+			}
+			.card-footer{
+				margin-bottom: 10px;
+			}
+			.card-footer span{
+				font-size: 14px;
+				padding-left: 15px;
+			}
+			.card-footer:before {
+			    background-color:#fff!important;
+			}
+			.card-content-inner {
+			    padding:10px 15px!important;
+			    text-indent: 2em;
+			    font-size: 14px;
+			}
+			.card-font {
+			    font-size:0.96rem;
+			    color:#036fb8;
+			}
+		    .card-font i {
+		        font-size:16px;
+		        color:#a5a5a5;
+		    }
+			.card-btn {
+			    height:2rem;
+			    width:9rem;
+			}
+			.card-btn em {
+			    height:2rem;
+			    width:4rem;
+			    display:inline-block;  
+			    line-height:2rem;
+			    text-align:center;
+			    border-radius:5px;
+			}
+		    .card-footer em:nth-of-type(1) {
+		        background:#ef8100;
+		        color:#fff;
+		         margin-right:0.5rem;
+		    }
+	        .card-footer em:nth-of-type(2) {
+		        background:#dcdcdc;
+		        color:#999;
+		    }
+		    .mui-scroll-wrapper{
+		    	background: #F1F1F1!important;
+		    }
+		</style>
+	</head>
+
+	<body>
+		<!--页面内容区域-->
+		<!--下拉刷新容器-->
+		<div class="mui-content">
+			<div class="openedCourses-ys" data-bind="visible:messageLength()<=0">
+				<i>
+				<img src="../../images/logo-pic.png" />
+				</i>
+				<span data-bind="visible:messages().length<=0 ">尚未有任何消息~</span>
+			</div>
+			<div id="pullrefresh" class="mui-scroll-wrapper" data-bind="visible:messageLength()>0">
+				<div class="mui-scroll">
+					<!--数据列表-->
+					<div data-bind="template: {name:'messageTemplate', foreach: messages }">
+					</div>
+					<!--message模板页-->
+					<script type="text/html" id="messageTemplate">
+						<div class="messageNotification-content">
+							<div class="messageNotification-title openedCoursesList-first mesg-padding">
+								<span data-bind="event:{tap:goMessagesDetail}"><!--ko text:Title--><!--/ko--></span>
+								<i class="iconfont" data-bind="event:{tap:removeMessages}">&#xe61b;</i>
+							</div>
+							<div class="card-content" data-bind="event:{tap:goMessagesDetail}">
+								<div class="card-content-inner">
+									<span data-bind="html:ContentText"></span>
+								</div>
+							</div>
+							<div class="card-footer" data-bind="event:{tap:goMessagesDetail}">
+								<span data-bind="text:SendTime"></span>
+							</div>
+						</div>
+					</script>
+				</div>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/messageList.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

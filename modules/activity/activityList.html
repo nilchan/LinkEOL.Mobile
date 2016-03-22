@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			html,
+			body,
+			.mui-content,
+			.mui-slider-group,
+			.mui-control-content,
+			.mui-fullscreen,
+			.mui-table-view {
+				background-color: #eeeeee!important;
+			}
+			
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 50px;
+				height: auto;
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 10;
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			
+			.mui-segmented-control.mui-scroll-wrapper {
+				height: 44px!important;
+				font-size: 16px;
+				font-weight: 500;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				line-height: 32px!important;
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				margin: 0;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #fff;
+			}
+			
+			.activityListStub-control-item {
+				color: #444444!important;
+			}
+			
+			.mui-control-item.mui-active {
+				color: #d34777!important;
+				background: #E9E9E9!important;
+				border-radius: 12px;
+			}
+			
+			.mui-popover .mui-scroll-wrapper {
+				margin: 0!important;
+				background: ;
+			}
+			
+			.mui-popover.mui-active {
+				left: 0px!important;
+				top: 44px;
+				/*background: #000!important;*/
+			}
+			
+			.activityList-address {
+				margin-left: 15px;
+				color: #6d6c6b;
+				font-size: 16px;
+				line-height: 44px;
+			}
+			
+			.mui-table-view-cell a {
+				color: #434446!important;
+			}
+			
+			.address-chage-bg > a:not(.mui-btn) {
+				background-color: #f5f4ef!important;
+			}
+			
+			.address-chage-bg a {
+				color: #ababab!important;
+			}
+			
+			.mui-bar .activityList-address-iconfont {
+				width: auto!important;
+				padding-left: 2px!important;
+				font-size: 16px!important;
+			}
+			
+			.mui-segmented-control.mui-scroll-wrapper .mui-control-item {
+				padding: 0 10px;
+				margin-top: 6px;
+			}
+			.mui-segmented-control.mui-scroll-wrapper .mui-scroll {
+				margin-left: 10px;
+			}
+		
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
+			<h1 class="mui-title">演出活动</h1>
+			<a id="menu" href="#topPopover" class="activityList-address">
+				<!--ko text: cPlace-->广州
+				<!--/ko-->
+				<i class="iconfont activityList-address-iconfont">&#xe66c;</i>
+			</a>
+		</header>
+		<div class="mui-content">
+			<div id="topPopover" class="mui-popover">
+				<div class="mui-popover-arrow"></div>
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="mui-table-view" data-bind="foreach:{data: bindPlace}">
+							<li class="mui-table-view-cell address-chage-bg" data-bind="event:{tap: selectPlace}">
+								<a href="#" data-bind="text: $data">Item1</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="slider" class="mui-slider mui-fullscreen specialHeader">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a class="mui-control-item activityListStub-control-item mui-active" href="#item1mobile">
+							专场演出
+						</a>
+						<a class="mui-control-item activityListStub-control-item" href="#item2mobile">
+							名师讲座
+						</a>
+						<a class="mui-control-item activityListStub-control-item" href="#item3mobile">
+							交流活动
+						</a>
+						<a class="mui-control-item activityListStub-control-item" href="#item4mobile">
+							赛事活动
+						</a>
+					</div>
+				</div>
+				
+				<script type="text/html" id="activityT">
+				<li class="activity-photo-li" data-bind="event:{tap:gotoInfo}">
+					<div class="activity-photo-left">
+						<img src="../../images/activity-photo.png" data-bind="attr:{src: common.getPhotoUrl2(Thumbnail)}" />
+						<!--<div class="activity-photo-font-bg"></div>-->
+						<!--<em class="activity-photo-font">敬请期待</em>-->
+					</div>
+					<div class="activity-con-right">
+						<h2 class="activity-con-right-h2" data-bind="text: Title">2016年广州星海音乐厅专场音乐会</h2>
+						<p class="activity-subhead" data-bind='text:SubTitle'>副标题副标题副标题副标题副标题副标题副</p>
+					</div>
+					<p class="activity-con-time" data-bind="text:Times">2016.1.23 - 2016.1.28</p>
+					<p class="activity-con-address" data-bind="text: PlaceName == '' ? '地点：待定' : PlaceName">广州星海音乐厅</p>
+					<em class="activity-con-set" data-bind="text: NeedBuyTicket==true ? '售票中' : '',visible:NeedBuyTicket==true">座</em>
+					<em class="activity-con-enroll" data-bind="text: common.getTextByValue(common.gActivityStatus, ActStat), visible: !(NeedBuyTicket==true && ActStat==common.gActivityStatus[0].value),style:{left: NeedBuyTicket==false?'35%':'52%'}">报名中</em>
+					<!--<em class="activity-enroll-money">100~200元</em>-->
+				</li>
+				</script>
+
+				<div class="mui-slider-group activity-margin-top">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view" data-bind="template: {name:'activityT', foreach: activitys[1]}"></ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view" data-bind="template: {name:'activityT', foreach: activitys[2]}"></ul>
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view" data-bind="template: {name:'activityT', foreach: activitys[3]}"></ul>
+							</div>
+						</div>
+					</div>
+					<div id="item4mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view" data-bind="template: {name:'activityT', foreach: activitys[4]}"></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/mui/mui.pullToRefresh.js"></script>
+		<script src="../../script/mui/mui.pullToRefresh.material.js"></script>
+		<script src="../../script/activity/activityList.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

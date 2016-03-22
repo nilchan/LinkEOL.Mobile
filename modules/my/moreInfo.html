@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			body,
+			.mui-content {
+				background: #F1F1F1!important;
+			}
+			
+			.mui-content-padded {
+				background: #F1F1F1!important;
+				margin-top: 130px!important;
+			}
+			
+			.mui-btn-blue,
+			.mui-btn-primary,
+			input[type=submit] {
+				border: 1px solid #f08000;
+				background: #f08000;
+			}
+			
+			.mui-table-view-cell {
+				font-size: 16px!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mui-action-back">
+			<i class="iconfont">&#xe602;</i>
+			<h1 class="mui-title"> 更多</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-table-view-chevron my-mui-table-view">
+				<li class="mui-table-view-cell" data-bind="click:goIntructTeacherList,visible:UserType() == common.gDictUserType.teacher">
+					<a class="my-mui-navigate-right">
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span> 授课老师
+					</a>
+				</li>
+				<li class="mui-table-view-cell" data-bind="click:goChangePassword">
+					<a class="my-mui-navigate-right">
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span> 修改密码
+					</a>
+				</li>
+			</ul>
+			<div class="moreInfo-ul"></div>
+			<ul class="mui-table-view mui-table-view-chevron my-mui-table-view">
+				<li class="mui-table-view-cell" data-bind="click:goHelp">
+					<a class="my-mui-navigate-right">
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span> 用户指南
+					</a>
+				</li>
+				<li class="mui-table-view-cell" data-bind="click:goFeedback">
+					<a class="my-mui-navigate-right">
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span> 意见反馈
+					</a>
+				</li>
+				<li class="mui-table-view-cell" data-bind="click:goRecommendFriends">
+					<a class="my-mui-navigate-right">
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span> 推荐好友
+					</a>
+				</li>
+				<li class="mui-table-view-cell" data-bind="event: {click: goAboutUs}">
+					<a class="my-mui-navigate-right">
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span> 关于我们
+					</a>
+				</li>
+				<!--<li class="mui-table-view-cell" onclick="checkVersion()">
+					<a class="my-mui-navigate-right">
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span> 检查更新
+					</a>
+				</li>-->
+			</ul>
+			<div class="mui-content-padded">
+				<button id='login' class="mui-btn mui-btn-block mui-btn-primary th-btn th-mui-f p-btn-color" data-bind="click:quitLogin">退出登录</button>
+			</div>
+		</div>
+	</body>
+	<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/my/moreInfo.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/update.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+			body,.mui-content{
+				background: #F1F1F1!important;
+			}
+			.mui-bar .mui-btn{
+				top: 9px;
+				padding: 6px 18px;
+			}	
+			.mui-content-padded{
+				margin: 0!important;
+			}
+			.submitComment-top.mui-active{
+				left: 0!important;
+			}
+			.mui-btn-block{
+				width: 30%!important;
+				float: right;
+				top: -9px!important;
+				margin-right: 15px;
+			}
+		   .mui-radio input[type=radio]:before{
+				content: "";
+			}
+			.mui-input-group .mui-input-row:after{
+				background: #f1f1f1!important;
+			}
+			.Lesson-radio-height{
+				height: 100px!important;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">提交点评</h1>			
+		</header>
+		
+		<div class="mui-content">
+			<div class="submitClass-card">
+				<div class="submitClass-card-title">被点评作品</div>
+				<div class="submitClass-card-img">
+					<img data-bind="attr: {src: common.getThumbnail(works().VideoThumbnail)}" onerror="this.src='../../images/video-big-default.png';" />
+				</div>
+				<span data-bind="text: works().Title">希望之星希望之星希望之星</span>
+				<em data-bind="text: works().AuthorName">钢琴</em>						
+			</div>
+			
+			<div class="submitClass-card submitClass-th">
+				<div class="submitClass-card-title">点评老师</div>
+				<div class="submitClass-teacher">
+					<div class="submitClass-teacher-left">
+						<img data-bind="attr: {src: common.getPhotoUrl(teacher().Photo)}" onerror="this.src='../../images/my-default.png';" />
+					</div>
+					<div class="submitClass-teacher-right">
+						<div class="up">
+							<span data-bind="text: teacher().DisplayName">袁怡航</span>
+							<span data-bind="text: teacher().SubjectName">钢琴</span>
+						</div>
+						<!--<div class="dow">
+							<em data-bind="css: 'star'+(teacher().Star>3?'3':teacher().Star)"></em>		
+						<div class="teacherList-professional" style="margin-top: -22px; width: 50%; float: right;">
+								<div class="professional"><i class="iconfont">&#xe696;</i></div>
+								<div class="education"><i class="iconfont">&#xe69b;</i></div>
+								<div class="identity"><i class="iconfont">&#xe69e;</i></div>
+							</div>
+						</div>-->
+						<div class="submitComment-pic">
+							<em data-bind="visible:teacher().IsFamous==false,css: 'star'+(teacher().Star>3?'3':teacher().Star)"></em>
+						</div>
+						<div class="teacherList-professional submitComment-pic-professional">
+								<em class="professional submitComment-professional" data-bind='visible:teacher().IsFamous==true && teacher().ProTitleAuth==true'><i class="iconfont">&#xe696;</i></em>
+								<em class="education" data-bind='visible:teacher().IsFamous==false && teacher().IDAuth==true'><i class="iconfont">&#xe69b;</i></em>
+								<em class="identity" data-bind='visible:teacher().IsFamous==false && teacher().EduAuth==true'><i class="iconfont">&#xe69e;</i></em>
+						</div>
+					</div>		
+				</div>		
+			</div>
+		
+		<nav class="mui-bar mui-bar-tab" data-bind="visible: paid() == false">
+            <div class="mui-content-padded availableTime-sure">
+            	<a href="#middlePopover">
+				<button type="button" class="mui-btn mui-btn-primary availableTime-mui-btn p-btn-color" >
+					付款
+				</button>
+				</a>
+			</div>
+        </nav>	
+		
+		
+		<!--弹出付款对话框-->
+		<div id="middlePopover" class="mui-popover submitComment-top">	
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll submitClass-mui-scroll Lesson-mui" >
+					<div class="mui-scroll-title">
+						<i class="iconfont" data-bind="click:closePopover">&#xe63f;</i>
+						<span>付款详情</span>
+					</div>
+					<ul>
+						<form class="mui-input-group">
+							<div class="mui-input-row mui-radio mui-left Lesson-radio ">
+								<label>
+									<li class="wx-pay">
+										<img src="../../images/submitClass-wx.png" />
+										<span>微信支付</span>
+										<input name="payType" value="wxpay" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
+									</li>
+			
+								</label>
+							</div>
+							<div class="mui-input-row mui-radio mui-left Lesson-radio">
+								<label>
+									<li class="wx-pay">
+										<img src="../../images/ye.png" />
+										<span>余额支付
+											<!--ko text: '( ￥ ' + balance() + ' )'-->
+											(￥120.00)
+											<!--/ko-->
+										</span>
+										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
+									</li>
+								</label>
+							</div>
+							<li class="lineHeight">
+								总额：￥
+								<!--ko text: Amount-->
+								<!--/ko-->
+							</li>
+						</form>
+					</ul>			
+					<button class="p-btn-color" data-bind="click: gotoPay, text: Amount() > 0 ? '去付款' : '免费点评，直接提交'"></button>
+				</div>
+			</div>
+		</div>	
+	
+		</div>	
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/pay.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/student/submitComment.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

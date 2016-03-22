@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			body,.mui-content {
+				background: #eeeeee!important;
+			}	
+			.works-list-mui-active1 {
+				border-radius: 35px 0 0 38px;
+			}
+			
+			.works-list-mui-active2 {
+				border-radius: 0 35px 38px 0;
+			}
+			
+			.works-list-mui-active .mui-active {
+				color: #fff!important;
+				background: #036FB8!important;
+				border: 1px solid #036FB8!important;
+			}
+			
+			.mui-segmented-control .mui-control-item.mui-active {
+				color: #fff!important;
+			}
+			
+			.mui-segmented-control .mui-control-item.mui-active {
+				background: #e64578!important;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				color: #e64578!important;
+				border-right: 1px solid #e64578!important;
+			}
+			
+			.mui-segmented-control .mui-control-item:last-of-type {
+				border-right: none!important;
+			}		
+			.works-list-mui {
+				border: 1px solid #e64578!important;
+			}			
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}			
+			.mui-control-content {
+				min-height: 600px;
+			}
+			.mui-active {
+				color: #666!important;
+			}
+			.pin-blank{
+				background: #fff!important;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe602;</i>
+			<h1 class="mui-title">我的关注</h1>
+			<em class="iconfont mui-bar-nav-em" data-bind="click:qrcodeEvent">&#xe656;
+			</em>
+		</header>
+		<div class="mui-content">
+			<div class="myAttention-bg-color">
+				<div id="segmentedControl" class="mui-segmented-control works-list-mui myAttention-table specialHeader">
+					<a class="mui-control-item  works-list-mui-active works-list-mui-active1 mui-active" href="#item1">
+            			我关注谁
+            		</a>
+					<a class="mui-control-item works-list-mui-active works-list-mui-active2 works-list-mui-control-item" href="#item2">
+	                	谁关注我
+		            </a>
+				</div>
+			</div>
+			<div style="background: #eeeeee;">
+				<div id="item1" class="mui-control-content myAttention-wrapper mui-active" data-bind="template: {name:'attentionTemple', foreach: FavUsers}">
+					<div class="openedCourses-ys" data-bind="visible:FavUsers().length<=0">
+						<i>
+							<img src="../../images/logo-pic.png" />
+						</i>
+						<span data-bind="visible:FavUsers().length<=0">还没有关注任何人呢~~</span>
+					</div>
+				</div>
+				<div id="item2" class="mui-control-content myAttention-wrapper" data-bind="template: {name:'attentionTemple', foreach: AttentionList}">
+					<div class="openedCourses-ys" data-bind="visible:AttentionList().length<=0">
+						<i>
+							<img src="../../images/logo-pic.png" />
+						</i>
+						<span data-bind="visible:AttentionList().length<=0">还没有人关注你呢~~</span>
+					</div>
+				</div>
+				
+				
+				<!--关注模板页-->
+				<script type="text/html" id="attentionTemple">
+					<div class="card-row" data-bind="event:{tap: gotoUserInfo}">
+						<div class="card-right card-width">
+							<img data-bind="attr:{'src':common.getPhotoUrl(Photo)}" onerror="this.src='../../images/my-default.png';" />
+							<div class="card-row-right">
+								<span data-bind="text:DisplayName"></span><u>(<!--ko text:common.gJsonGenderType[Gender].text--><!--/ko-->)</u>
+								<!--<u class="u-font-right" data-bind='text: UserType == common.gDictUserType.teacher ? TeachAge + " 年教龄 " : TheAge'></u>-->
+							</div>
+							<div class="card-row-right card-row-dow">
+								<u data-bind="text:Province + (common.StrIsNull(City) == ''?'':City) + (common.StrIsNull(District) == ''?'':District)"></u>
+							</div>
+						</div>
+					</div>
+				</script>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/myAttention.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			@media screen and (max-height: 530px) {
+				.auto-height {
+					line-height: 22px;
+				}
+			}
+			@media screen and (min-height: 531px) and (max-height: 598px) {
+				.auto-height {
+					line-height: 28px;
+				}
+			}
+			@media screen and (min-height: 599px) and (max-height: 679px) {
+				.auto-height {
+					line-height: 32px;
+				}
+			}
+			@media screen and (min-height: 680px) {
+				.auto-height {
+					line-height: 38px;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">选择课时</h1>
+		</header>
+		<div class="mui-content">
+			<div id="divChooseTime">
+				<div class="availableTime-title">
+					<span data-bind='text: TheMonth'></span>
+					<div class="availableTime-title-time">
+						<div class="time-up">
+							<ul data-bind="foreach:{data: DayOfWeek}">
+								<li data-bind='text: $data'></li>
+							</ul>
+						</div>
+						<div class="time-dow">
+							<ul data-bind="foreach:{data: DateOfWeek, as: 'date'}">
+								<li data-bind='text: date.getDate(), css: {current: CurrentDay() == date.getDate()}'></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<table class="availableTime-table auto-height" border="2" cellspacing="0" cellpadding="0" width="100%" height="100%" data-bind="foreach:{data: Hours, as: 'hour'}">
+					<tr>
+						<td data-bind='text: $data + ":00"'></td>
+						<!--ko foreach:{data: DateOfWeek}-->
+						<td data-bind='cellValue: initCell($data, hour)'></td>
+						<!--/ko-->
+					</tr>
+				</table>
+
+				<nav class="mui-bar mui-bar-tab availableTime-footer">
+					<span>点击蓝色区块选择</span>
+					<em class='disabled' data-bind='event:{tap: back}, css:{disabled: ChosenTimes().length <= 0}, text: "确定("+ChosenTimes().length+")"'>确定(0)</em>
+				</nav>
+			</div>
+		</div>
+
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/student/chooseTime.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init({
+				swipeBack: false //禁用右滑关闭功能
+			});
+			mui('.mui-scroll-wrapper').scroll();
+			window.addEventListener("swipeleft", function() {
+				self.WeekIndex(self.WeekIndex() + 1);
+			});
+			window.addEventListener("swiperight", function() {
+				self.WeekIndex(self.WeekIndex() - 1);
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../script/libs/video.js/video2.0.min.css" rel="stylesheet" />
+		<style>
+			.mui-bar-nav ~ .myUpLoad-content {
+				padding-top: 0px;
+			}
+			/*上传样式*/
+			
+			.title-one {
+				padding-left: 10px;
+				color: #666;
+				font-size: 14px;
+			}
+			
+			.loading-box {
+				height: 2px;
+				width: 100%;
+				background: #dcdddc;
+				left: 10px;
+				top: 60px;
+				position: absolute;
+			}
+			
+			.plan-box {
+				height: 2px;
+				width: 30%;
+				background: #34c44f;
+				left: 10px;
+				top: 60px;
+				position: absolute;
+			}
+			
+			.suspend {
+				background: #a7a8a7;
+			}
+			
+			.font-style {
+				width: 100%;
+				padding-left: 10px;
+				box-sizing: border-box;
+				position: absolute;
+				left: 0;
+				height: 20px;
+				bottom: -303%;
+				color: #34c44f;
+			}
+			
+			.loading-font {
+				font-size: 12px;
+				float: left;
+			}
+			
+			.plan-font {
+				font-size: 12px;
+				float: right;
+			}
+			
+			.suspend-font {
+				color: #a7a8a7;
+			}
+			
+			.myUpLoad-nav {
+				width: 100%;
+				color: #fff;
+				line-height: 44px;
+			}
+			
+			.p-btn-color,
+			input[type=submit] {
+				text-align: center;
+			}
+			
+			.myUpLoad-delete {
+				float: right;
+				font-size: 16px;
+			}
+		</style>
+	</head>
+
+	<body style="background:#f1f1f1;">
+		<div class="openedCourses-ys" data-bind="visible:uploadList().length<=0">
+			<i>
+				<img src="../../images/logo-pic.png" />
+			</i>
+			<span data-bind="visible:getLocalItem('UserID')>0 && uploadList().length<=0">没有在上传的任务呢！</span>
+		</div>
+		<div id="pullrefreshdown" class="mui-content myUpLoad-content" data-bind="visible:uploadList().length>0">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul class="mui-input-group" data-bind="foreach:{data:uploadList}">
+					<li class="mui-table-view-cell works-list">
+						<div class="works-list-works">
+						</div>
+						<div class="works-list-right">
+							<span class="title-one" data-bind="text: workTitle"></span>
+							<i class="iconfont myUpLoad-delete" data-bind="visible: CanDelete, click: cancelTask">&#xe61b;</i>
+							<div class="loading-box"></div>
+							<!--suspend暂停样式-->
+							<div class="plan-box" data-bind="style:{width: Percentage}"></div>
+							<div class="font-style" data-bind="css: {'suspend-font' : TaskStatus() == false}">
+								<!--suspend-font暂停字体颜色-->
+								<span class="loading-font" data-bind="text: TaskStatusText">上传中</span>
+								<span class="plan-font" data-bind="text: Percentage"></span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<nav class="mui-bar mui-bar-tab p-btn-color">
+			<a class="ah-mui-tab-item teacherList-mui-bar-tab-1" data-bind="click: gotoAddWorks">
+				<span class="mui-tab-label myUpLoad-nav">上传作品</span>
+			</a>
+		</nav>
+
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/video.js/video2.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/upload.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/works/myUpload.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../script/libs/video.js/video2.0.min.css" rel="stylesheet" />
+		<style type="text/css">
+			/*跨webview需要手动指定位置*/
+			/*header.mui-bar {
+				display: none!important;
+			}*/
+			
+			.mui-input-group:after,
+			.mui-input-group:before,
+			.mui-input-group {
+				background: #f1f1f1!important;
+			}
+			
+			.mui-content-padded {
+				margin: 10px 0 0 0!important;
+			}
+			
+			.mui-popover {
+				min-height: 255px;
+				position: fixed;
+				top: 0;
+			}
+			
+			input[type='button'],
+			input[type='submit'],
+			input[type='reset'],
+			button,
+			.mui-btn {
+				padding: 0;
+				border: 0;
+			}
+		</style>
+	</head>
+
+	<body style="background:#f1f1f1;">
+		<div class="openedCourses-ys" data-bind="visible:downloadList().length<=0">
+			<i>
+				<img src="../../images/logo-pic.png" />
+			</i>
+			<span data-bind="visible:getLocalItem('UserID')>0 && downloadList().length<=0">还没有下载过任何作品呢！</span>
+			<div class="mui-content-padded">
+				<button type="button" class="mui-btn mui-btn-block mui-btn-primary th-btn th-mui-f p-btn-color p-btn-padding" data-bind="click: gotoAllWorks">去看看吧</button>
+			</div>
+		</div>
+		<div id="pullrefreshdown" class="mui-content mui-scroll-wrapper" data-bind="visible:downloadList().length>0">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul class="mui-input-group">
+					<div data-bind="template:{name:'worksTemplate', foreach:downloadList}">
+					</div>
+				</ul>
+			</div>
+		</div>
+		<!--作品模板页-->
+		<!--<script type="text/html" id="worksTemplate">
+			<div id="gowork" class="mui-input-group works-list-mui-input-group">
+				<div class="works-center">
+					<span class="works-down mydownload-color" data-bind="text:workTitle"></span>
+					<i class="iconfont mydownload-i mydownload-color" data-bind="visible:IsFinish()==true,event:{tap:removeTasks}">&#xe61b;</i>
+					<div class="works-list-img" data-bind="visible:IsFinish()==false">
+						<img data-bind="attr: {src:workimgUrl}" onerror="this.src='../../images/video-big-default.png';" />
+					</div>
+					<div class="videoPos" data-bind="visible:IsFinish()==true, html: videoHtml">
+
+					</div>
+					<p data-bind="text:workContentText"></p>
+				</div>
+				<div class="mask" data-bind="visible: IsFinish() == false, click:cancelTask">
+					<div class="addWorksPlan-graph">
+						<strong id="bar" style="width:1%;" data-bind="style: {'width': Percentage()}"></strong>
+					</div>
+				</div>
+			</div>
+		</script>-->
+		<script type="text/html" id="worksTemplate">
+			<ul class="mui-input-group">
+				<li class="mui-table-view-cell works-list" >
+					<a href="javascript:void(0);">
+						<div class="works-list-works" data-bind="visible:IsFinish()==false,style: {'background-image': 'url(' + (common.StrIsNull(workimgUrl) == '' ? '../../images/video-big-default.png' : workimgUrl) +')'}">
+							<span class="works-list-date-bg"></span>
+						</div>
+						<div class="videoPos" data-bind="visible:IsFinish()==true, html: videoHtml">
+						</div>
+						<div class="works-list-right">
+							<div class="works-list-title">
+								<span class="works-list-title-span" data-bind="text:workTitle">张小杰的作品</span>
+							</div>
+							<div class="works-list-subject" data-bind="text:workSubjectName">钢琴</div>
+							<div class="works-list-name" data-bind="text: workAuthorName">张小杰</div>
+							<i class="iconfont mydownload-i mydownload-color" data-bind="visible:IsFinish()==true,event:{tap:removeTasks}">&#xe61b;</i>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div class="mask" data-bind="visible: IsFinish() == false, click:cancelTask">
+				<div class="addWorksPlan-graph">
+					<strong id="bar" style="width:1%;" data-bind="style: {'width': Percentage()}"></strong>
+				</div>
+			</div>
+		</script>
+		
+		
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/video.js/video2.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/download.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/works/mydownload.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

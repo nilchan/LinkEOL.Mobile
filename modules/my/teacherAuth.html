@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			body {
+				background: #f1f1f1;
+			}
+			.mui-table-view {
+				margin: 0!important;
+			}
+			.mui-navigate-right:after {
+				content: "\e618"!important;
+				top: 22px!important;
+				font-size: 16px!important;
+				right: 22px;
+			}
+			.mui-badge {
+				background: none!important;
+				color: #999;
+				font-size: 14px;
+			}
+			.mui-table-view-cell>a:not(.mui-btn) {
+				font-size: 16px;				
+			}
+			.mui-badge {
+				padding: 3px 10px!important;
+			}
+			
+			
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mui-action-back">
+			<i class="iconfont">&#xe602;</i>
+			<h1 class="mui-title">认证设置</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" data-bind="event:{click:goauthID}">
+					<a class="mui-navigate-right myInfoTeacher-red" >
+						<span class="mui-badge"  data-bind="text:IDAuthStatus"></span> 身份认证
+						<i class="red-point teacherAuth-point" data-bind="visible:common.gDictAuthStatusType.Authed!=IDAuth().Approved"></i>
+					</a>
+				</li>
+				<li class="mui-table-view-cell" data-bind="event:{click:goauthEdu}">
+					<a class="mui-navigate-right">
+						<span class="mui-badge" data-bind="text:EduAuthStatus"></span> 学历认证
+					</a>
+				</li>
+				<li class="mui-table-view-cell" data-bind="event:{click:goauthPro}">
+					<a class="mui-navigate-right">
+						<span class="mui-badge" data-bind="text:ProTitleAuthStatus"></span> 职称认证
+					</a>
+				</li>
+			</ul>
+		</div>
+
+	</body>
+	<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/my/teacherAuth.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

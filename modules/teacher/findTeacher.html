@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			.mui-btn-blue,
+			.mui-btn-primary,
+			input[type=submit] {
+				/*background: #fe5400;*/
+				/*border: 1px solid #fe5400;*/
+			}
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			.mui-input-group label {
+				width: 22%;
+			}
+			.mui-input-row label ~ input,
+			.mui-input-row label ~ select,
+			.mui-input-row label ~ textarea {
+				width: 78%;
+			}
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+			.mui-input-group .mui-input-row:after{
+				background: #C8C7CC!important;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back" style="width:40px; height:40px; display: inline-block;">&#xe683;</i>
+			<h1 class="mui-title"> 查找老师</h1>
+		</header>
+		
+		<div class="mui-content">
+			<form class="mui-input-group reg-mui-input-group">
+				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
+					<label>科目</label>
+					<button class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:subjectText,event:{click:setSubject}"></button>
+				</div>
+				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
+					<label>星级</label>
+					<button class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:starText,event:{click:setStar}"></button>
+				</div>
+			</form>
+			<!--<ul class="mui-table-view mui-table-view-chevron my-mui-table-view findTeacher-mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right findTeacher-iconfont">
+						<em class="iconfont">&#xe63d;</em>
+						<span class="mui-badge my-mui-badge iconfont ">&#xe618;</span> 科目
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right findTeacher-iconfont">
+						<em class="iconfont">&#xe62f;</em>
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span> 星级
+					</a>
+				</li>
+
+			</ul>-->
+
+			<div class="mui-content-padded findTeacher-mui-content-padded">
+				<button id='login' class="mui-btn mui-btn-block mui-btn-primary btn-findTeacher" data-bind="click: gotoTeacherList">查找</button>
+			</div>
+
+		</div>
+						
+				<!--<li class="mui-table-view-cell">
+					<a class="mui-navigate-right findTeacher-iconfont">
+						<em class="iconfont">&#xe630;</em>
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span> 价位
+					</a>
+				</li>-->
+	
+	<script src="../../script/mui/mui.js"></script>
+	<script src="../../script/mui/mui.picker.min.js"></script>
+	<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.min.js"></script>
+	<script src="../../script/teacher/findTeacher.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		mui.init();
+	</script>
+	
+
+</html>

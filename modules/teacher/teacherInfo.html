@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+
+		<style>
+			/*html,body{
+			overflow-y: hidden;
+			overflow: hidden;
+		}*/
+			/*分享css*/
+			
+			@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.shareTeacher-pic ul li img {
+					height: 3rem;
+					width: 3rem;
+				}
+			}
+			
+			.share-height {
+				position: fixed!important;
+			}
+			.share-height{
+				top: 100%!important;
+				margin-top: -178px!important;
+				left: 0px!important;
+			}
+			.share-height.mui-active {
+				top: 100%!important;
+				margin-top: -178px!important;
+			}
+			
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			
+			.title {
+				margin: 20px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #929292;
+				background: #fff;
+			}
+			
+			.mui-tab-item,
+			.ah-mui-tab-item {
+				color: #E64578!important;
+			}
+			
+			.top-btn {
+				height: 40px;
+				width: 60px;
+				display: inline-block;
+				margin: -15px 0 0 -15px;
+				padding: 0 10px 0 10px;
+				line-height: 40px;
+			}
+			
+			.top-btn-right {
+				text-align: right;
+			}
+			
+			.info-li:after {
+				height: 0!important;
+				background: none!important;
+			}
+			
+			.info-li {
+				border-bottom: 1px solid #e1e1e1;
+				border-top: 1px solid #e1e1e1;
+				line-height: 24px!important;
+			}
+			
+			.mui-table-view-cell.mui-collapse.mui-active >.info-pic {
+				color: #666;
+				line-height: 24px!important;
+				border-bottom: 1px solid #e1e1e1;
+				border-top: 1px solid #e1e1e1;
+			}
+			
+			.mui-table-view-cell.mui-collapse.mui-active >.info-pic:after {
+				color: #e1e1e4!important;
+				font-size: 20px!important;
+				right: 10px!important;
+				content: "\e66c"!important;
+				top: 24px;
+			}
+			
+			.mui-table-view-cell.mui-collapse >.info-pic:after {
+				color: #e1e1e4!important;
+				font-size: 20px!important;
+				right: 10px!important;
+				content: "\e672"!important;
+				top: 24px;
+			}
+			
+			.mui-control-content {
+				background-color: white;
+				margin-top: 10px;
+				min-height: 200px;
+			}
+			
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar {
+				background: #E64578;
+			}
+			
+			.mui-slider .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				color: #E64578!important;
+				background: none!important;
+			}
+			
+			.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
+				border: none!important;
+			}
+			
+			.teacherList-mui:active {
+				background: #eee;
+			}
+			.teacheeInfo-sc:active{
+				background: #e64578!important;
+				color: #fff!important;
+			}
+			.teacheeInfo-sc-after{
+				background: #e64578;
+				color: #fff;
+			}
+			/*.mui-slider .mui-slider-group{
+				white-space: normal!important;
+			}*/
+			.white-bg.mui-active{
+				top: 50%!important;
+				margin-top: -150px!important;
+				left: 50%!important;
+				margin-left: -40%!important;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="teacheeInfo-head">
+			<img src="../../images/teacherInfo-header.jpg" />
+			<i class="iconfont mui-action-back specialHeader">&#xe610;</i>
+			<a href="#sharePopover" class="iconfont techerInfo-share specialHeader">&#xe670;</a>
+			<div class="teacheeInfo-teacher-photo">
+				<img id="teacherImage" src="../../images/Identity.jpg" data-bind="attr: {src: Photo}, event:{tap: goTeacherAlbum} " onerror="this.src='../../images/my-default.png';" />
+			</div>
+		</div>
+
+		<div class="techerInfo-teacher-mesg">
+			<span class="techerInfo-teacher-mesg-span" data-bind="text:DisplayName()">缪晓诊</span>
+			<div class="techerInfo-teacher-mesg-address">
+				<i class="teacher-list-star starl-float" data-bind="visible:IsFamous()==false,css: 'star'+(Star()>=3?'3':Star())"></i>
+					<div class="teacherList-professional teacherInfo-professional">
+						<a href="#topPopover" data-bind="visible:IDAuth()&& IsFamous()==false"><em class="identity" style="margin-left: 10px;" ><i class="iconfont">&#xe69e;</i></em></a>
+						<a href="#bottomPopover" data-bind="visible:EduAuth() && IsFamous()==false"><em class="education" style="margin-left: 8px;" ><i class="iconfont">&#xe69b;</i></em></a>
+						<a href="#middlePopover" data-bind="visible:ProTitleAuth() && IsFamous()"><em class="professional" style="padding:2px 5px; box-sizing: border-box;" ><i class="iconfont">&#xe696;</i></em></a>
+					</div>
+				</div>
+			<div class="techerInfo-teacher-num">
+				<i class="iconfont address-iconfont">&#xe66b;</i>
+				<!--省市区-->
+				<!--ko text:Province-->
+				<!--/ko--><!--ko text:(common.StrIsNull(City())==''?'':'·'+City())-->
+				<!--/ko--><!--ko text:(common.StrIsNull(District())==''?'':'·'+District())-->
+				<!--/ko-->
+				<!--综合评分：<span class="teacher-num" data-bind="text:Score()">7.9</span>-->
+				<div class="teacheeInfo-star teacherList-professional">
+					<!--<i class="teacher-list-star" data-bind="css: 'star'+Star()"></i>-->
+					<!--<em id="professional" class="professional" style="padding:2px 5px; box-sizing: border-box;" data-bind='visible:ProTitleAuth'><i class="iconfont">&#xe696;</i></em>-->
+				</div>
+			</div>
+			<!--teacheeInfo-sc-after关注之后样式-->
+			<div><a href="#"><em class="teacheeInfo-sc" data-bind="text:'关注'+FavCount(), event:{tap: Fav},css:collectionStatus"></em></a></div>
+		</div>
+
+		<!--<div class="teacheeInfo-album">
+			<div class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<ul class="mui-table-view mui-grid-view">
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="mui-slider-item">
+						<ul class="mui-table-view mui-grid-view">
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+
+						</ul>
+					</div>
+					<div class="mui-slider-item">
+						<ul class="mui-table-view mui-grid-view">
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<ul class="mui-table-view mui-grid-view">
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="#"><img class="mui-media-object" src="../../images/Identity.jpg">
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="mui-slider-indicator" style="position: static;background-color: #fff;">
+					<span class="mui-action mui-action-previous mui-icon mui-icon-back"></span>
+					<div class="mui-number">
+						<span>1</span> / 2
+					</div>
+					<span class="mui-action mui-action-next mui-icon mui-icon-forward"></span>
+				</div>
+			</div>
+		</div>-->
+		<div class="mui-content">
+			<li class="mui-table-view-cell mui-collapse info-li">
+				<a class="mui-navigate-right info-pic" href="#">
+					个人简介
+				</a>
+				<ul class="mui-table-view mui-table-view-chevron">
+					<p class="font-p" data-bind="text: Introduce">123</p>
+				</ul>
+			</li>
+
+			<div id="slider" class="mui-slider teacheeInfo-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted teacherInfo-table">
+					<a class="mui-control-item teacheeInfo-item mui-active" href="#item1mobile">
+						演出作品
+					</a>
+					<a class="mui-control-item teacheeInfo-item" href="#item2mobile">
+						分解教程
+					</a>
+					<a class="mui-control-item teacheeInfo-item" href="#item3mobile">
+						完整教程
+					</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+
+				<!--模板文件-->
+				<script type="text/html " id="worksTemplate">
+					<li data-bind="click: goWorksDetail">
+						<i class="i-img">
+							<span class="teacheeInfo-date"></span>
+							<span class="teacheeInfo-date-font">2015-12-15</span>
+							<div class="teacheeInfo-play-pic">
+								<img data-bind="attr:{src: common.StrIsNull(VideoThumbnail) != '' ? common.getThumbnail(VideoThumbnail) : photoimgurl}" onerror="this.src='../../images/video-default.png';" />
+							</div>
+						</i>
+						<span class="teacheeInfo-tltle-name" data-bind="text:Title">张小姐的作品</span>
+					</li>
+				</script>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper teacheeInfo-hieght">
+							<div class="mui-scroll">
+								<ul data-bind="template:{name:'worksTemplate',foreach:workShow}"></ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper teacheeInfo-wrapper">
+							<div class="mui-scroll teacheeInfo-hieght">
+								<ul data-bind="template:{name:'worksTemplate',foreach:workResolve}"></ul>
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll3" class="mui-scroll-wrapper teacheeInfo-hieght">
+							<div class="mui-scroll">
+								<ul data-bind="template:{name:'worksTemplate',foreach:workFull}"></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<nav class="mui-bar mui-bar-tab">
+				<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" data-bind="event:{click: gotoComment},visible:isIntructConfirm()!= common.gIsConfirm[1].value && IsFamous()==true">
+					<i class="iconfont">&#xe62d;</i>
+					<span class="mui-tab-label ">帮我点评</span>
+				</a>
+				<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" data-bind="event:{click: gotoHomeWork},visible:getLocalItem('UserID')>0 && isIntructConfirm() == common.gIsConfirm[1].value">
+					<i class="iconfont">&#xe667;</i>
+					<span class="mui-tab-label ">交作业</span>
+				</a>
+
+				<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" data-bind="click:setIntructTeacher,visible: isIntructConfirm()!= common.gIsConfirm[1].value">
+					<i class="iconfont">&#xe693;</i>
+					<span class="mui-tab-label" data-bind='text:instructTeacher'>设置授课老师</span>
+				</a>
+				<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" data-bind="click:goClassmateCenter,visible:getLocalItem('UserID')>0 && isIntructConfirm() == common.gIsConfirm[1].value">
+					<i class="iconfont">&#xe699;</i>
+					<span class="mui-tab-label">查看同学圈</span>
+				</a>
+			</nav>
+		</div>
+		<div id="sharePopover" class="mui-popover share-height">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="shareTeacher-pic">
+						<ul>
+							<li id="weichatFriend">
+								<img src="../../images/share-wx.png" />
+								<span>微信好友</span>
+							</li>
+							<li id="weichatMoments">
+								<img src="../../images/share-py.png" />
+								<span>微信朋友圈</span>
+							</li>
+							<li id="qqFriend">
+								<img src="../../images/share-qq.png" />
+								<span>QQ好友</span>
+							</li>
+						</ul>
+					</div>
+					<div class="shareTeacher-qx" data-bind="click:closeShare">取消</div>
+				</div>
+			</div>
+		</div>
+
+	
+			<div id="middlePopover" class="mui-popover white-bg">
+				<em class="professional-icon"><i class="iconfont">&#xe696;</i></em>
+				<p class="professional-qualifications" data-bind='text:ProTitleText'>国家一级演员</p>
+			</div>
+			<div id="bottomPopover" class="mui-popover white-bg">
+				<em class="education-icon"><i class="iconfont">&#xe69b;</i></em>
+				<p class="professional-qualifications">已通过学历认证</p>
+			</div>
+			<div id="topPopover" class="mui-popover white-bg">
+				<em class="identity-icon"><i class="iconfont">&#xe69b;</i></em>
+				<p class="professional-qualifications">已通过身份认证</p>
+			</div>
+
+	</body>
+	<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
+	<script src="../../script/mui/mui.zoom.js"></script>
+	<script src="../../script/mui/mui.previewimage.js"></script>
+	<script src="../../script/common/common.js " type="text/javascript " charset="utf-8 "></script>
+	<script src="../../script/common/base.js " type="text/javascript " charset="utf-8 "></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>
+	<script src="../../script/libs/jquery.min.js"></script>
+	<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/teacher/teacherInfo.js" type="text/javascript " charset="utf-8 "></script>
+	<script>
+		mui.init({
+			swipeBack: false
+		});
+		(function($) {
+			$('.mui-scroll-wrapper').scroll({
+				indicators: false //是否显示滚动条
+			});
+			//				var html2 = '<ul class="mui-table-view"><li class="mui-table-view-cell">第二个选项卡子项-1</li><li class="mui-table-view-cell">第二个选项卡子项-2</li><li class="mui-table-view-cell">第二个选项卡子项-3</li><li class="mui-table-view-cell">第二个选项卡子项-4</li><li class="mui-table-view-cell">第二个选项卡子项-5</li></ul>';
+			//				var html3 = '<ul class="mui-table-view"><li class="mui-table-view-cell">第三个选项卡子项-1</li><li class="mui-table-view-cell">第三个选项卡子项-2</li><li class="mui-table-view-cell">第三个选项卡子项-3</li><li class="mui-table-view-cell">第三个选项卡子项-4</li><li class="mui-table-view-cell">第三个选项卡子项-5</li></ul>';
+			//				var item2 = document.getElementById('item2mobile');
+			//				var item3 = document.getElementById('item3mobile');
+			//				document.getElementById('slider').addEventListener('slide', function(e) {
+			//					if (e.detail.slideNumber === 1) {
+			//						if (item2.querySelector('.mui-loading')) {
+			//							setTimeout(function() {
+			//								item2.querySelector('.mui-scroll').innerHTML = html2;
+			//							}, 500);
+			//						}
+			//					} else if (e.detail.slideNumber === 2) {
+			//						if (item3.querySelector('.mui-loading')) {
+			//							setTimeout(function() {
+			//								item3.querySelector('.mui-scroll').innerHTML = html3;
+			//							}, 500);
+			//						}
+			//					}
+			//				});
+			var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
+			$('.mui-input-group').on('change', 'input', function() {
+				if (this.checked) {
+					sliderSegmentedControl.className = 'mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-' + this.value;
+					//force repaint
+					sliderProgressBar.setAttribute('style', sliderProgressBar.getAttribute('style'));
+				}
+			});
+		})(mui);
+//		$(function() {
+//			$('#professional').click(function() {
+//				$('#professional-div').show();
+//			});
+//			$('#colse-pop').click(function() {
+//				$('#professional-div').hide();
+//			});
+//		});
+//			$(document).click(function(){
+//			    if($(this).closest(".box1").length==0){
+//			      $(".box2").hide()         
+//			}
+//			})
+
+	</script>
+
+</html>

@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<link href="../../script/libs/video.js/video2.0.min.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			.mui-input-group .mui-input-row:after{
+				background: #C8C7CC!important;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			.mui-input-group label {
+				width: 28%!important;
+			}
+			.mui-input-row label ~ input,
+			.mui-input-row label ~ select,
+			.mui-input-row label ~ textarea,.mui-input-row button{
+				width: 71%!important;
+				color: #999;
+			}
+			/*.mui-input-row.addWorks-textarea-div label{
+				line-height: 0.6!important;
+			}*/
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+			#addWorkList {
+				right: 0px;
+				width: 10rem;
+				height: 100%;
+				position: absolute;
+			}
+			.addWorks-mui-bar-nav i:nth-of-type(2){
+				top: 0!important;
+				font-size: 14px!important;
+			}
+			.btn-open{
+				padding: 8px 0;
+				margin-top: 8px;
+				font-size: 16px!important;
+			}
+			.addFile{
+				height: 60px; width: 60px;
+				border: 1px dashed #999;
+				display: inline-block; margin-top: 5px;
+				position: relative;
+				float: left;
+			}
+			.addFile i{
+				position: absolute;
+				left: 50%;
+				margin-left: -16px;
+				/*font-weight: 900;*/
+			}
+				.mui-btn-blue, .mui-btn-primary, input[type=submit] {
+			    color: #fff;
+			    border: 1px solid #e64578;
+			    background-color: #e64578;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">添加<!--ko text:userType()==common.gDictUserType.student ? '作业' : '作品'--><!--/ko--></h1>
+		</header>
+		<div class="mui-content addWork-mui-content">
+			<form class="mui-input-group reg-mui-input-group">
+				<!--曲目-->
+				<div id="titleRow" class="mui-input-row reg-mui-input-row">
+					<label>曲目</label>
+					<input id='account' type="text" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入曲目" data-bind="value: titleText">
+				</div>
+				<!--科目选择-->
+				<div id='subjectPicker' class="mui-input-row reg-mui-input-row th-mui-input-row reg-mui-input" data-bind="visible: common.gDictUserType.student == userType()">
+					<label>科目</label>
+					<button class="mui-btn mui-btn-block th-mui-btn-block reg-mui-input" type='button' data-bind="text:subjectText,event:{click:setSubject}"></button>
+				</div>
+				<!--类型选择-->
+				<div id='typePicker' class="mui-input-row reg-mui-input-row th-mui-input-row" data-bind="visible:common.gDictUserType.teacher == userType()">
+					<label>类型</label>
+					<button class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:workTypeText,event:{click:setWorkType}"></button>
+				</div>
+				<!--权限-->
+				<div id='publicPicker' class="mui-input-row reg-mui-input-row th-mui-input-row">
+					<label>公开</label>
+					<button class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:publicText,event:{click:setPublicType}"></button>
+				</div>
+				<!--描述-->
+				<div class="addWorks-textarea-div">
+					<label>描述</label>
+					<textarea placeholder="请输入描述" data-bind="value: contentText"></textarea>
+				</div>
+			</form>
+			<div class="addWorks-add">
+				<em class="addFile" onclick="addFile()">
+					<i class="iconfont">&#xe6a0;</i>
+				</em>
+				<span>选择视频</span>
+				<div id="videoPos" style="margin-left: 108px;">
+					<!--<div class="video-js-box">
+						<video controls width="168px" height="105px" class="video-js" data-setup="{}"><source src="http://video-js.zencoder.com/oceans-clip.mp4" type="video/mp4" /></video>
+					</div>-->
+				
+				</div>
+				<div class="addWork-div-font" data-bind="visible: videoSelected() == false">
+					<p>1、清晰可见表演者演奏姿势</p>
+					<p>2、光线明亮，录制环境无杂音</p>
+					<p>3、视频录制流畅</p>
+					<p>4、建议尺寸640*480，5分钟内</p>
+					<p>5、<b>横拍</b>效果更佳</p>
+				</div>
+			</div>
+			<div class="mui-content-padded">
+			  	 <button type="button" class="mui-btn mui-btn-block mui-btn-primary th-btn p-btn-color" data-bind="click: upload, enable: videoSelected">上传</button>
+		  	</div>
+			
+		</div>
+
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/mui/mui.picker.min.js"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js"></script>
+		<script src="../../script/common/videoPicker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/video.js/video2.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/works/addWorks.js"></script>
+	</body>
+
+</html>

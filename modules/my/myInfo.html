@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../content/cropperjs/cropper.css" />
+		<style>
+			.mui-input-group .mui-input-row:after{
+				background: #C8C7CC!important;
+			}
+				.mui-input-row label{
+				line-height: 1.6!important;
+			}
+			.mui-input-group .mui-input-row:after{
+				background: #C8C7CC!important;
+			}
+			.pic-mui-input-row input[type=text],input[type=password]{
+				line-height:18px!important;
+				height: 44px!important;
+			}
+		
+			.reg-mui-input-row label,.mui-input-row label,.th-mui-btn-block,
+			.pic-mui-input-row label ~ input,
+            .mui-input-row label ~ select, 
+			.mui-input-row label ~ textarea{
+				font-size: 16px;
+			}
+			.reg-mui-input-row label ~ input, .th-mui-btn-block{
+				color: #999;
+			}
+			.mui-btn-blue, .mui-btn-primary, input[type=submit]{
+				    border: 1px solid #e64578;
+    				background-color: #e64578;
+			}
+			.myInfo-form:after{
+				background: #fff;
+			}
+			.flesh-font{
+				width: 80px;position: absolute; color: #666; font-size: 16px; top: 0px; right: 0px;
+				
+				height:44px;line-height: 44px;
+				text-align: center;display: inline-block;
+			} 
+			.flesh-font:active{
+				color: #efa900!important;
+			}
+			/*@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.th-mui-f{
+					margin-top: 250px;
+					
+				}
+			}*/
+		
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe602;</i>
+			<h1 class="mui-title">信息修改</h1>
+			<span class="flesh-font" data-bind="click: setInfo">完成</span>
+		</header>
+		
+		<div class="mui-content">
+			<div class="pin-mui-content">
+			<div class="pi-tx-bg pi-tx-border-top">
+				<span>头像</span>
+				<i data-bind="click:selectPic"><img data-bind="attr: {'src': Path}" onerror="this.src='../../images/my-default.png';" /></i>
+			</div>
+			<div class="pin-blank"></div>
+
+			<form class="mui-input-group myInfo-form">
+					<li class="mui-table-view-cell" data-bind="click: goAuth, visible: UserType() == common.gDictUserType.teacher">
+					<a class="my-mui-navigate-right myInfoTeacher-red" style="font-size: 16px;">
+						<span class="mui-badge my-mui-badge iconfont" style="color: #ccc; right: 20px!important;">&#xe618;</span>资料认证
+						<i class="red-point point-left" data-bind="visible:IDAuth()==false"></i>
+					</a>
+				</li>
+				<div class="mui-input-row pic-mui-input-row">
+					<label>手机</label>
+					<span data-bind="text:UserName,event:{click:changeUserName}"></span>
+					<i class="iconfont">&#xe618;</i>
+				</div>
+				<div class="mui-input-row pic-mui-input-row">
+					<label>姓名</label>
+					<input type="text" placeholder="请输入您的姓名" data-bind="value:DisplayName" />
+				</div>
+				<div class="mui-input-row reg-mui-input-row th-mui-input-row" data-bind='visible: UserType() == common.gDictUserType.teacher'>
+					<label>科目</label>
+					<button class="mui-btn mui-btn-block th-mui-btn-block th-font" type='button' data-bind="text:SubjectName,event:{click:getSubject}"></button>
+				</div>
+				<div class="mui-input-row pic-mui-input-row" data-bind='visible: UserType() == common.gDictUserType.student'>
+					<label>生日</label>
+					<button id='pickDateBtn' type="button" class="mui-btn mui-btn-block th-mui-btn-block th-font" data-bind="text:Birthday, click:getBirthday"></button>
+				</div>
+				<div class="mui-input-row pic-mui-input-row">
+					<label>性别</label>
+					<button id='showUserPicker' class="mui-btn mui-btn-block th-mui-btn-block th-font" type='button' data-bind="text:GenderText,event:{click:setUserGender}"></button>
+				</div>
+				<!--<div class="mui-input-row reg-mui-input-row" data-bind='visible: UserType() == common.gDictUserType.teacher'>
+					<label>教龄</label>
+					<input id='account' type="text" onfocus="this.type='number'" onblur="this.type='text'" class="mui-input-clear mui-input reg-mui-input th-font" placeholder="请输入教龄" data-bind="value:TeachAge">
+				</div>-->
+				<div class="mui-input-row reg-mui-input-row">
+					<label>位置</label>
+					<button id="address" type="button" class="mui-btn mui-btn-block th-mui-btn-block" data-bind="text:Place,click:address"></button>
+				</div>
+				<!--<li class="mui-table-view-cell" data-bind="click: goAuth, visible: UserType() == common.gDictUserType.teacher">
+					<a class="my-mui-navigate-right myInfoTeacher-red">
+						<span class="mui-badge my-mui-badge iconfont" style="color: #ccc;">&#xe618;</span>资料认证
+						<i class="red-point point-left" data-bind="visible:IDAuth()==false"></i>
+					</a>
+				</li>-->
+				<div class="th-textarea-div th-textarea" style="height: 12rem;" data-bind='visible: UserType() == common.gDictUserType.teacher'>
+					<label class="textarea-label">自我简介</label>
+					<textarea placeholder="输入详细的介绍，能方便学生更快的了解和信任您" data-bind="value:Introduce"></textarea>
+				</div>
+				<!--<div class="mui-content-padded myInfo-btn">
+				<button class="mui-btn mui-btn-block mui-btn-primary th-btn p-btn-color" data-bind="click:setInfo">完成</button>
+			</div>-->
+			</form>
+			
+			<!--<div class="mui-content-padded myInfo-btn">
+				<button class="mui-btn mui-btn-block mui-btn-primary th-btn th-mui-f p-btn-color" data-bind="click:setInfo">完成</button>
+			</div>-->
+			</div>
+		</div>
+
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/mui/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/city.data-3.js"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/cropperjs/cropper.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/picture.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/dtPicker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/myInfo.js"></script>
+		<script>
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+		</script>
+
+</html>

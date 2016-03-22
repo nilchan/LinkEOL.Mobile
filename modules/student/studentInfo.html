@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			body,
+			.mui-content {
+				background: #F1F1F1!important;
+			}
+			
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			
+			.mui-control-content {
+				height: 150px;
+			}
+			
+			.mui-active {
+				border-bottom: 2px solid #036fb8!important;
+			}
+			
+			.mui-control-content.mui-active {
+				border-bottom: none!important;
+				top: 0px!important;
+				background: #f1f1f1!important;
+			}
+			
+			.title {
+				margin: 20px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			
+			.top-btn {
+				height: 40px;
+				width: 60px;
+				display: inline-block;
+				margin: -15px 0 0 -15px;
+				padding: 0 10px 0 10px;
+				line-height: 40px;
+			}
+			
+			.top-btn-right {
+				text-align: right;
+			}
+			.mui-scroll-wrapper {
+				top: 18.5rem;
+			}
+		</style>
+	</head>
+
+	<body>
+			<div class="p-header-div">
+				<a class="iconfont mui-action-back top-btn first">&#xe683;</a>
+				<!--<a class="iconfont top-btn top-btn-right second">&#xe670;</a>-->
+				<div class="photo">
+					<img data-bind="attr: {src: common.getPhotoUrl(userInfo().Photo)}" />
+				</div>
+				<span class="userName" data-bind="text:userInfo().DisplayName"></span>
+				<span class="message"><!--ko text:Gender--><!--/ko-->  | <!--ko text:Years--><!--/ko-->岁 
+				
+			</span>
+				<span class="address">
+				<i class="iconfont">&#xe63c;</i>
+				<!--广州市>天河区>体育中心-->
+				<!--ko text:userInfo().Province--><!--/ko-->><!--ko text:userInfo().City--><!--/ko-->><!--ko text:userInfo().District--><!--/ko-->
+			</span>
+				<div class="p-footer-btn">
+					<ul>
+						<!--<li>
+								<button>得分
+									<!--ko text:userInfo().Score-->
+						<!--/ko
+								</button>
+							</li>-->
+						<li>
+							<button data-bind="click: Fav">关注
+								<!--ko text:userInfo().FavCount-->
+								<!--/ko-->
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		<div class="mui-content">
+					<div data-bind="template:{name:'studentWorkTemplate',foreach:works}"></div>
+			<!--模板文件-->
+			<script type="text/html" id="studentWorkTemplate">
+				<div id="gowork" class="mui-input-group works-list-mui-input-group">
+					<div class="works-center">
+						<span data-bind="text:Title"></span>
+						<div class="works-list-img" data-bind="event:{tap: goWorksDetails}">
+							<img data-bind="attr: {src: common.getThumbnail(VideoThumbnail)}" onerror="this.src='../../images/video-big-default.png';" />
+							<span class='subjectSpace'><i data-bind="text:SubjectName"></i></span>
+						</div>
+						<p data-bind="text:ContentText"></p>
+						<ul>
+							<li data-bind="text:AddTime.split(' ')[0]"></li>
+							<li data-bind="text:ReadCount"></li>
+							<li data-bind="text:LikeCount,event:{tap:Like}"></li>
+						</ul>
+					</div>
+				</div>
+			</script>
+		</div>
+	</body>
+		<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/student/studentInfo.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			body,
+			.mui-content {
+				background: #f1f1f1!important;
+			}
+			
+			.reg-mui-input-row label ~ input,
+			.th-mui-btn-block,
+			.mui-input-row label ~ textarea {
+				width: 70%!important;
+			}
+			
+			.mui-input-row label {
+				line-height: 1.4!important;
+				padding: 10px 0!important;
+				color: #333333;
+				width: 30%!important;
+			}
+			
+			.ah-btn-margin {
+				margin-top: 2rem;
+			}
+			
+			.ah-input-row label ~ input {
+				float: left;
+				width: 30%!important;
+				margin-right: 1%;
+			}
+			
+			#ageLimits {
+				position: absolute;
+			}
+			
+			.addCourse-line {
+				line-height: 38px!important;
+			}
+			.last-mui-input-row {
+				height: auto!important;
+				line-height: 44px!important;
+			}
+			.reg-mui-input-row label ~ input,
+			.th-mui-btn-block {
+				line-height: 1.1!important;
+			}
+			
+			.reg-mui-input-row input[type=text],
+			input[type=password],
+			button,
+			input[type=number] {
+				line-height: 18px!important;
+				height: 44px!important;
+				color: #a1a1a1;
+			}
+			
+			@media screen and (max-height: 530px) {
+				.auto-height {
+					line-height: 24px;
+				}
+			}
+			
+			@media screen and (min-height:531px) and (max-height: 608px) {
+				.auto-height {
+					line-height: 25px;
+				}
+			}
+			
+			@media screen and (min-height:609px) and (max-height: 657px) {
+				.auto-height {
+					line-height: 30px;
+				}
+			}
+			
+			@media screen and (min-height:658px) {
+				.auto-height {
+					line-height: 35px;
+				}
+			}
+			
+			.mui-input-group:after {
+				height: 1!important;
+				background: #999;
+			}
+			.about-lesson{
+				width: 70%;
+				float: right;
+			}
+			.mui-btn-blue, .mui-btn-primary, input[type=submit] {
+			    color: #fff;
+			    border: 1px solid #e64578;
+			    background-color: #e64578;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title" data-bind="text: course().ID() > 0 ? '修改课程' : '添加课程'">添加课程</h1>
+		</header>
+		<div class="mui-content">
+			<div id="page1">
+				<form class="mui-input-group reg-mui-input-group addCourse-form">
+					<div class="mui-input-row reg-mui-input-row addCourse-mui-input addCourse-left">
+						<label>课程名称</label>
+						<input id='account' type="text" class="mui-input-clear mui-input reg-mui-input " placeholder="个性的标题更吸引学生" data-bind="value: course().CourseName">
+					</div>
+					<!--<div class="mui-input-row reg-mui-input-row th-mui-input-row addCourse-mui-input addCourse-left">
+						<label>课程类型</label>
+						<button class="mui-btn mui-btn-block th-mui-btn-block addCourse-line" type='button'  data-bind="click: setCourseType, text: course().CourseTypeName"></button>
+					</div>-->
+					<div class="mui-input-row reg-mui-input-row th-mui-input-row addCourse-mui-input addCourse-left">
+						<label>所属科目</label>
+						<button class="mui-btn mui-btn-block th-mui-btn-block addCourse-line" type='button' data-bind="click: setSubject, text: course().SubjectName"></button>
+					</div>
+					<!--<div class="mui-input-row reg-mui-input-row th-mui-input-row addCourse-mui-input ah-input-row addCourse-left">
+						<label>年龄要求</label>
+						<input type="text" class="mui-input-clear mui-input reg-mui-input" onfocus="this.type='number'" onblur="this.type='text'" placeholder="最小年龄" data-bind="value: course().AgeMin">
+						<input type="text" class="mui-input-clear mui-input reg-mui-input" onfocus="this.type='number'" onblur="this.type='text'" placeholder="最大年龄" data-bind="value: course().AgeMax">
+					</div>
+					<div class="mui-input-row reg-mui-input-row th-mui-input-row addCourse-mui-input addCourse-left" data-bind="visible: course().CourseType() != common.gDictCourseType.One2One">
+						<label>人数限制</label>
+						<input type="text" class="mui-input-clear mui-input reg-mui-input " onfocus="this.type='number'" onblur="this.type='text'" placeholder="请输入最大人数" data-bind="value: course().MaxStudent">
+					</div>-->
+					<div class="mui-input-row reg-mui-input-row th-mui-input-row addCourse-mui-input addCourse-left" data-bind='visible: course().CourseType() != common.gDictCourseType.One2One'>
+						<label>开始日期</label>
+						<button id='pickDateBtn' type="button" class="mui-btn mui-btn-block th-mui-btn-block th-font" data-bind="text:course().BeginTime, click:chooseDate"></button>
+					</div>
+					<div class="mui-input-row reg-mui-input-row th-mui-input-row addCourse-mui-input addCourse-left" data-bind="visible: course().CourseType() != common.gDictCourseType.One2One">
+						<label>总课时数</label>
+						<input type="text" class="mui-input-clear mui-input reg-mui-input " onfocus="this.type='number'" onblur="this.type='text'" placeholder="请输入总课时数" data-bind="value:course().LessonCount">
+					</div>
+					<div class="mui-input-row reg-mui-input-row th-mui-input-row addCourse-mui-input addCourse-left addCourse-textarea">
+						<label>课程介绍</label>
+						<textarea cols="3" placeholder="请用一段话介绍您的教学课程或教学成绩" data-bind="value: course().Introduce"></textarea>
+					</div>
+					<div class="last-mui-input-row mui-input-row reg-mui-input-row th-mui-input-row addCourse-mui-input addCourse-left">
+						<label>上课时间</label>
+						<ul class="about-lesson" data-bind="visible: classtimeCount() <= 0">
+							<!--<a href="#popChooseTime">-->
+							<li class="fontcolor" onclick="openPopChooseTime()">
+								请选择上课时间
+							</li>
+							<!--</a>-->
+						</ul>
+						<ul class="about-lesson" data-bind="foreach: {data: ClasstimesText, as: 'timeText'}">
+							<!--<a href='#popChooseTime'>-->
+							<li class="fontcolor" onclick="openPopChooseTime()">
+								<!--ko text: timeText-->
+								<!--/ko-->
+							</li>
+							<!--</a>-->
+						</ul>
+					</div>
+					<div class="last-mui-input-row mui-input-row reg-mui-input-row th-mui-input-row addCourse-mui-input addCourse-left addCourse-last">
+						<label>报名管理</label>
+						<ul class="about-lesson">
+							<li class="fontcolor" data-bind="text: '共'+course().StudentCount()+'人', click: gotoRegisteredList">
+								请选择上课学生
+							</li>
+						</ul>
+					</div>
+
+				</form>
+
+				<!--弹出课时选择 -->
+				<div id="popChooseTime" class="mui-popover aboutLesson-tc">
+					<header id="courseHeader" class="aboutLesson-header">
+						<i class="iconfont" data-bind="click: closePopChooseTime">&#xe602;</i> 选择上课时间
+					</header>
+					<table class="vailableTime-title availableTime-add availableTime-date" border="0" width="100%" height="100%">
+						<tr>
+							<td class="month">
+
+							</td>
+							<!--ko foreach:{data: DayOfWeek}-->
+							<td data-bind='text: $data'></td>
+							<!--/ko-->
+						</tr>
+					</table>
+
+					<table class="availableTime-table availableTime-bottom auto-height" border="2" cellspacing="0" cellpadding="0" width="100%" height="100%" data-bind="foreach:{data: Hours, as: 'hour'}">
+						<tr>
+							<td data-bind='text: $data + ":00"'></td>
+							<!--ko foreach:{data: DayOfWeekValue}-->
+							<td data-bind='cellValue: initCell($data, hour)'></td>
+							<!--/ko-->
+						</tr>
+					</table>
+
+					<nav class="mui-bar mui-bar-tab availableTime-footer">
+						<span>点击蓝色区块选择</span>
+						<em class='disabled' data-bind='event:{tap: back}, css:{"disabled": classtimeCount() <= 0}, text: "确定("+classtimeCount()+")"'>确定(0)</em>
+					</nav>
+				</div>
+
+				<div class="mui-content-padded ah-btn-margin">
+					<button id='next' class="mui-btn mui-btn-block mui-btn-primary th-btn p-btn-color" data-bind="click: saveCourse">保存</button>
+				</div>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/mui/mui.picker.min.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/dtPicker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/course/addCourse.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

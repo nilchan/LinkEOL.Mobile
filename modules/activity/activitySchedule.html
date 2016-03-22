@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		.scheduleList{
+			margin: 10px 0;
+			background: #FFFFFF;
+		}
+		.scheduleList p span{
+			color: #007dd1;
+		}
+	</style>
+	<body style="background-color: #f1f1f1!important;">
+		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">节目单</h1>
+		</header>
+		<div class="mui-content" data-bind="foreach:{data: scheduleList}">
+			<div class="scheduleList">
+				<h2 data-bind="text: ProgramName">名族管璇乐</h2>
+				<p><span data-bind="text: PlayerUserName">adsfasdfsaddf</span><span style="float: right;" data-bind="text: AccompInfo">asdfasdfa</span></p>
+				<p data-bind="text: Introduce">圣诞节了法国坚实的拉菲讲故事了东方过奖了是电饭锅尕阿斯顿发松岛枫啥地方噶电饭锅到法国是电饭锅</p>
+			</div>
+		</div>
+	</body>
+	<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/activity/activitySchedule.js" type="text/javascript" charset="utf-8"></script>

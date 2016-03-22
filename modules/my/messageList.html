@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../content/mui/mui.min.css" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="mui-action-back iconfont">&#xe602;</i>
+			<h1 class="mui-title">消息通知</h1>
+		</header>
+		<div class="mui-content">
+
+		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				var topPx = '45px';
+				if (plus.os.vendor == 'Apple') {
+					topPx = '60px';
+				}
+				mui.init({
+					subpages: [{
+						url: 'messageListSub.html',
+						id: 'messageListID',
+						styles: {
+							top: topPx,
+							bottom: '0px'
+						}
+					}]
+				});
+				
+			})
+		</script>
+	</body>
+
+</html>

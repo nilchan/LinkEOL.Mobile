@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			body,html,.mui-content{
+				background: #f0f0f0!important;
+			}
+			.mui-input-group:first-child{
+				margin-top: 20px!important;
+			}
+			.mui-input-group .mui-input-row:after{
+				background: #C8C7CC!important;
+			}
+			#addCourse-left:after{
+				background: none!important;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">选择老师</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group reg-mui-input-group">
+				<div class="last-mui-input-row mui-input-row reg-mui-input-row th-mui-input-row addCourse-mui-input addCourse-left addCourse-last">
+					<label>指导老师</label>
+						<ul class="about-lesson">
+							<li class="fontcolor" data-bind="text:guideTeacherName, event:{tap: getGuideTeacher}">
+								
+							</li>
+						</ul>
+				</div>
+					<div id="addCourse-left" class="mui-input-row reg-mui-input-row addCourse-mui-input addCourse-left">
+						<label>推荐老师</label>
+						<input type="text" class="mui-input-clear mui-input reg-mui-input " placeholder="请填写推荐老师/机构" data-bind="value: recommendTeacher">
+					</div>
+			</form>
+			
+			
+			<div class="mui-content-padded ah-btn-margin">
+					<button id='next' class="mui-btn mui-btn-block mui-btn-primary th-btn activityEeroll-btn p-btn-color" data-bind="event:{tap: gotoEnrollSuccess}">下一步</button>
+				</div>
+			
+		</div>
+		<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/mui/mui.picker.min.js"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/activity/activityEnroll.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

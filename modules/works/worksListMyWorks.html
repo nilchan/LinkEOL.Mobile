@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style type="text/css">
+			/*跨webview需要手动指定位置*/
+			
+			.mui-input-group:after,
+			.mui-input-group:before,
+			.mui-input-group {
+				background: #f1f1f1!important;
+			}
+			
+			.mui-content-padded {
+				margin: 10px 0 0 0!important;
+			}
+			
+			.mui-popover {
+				min-height: 255px;
+				position: fixed;
+				top: 0;
+			}
+			
+		</style>
+	</head>
+
+	<body style="background:#f1f1f1;">
+		<div id="pullrefreshMy" class="mui-scroll-wrapper" data-bind="visible:worksList().length>0">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul class="mui-input-group" data-bind="foreach:{data:worksList}">
+					<li class="mui-table-view-cell works-list" data-bind="event:{tap: goWorksDetails}">
+						<a href="javascript:void(0);">
+							<div class="works-list-works" data-bind="style: {'background-image': 'url(' + common.getThumbnail(VideoThumbnail()) +')'}">
+								<span class="works-list-date-bg"></span>
+								<span class="works-list-date-font" data-bind="text:works.AddTime.split(' ')[0]">2015-12-17</span>
+								<div class="works-activity-div" data-bind="visible: works.WorkSrcType==common.gDictWorkSourceType.Activity">
+									<img src="../../images/worksMark_01.png" />
+								</div>
+							</div>
+							<div class="works-list-right">
+								<div class="works-list-title">
+									<span class="works-list-title-span" data-bind="text:works.Title">张小杰的作品</span>
+								</div>
+								<div class="works-list-subject" data-bind="text:works.SubjectName">钢琴</div>
+								<!-- 名师点评样式  -->
+								<div class="Famous-comment" data-bind="visible: works.IsFamous && works.IsRecommend==false">
+									<img width="50" src="../../images/Famous-comment.png">
+								</div>
+								<!-- 名师推荐样式  -->
+								<div class="Famous-teacher" data-bind="visible: works.IsRecommend">
+									<img width="50" src="../../images/Famous-teacher.png">
+								</div>
+								<div class="works-list-name" data-bind="visible: IsFinish() == true && getLocalItem('UserType') == common.gDictUserType.student,text:works.WorkStatusText">未完成</div>
+							</div>
+							<div class="works-list-f" data-bind="visible: IsFinish() == true">
+								<ul class="works-list-f-left">
+									<li class="aline-left">
+										<i class="iconfont">&#xe661;</i>
+										<!--ko text:works.ReadCount+(works.WorkType==common.gJsonWorkTypeTeacher[0].value || works.WorkType==common.gJsonWorkTypeTeacher[1].value?'人正在学习':(works.WorkType==common.gJsonWorkTypeTeacher[2].value?'人已观赏':'人已浏览'))-->
+										<!--/ko-->
+									</li>
+									<li class="aline-right">
+										<i class="iconfont">&#xe663;</i>
+										<!--ko text:works.LikeCount-->
+										<!--/ko-->
+									</li>
+								</ul>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="openedCourses-ys" data-bind="visible:worksList().length<=0 || typeof(getLocalItem('UserID')) == 'undefined'">
+			<i>
+				<img src="../../images/logo-pic.png" />
+			</i>
+			<span data-bind="visible:worksList().length<=0 && !isAuthor()">该老师还没上传过作品呢~</span>
+			<span data-bind="visible:getLocalItem('UserID')>0 && worksList().length<=0 && isAuthor">还没有上传过<!--ko text:workDes--><!--/ko-->呢~</span>
+			<div class="mui-content-padded" data-bind="visible: isAuthor">
+				<button type="button" class="mui-btn mui-btn-primary mui-btn-block p-btn-padding p-btn-color" data-bind="visible:getLocalItem('UserID')>0 && worksList().length<=0,click: gotoAddWorks">立刻上传</button>
+			</div>
+		</div>
+
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/works/workListMy.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

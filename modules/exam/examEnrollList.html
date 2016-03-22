@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			html,body,.mui-content{
+				background:#eeeeee!important;
+			}
+			.info-pic{
+				height: 30px!important;
+			}
+			.mui-table-view-cell.mui-collapse.mui-active >.info-pic{
+				background: #fff!important;
+			}
+				.mui-table-view-cell.mui-collapse.mui-active >.info-pic:after{
+				color: #6e6e6e!important;
+				font-size: 20px!important;
+				right: 52%!important;
+				content: "\e635"!important;
+				top:15px;	
+			}
+			.mui-table-view-cell.mui-collapse >.info-pic:after{
+				color: #6e6e6e!important;
+				font-size: 20px!important;
+				right:52%!important;
+				content: "\e66c"!important;
+				top: 15px;				
+			}	
+			.mui-table-view-cell.mui-collapse .mui-table-view{
+				margin-left: 0px!important;
+			}		
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">报名记录</h1>
+		</header>
+		<div class="mui-content">
+			<div class="success-title">
+					<h3 id="examScore-h3" data-bind="text:examName">中国民族管弦乐学会全国民族乐器演奏艺术水平考级成绩</h3>
+			</div>
+			<!--ko foreach:{data:enrollList}-->
+			<div class="activityEnrollSuccess-con-bg">
+				<!--<div class="success-title">
+					<h3 id="examScore-h3" data-bind="text:ExamName+'报名记录'">中国民族管弦乐学会全国民族乐器演奏艺术水平考级成绩</h3>
+				</div>-->
+				<ul class="examScore-ul">
+					<li>
+						<span class="examScore-left">状态</span>
+						<span class="examScore-right examScore-btn-succsee"><!--ko text:common.gExamOrderStatus[Stat].text--><!--/ko--> <a class="examScore-btn-play" data-bind="visible:Stat==0,click:gotoPay">立即支付</a>  </span>
+						
+						
+					</li>
+					<li>
+						<span class="examScore-left">姓名</span>
+						<span class="examScore-right" data-bind="text:UserName">张小杰</span>
+					</li>
+					<li>
+						<span class="examScore-left">准考证号</span>
+						<span class="examScore-right" data-bind="text:ExamCardNum">2016101018888</span>
+					</li>
+					<li>
+						<span class="examScore-left">报考专业</span>
+						<span class="examScore-right" data-bind="text:Specialty">古筝</span>
+					</li>
+					<li>
+						<span class="examScore-left">报考级别</span>
+						<span class="examScore-right" data-bind="text:ExamLevel">10</span>
+					</li>
+					
+				</ul>
+				<li class="mui-table-view-cell mui-collapse info-li">
+						<a class="mui-navigate-right info-pic" href="#">
+						</a>
+						<ul class="mui-table-view mui-table-view-chevron examScore-ul">
+							<li>
+								<span class="examScore-left">拼音</span>
+								<span class="examScore-right" data-bind="text:PinYin">ZhangXiaoJie</span>
+							</li>
+							<li>
+								<span class="examScore-left">联系电话</span>
+								<span class="examScore-right" data-bind="text:Phone">13215648952</span>
+							</li>
+							<li>
+								<span class="examScore-left">国籍</span>
+								<span class="examScore-right" data-bind="text:Nationality">中国</span>
+							</li>
+							<li>
+								<span class="examScore-left">性别</span>
+								<span class="examScore-right" data-bind="text:common.gJsonGenderType[Gender].text">女</span>
+							</li>
+							<li>
+								<span class="examScore-left">出生日期</span>
+								<span class="examScore-right" data-bind="text:Birthday.split(' ')[0]">2005-12-14</span>
+							</li>
+							<li>
+								<span class="examScore-left">民族</span>
+								<span class="examScore-right" data-bind="text:Nation">汉</span>
+							</li>
+							<li>
+								<span class="examScore-left">已获级别</span>
+								<span class="examScore-right" data-bind="text:UserLevel">三级</span>
+							</li>
+							<li>
+								<span class="examScore-left">指导老师姓名</span>
+								<span class="examScore-right" data-bind="text:TeacherName">曹玉容</span>
+							</li>
+							<li>
+								<span class="examScore-left">指导老师电话</span>
+								<span class="examScore-right" data-bind="text:TeacherPhone">15715999284</span>
+							</li>
+						</ul>
+					</li>
+			</div>
+			<!--/ko-->
+			<div class="activityEnrollSuccess-btn">
+					<button data-bind="click:addExamEnroll">添加报名</button>
+				</div>
+		</div>
+		<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
+	<script src="../../script/mui/mui.zoom.js"></script>
+	<script src="../../script/mui/mui.previewimage.js"></script>
+	<script src="../../script/common/common.js " type="text/javascript " charset="utf-8 "></script>
+	<script src="../../script/common/base.js " type="text/javascript " charset="utf-8 "></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>
+<script src="../../script/exam/examEnrollList.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

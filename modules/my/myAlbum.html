@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			body,.mui-content {
+				background: #f1f1f1;
+			}
+			.mui-bar-nav span {
+				float: right;
+				margin-right: 15px;
+				color: #fff;
+				font-size: 16px;
+				line-height: 44px;
+			}
+			.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #fff;
+			}
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}			
+			p img {
+				width: 0;
+				height: 0;
+				padding-top: 100%;
+				padding-left: 100%
+			}
+			.mui-btn-blue, .mui-btn-primary, input[type=submit] {
+			    color: #fff;
+			    border: 1px solid #e64578;
+			    background-color: #e64578;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back" data-bind="visible: !DeleteMode()">&#xe602;</i>
+			<span style="color: #666;" class="qx" data-bind="event: {tap: cancelDelete}, visible: DeleteMode() && IsManage()">取消</span>
+			<h1 id="title" class="mui-title" data-bind='text: IsManage() ? "我的相册" : "相册列表"'></h1>
+			<span style="color: #666;" data-bind="event: {tap: setDeleting}, visible: Albums().length > 0 && !DeleteMode() && IsManage()">编辑</span>
+			<span style="color: #666;" data-bind="event: {tap: confirmDelete}, visible: DeleteMode() && IsManage()">删除</span>
+		</header>
+		<div class="mui-content myAlbum-content">
+			<ul class="figure-list" data-bind="visible: Albums().length > 0">
+				<!--ko foreach: {data: Albums}-->
+				<li>
+					<figure data-bind="click: selectDel, style: {'background-image': 'url(' + $data.Src + ')', opacity: $data.Uploading() ? 0.2 : 1}">
+						<p data-bind="style: {display: DeleteMode() ? 'none' : ''}">
+							<img data-bind="attr: {'data-preview-src': $data.Src}" src="" data-preview-group="1" />
+						</p>
+					</figure>
+					<div class="checkIcon" data-bind='click: selectDel, visible: $data.Deleting'>
+						<u></u>
+						<i class="mui-icon">&#xe442;</i>
+					</div>
+				</li>
+				<!--/ko-->
+				<li data-bind="visible: !DeleteMode() && IsManage()">
+					<figure class="figure-add" data-bind="click: selectImage">
+						<i class="iconfont">&#xe638;</i>
+						<span>添加照片</span>
+					</figure>
+				</li>
+			</ul>
+
+			<div class="openedCourses-ys" data-bind="visible: (Albums().length <= 0) && IsManage()">
+				<i>
+					<img src="../../images/logo-pic.png" />
+				</i>
+				<span>还没照片呢，快来上传吧！</span>
+				<div class="mui-content-padded">
+					<button type="button" class="mui-btn mui-btn-block mui-btn-primary th-btn th-mui-f p-btn-color p-btn-padding" data-bind="click: selectImage">添加照片</button>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/mui/mui.zoom.js"></script>
+		<script src="../../script/mui/mui.previewimage.js"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/mui/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/picture.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../../script/my/myAlbum.js"></script>
+	</body>
+
+</html>

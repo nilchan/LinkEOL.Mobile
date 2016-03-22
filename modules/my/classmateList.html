@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+				@media only screen and (min-width:320px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+			}
+			
+			@media only screen and (min-width: 321px) and (max-width: 375px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 5px 0px 15px;
+					position: relative;
+					width: 78%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			@media only screen and (min-width: 376px) and (max-width: 415px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+			}
+			
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #929292;
+				background: #fff;
+			}
+			
+			.mui-tab-item,
+			.ah-mui-tab-item {
+				color: #E64578!important;
+			}
+			
+			.teacherList-mui:active {
+				background: #eee;
+			}
+			
+			.share-height {
+				position: fixed!important;
+			}
+			
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #E64578!important;
+				background: #fff;
+			}
+			
+			.teacherList-mui:active {
+				background: #eee;
+			}
+			
+			.myStudentList-sc {
+				top: 10px;
+				right: 27px;
+			}
+			
+			.card-right {
+				width: 100%;
+			}
+			
+			@media only screen and (min-width:320px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+			}
+			
+			@media only screen and (min-width: 321px) and (max-width: 375px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 5px 0px 15px;
+					position: relative;
+					width: 78%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			@media only screen and (min-width: 376px) and (max-width: 415px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+			}
+			
+			@media only screen and (min-width: 415px) and (max-width: 1025px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 82%;
+					box-sizing: border-box;
+					position: relative;
+				}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper" id="pullrefresh" data-bind='visible:classmateListLength()>0'>
+				<div class="mui-scroll">
+					<!--同学显示页-->
+					<ul class="mui-input-group" data-bind="template:{name:'regTemplate',foreach: classmateListArray}">
+
+					</ul>
+					<script type="text/html" id="regTemplate">
+						<div class="mui-input-row mui-checkbox mui-left card-row">
+							<div class="card-right">
+								<img data-bind="attr:{'src':common.getPhotoUrl(Photo)}" onerror="this.src='../../images/my-default.png';" />
+								<div class="card-row-right">
+									<span data-bind="text:DisplayName"></span><u>(<!--ko text:common.gJsonGenderType[Gender].text--><!--/ko-->)</u>
+									<!--<u class="u-font-right" data-bind="text:TheAge"></u>-->
+								</div>
+								<div class="card-row-right card-row-dow">
+									<u data-bind="text:Province + City + District"></u>
+								</div>
+							</div>
+						</div>
+					</script>
+				</div>
+			</div>
+			<div class="openedCourses-ys" data-bind="visible:classmateListLength()<=0">
+				<i>
+				<img src="../../images/logo-pic.png" />
+			</i>
+				<span data-bind='text:classmateText'></span>
+				<div class="mui-content-padded" data-bind='visible:isHaveTeacher()==false'>
+					<button type="button" class="mui-btn mui-btn-primary mui-btn-block p-btn-padding p-btn-color" data-bind='click:goMyTeacherList'>添加授课老师</button>
+				</div>
+				<div class="mui-content-padded" data-bind='visible:isHaveTeacher'>
+					<div class="footer">
+						<ul id="recommendArray">
+							<li id="weichatFriend">
+								<img src="../../images/share-wx.png" />
+								<span>微信好友</span>
+							</li>
+							<li id="weichatMoments">
+								<img src="../../images/share-py.png" />
+								<span>微信朋友圈</span>
+							</li>
+							<li id="qqFriend">
+								<img src="../../images/share-qq.png" />
+								<span>QQ好友</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/classmateList.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

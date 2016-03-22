@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<title>二维码</title>
+		<style type="text/css">
+			.mui-bar-nav {
+				background: #aaa!important;
+			}
+			
+			#bcid {
+				width: 100%;
+				position: absolute;
+				top: 59px;
+				bottom: 0;
+				text-align: center;
+			}
+			
+			.tip {
+				color: #FFFFFF;
+				font-weight: bold;
+				text-shadow: 0px -1px #103E5C;
+			}
+			
+			.mui-bar {
+				position: absolute;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #000000;">
+		<header class="mui-bar mui-bar-nav mui-action-back">
+			<i class="iconfont">&#xe602;</i>
+			<h1 class="mui-title">二维码扫描</h1>
+		</header>
+		<div id="bcid">
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<p class="tip"></p>
+		</div>
+		<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/muiplus.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/qrcodeEvent.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

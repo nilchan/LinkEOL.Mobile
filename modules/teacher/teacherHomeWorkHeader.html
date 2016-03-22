@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link rel="stylesheet" type="text/css" href="../../content/mui/mui.min.css" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../content/common/style.css" />
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">选择老师</h1>
+		</header>
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				var web = plus.webview.currentWebview();
+				var work, display, homeWork, topPx;
+				if (typeof(web.displayCheck) !== "undefined") {
+					work = web.works;
+					display = web.displayCheck;
+					homeWork = web.homeWork;
+				}
+				topPx = '45px';
+				if (plus.os.vendor == 'Apple') {
+					topPx = '60px';
+				}
+				mui.init({
+					subpages: [{
+						url: 'teacherList.html',
+						id: 'teacherListID',
+						styles: {
+							top: topPx,
+							bottom: '0px'
+						},
+						extras: {
+							displayCheck: display,
+							works: work,
+							homeWork: homeWork
+						}
+					}]
+				});
+			});
+		</script>
+	</body>
+
+</html>

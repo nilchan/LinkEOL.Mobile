@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			body,
+			.mui-content {
+				background: #fff!important;
+			}
+			
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 200px;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #929292;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back" style="width:40px; height:40px; display: inline-block;">&#xe602;</i>
+			<h1 class="mui-title">我的收藏</h1>
+			<em class="iconfont mui-bar-nav-em" data-bind='click:goDownload'>&#xe66d;</em>
+
+		</header>
+		<div class="mui-content">
+			<div class="openedCourses-ys" data-bind="visible:worksCollectionList().length<=0">
+				<i>
+					<img src="../../images/logo-pic.png" />
+				</i>
+				<span data-bind="visible:worksCollectionList().length<=0">还没有收藏作品呢~~</span>
+				<div class="mui-content-padded">
+					<button type="button" class="mui-btn mui-btn-block mui-btn-primary th-btn p-btn-color" data-bind="click: gotoAllWorks">去看看吧</button>
+				</div>
+			</div>
+			<div class="card-bg" data-bind="visible:worksCollectionList().length>0">
+				<form class="mui-input-group" data-bind="template:{name:'worksTemplate',foreach:worksCollectionList}">
+				</form>
+			</div>
+		</div>
+		<!--收藏作品模板页-->
+		<script type="text/html" id="worksTemplate">
+			<ul class="mui-input-group">
+				<li class="mui-table-view-cell works-list" data-bind="event:{tap: gotoWorkInfo}">
+					<a href="javascript:void(0);">
+						<div class="works-list-works" data-bind="style: {'background-image': 'url(' + (common.StrIsNull(VideoThumbnail) == '' ? '../../images/video-big-default.png' : common.getThumbnail(VideoThumbnail)) +')'}">
+							<span class="works-list-date-bg"></span>
+							<span class="works-list-date-font" data-bind="text:AddTime.split(' ')[0]">2015-12-17</span>
+						</div>
+						<div class="works-list-right">
+							<div class="works-list-title">
+								<span class="works-list-title-span" data-bind="text:Title">张小杰的作品</span>
+							</div>
+							<div class="works-list-subject" data-bind="text:SubjectName">钢琴</div>
+							<!-- 名师点评样式  -->
+							<div class="Famous-comment" data-bind="visible: IsFamous && IsRecommend==false">
+								<img width="50" src="../../images/Famous-comment.png">
+							</div>
+							<!-- 名师推荐样式  -->
+							<div class="Famous-teacher" data-bind="visible: IsRecommend">
+								<img width="50" src="../../images/Famous-teacher.png">
+							</div>
+							<div class="works-list-name" data-bind="text: AuthorName">张小杰</div>
+						</div>
+						<div class="works-list-f">
+							<ul class="works-list-f-left">
+								<li class="aline-left">
+									<i class="iconfont">&#xe661;</i>
+									<a data-bind="text:ReadCount+(WorkType==common.gJsonWorkTypeTeacher[0].value || WorkType==common.gJsonWorkTypeTeacher[1].value?'人正在学习':(WorkType==common.gJsonWorkTypeTeacher[2].value?'人已观赏':'人已浏览'))">
+									</a>
+								</li>
+								<li class="aline-right">
+									<i class="iconfont">&#xe663;</i>
+									<!--ko text:LikeCount-->
+									<!--/ko-->
+								</li>
+							</ul>
+							<!--<ol class="works-list-f-right">
+								<li data-bind="text: AuthorName">
+									张小杰
+								</li>
+							</ol>-->
+						</div>
+					</a>
+				</li>
+			</ul>
+		</script>
+		<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/myCollection.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

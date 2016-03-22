@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+			input[type=number],input[type=password],input[type=text]{
+				height: 55px!important;
+				line-height: 34px!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mui-action-back">
+			<i class="iconfont">&#xe602;</i>
+			<h1 class="mui-title">登录</h1>
+		</header>
+		
+		<div class="mui-content login-center">
+			<div class="login-logo">
+				<img src="../../images/logo.png" />
+			</div>
+			
+			<form>
+				<ul class="logo-ul">
+					<li>
+						<i class="iconfont logo-iconfont">&#xe62a;</i>
+						<div class="logo-input">
+							<input id='account' type="number" placeholder="请输入您的手机号"  autocomplete="off" data-bind="value:UserName" onfocus="this.type='number'" onblur="this.type='text'"/>
+						</div>
+					</li>
+					<li>
+						<i class="iconfont logo-iconfont">&#xe632;</i>
+						<div class="logo-input">
+							<input id='account' type="password" placeholder="请输入您的密码" autocomplete="off" data-bind="value:Password"/>
+						</div>
+					</li>
+					<li class="logo-last-li">
+						<span class="forgetPassword-font" id='forgetPassword' data-bind="click:forgetpw">忘记密码</span>
+					</li>
+				</ul>	
+					<button id='login' class="mui-btn mui-btn-block mui-btn-primary logo-btn p-btn-color" data-bind="click:checkLogin">登录</button>
+				<div class="logo-reg-font" data-bind="click:registerUser">立即注册<i class="iconfont" >&#xe672;</i></div>
+			</form>
+			
+			
+			
+			
+		</div>
+		<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/account/login.js" type="text/javascript" charset="utf-8"></script>
+
+	</body>
+
+</html>

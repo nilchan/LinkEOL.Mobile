@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			body {
+				background: #f1f1f1;
+			}
+			.mui-content {
+				background: #f1f1f1!important;
+			}
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			.mui-content-padded {
+				margin: 10px auto;
+			}
+			.mui-btn,
+			button {
+				width: 86%!important;
+				font-size: 18px;
+			}
+			.messageNotification-content em {
+				height: 30px;
+				width: 60px;
+				display: inline-block;
+				border-radius: 5px;
+				line-height: 30px;
+				text-align: center;
+				margin-right: 6px;
+				font-size: 14px;
+				margin-bottom: 12px;
+			}
+			.opened-gl{
+				margin-bottom: 10px;
+				font-size: 14px;
+			}
+		
+			.t-em{
+				width:86px!important;
+				background: #f08000!important;
+				color: #fff!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">课程列表</h1>
+		</header>
+
+		<div class="mui-content">
+			<div data-bind="template:{name:'courseTemplate', foreach:courses}">
+			</div>
+			<!--
+            	作者：980126968@qq.com
+            	时间：2015-11-10
+            	描述：
+            -->				
+			<!--作品模板页-->
+			
+			<script type="text/html" id="courseTemplate">
+				<div class="messageNotification-content openedCoursesList">
+					<div class="messageNotification-title openedCoursesList-first">
+						<span data-bind="text: CourseName">钢琴少儿班</span>
+						<i class="iconfont" data-bind='click: removeCourse'>&#xe61b;</i>
+					</div>
+					<!--<span class="openedCoursesList-span" data-bind="text: SubjectName">钢琴是最好表现情感的乐器</span>-->
+					<div class="openedCoursesList-class">
+						<span class="class-time"><!--ko text: common.StrIsNull(BeginTime) == '' ? '' : BeginTime.split(' ')[0]+'开课'--><!--/ko-->(<!--ko text:'共'+LessonCount+'课时'--><!--/ko-->)</span>
+						<span class="class-num"><!--ko text: SubjectName--><!--/ko--></span>
+					</div>
+					
+					<!--ko foreach: {data: ko.observable(JSON.parse(ClasstimeJson)), as: 'classtime'}-->
+						<!--ko foreach: {data: ko.observable(Time), as: 'thetime'}-->
+						<div class="openedCoursesList-date" data-bind="text: '星期' + common.gArrayDayOfWeek[classtime.DayOfWeek] + ' ' + thetime + ':00~' + (thetime + 1) + ':00'"></div>
+						<!--/ko-->
+					<!--/ko-->
+					<span class="openedCoursesList-date openedCoursesList-mesg" data-bind="click: gotoEditCourse">
+						<i class="iconfont openedCoursesList-mesg-iconfont">&#xe63e;</i>修改信息
+					</span>
+					<div class="openedCoursesList-btn">
+						<ul>
+							<li>
+								<button class="btn-normal btn-red" data-bind="click: gotoRegistered">管理报名</button>
+							</li>
+							<li>
+								<button class="btn-normal btn-center-margin" data-bind="css: IsEnabled?'btn-hs':'btn-orage', click: setEnabled ">启用课程</button>
+							</li>
+							<li>
+								<button class="btn-normal btn-margin-left" data-bind="css:IsEnabled?'btn-orage':'btn-hs', click: setDisabled">停用课程</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+				</script>
+
+			<nav class="mui-bar mui-bar-tab" data-bind="click: gotoAddCourse">
+				<a class="ah-mui-tab-item mui-active teacherList-mui-bar-tab teacherList-mui " href="#">
+					<i class="iconfont ">&#xe621;</i>
+					<span class="mui-tab-label" >添加课程</span>
+				</a>
+				<!--<a class="ah-mui-tab-item mui-active teacherList-mui-bar-tab " href="#">
+					<i class="iconfont ">&#xe622;</i>
+					<span class="mui-tab-label " data-bind="click: gotoTime">授课时间</span>
+				</a>-->
+			</nav>
+
+			<div class="openedCourses-ys" data-bind="visible: courses().length <= 0">
+				<!--<i class="iconfont">&#xe61f;</i>-->
+				<i>
+					<img src="../../images/logo-pic.png" />
+				</i>
+				<span>还没开课，赶紧去开课吧！</span>
+				<div class="mui-content-padded">
+					<button type="button" class="mui-btn mui-btn-primary mui-btn-block p-btn-padding p-btn-color" data-bind="click: gotoAddCourse">开课</button>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/course/openedCoursesList.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+	</body>
+
+</html>

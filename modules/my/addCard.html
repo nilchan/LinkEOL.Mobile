@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			html,
+			.mui-content {
+				background: #F1F1F1!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe602;</i>
+			<h1 class="mui-title">我的银行卡</h1>
+		</header>
+		<div class="mui-content">
+			<div class="add-card-form">
+				<div class="add-card-input">
+					<label>卡   号</label>
+					<input type="text" placeholder="请输入卡号" onfocus="this.type='number'" onblur="this.type='text'" data-bind="value:CardNumnber,event:{blur:checkBanknunmber}" />
+				</div>
+				<div class="get-bankName" data-bind="visible:common.StrIsNull(self.bankDes())!='' &&  isEsistBank()==false ">
+					<i class="iconfont">&#xe659;</i>
+					<span class="add-card-name" data-bind="text:bankDes"></span>
+				</div>
+				<div class="add-card-input" data-bind="visible:isEsistBank">
+					<label>银行名称</label>
+					<input type="text" placeholder="请输入银行名称"  data-bind="value:bankName" />
+				</div>
+				<div class="add-card-input" data-bind="visible:isEsistBank">
+					<label>银行卡类型</label>
+					<input type="text" placeholder="请输入银行卡类型"  data-bind="value:bankCardType" />
+				</div>
+				<div class="add-card-input" data-bind="css: 'add-card-input' + (common.StrIsNull(self.bankDes())!='' ? '' : ' add-card-last')">
+					<label>开户行</label>
+					<input type="text" placeholder="请输入开户支行" data-bind="value:DepositBank"/>
+				</div>
+				<div class="add-card-input add-card-last">
+					<label>姓　名</label>
+					<input type="text" placeholder="持卡人姓名" data-bind="value:OwnerName"/>
+				</div>
+			</div>
+
+			<div class="add-card-btn" data-bind="click:addBank">
+				完成
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/bankList.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/addCard.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

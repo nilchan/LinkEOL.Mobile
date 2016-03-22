@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			html,body {
+				background: #F1F1F1;
+			}
+			.favUser-btn1{
+				margin-top: 5px;
+				background: #E64578;
+				    padding: 8px 0;
+    			font-size: 16px;
+    			border: none;
+			}
+			.favUser-btn2{
+				margin-top: 5px;
+				background: #e1ab44;
+				    padding: 8px 0;
+    			font-size: 16px;
+    			border: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe602;</i>
+			<h1 class="mui-title">用户信息</h1>
+		</header>
+		<div class="mui-content">
+			<div data-bind="visible:valid()==false">
+				<div class="card-row favUser-card">
+					<div class="card-right card-width">
+						<img data-bind="attr:{'src':common.getPhotoUrl(userInfo().Photo)}" onerror="this.src='../../images/my-default.png';" />
+						<div class="card-row-right">
+							<span data-bind="text:userInfo().DisplayName"></span><u>(<!--ko text:Gendervalue--><!--/ko-->)</u>
+						</div>
+						<div class="card-row-right card-row-dow">
+							<u> <!--ko text:userInfo().Province--><!--/ko--><!--ko text:(common.StrIsNull(userInfo().City)==''?'':'>'+userInfo().City)--><!--/ko--><!--ko text:(common.StrIsNull(userInfo().District)==''?'':'>'+userInfo().District)--><!--/ko--></u>
+						</div>
+					</div>
+				</div>
+				<div class="mui-content-padded favUser-div-btn">
+					<button type="button" class="mui-btn mui-btn-success mui-btn-block favUser-btn" data-bind="click:addMyAttention">添加到我的关注</button>
+				</div>
+				<div class="mui-content-padded">
+					<button type="button" class="mui-btn mui-btn-success mui-btn-block favUser-btn1" data-bind='click:setMyTeacher,visible:isShowTeacher'>设置为授课老师</button>
+				</div>
+				<div class="mui-content-padded">
+					<button type="button" class="mui-btn mui-btn-success mui-btn-block favUser-btn2" data-bind='click:setMyStudent,visible:isTrueInstruct'>设置为授课学生</button>
+				</div>
+			</div>
+			<div class="favUser-error" data-bind="visible:valid()==true">
+				<i class="iconfont">&#xe64d;</i>
+				<span>请求无效，请扫描乐评家的用户二维码</span>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/favUser.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

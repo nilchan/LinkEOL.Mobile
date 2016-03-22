@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+				/*删除样式*/
+			
+			.delete-icon {
+				height: auto;
+				width: 100%;
+				position: absolute;
+				left: 0;
+				bottom: 4px;
+				padding-right: 10px;
+				box-sizing: border-box;
+				text-align: right;
+			}
+			
+			.delete-icon i {
+				color: #999;
+				font-size: 20px;
+			}
+			
+			.delete-icon i:active {
+				color: #efa900;
+			}
+			
+			.content-top {
+				margin-top: 44px;
+			}
+			
+			@media only screen and (min-width:320px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+			}
+			
+			@media only screen and (min-width: 321px) and (max-width: 375px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 5px 0px 15px;
+					position: relative;
+					width: 78%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			@media only screen and (min-width: 376px) and (max-width: 415px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+			}
+			
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #929292;
+				background: #fff;
+			}
+			
+			.mui-tab-item,
+			.ah-mui-tab-item {
+				color: #E64578!important;
+			}
+			
+			.teacherList-mui:active {
+				background: #eee;
+			}
+			
+			.share-height {
+				position: fixed!important;
+			}
+			
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #E64578!important;
+				background: #fff;
+			}
+			
+			.teacherList-mui:active {
+				background: #eee;
+			}
+			
+			.myStudentList-sc {
+				top: 10px;
+				right: 27px;
+			}
+			.teacher-list-p2{
+				font-size: 12px;
+				color: #999;
+			}
+			.myStudent-check{
+				right: 15px;
+			}
+			.myStudentList-ul:after{
+				background: #fff;
+			}
+			.p-teacher-list{
+					padding-bottom: 15px;
+				}
+			@media only screen and (min-width:320px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+			}
+			
+			@media only screen and (min-width: 321px) and (max-width: 375px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 5px 0px 15px;
+					position: relative;
+					width: 78%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+				.p-teacher-list{
+					padding-bottom: 5px;
+				}
+			}
+			
+			@media only screen and (min-width: 415px) and (max-width: 1025px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 82%;
+					box-sizing: border-box;
+					position: relative;
+					}
+				}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="mui-action-back iconfont">&#xe602;</i>
+			<h1 class="mui-title">授课学生列表</h1>
+			<em class="iconfont mui-bar-nav-em" data-bind="click:qrcodeEvent">&#xe656;</em>
+		</header>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper" id="pullrefresh" style="top:44px;">
+				<div class="mui-scroll">
+					<!--学生显示页-->
+					<ul class="mui-input-group myStudentList-ul">
+						<div data-bind="foreach:{data:instructedArray}">
+							<div class='p-teacher-list mui-table-view-cell' data-bind="css: (selected() ? 'teacher-list-check-bgColor ' : ''), visible: displayCheck() == false || displayCheck() == true && info.IsConfirm == true && givingCheck() == false || givingCheck() == true && info.IsConfirm == true && info.StudentIsGiving == 0">
+								<a href="javascript:void(0);" data-bind="event:{tap:clickOne}">
+									<span class="teacher-list-sc myStudentList-sc" data-bind="visible: info.IsConfirm==false">未通过</span>
+									<!--<em class="teacher-list-check myStudent-check" data-bind="visible:">
+										<img src="../../images/radio-check.png" />
+									</em>-->
+									<em class="teacher-list-check myStudent-check" data-bind="visible: displayCheck">
+										<img data-bind="attr:{src: '../../images/radio-check'+(selected() ? '-active' : '')+'.png'}" />
+									</em>
+									<div class="teacher-head" data-bind='click:goStudentDeteil'>
+										<img data-bind="attr:{src: common.getPhotoUrl(info.Photo)}" onerror="this.src='../../images/my-default.png';" />
+									</div>
+									<div class="teacher-list-con">
+										<div data-bind='click:goStudentDeteil'>
+											<span class="teacher-list-teacherName" data-bind="text:info.DisplayName">张三</span>
+											<p class="teacher-list-p1" data-bind="text:info.Province+info.City+info.District">地址</p>
+											<p class="teacher-list-p1 teacher-list-p2" data-bind="text: info.HomeWorkStatus">2天前交过作业</p>
+												
+										</div>
+										<div data-bind="visible: info.IsConfirm==false">
+											<button class="agree-btn" data-bind="event: {tap: agreeStudent }">同意</button>
+											<button class="refuse-btn" data-bind="event: {tap: refuseStudent }">拒绝</button>
+										</div>
+										<div class="delete-icon" data-bind='visible:info.IsConfirm && displayCheck() === false'>
+											<i class="iconfont" data-bind='event:{tap:removeStudent}'>&#xe61b;</i>
+										</div>
+
+									</div>
+								</a>
+							</div>
+						</div>
+					</ul>
+				</div>
+			</div>
+
+			<!--没有授课学生样式-->
+			<div class="openedCourses-ys" data-bind="visible: instructLength()<=0">
+				<i>
+					<img src="../../images/logo-pic.png" />
+				</i>
+				<span>还没有授课学生</span>
+				<span>点击右上角扫一扫学生二维码或邀请学生注册添加</span>
+				<div class="mui-content-padded">
+					<div class="footer">
+						<ul id="recommendArray">
+							<li id="weichatFriend">
+								<img src="../../images/share-wx.png" />
+								<span>微信好友</span>
+							</li>
+							<li id="weichatMoments">
+								<img src="../../images/share-py.png" />
+								<span>微信朋友圈</span>
+							</li>
+							<li id="qqFriend">
+								<img src="../../images/share-qq.png" />
+								<span>QQ好友</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+			<nav class="mui-bar mui-bar-tab" data-bind="visible: displayCheck() == false">
+				<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" data-bind="click: selectStudent">
+					<i class="iconfont" style="font-size: 20px;">&#xe6a3;</i>
+					<span class="mui-tab-label">提醒交作业</span>
+				</a>
+				<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" data-bind="visible: isGiving, click:selectGiving">
+					<i class="iconfont"  style="font-size: 20px;">&#xe6a5;</i>
+					<span class="mui-tab-label ">赠送金额</span>
+				</a>
+			</nav>
+			<nav class="mui-bar mui-bar-tab" data-bind="visible: displayCheck">
+				<a class="ah-mui-tab-item mui-active works-list-mui-tab-label" data-bind="click: cacelSelect">
+					<span class="mui-tab-label ">取消</span>
+				</a>
+
+				<a class="ah-mui-tab-item works-list-mui-tab-btn">
+					<span class="mui-tab-label works-list-mui-btn" data-bind="click: submitSelect">确认</span>
+				</a>
+			</nav>
+
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/instructStudent.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

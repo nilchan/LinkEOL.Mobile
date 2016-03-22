@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			html,
+			body {
+				background: #f1f1f1;
+			}
+			
+			.mui-content {
+				background: none!important;
+			}
+			#qrcodePopover img{
+				position: absolute;
+				left: 50%;
+				margin: 0px 0px 0px -92px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav mui-action-back">
+			<i class="iconfont">&#xe602;</i>
+			<h1 class="mui-title">推荐好友</h1>
+		</header>
+		<div class="mui-content">
+			<div class="recommendFriends-up">
+				<span>扫一扫下载APP</span>
+				<div id="qrcodePopover">
+					<img src="../../images/qrcode.png"/>
+				</div>
+			</div>
+
+			<div class="friends-footer">
+				<div class="top">
+					<i></i>
+					<span>推荐给好友</span>
+					<i></i>
+				</div>
+				<div class="footer">
+					<ul id="recommendArray">
+						<li id="weichatFriend">
+							<img src="../../images/share-wx.png" />
+							<span>微信好友</span>
+						</li>
+						<li id="weichatMoments">
+							<img src="../../images/share-py.png" />
+							<span>微信朋友圈</span>
+						</li>
+						<li id="qqFriend">
+							<img src="../../images/share-qq.png" />
+							<span>QQ好友</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/recommendFriends.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,26 @@
+﻿header.bar {
+	background-color: #036fb8;
+}
+.logo {
+	margin-top: .4rem;
+	margin-left: .3rem;
+}
+.logo > img {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+.message {
+	color: #fff;
+	margin-top: .5rem;
+	margin-right: .3rem;
+	font-size: .75rem;
+}
+.whiteword {
+	color: #fff;
+}
+.transparent_class {
+	filter: alpha(opacity=85);
+	-moz-opacity: 0.85;
+	-khtml-opacity: 0.85;
+	opacity: 0.85;
+}

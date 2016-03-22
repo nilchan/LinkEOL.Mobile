@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			body {
+				background: #f1f1f1;
+			}
+			.mui-content {
+				background: #f1f1f1!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont">&#xe602;</i>
+			<h1 class="mui-title"> 消息通知</h1>
+		</header>
+			<!--刷新设置-->
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="mui-table-view mui-table-view-chevron" data-bind="template: {name:'messageTemplate', foreach: messages }">
+					<!--内容显示-->
+					</div>
+					<!--模板控制-->
+					<script type="text/html" id="messageTemplate">
+						<div class="messageNotification-content">
+							<div class="messageNotification-title">
+								<span data-bind="text:Title">课程调整申请</span>
+								<i class="iconfont" data-bind="click:removeMessages">&#xe61b;</i>
+							</div>
+							<p data-bind="text:ContentText">2015年8月26日上午10:00广州市少年宫的钢琴课调到2015年8月26日下午14:00。</p>
+							<u data-bind="text:SendTime">2015-08-23 10:00</u>
+						</div>
+					</script>
+				</div>
+			</div>
+	</body>
+	<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/my/messageList.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+			 //启用双击监听
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					//							
+					up: {
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}
+				}
+			});
+		</script>
+
+</html>

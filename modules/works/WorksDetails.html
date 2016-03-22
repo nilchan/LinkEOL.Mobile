@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../script/libs/video.js/video2.0.min.css" rel="stylesheet" />
+		<style>
+			.mui-card {
+				margin: 0 0 60px 0!important;
+				border: none!important;
+			}
+			
+			.mui-collapse-content {
+				padding: 0!important;
+			}
+			
+			.mui-navigate-right {
+				border-bottom: 1px solid #C8C7CC;
+			}
+			
+			.mui-table-view-cell p {
+				background: none!important;
+			}
+			
+			.mui-table-view-cell > a:not(.mui-btn) {
+				color: #036FB8;
+			}
+			
+			.mui-table-view-cell.mui-collapse.mui-active > .mui-navigate-right:after,
+			.mui-table-view-cell.mui-collapse.mui-active > .mui-push-right:after {
+				color: #bbb!important;
+				font-size: 20px!important;
+				content: "\e66c"!important;
+			}
+			
+			.mui-table-view-cell.mui-collapse > .mui-navigate-right:after,
+			.mui-table-view-cell.mui-collapse > .mui-push-right:after {
+				content: "\e672"!important;
+				font-size: 20px!important;
+				top: 22px!important;
+				right: 22px;
+			}
+			
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #929292;
+			}
+			
+			.works-inconfont {
+				font-size: 1.2rem!important;
+			}
+			
+			.mui-bar-nav .shareTeacher-tb {
+				float: right;
+				text-align: right;
+			}
+			
+			input[type='button'],
+			input[type='submit'],
+			input[type='reset'],
+			button,
+			.mui-btn {
+				padding: 0;
+				border: 0;
+			}
+			
+			.mui-table-view-cell > a:not(.mui-btn) {
+				background: #f4f4f4!important;
+				margin-top: 20px;
+				border-top: 1px solid #d0d0d0;
+			}
+			
+			.works-iconfont {
+				font-size: 22px;
+			}
+			/*分享css*/
+			
+			@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.shareTeacher-pic ul li img {
+					height: 3rem;
+					width: 3rem;
+				}
+			}
+			.share-height{
+				top: 100%!important;
+				margin-top: -170px!important;
+				z-index: 99999;
+				position: fixed!important;
+				left: 0px!important;
+			}
+			.share-height.mui-active {
+				top: 100%!important;
+				margin-top: -170px!important;
+				z-index: 99999;
+			}
+		#nav-h1{
+			width: 76%!important;
+			left: 12%!important;
+		}
+		#nav-i{
+			width: 12%!important;
+		}
+		.teacher-comment{	
+			padding:0px 8px;
+			color: #ea5514;
+			height: 26px;
+			line-height: 26px;
+	
+		}
+		.teacher-comment span{
+		color: #666;
+		}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i id='nav-i' class="iconfont mui-action-back">&#xe683;</i>
+			<h1 id='nav-h1' class="mui-title" data-bind="text:Works().Title">作品详情</h1>
+			<!--<a class="iconfont shareTeacher-tb" href="#middlePopover">&#xe60e;</a>-->
+		</header>
+		<div class="mui-content">
+
+			<div class="worksDetails-photo">
+				<div class="worksDetails-photo-photo" data-bind="click: gotoAuthor">
+					<img data-bind="attr:{src: Works().AuthorPhoto}" onerror="this.src='../../images/my-default.png';" />
+				</div>
+				<div class="worksDetails-photo-name" data-bind="text: Works().AuthorName">张小杰</div>
+				<div class="worksDetails-activityName" data-bind="visible: Works().WorkSrcType == common.gDictWorkSourceType.Activity, event: {'tap': gotoActivity}, text: Works().ActName">活动名称</div>
+			</div>
+			<div class="worksDetails-play" id="videoPos"></div>
+			<div class="pay-box" id="videoBuy" style="display: none;">
+				<p>需要购买才能观看完整作品</p>
+				<button class="pay-btn" data-bind="click: payWork">购买</button>
+			</div>
+			<div class="worksDetails-date" data-bind="text:Works().AddTime">
+				2015-12-11
+			</div>
+			<div class="worksDetails-three">
+				<ul>
+					<li data-bind="visible:IsAuthor()">
+						<!--worksDetails-private点击之后的类名 -->
+						<i style="vertical-align: text-bottom;" class="iconfont worksDetails-open" data-bind="event:{click:setPublic}, css: worksClock"></i>
+					</li>
+					<li data-bind='click: Fav,visible:IsAuthor()==false'>
+						<!--worksDetails-before点击之后的类名 -->
+						<i class="iconfont" data-bind="css:collectionStatus"></i>
+					</li>
+					<li data-bind="click:downWork">
+						<i class="iconfont">&#xe671;</i>
+					</li>
+					<li>
+						<a href="#middlePopover" class="iconfont">&#xe670;</a>
+					</li>
+				</ul>
+			</div>
+			<div class="worksDetails-conn">
+				<h2 class="worksDetails-conn-h2" data-bind="text:Works().Title">张小杰的作品</h2>
+				<p class="worksDetails-conn-p" data-bind="text:Works().ContentText">作品简介吧</p>
+			</div>
+			<div class="worksDetails-last-left">
+				<ol style="width: 70%; float: left;">
+					<li data-bind='click: Like'>
+						<!--点击之后实心赞star-after-->
+						<i class="iconfont" data-bind="css:LikeStatus"></i>
+						<!--ko text:Works().LikeCount-->
+						<!--/ko-->
+					</li>
+					<li style="width: 70%;">
+						<i class="iconfont">&#xe661;</i>
+						<!--ko text:Works().ReadCount-->
+						<!--/ko-->
+					</li>
+				</ol>
+				<div class="worksDetails-last-right" data-bind="click:worksDelete, visible: IsAuthor">
+					<i class="iconfont">&#xe61b;</i>删除
+				</div>
+			</div>
+
+			
+			<div data-bind="visible: teacherComment().length > 0 && (isshowComment()=='true'||IsAuthor()),template:{name:'commentTemplate',foreach:teacherComment}">
+			</div>
+			<!--老师点评模板-->
+			<script type="text/html" id="commentTemplate">
+				<div class="worksDetails-bottom" >
+					<li class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right" href="#">
+							<i class="iconfont">&#xe62d;</i> [
+							<!--ko text:CommenterName-->
+							<!--/ko-->]老师评语   <span data-bind='visible:IsRecommend'>【推荐】</span></a> 
+						<div class="mui-collapse-content">
+							<div class="works-content-dow">
+								<div data-bind="template:{name:'commentToRulseTemplate',foreach:CommentToRules}"></div>
+								<span class="totil">总评语</span>
+								<p data-bind="text:TotalComment"></p>
+							</div>
+							<div class="works-consult-title" data-bind="visible:IsAuthor,click:addfeedbacks">
+								<span class="works-consult-title-zx"><i class="iconfont">&#xe609;</i>咨询 </span>
+								<em class="iconfont">&#xe621;</em>
+							</div>
+							<div class="works-answer" data-bind="visible:IsAuthor,template:{name:'feedBackTemplate',foreach:CommentFeedbacks}">
+							</div>
+							<!--<div class="works-answer" data-bind="text:CommentFeedbacks">
+							</div>-->
+						</div>
+					</li>
+				</div>
+			</script>
+			<!--老师评语模板-->
+			<script type="text/html" id="commentToRulseTemplate">
+				<span data-bind="text:RuleName"></span>
+				<p data-bind="text:Comment"></p>
+			</script>
+			<!--咨询模板-->
+			<script type="text/html" id="feedBackTemplate">
+				<p>
+					<i>Q.</i>
+					<!--ko text:Question-->
+					<!--/ko-->
+				</p>
+				<p>
+					<i>A.</i>
+					<span data-bind="text:Answer"></span>
+				</p>
+			</script>
+		</div>
+
+		<nav class="mui-bar mui-bar-tab" data-bind="visible: IsAuthor">
+			<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui worksDetails-nav" data-bind="IsAuthor,event:{click:goHomeWork}">
+				<i class="iconfont works-iconfont">&#xe667;</i>
+				<span class="mui-tab-label">交作业</span>
+			</a>
+			<a class="ah-mui-tab-item teacherList-mui-bar-tab worksDetails-nav-left " data-bind="visible:IsAuthor,event:{click:goTeacherComment}">
+				<i class="iconfont works-iconfont">&#xe669;</i>
+				<span class="mui-tab-label">找名师点评</span>
+			</a>
+		</nav>
+
+		<div id="bottomPopover" class="mui-popover worksDetails-top">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll submitClass-mui-scroll Lesson-mui">
+					<div class="mui-scroll-title">
+						<i class="iconfont" data-bind="click:closePopover">&#xe63f;</i>
+						<span>付款详情</span>
+					</div>
+					<ul>
+						<form class="mui-input-group pay-money">
+							<div class="mui-input-row mui-radio mui-left Lesson-radio">
+								<label>
+									<li class="wx-pay">
+										<img src="../../images/submitClass-wx.png" />
+										<span>微信支付</span>
+										<input name="payType" value="wxpay" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
+									</li>
+								</label>
+							</div>
+							<div class="mui-input-row mui-radio mui-left Lesson-radio">
+								<label>
+									<li class="wx-pay">
+										<img src="../../images/ye.png" />
+										<span>余额支付
+											<!--ko text: '( ￥ ' + balance() + ' )'-->
+											(￥120.00)
+											<!--/ko-->
+										</span>
+										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
+									</li>
+								</label>
+							</div>
+							<!--<div class="mui-input-row mui-radio mui-left Lesson-radio">
+								<label>
+									<li class="wx-pay">
+										<img src="../../images/submitClass-zf.png" />
+										<span>支付宝</span>
+										<input name="payType" value="alipay" type="radio" data-bind="event:{change: checkPayType}">
+									</li>
+								</label>
+							</div>-->
+							<li class="lineHeight pay-money">
+								总额：￥
+								<!--ko text: DownloadAmount-->
+								<!--/ko-->
+							</li>
+						</form>
+					</ul>
+					<button class="p-btn-color" data-bind="click: gotoPay">去付款</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="middlePopover" class="mui-popover share-height">
+			<div class="shareTeacher-pic">
+				<ul id="recommendArray">
+					<li id="weichatFriend">
+						<img src="../../images/share-wx.png" />
+						<span>微信好友</span>
+					</li>
+					<li id="weichatMoments">
+						<img src="../../images/share-py.png" />
+						<span>微信朋友圈</span>
+					</li>
+					<li id="qqFriend">
+						<img src="../../images/share-qq.png" />
+						<span>QQ好友</span>
+					</li>
+				</ul>
+			</div>
+			<div class="shareTeacher-qx" data-bind="click:closeShare">取消</div>
+		</div>
+
+		
+	</body>
+	<!--<script src="../../script/libs/polyv/polyvplayer.min.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src='https://player.polyv.net/script/polyvplayer.min.js'></script>
+	<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="../../script/libs/video.js/video2.0.min.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/pay.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/download.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/plugins/videoUtility.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/works/worksDetails.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

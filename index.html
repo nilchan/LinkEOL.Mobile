@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="content/mui/mui.min.css" rel="stylesheet" />
+		<link href="content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="content/common/global.css" rel="stylesheet" />
+		<link href="content/common/style.css" rel="stylesheet" />
+		<link href="content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			.index-nav .index-icon {
+				font-size: 22px;
+				top: 5px!important;
+			}
+			
+			.index-nav {
+				background: #fff!important;
+				border-top: 1px solid #d6d4d4!important;
+			}
+			
+			.mui-bar {
+				box-shadow: none;
+			}
+			
+			.index-iconfont {
+				font-size: 22px!important;
+			}
+			
+			#Tab1 .iconfont:after {
+				content: '\e679';
+				color: #929292;
+			}
+			
+			#Tab2 .iconfont:after {
+				content: '\e67b';
+				color: #929292;
+			}
+	
+			#Tab4 .iconfont:after {
+				content: '\e67f';
+				color: #929292;
+			}
+			
+			#Tab5 .iconfont:after {
+				content: '\e681';
+				color: #929292;
+			}
+			
+			#Tab1.mui-tab-item.mui-active .iconfont:after {
+				content: '\e67a';
+				color: #d34777;
+			}
+			
+			#Tab2.mui-tab-item.mui-active .iconfont:after {
+				content: '\e67c';
+				color: #d34777;
+			}
+			#Tab4.mui-tab-item.mui-active .iconfont:after {
+				content: '\e680';
+				color: #d34777;
+			}
+			
+			#Tab5.mui-tab-item.mui-active .iconfont:after {
+				content: '\e682';
+				color: #d34777;
+			}
+			
+			.index-font {
+				font-size: 10px!important;
+			}
+			
+			.index-nav .index-list {
+				padding-top: 3px!important;
+				box-sizing: border-box;
+				position: relative;
+			}
+			
+			.red-point {
+				left: 49px;
+				top: 7px;
+			}
+			.nav-up{	
+			  background: -moz-linear-gradient( 90deg, rgb(192,48,97) 0%, rgb(255,98,153) 100%)!important;
+			  background: -webkit-linear-gradient( 90deg, rgb(192,48,97) 0%, rgb(255,98,153) 100%)!important;
+			  background: -ms-linear-gradient( 90deg, rgb(192,48,97) 0%, rgb(255,98,153) 100%)!important;
+			  width: 110px;
+			  height: 100%;			  
+			  	}
+			 .nav-up i{
+			 	color: #fff;
+			 	font-size: 24px;
+			 }
+			 
+             .index-nav .nav-up:active{
+				  background: -moz-linear-gradient( 90deg, rgb(158,43,82) 0%, rgb(231,107,150) 100%)!important;
+				  background: -webkit-linear-gradient( 90deg, rgb(158,43,82) 0%, rgb(231,107,150) 100%)!important;
+				  background: -ms-linear-gradient( 90deg, rgb(158,43,82) 0%, rgb(231,107,150) 100%)!important;
+				 
+				}
+			 
+		</style>
+	</head>
+
+	<body>
+		<!--<header class="mui-bar mui-bar-nav">
+			<h1 id="title" class="mui-title">乐评家</h1>
+			<em class="iconfont" data-bind="click:goMessageList">&#xe628;</em><span class="mui-badge mui-badge-warning" data-bind="text: UnreadCount, visible: UnreadCount() > 0"></span>
+		</header>-->
+		<nav class="mui-bar mui-bar-tab index-nav">
+			<a id="Tab1" class="mui-tab-item mui-active index-list" href="modules/home/home.html">
+				<span class="mui-icon iconfont index-icon"></span>
+				<span class="mui-tab-label index-font">首页</span>
+			</a>
+			<a id="Tab2" class="mui-tab-item index-list" href="modules/activity/activityList.html">
+				<span class="mui-icon iconfont index-icon"></span>
+				<span class="mui-tab-label index-font">演出活动</span>
+			</a>
+			<a id="Tab3" class="mui-tab-item index-list radiusClass nav-up">
+				<i class="iconfont">&#xe698;</i>
+			</a>
+			<a id="Tab4" class="mui-tab-item index-list" href="modules/works/workIndex.html">
+				<span class="mui-icon iconfont index-icon"></span>
+				<span class="mui-tab-label index-font" data-bind="text:worksText"></span>
+			</a>
+			<a id="Tab5" class="mui-tab-item index-list" href="modules/my/my.html">
+				<span class="mui-icon iconfont index-icon"></span>
+				<span class="mui-tab-label index-font">个人中心</span>
+				<i class="red-point" data-bind="visible:hasNewMessage"></i>
+			</a>
+		</nav>
+		<script src="script/mui/mui.min.js"></script>
+		<script src="script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="script/common/index.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="script/common/update.js" type="text/javascript" charset="utf-8"></script>-->
+		<script type="text/javascript" charset="utf-8">
+
+			//mui初始化
+			mui.init();
+			//var subpages = ['modules/home/home.html','modules/comment/commentListHeader.html',  'modules/course/myCourse.html', "modules/works/workIndex.html", self.MyHref()];
+			var subpages = ['modules/home/home.html', 'modules/activity/activityList.html', '', "modules/works/workIndex.html", 'modules/my/my.html'];
+			var subpage_style = {
+				top: '0px',
+				bottom: '53px',
+			};
+			var showindex_style={
+				top: '0px',
+				bottom: '0px'
+			}
+			
+			var aniShow = {};
+			var dfPage = 0;
+			//创建子页面，首个选项卡页面显示，其它均隐藏；
+			mui.plusReady(function() {
+				//console.log(plus.screen.resolutionHeight*plus.screen.scale+'!'+plus.screen.resolutionWidth*plus.screen.scale);
+				var web = plus.webview.currentWebview();
+				if (typeof(web.page) !== "undefined") {
+					dfPage = web.page;
+				}
+				setLocalItem('UUID', plus.device.uuid);
+				//this.getUnreadCount();
+				if (getLocalItem('useApp')=='') {
+					setLocalItem('useApp', 1);
+					var indexshow = plus.webview.create('modules/home/indexShow.html', 'modules/home/indexShow.html', showindex_style);
+					indexshow.show();
+					plus.navigator.closeSplashscreen();
+					return;
+				}
+				
+				if (mui.os.ios) {
+					plus.navigator.setFullscreen(false);
+					subpage_style.bottom = '51px';
+				}
+				var self = plus.webview.currentWebview();
+				for (var i = 0; i < subpages.length; i++) {
+					var temp = {};
+					var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+					//console.log(sub.id);
+					if (i == dfPage) {
+						temp[subpages[i]] = "true";
+						mui.extend(aniShow, temp);
+					} else {
+						sub.hide();
+					}
+					self.append(sub);
+				}
+				var defaultTab = document.getElementById("Tab" + (dfPage + 1));
+				defaultTab.classList.add('mui-active');
+			});
+			//当前激活选项
+			var activeTab = subpages[dfPage];
+			//选项卡点击事件
+			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+				var targetTab = this.getAttribute('href');
+				if( this.getAttribute('id') == "Tab3" ) {
+					common.transfer('modules/works/addWorks.html', true);
+					return ;
+				}
+				if (targetTab == activeTab) {
+					return;
+				}
+				//更换标题
+				//title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+				//显示目标选项卡
+				if (mui.os.ios || aniShow[targetTab]) {
+					plus.webview.show(targetTab);
+				} else {
+					var temp = {};
+					temp[targetTab] = "true";
+					mui.extend(aniShow, temp);
+					plus.webview.show(targetTab, "fade-in", 300);
+				}
+				//隐藏当前;
+				plus.webview.hide(activeTab);
+				//更改当前活跃的选项卡
+				activeTab = targetTab;
+			});
+			var setActive = function(pageIndex) {
+				if (typeof pageIndex != "undefined") {
+					dfPage = pageIndex;
+				}
+				var targetTab = subpages[dfPage];
+				if (targetTab == activeTab) {
+					return;
+				}
+				//显示目标选项卡
+				if (mui.os.ios || aniShow[targetTab]) {
+					plus.webview.show(targetTab);
+				} else {
+					var temp = {};
+					temp[targetTab] = "true";
+					mui.extend(aniShow, temp);
+					plus.webview.show(targetTab, "fade-in", 300);
+				}
+				//隐藏当前
+				plus.webview.hide(activeTab);
+				//更改当前活跃的选项卡
+				activeTab = targetTab;
+				//切换选项卡高亮
+				var defaultTab = document.getElementById("Tab" + (dfPage + 1));
+				var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
+				if (defaultTab !== current) {
+					current.classList.remove('mui-active');
+					defaultTab.classList.add('mui-active');
+				}
+			}
+		</script>
+	</body>
+
+</html>

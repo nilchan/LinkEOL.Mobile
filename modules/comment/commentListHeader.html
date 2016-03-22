@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--此页面不用-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			.mui-collapse a {
+				width: 100%;
+				display: inline-block;
+				height: 100%;
+				padding: 0 30%;
+			}
+			
+			.ah-select-list ul li {
+				width: 33.3333%;
+				padding: 0 20px;
+			}
+			
+			.ah-select-list a {
+				height: 100%;
+				display: block;
+			}
+			
+			.ah-select-list span {}
+			
+			.ah-mui-navigate-right:after {
+				right: 9%;
+			}
+			
+			.mui-bar-nav ~ .mui-content .mui-pull-top-pocket {
+				top: 40px !important;
+			}
+			
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #929292;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 id="title" class="mui-title" data-bind='text:titleText'>我的点评</h1>
+		</header>
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			var CommentListHeader = function() {
+				var self = this;
+				self.titleText = ko.observable('作品点评');
+				self.UnreadCount = ko.observable("0");
+				//跳转至消息页面
+				mui.plusReady(function() {
+					var workType;
+					var workIndex = plus.webview.currentWebview();
+					if (typeof workIndex.workType != 'undefined') {
+						workType = workIndex.workType;
+						if (workType == common.gTeacherCommentType[1].value) {
+							self.titleText('作业点评');
+						}
+					}
+					var topPx = '46px';
+					if (plus.os.vendor == 'Apple') {
+						topPx = '61px';
+					}
+					var pageComment = mui.preload({
+						url: 'commentList.html',
+						id: 'commentListID',
+						styles: {
+							top: topPx,
+							bottom: '0px'
+						},
+						extras: {
+							workType: workType
+						}
+					});
+					workIndex.append(pageComment);
+				})
+			}
+			ko.applyBindings(CommentListHeader);
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			html,
+			body,
+			.mui-content {
+				background: #eeeeee!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">成绩查询</h1>
+		</header>
+		<div class="mui-content">
+			<div class="openedCourses-ys" data-bind="visible:examScoreArray().length<=0">
+				<i>
+				<img src="../../images/logo-pic.png" />
+			</i>
+				<span style="margin-top: 0;">您此次未参加艺术水平考级考试</span>
+				<span style="margin-top: 0;">欢迎下次报名~</span>
+			</div>
+			<div class="success-title" data-bind="visible:examScoreArray().length>0">
+				<h3 id="examScore-h3" data-bind="text:examName">中国民族管弦乐学会全国民族乐器演奏艺术水平考级成绩</h3>
+			</div>
+			<div>
+				<!--ko foreach: {data: examScoreArray}-->
+				<div class="activityEnrollSuccess-con-bg">
+					<ul class="examScore-ul">
+						<li>
+							<span class="examScore-left">姓名</span>
+							<span class="examScore-right" data-bind="text:UserName">张小杰</span>
+						</li>
+						<li>
+							<span class="examScore-left">准考证号</span>
+							<span class="examScore-right" data-bind="text:ExamCardNum">2016101018888</span>
+						</li>
+						<li>
+							<span class="examScore-left">报考专业</span>
+							<span class="examScore-right" data-bind="text:Specialty">古筝</span>
+						</li>
+						<li>
+							<span class="examScore-left">报考级别</span>
+							<span class="examScore-right" data-bind="text:ExamLevel">10</span>
+						</li>
+						<li>
+							<span class="examScore-left">成绩</span>
+							<span class="examScore-right" data-bind="text:GradeNum">不及格</span>
+						</li>
+					</ul>
+				</div>
+				<!--/ko-->
+			</div>
+			<div class="activityEnrollSuccess-btn" data-bind="click:backIndex">
+				<button>返回首页</button>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/exam/examScore.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

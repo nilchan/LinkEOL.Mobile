@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			body,
+			.mui-content {
+				background: #F1F1F1!important;
+			}
+			.mui-active {
+				width: 100%!important;
+				left: 0!important;
+			}
+			.mui-bar .mui-btn {
+				top: 9px;
+				padding: 6px 18px;
+			}
+			.mui-content-padded {
+				margin: 0!important;
+			}
+			.mui-btn-block {
+				width: 30%!important;
+				float: right;
+				top: -9px!important;
+				margin-right: 15px;
+			}
+			@media screen and (max-height: 530px) {
+				.auto-height {
+					line-height: 22px;
+				}
+			}
+			@media screen and (min-height: 531px) and (max-height: 598px) {
+				.auto-height {
+					line-height: 28px;
+				}
+			}
+			@media screen and (min-height: 599px) and (max-height: 679px) {
+				.auto-height {
+					line-height: 32px;
+				}
+			}
+			@media screen and (min-height: 680px) {
+				.auto-height {
+					line-height: 38px;
+				}
+			}
+			.mui-popover {
+				height: 364px!important;
+				border-radius: 5px;
+			}
+			.mui-popover .mui-active {
+				top: 50%!important;
+				margin-top: -182px;
+			}
+			.mui-radio input[type=radio]:before {
+				content: "";
+			}
+			.mui-input-group .mui-input-row:after {
+				background: #f1f1f1!important;
+			}
+			.mui-backdrop {
+    			top: 0px!important;
+			}
+			#popPay {
+    			left: 0!important;
+    			top: 30%!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">约课</h1>
+		</header>
+
+		<div class="mui-content">
+			<!--约课基本信息 -->
+			<div id="divLessonInfo" data-bind="with: lessonBaseInfo">
+				<div class="aboutClass-teacher">
+					<img data-bind='attr:{src: teacherPhoto}' />
+					<span data-bind="text: self.teacherName"></span>
+				</div>
+				<div class="aboutClass-class submitClass-mui-scroll">
+					<div class="aboutClass-class-title">选择课程</div>
+					<ul>
+						<li class="one" data-bind="event:{tap: chooseCourse}, disable: ViewOrder">
+							<!--<span>钢琴——中级班</span>-->
+							<a data-bind="text: selectedCourse() ? selectedCourse().CourseName : '请选择课程'"></a>
+							<i class="iconfont">&#xe618;</i>
+						</li>
+						<li class="two" data-bind="visible: selectedCourse() ? true : false, disable: ViewOrder">
+							<p data-bind="text: selectedCourse() ? selectedCourse().Introduce : ''"></p>
+							<span data-bind="text: ageRange"></span>
+							<!--ko foreach: {data: locations}-->
+							<em data-bind="text: $data.LocationName, event: {tap: selectLocation}, css: $data.Selected() == true ? 'cur' : ''"></em>
+							<em class='money' data-bind="text: '￥' + $data.Cost, visible: $data.Selected() == true"></em>
+							<!--/ko-->
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div data-bind="with: lessonChosenTimes">
+				<div class="aboutClass-class submitClass-mui-scroll aboutClass-time">
+					<div class="aboutClass-class-title">选择课时</div>
+					<ul class="about-lesson" data-bind="visible: ChosenTimes().length <= 0">
+						<a href="#popChooseTime">
+							<li class="fontcolor">
+								请选择课时
+								<i class="iconfont">&#xe618;</i>
+							</li>
+						</a>
+					</ul>
+					<ul class="about-lesson" data-bind="foreach: {data: ChosenTimes, as: 'chosenTime'}">
+						<a data-bind="attr: {href: ViewOrder ? 'javascript: void(0)' : '#popChooseTime'}">
+							<li class="fontcolor">
+								<!--ko text: common.formatTime(chosenTime)-->
+								<!--/ko-->
+								<i class="iconfont">&#xe618;</i>
+							</li>
+						</a>
+					</ul>
+				</div>
+
+				<!--弹出课时选择 -->
+				<div id="popChooseTime" class="mui-popover aboutLesson-tc">
+					<header class="aboutLesson-header">
+						<i class="iconfont" data-bind="click: closePopChooseTime">&#xe602;</i> 选择课时
+					</header>
+					<table class="vailableTime-title availableTime-add availableTime-date" border="0" width="100%" height="100%">
+						<tr>
+							<td rowspan="2" class="month" data-bind='text: TheMonth'>
+								
+							</td>
+							<!--ko foreach:{data: DayOfWeek}-->
+								<td data-bind='text: $data'></td>
+							<!--/ko-->
+						</tr>
+						<tr data-bind="foreach:{data: DateOfWeek, as: 'date'}">
+							<td data-bind='text: date.getDate(), css: {"date-current": CurrentDay() == date.getDate() && CurrentMonth() == date.getMonth()}'></td>
+						</tr>
+					</table>
+					<table class="availableTime-table auto-height" border="2" cellspacing="0" cellpadding="0" width="100%" data-bind="foreach:{data: Hours, as: 'hour'}">
+						<tr>
+							<td data-bind='text: $data + ":00"'></td>
+							<!--ko foreach:{data: DateOfWeek}-->
+							<td data-bind='cellValue: initCell($data, hour)'></td>
+							<!--/ko-->
+						</tr>
+					</table>
+
+					<nav class="mui-bar mui-bar-tab availableTime-footer">
+						<span>点击蓝色区块选择</span>
+						<em class='disabled' data-bind='event:{tap: back}, css:{disabled: ChosenTimes().length <= 0}, text: "确定("+ChosenTimes().length+")"'>确定(0)</em>
+					</nav>
+				</div>
+			</div>
+
+			<nav class="mui-bar mui-bar-tab" data-bind="visible: !(ViewOrder && Order().IsFinish && Order().OrderStatus == common.gDictOrderStatus.Payed)">
+				<div class="mui-content-padded availableTime-sure">
+					<a href="#popPay">
+						<button type="button" class="mui-btn mui-btn-primary availableTime-mui-btn">
+							付款
+						</button>
+					</a>
+				</div>
+			</nav>
+
+			<!--弹出约课支付-->
+			<div id="popPay" class="mui-popover">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll submitClass-mui-scroll Lesson-mui">
+						<div class="mui-scroll-title">
+							<i class="iconfont" data-bind="click: closePopPay">&#xe63f;</i>
+							<span>付款详情</span>
+						</div>
+						<ul>
+							<form class="mui-input-group">
+								<div class="mui-input-row mui-radio mui-left Lesson-radio">
+									<label>
+										<li class="wx-pay">
+											<img src="../../images/submitClass-wx.png" />
+											<span>微信支付</span>
+											<input name="payType" value="wxpay" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
+										</li>
+									</label>
+								</div>
+								<div class="mui-input-row mui-radio mui-left Lesson-radio">
+									<label>
+										<li class="wx-pay">
+											<img src="../../images/submitClass-zf.png" />
+											<span>支付宝</span>
+											<input name="payType" value="alipay" type="radio" data-bind="event:{change: checkPayType}">
+										</li>
+									</label>
+								</div>
+								<li class="lineHeight">
+									总额：￥
+									<!--ko text: selectedLocation() ? selectedLocation().Cost : '0'-->
+									<!--/ko-->
+								</li>
+							</form>
+						</ul>
+						<button data-bind="click: gotoPay">去付款</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/mui/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/student/aboutLessonBaseInfo.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/student/aboutLessonChosenTimes.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/pay.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/student/aboutLessonMain.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init({
+				swipeBack: false //禁用右滑关闭功能
+			});
+			mui('.mui-scroll-wrapper').scroll();
+			window.addEventListener("swipeleft", function() {
+				self.WeekIndex(self.WeekIndex() + 1);
+			});
+			window.addEventListener("swiperight", function() {
+				self.WeekIndex(self.WeekIndex() - 1);
+			});
+			mui('body').on('shown', '.mui-popover', function(e) {
+				//console.log('shown', e.detail.id);//detail为当前popover元素
+			});
+			mui('body').on('hidden', '.mui-popover', function(e) {
+				//console.log('hidden', e.detail.id);//detail为当前popover元素
+			});
+		</script>
+	</body>
+
+</html>

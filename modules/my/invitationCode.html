@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			.invitationCode-font{
+				width: 100%;
+				height: auto;
+				margin-bottom: 15px;
+				text-align: center;
+			}
+			.invitationCode-font #h5{
+				color: #555;
+				font-size: 20px;
+			}
+			.invitationCode-num{
+				width: 100%;
+				color: #149da6;
+				font-size: 26px;
+				text-align: center;
+				padding-top: 10px;
+			}
+			.explain-font{
+				width: 74%;
+				margin: 25px auto;
+				color: #999;
+				font-size: 15px;
+				text-align: left;
+				line-height: 23px;
+				position: relative;
+			}
+			.explain-font:before{
+				content: '';
+				height: 6px;
+				width: 6px;
+				background: #df4786;
+				border-radius: 50%;
+				position: absolute;
+				left: -12px;
+				top: 10px;
+			}
+			.invitationCode-btn{
+				width: 100%;
+				height: auto;
+				overflow: hidden;
+				margin: 0 auto;
+				text-align: center;
+			}
+			.invitationCode-btn img{
+				display: block;
+				width: 60%;
+				margin: 0 auto;
+			}
+			.explain-color{
+				color: #555;
+				text-align: center;
+			}
+			.explain-color:before{
+				background: #fff;
+			}
+			.explain-color span{
+				color: #df4786;
+			}
+			.invitationCode-img img{
+				display: block;
+				margin:10px auto;
+			}
+			@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.shareTeacher-pic ul li img {
+					height: 3rem;
+					width: 3rem;
+				}
+			}
+			
+			.share-height {
+				position: fixed!important;
+			}
+			.share-height{
+				top: 100%!important;
+				margin-top: -178px!important;
+				left: 0px!important;
+			}
+			.share-height.mui-active {
+				top: 100%!important;
+				margin-top: -178px!important;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">邀请码</h1>
+		</header>
+		<div class="mui-content">
+			<div>
+				<img src="../../images/invitationCode.png" />
+			</div>
+			<div class="invitationCode-font">
+				<h5 id="h5">我的邀请码</h5>
+			</div>
+			<div class="invitationCode-num" data-bind='text:inviteCode'>pHFkrTpS</div>
+			<div class="explain-font">分享此邀请码给授课学生，让他们更便捷将您设为授课老师并找您点评作业。</div>
+			<div class="invitationCode-btn">
+				<a href="#sharePopover">
+					<img src="../../images/invitationCode-btn.png"/>
+				</a>
+			</div>
+			<div class="explain-font explain-color">长按识别二维码，马上体验<span>乐评家</span></div>
+			<div class="invitationCode-img">
+				<img src="../../images/footer-app.jpg"/>
+			</div>
+		</div>
+		<div id="sharePopover" class="mui-popover share-height">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="shareTeacher-pic">
+						<ul>
+							<li id="weichatFriend">
+								<img src="../../images/share-wx.png" />
+								<span>微信好友</span>
+							</li>
+							<li id="weichatMoments">
+								<img src="../../images/share-py.png" />
+								<span>微信朋友圈</span>
+							</li>
+							<li id="qqFriend">
+								<img src="../../images/share-qq.png" />
+								<span>QQ好友</span>
+							</li>
+						</ul>
+					</div>
+					<div class="shareTeacher-qx" data-bind="click:closeShare">取消</div>
+				</div>
+			</div>
+		</div>
+	<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
+	<script src="../../script/common/common.js " type="text/javascript " charset="utf-8 "></script>
+	<script src="../../script/common/base.js " type="text/javascript " charset="utf-8 "></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>
+	<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/my/invitationCode.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

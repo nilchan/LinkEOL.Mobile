@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+			.mui-content-padded {
+				margin: 0!important;
+			}
+			.mui-bar-nav ~ .mui-content{
+				padding-top: 25px;
+			}
+			.mui-btn-block {
+				width: 30%!important;
+				float: right;
+				margin-right: 15px;
+				font-size: 14px!important;
+			}
+			.mui-bar .mui-btn {
+				top: 10px;
+				padding: 6px 18px;
+			}
+			.details-ul{
+				width: 100%;
+				display:inline;
+			}
+			.details-ul li{
+				/*float: left;
+				width: 20%;*/
+				display: table-cell;
+				
+			}
+			.details-ul .details-date{
+				width: 35%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title" data-bind="text: isCommenter() ? '发表点评' : '查看点评'"></h1>
+		</header>
+		<div class="mui-content">
+			<div class="works-content-up reviewInfo-content-up" style="margin-top:30px;">
+				<span data-bind="text: works().Title">作品标题</span>
+				<ul class="details-ul">
+					<li class="details-date" data-bind="text: works().AddTime ? works().AddTime.split(' ')[0] : ''"></li>
+					<li>
+						<i class="iconfont">&#xe61a;</i>
+						<!--ko text:works().ReadCount-->
+						<!--/ko-->
+					</li>
+					<li>
+						<!--点击之后实心赞zan-after-->
+						<i class="iconfont zan-before"></i>
+						<!--ko text:works().LikeCount-->
+						<!--/ko-->
+					</li>
+					<!--<li data-bind="text: remark">未公开</li>-->
+					<li data-bind="text: works().SubjectName">钢琴</li>
+				</ul>
+				<div class="worksDetails-photo-photo" data-bind="event:{tap: goWorksDetails}">
+					<img data-bind="attr: {src: common.getThumbnail(works().VideoThumbnail)}" onerror="this.src='../../images/video-big-default.png';" />
+				</div>
+				<p data-bind="text: works().ContentText"></p>
+			</div>
+			<div class="works-content-dow reviewInfo-content">
+				<span>
+	                <i class="iconfont">&#xe62d;</i>
+	                <em data-bind="text:'[' + teacher().DisplayName + ']', visible: !isCommenter()"></em>老师评语
+	            </span>
+	            <div class="no-comment" data-bind="visible: hasCommented() == false && isCommenter() ==  false">
+            		老师未点评
+	            </div>
+	            <div data-bind="visible: hasCommented() == true && isCommenter() == false || isCommenter() == true">
+					<!--ko foreach: {data: commentToRules}-->
+					<span data-bind="text: RuleName"></span>
+					<p data-bind="text:Comment, visible: isCommenter() == false"></p>
+					<textarea data-bind="value: Comment, visible: isCommenter() == true, attr:{'placeholder': '请输入评语'}"></textarea>
+					<!--/ko-->
+					<span class="t-comment">总评语</span>
+					<p data-bind="text:totalComment, visible: isCommenter() == false"></p>
+					<textarea data-bind="value: totalComment, visible: isCommenter() == true, attr:{'placeholder': '请输入评语'}"></textarea>
+	
+					<div class="works-consult-title" data-bind="click:addfeedback">
+						<span><i class="iconfont">&#xe609;</i>咨询 </span>
+						<em class="iconfont" data-bind="visible: isCommenter() == false">&#xe621;</em>
+					</div>
+					<div data-bind="foreach:{data: feedbacks}">
+						<div class="works-answer">
+							<div class="question">
+								<i>Q.</i>
+								<span>				
+								<!--ko text:Question-->
+								<!--/ko--></span>
+								<em data-bind="click: replyfeedback, visible: isCommenter() == true">回复</em>
+							</div>
+						</div>
+						<div class="works-answer">
+							<div class="answer">
+								<i>A.</i>
+								<span data-bind="text:Answer"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<nav class="mui-bar mui-bar-tab" data-bind="visible: isCommenter() == true">
+					<div class="mui-content-padded availableTime-sure">
+						<a href="#tabbar-with-sms">
+							<button type="button" class="mui-btn mui-btn-primary availableTime-mui-btn p-btn-color" data-bind="click: setComment">
+								确定发表
+							</button>
+						</a>
+					</div>
+				</nav>
+			</div>
+
+			<script src="../../script/mui/mui.min.js"></script>
+			<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../../script/comment/commentDetails.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

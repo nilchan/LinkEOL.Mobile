@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="yes" name="apple-touch-fullscreen" />
+		<meta content="telephone=no,email=no" name="format-detection" />
+		<meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>首页</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+			body,
+			.index-content-bg {
+				background: #eeeeee!important;
+			}
+			
+			@media only screen and (min-width:320px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			@media only screen and (min-width: 321px) and (max-width: 375px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 5px 0px 15px;
+					position: relative;
+					width: 78%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.index-up-secher-bg ul li em {
+					font-size: 46px;
+					position: absolute;
+					left: 26px;
+					top: 18px;
+				}
+				.index-up-secher-bg ul li span {
+					color: #333;
+					font-size: 16px;
+					position: absolute;
+					right: 40px;
+					top: 18px;
+				}
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			@media only screen and (min-width: 415px) and (max-width: 1025px) {
+				.teacher-list-con {
+					float: left;
+					padding: 5px 5px 0px 15px;
+					position: relative;
+					width: 82%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.index-up-secher-bg ul li {
+					width: 48%;
+				}
+				.index-up-secher-bg ul li em {
+					font-size: 46px;
+					position: absolute;
+					left: 110px;
+					top: 18px;
+				}
+				.index-up-secher-bg ul li span {
+					color: #333;
+					font-size: 16px;
+					position: absolute;
+					right: 130px;
+					top: 18px;
+				}
+			}
+			
+			.mui-bar-nav span {
+				bottom: 1px;
+				right: 1px;
+				position: absolute;
+				display: none;
+			}
+			
+			.p-teacher-list > a:not(.mui-btn) {
+				background: none;
+				margin: -11px -30px;
+			}
+			/*.mui-slider-group {
+				height: 627px;
+				width: 375px;
+			}*/
+			#page1 {
+				background: url('../../images/indexShow1.jpg')!important;
+				background-size: cover!important;
+			}
+			#page2 {
+				background: url('../../images/indexShow2.jpg')!important;
+				background-size: cover!important;
+			}
+			#goIndex {
+				background: url('../../images/indexShow3.jpg')!important;
+				background-size: cover!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<!--banner-->
+			<div class="mui-slider">
+				<div class="mui-slider-group">
+					<div class="mui-slider-item" id="page1">
+						<!--<img src="../../images/indexShow1.jpg" />-->
+					</div>
+					<div class="mui-slider-item" id="page2">
+						<!--<img src="../../images/indexShow2.jpg" />-->
+					</div>
+					<div class="mui-slider-item" id="goIndex">
+						<!--<img src="../../images/indexShow3.jpg" />-->
+					</div>
+					<div class="mui-slider-item">
+						<!--<img src="../../images/indexShow3.jpg" />-->
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				var chu = 1;
+				var add = 0;
+				var a = $A.gC('mui-slider-group');
+				if (mui.os.ios) {
+					add = 20;
+				} else {
+					chu = plus.screen.scale;
+					add = 25;
+				}
+				
+				a[0].style.width = window.screen.width / chu + 'px';
+				a[0].style.height = window.screen.height / chu - add +'px';
+				//console.log(window.screen.width+'!'+window.screen.height);
+				//console.log(window.screen.availWidth +'!!'+window.screen.availHeight);
+				if( a[0].style.width == "768px" && mui.os.ios) {
+					var b = $A.gC('mui-slider-item');
+					for( var i = 0; i < b.length; i ++) {
+						b[i].style.cssText = "background: url('../../images/indexs"+(i+1)+".jpg')!important;"
+					}
+				}
+				document.getElementById('goIndex').addEventListener('tap', function() {
+				var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID');
+				plus.webview.close(index); //关闭首页webview
+					common.transfer("../../index.html", false, {}, true, false, "indexID");
+				});
+			})
+			
+				//获得slider插件对象
+			var gallery = mui('.mui-slider');
+			gallery.slider({
+				interval: 0 //自动轮播周期，若为0则不自动播放，默认为0；
+			});
+			document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+			 	//注意slideNumber是从0开始的；
+			 	var index = event.detail.slideNumber+1;
+			 	if( index==4 ){
+			 		var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID');
+				plus.webview.close(index); //关闭首页webview
+					common.transfer("../../index.html", false, {}, true, false, "indexID");
+			 	}
+			});
+		</script>
+	</body>
+
+</html>

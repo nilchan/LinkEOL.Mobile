@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="yes" name="apple-touch-fullscreen" />
+		<meta content="telephone=no,email=no" name="format-detection" />
+		<meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>首页</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+			body,
+			.index-content-bg {
+				background: #eeeeee!important;
+			}
+			
+			@media only screen and (min-width:320px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			@media only screen and (min-width: 321px) and (max-width: 375px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 5px 0px 15px;
+					position: relative;
+					width: 78%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.index-up-secher-bg ul li em {
+					font-size: 46px;
+					position: absolute;
+					left: 26px;
+					top: 18px;
+				}
+				.index-up-secher-bg ul li span {
+					color: #333;
+					font-size: 16px;
+					position: absolute;
+					right: 40px;
+					top: 18px;
+				}
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			@media only screen and (min-width: 415px) and (max-width: 1025px) {
+				.teacher-list-con {
+					float: left;
+					padding: 5px 5px 0px 15px;
+					position: relative;
+					width: 82%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.index-up-secher-bg ul li {
+					width: 48%;
+				}
+				.index-up-secher-bg ul li em {
+					font-size: 46px;
+					position: absolute;
+					left: 110px;
+					top: 18px;
+				}
+				.index-up-secher-bg ul li span {
+					color: #333;
+					font-size: 16px;
+					position: absolute;
+					right: 130px;
+					top: 18px;
+				}
+			}
+			
+			.mui-bar-nav span {
+				bottom: 1px;
+				right: 1px;
+				position: absolute;
+				display: none;
+			}
+			
+			.p-teacher-list > a:not(.mui-btn) {
+				background: none;
+				margin: -11px -30px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<!--	<h1 id="title" class="mui-title">-->
+			<div class="index-title">
+				<img src="../../images/app-logo.png" />
+			</div>
+			<!--</h1>-->
+			<em class="iconfont mui-bar-nav-em" data-bind="click:goMessageList">&#xe685;
+				<!--<span class="mui-badge mui-badge-warning" data-bind="text: UnreadCount, visible: UnreadCount() > 0">	
+				</span>-->
+			<i class="index-red" data-bind="visible: UnreadCount() > 0 && getUserID() > 0 "></i>					
+			</em>
+		</header>
+		<div class="mui-content">
+			<!--banner-->
+			<div class="index-banner">
+				<div class="mui-slider">
+					<div class="mui-slider-group mui-slider-loop">
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a>
+								<img data-bind="attr:{src: common.getPhotoUrl2(slideshowEndPic())}">
+							</a>
+						</div>
+						<!--ko foreach:{data: slideshow, as: 'ss'}-->
+						<div class="mui-slider-item">
+							<a data-bind="click: gotoweb">
+								<img data-bind="attr:{src: common.getPhotoUrl2(ss.PicPath)}">
+							</a>
+						</div>
+						<!--/ko-->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a>
+								<img data-bind="attr:{src: common.getPhotoUrl2(slideshowStarPic())}">
+							</a>
+						</div>
+					</div>
+					<div class="mui-slider-indicator" data-bind="foreach: {data: slideshow}">
+						<div class="mui-indicator"></div>
+					</div>
+				</div>
+			</div>
+			<!--上传查找-->
+			<div class="pin-blank"></div>
+			<div class="index-two first-bottom">
+				<ul>
+					<li id="findTeacher" class="index-two-first" data-bind="click:gotoTeacherTest">
+						<div class="index-display">
+							<div class="iconfton-c">
+								<img src="../../images/index_003.png" />
+							</div>
+							<span class="index-two-span">查找老师</span>
+							<span class="index-teacher-select">顶尖名师任你选</span>
+						</div>
+					</li>
+					<li id="help" data-bind="click:goHelp">
+						<div class="index-display">
+							<div class="iconfton-c">
+								<img src="../../images/index_002.png" />
+							</div>
+							<span class="index-two-span index-teacher-li-second index-two-ipad1">用户指南</span>
+							<span class="index-teacher-select index-teacher-li-second">使用流程指引</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="index-two">
+				<ul>
+					<li class="index-two-first index-two-second" data-bind="click:gotoActivityWorks">
+						<div class="index-display">
+							<div class="iconfton-c">
+								<img src="../../images/index_001.png" />
+							</div>
+							<span class="index-two-span index-two-ipad">活动作品</span>
+							<span class="index-teacher-select index-two-ipad">作品大赛通道</span>
+						</div>
+					</li>
+					<li data-bind="click:gotoExam">
+						<div class="index-display">
+							<div class="iconfton-c">
+								<img src="../../images/index_004.png" />
+							</div>
+							<span class="index-two-span index-teacher-li-second index-two-ipad2">考级报名</span>
+							<span class="index-teacher-select index-teacher-li-second index-two-ipad2">中国民族管弦乐</span>
+						</div>
+					</li>
+				</ul>
+
+			</div>
+			<!-- 头条-->
+			<div class="pin-blank"></div>
+			<div class="headline">
+				<div class="headline-left">
+					<img src="../../images/headline.png" />
+				</div>
+				<div id="marquee-view" class="headline-right">
+					<p>11筝声里的古诗雅韵-王中山古筝独</p>
+					<p>22筝声里的古诗雅韵-王中山古筝独</p>
+					<p>33筝声里的古诗雅韵-王中山古筝独</p>
+					<p>44筝声里的古诗雅韵-王中山古筝独</p>
+					<p>11筝声里的古诗雅韵-王中山古筝独</p>
+				</div>
+			</div>
+			<!--科目-->
+			<div class="pin-blank"></div>
+			<div class="index-subject">
+				<ul>
+					<div data-bind="foreach:{data: indexSubject, as: 'indexS'}">
+						<li data-bind="click: gotoTeachers">
+							<img data-bind="attr:{src: '../../images/subject_'+indexS.id+'.png'}" />
+							<span data-bind="text: indexS.subjectName"></span>
+						</li>
+					</div>
+					<li onclick="gotoMore()">
+						<img src="../../images/subject_more.png" />
+						<span>更多</span>
+					</li>
+				</ul>
+
+			</div>
+
+			<div class="pin-blank"></div>
+			<div class="index-th-div">
+				<em></em>
+				<span class="index-teacher">热门活动</span>
+				<span class="index-more" data-bind="click: gotoactivityList">查看更多<i class="iconfont">&#xe618;</i>
+				</span>
+			</div>
+			<div class="index-hot-activity">
+				<ul data-bind="foreach: {data: activitys}">
+					<li data-bind="click: gotoActivityInfo"><img data-bind="attr: {src: common.getPhotoUrl2(Thumbnail)}" /></li>
+				</ul>
+			</div>
+			<div class="pin-blank"></div>
+			<div class="index-th-div">
+				<em></em>
+				<span class="index-teacher">名师介绍</span>
+				<span class="index-more" onclick="gotoTeacherTest()">查看更多<i class="iconfont">&#xe618;</i>
+				</span>
+			</div>
+			<div data-bind="template: {name:'teacherTemplate', foreach: Teachers }">
+			</div>
+			<!--teacher模板页-->
+			<script type="text/html" id="teacherTemplate">
+				<div class="p-teacher-list mui-table-view-cell" data-bind="event:{tap:gotoTeacher}">
+					<a href="javascript:void(0);">
+						<div class="teacher-head">
+							<img data-bind="attr:{src: common.getPhotoUrl(Photo)}" onerror="this.src='../../images/my-default.png';" />
+						</div>
+						<div class="teacher-list-con teacherList-professional">
+							<span class="teacher-list-teacherName" data-bind="text: DisplayName">张三</span>
+							<!--<i data-bind="css: 'star'+(Star)+' teacher-list-star'"></i>-->
+							<!--<i data-bind="css: 'star'+(5-Star)+' teacher-list-star-c'"></i>-->
+							<em class="professional" data-bind='visible:IsFamous && ProTitleAuth'><i class="iconfont">&#xe696;</i></em>
+							<em class="education" data-bind='visible:IsFamous==false && EduAuth'><i class="iconfont">&#xe69b;</i></em>
+							<em class="identity" data-bind='visible:IsFamous==false && IDAuth'><i class="iconfont">&#xe69e;</i></em>
+							<span class="teacher-list-subject" data-bind="text: SubjectName">小提琴</span>
+							<p class="teacher-list-p1" data-bind="text: Introduce">著名演奏家，国家一级演奏员，中国民族管弦乐 学会理事，中国音乐家...
+							</p>
+						</div>
+					</a>
+				</div>
+			</script>
+			<div class="index-content-bg">
+				<div class="index-tel">
+					<a id="phone">官方热线：020-38609216</a>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/home/home.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			/*document.getElementById('addWorks').addEventListener('click', function() {
+							common.transfer('../works/addWorks.html', true, common.extrasUp(0), false, false);
+						});*/
+			document.getElementById('phone').addEventListener('click', function() {
+				var btnArray = ['取消', '确认'];
+				mui.confirm('确认拨打电话？', '拨打电话', btnArray, function(e) {
+					if (e.index == 1) {
+						window.location = "tel:02038609216";
+					}
+				});
+			});
+			var marquee = $A.gI('marquee-view');
+			var scrollRow = function(height, speed) {
+					setTimeout(function() {
+						marquee.scrollTop++;
+						if (marquee.scrollTop % height !== 0) {
+							scrollRow(height, speed);
+						}
+					}, speed);
+				}
+			
+			/**
+			 * 
+			 * @param {Number} height 滚动的高度（px）
+			 * @param {Number} speed  滚动的速度（毫秒）
+			 * @param {Number} inter  滚动的间隔 （毫秒）
+			 * @param {Number} count  滚动的条目数 （毫秒）
+			 */
+			function marqueeText(height, speed, inter, count) {
+				scrollRow(height, speed);
+				setInterval(function(){
+					scrollRow(height, speed);
+					if( marquee.scrollTop === count * height) {
+						marquee.scrollTop = 0;
+					}
+				}, inter);
+			}
+			marqueeText(22, 50, 4000, 4);
+			
+			
+		</script>
+	</body>
+
+</html>

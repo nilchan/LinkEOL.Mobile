@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style type="text/css">
+			.mui-input-group:after,
+			.mui-input-group:before,
+			.mui-input-group {
+				background: #f1f1f1!important;
+			}
+			
+			.mui-content-padded {
+				margin: 10px 0 0 0!important;
+			}
+			
+			.mui-popover {
+				min-height: 255px;
+				position: fixed;
+				top: 0;
+			}
+			
+			.select-current {
+				background: #ffffff;
+			}
+			
+			/*下拉样式*/
+			
+			#pull-down-nav {
+				width: 100%;
+				position: fixed;
+				top: 0px;
+				left: 0px;
+				background: #f0eded;
+				min-height: 250px;
+				z-index: 999;
+				display: none;
+				overflow: hidden;
+			}
+			
+			#down-nav1 {
+				width: 100%;
+				background: #eeeeee;
+				height: 100%;
+				overflow: hidden;
+				float: left;
+			}
+			
+			#down-nav1 ul {
+				min-height: 250px;
+				overflow-y: scroll;
+			}
+			
+			#down-nav1 ul li {
+				height: 36px;
+				color: #666;
+				padding: 0 15px;
+				width: 100%;
+				line-height: 32px;
+				box-sizing: border-box;
+				font-size: 14px;
+				border-bottom: 1px solid #ccc;
+			}
+			
+			#down-nav2 {
+				width: 70%;
+				height: 250px;
+				background: #CCCCCC;
+				float: left;
+				position: absolute;
+				overflow-y: scroll;
+				left: 30%;
+			}
+			
+			#down-nav2 ul {
+				min-height: 250px;
+				overflow-y: scroll;
+			}
+			
+			#down-nav2 ul li {
+				height: 36px;
+				color: #666;
+				padding: 0 15px;
+				width: 100%;
+				line-height: 32px;
+				box-sizing: border-box;
+				font-size: 14px;
+				border-bottom: 1px solid #c4c2c2;
+			}
+			
+			#down-nav3 {
+				width: 40%;
+				height: 250px;
+				background: #C0C0C0;
+				float: left;
+				left: 60%;
+				position: absolute;
+				overflow-y: scroll;
+				display: none;
+			}
+			
+			#down-nav3 ul {
+				min-height: 250px;
+				overflow-y: scroll;
+			}
+			
+			#down-nav3 ul li {
+				height: 36px;
+				color: #666;
+				padding: 0 15px;
+				width: 100%;
+				line-height: 32px;
+				box-sizing: border-box;
+				font-size: 14px;
+				border-bottom: 1px solid #ccc;
+			}
+			
+			#down-nav1 ul li:active {
+				background: #eee;
+			}
+			
+			#down-nav2 ul li:active {
+				background: #c5c4c4;
+			}
+			
+			#down-nav3 ul li:active {
+				background: #b4b3b3;
+			}
+			#subject-nav-list {
+				display: none;
+			}
+			
+			#sort-nav-list {
+				display: none;
+			}
+			
+			#type-nav-list {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div id="pull-down-nav" class="mui-popover">
+				<div id="pull-down-nav-big">
+					<div id="down-nav1">
+						<ul>
+							<li id="subject-nav">科目</li>
+							<li id="type-nav" data-bind='visible:workUserType()==common.gDictUserType.teacher'>类型</li>
+							<li id="sort-nav">排序</li>
+						</ul>
+					</div>
+					<div id="down-nav2">
+						<ul id="subject-nav-list" data-bind="foreach: {data: tmplSubjectClasses, as: 'class1'}">
+							<li data-bind="text: class1.subjectClassName, event: {'tap': setClasses}, css:{'select-current': (class1.subjectClass == currentSubjectClasses().subjectClass)}">西洋乐器</li>
+						</ul>
+						<ul id="sort-nav-list" data-bind="foreach:{data: common.gJsonWorkSort}">
+							<li data-bind="text: text,event: {'tap': sortWorks},css:{'select-current': (value == currentSort())}">西洋乐器2</li>
+						</ul>
+						<ul id="type-nav-list" data-bind="foreach:{data: common.gJsonWorkTypeTeacher}">
+							<li data-bind="text: text,event: {'tap': selectWorksType},css:{'select-current': (value == currentWorkTypes())}">西洋乐器2</li>
+						</ul>
+					</div>
+					<div id="down-nav3">
+						<ul data-bind="foreach: {data: subjectSelect, as: 'subject'}">
+							<li data-bind="text: subject.subjectName, event: {'tap': selectSubject}, css:{'select-current': (subject.id == currentSubject().id)}">西洋乐器</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="pullrefreshAll" class="mui-scroll-wrapper" data-bind="visible:worksLength()>0">
+				<div class="mui-scroll">
+					<ul class="mui-input-group" data-bind="foreach:{data:works}">
+						<li class="mui-table-view-cell works-list" data-bind="event:{tap: goWorksDetails}">
+							<a href="javascript:void(0);">
+								<div class="works-list-works" data-bind="style: {'background-image': 'url(' + (common.StrIsNull(VideoThumbnail) == '' ? '../../images/video-big-default.png' : common.getThumbnail(VideoThumbnail)) +')'}">
+									<span class="works-list-date-bg"></span>
+									<span class="works-list-date-font" data-bind="text:AddTime.split(' ')[0]">2015-12-17</span>
+									<div class="works-activity-div" data-bind="visible: WorkSrcType==common.gDictWorkSourceType.Activity">
+										<img src="../../images/worksMark_01.png" />
+									</div>
+								</div>
+								<div class="works-list-right">
+									<div class="works-list-title">
+										<span class="works-list-title-span" data-bind="text:Title">张小杰的作品</span>
+									</div>
+									<div class="works-list-subject" data-bind="text:SubjectName">钢琴</div>
+									<div class="works-list-name" data-bind="text: AuthorName">张小杰</div>
+									<!-- 名师点评样式  -->
+									<div class="Famous-comment" data-bind="visible: IsFamous && IsRecommend==false">
+										<img width="50" src="../../images/Famous-comment.png">
+									</div>
+									<!-- 名师推荐样式  -->
+									<div class="Famous-teacher" data-bind="visible: IsRecommend">
+											<img width="50" src="../../images/Famous-teacher.png">
+									</div>
+
+								</div>
+								<div class="works-list-f">
+									<ul class="works-list-f-left">
+										<li class="aline-left">
+											<i class="iconfont">&#xe661;</i>
+											<!--ko text:ReadCount+(WorkType==1 || WorkType==2?'人正在学习':(WorkType==3?'人已观赏':'人已浏览'))-->
+											<!--/ko-->
+										</li>
+										<li class="aline-right">
+											<i class="iconfont">&#xe663;</i>
+											<!--ko text:LikeCount-->
+											<!--/ko-->
+										</li>
+									</ul>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="openedCourses-ys" data-bind="visible:worksLength()<=0">
+				<i>
+				<img src="../../images/logo-pic.png" />
+			</i>
+				<span>还没有该类型作品~</span>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/mui/mui.picker.min.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/works/workListAll.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

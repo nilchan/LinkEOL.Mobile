@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../content/cropperjs/cropper.css" />
+		<style>
+			.mui-table-view {
+				margin: 0!important;
+				background: #F1F1F1!important;
+			}
+			.mui-table-view-cell .mui-navigate-right>.mui-badge {
+				right: 160px!important;
+			}
+			.mui-navigate-right:after {
+				content: "\e618"!important;
+				top: 22px!important;
+				font-size: 1.2rem!important;
+				right: -2px;
+			}
+			.mui-badge {
+				background: none!important;
+				color: #999;
+				font-size: 0.98rem;
+			}
+			.mui-table-view-cell>a:not(.mui-btn) {
+				font-size: 1.02rem;
+				background: none!important;
+				margin: -11px 150px -11px -15px!important;
+				padding-right: 340px;
+			}
+			.mui-badge {
+				padding: 3px 10px!important;
+			}
+			.mui-btn-blue, .mui-btn-primary, input[type=submit]{
+				    border: 1px solid #e64578;
+    				background-color: #e64578;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-action-back mui-bar mui-bar-nav">
+			<i class="iconfont">&#xe602;</i>
+			<h1 class="mui-title">学历认证</h1>
+		</header>
+		<div class="mui-content titleCertification-mui-content">
+			<p>请提交在有效期内的学历证件照片，需保证证件及文字清晰可见</p>
+
+			<div class="titleCertification-pic-div" data-bind="click:showPic">
+				<div class="uploadbar"><img id="imgUpload" data-bind="attr: {'src': Path}" /></div>
+				<i class="iconfont" data-bind="visible: Path()==''">&#xe633;</i>
+				<em data-bind="visible: Editable">点击上传图片</em>
+			</div>
+			<u data-bind="text:AuthEduStatus, visible: !Editable()"></u>
+			<div class="mui-content-padded" data-bind="visible: Editable">
+				<button class="mui-btn mui-btn-block mui-btn-primary th-btn p-btn-color" data-bind="click:authEduSub">提交</button>
+			</div>
+			<div class="mui-content-padded" data-bind="visible: !Editable()">
+				<button class="mui-btn mui-btn-block mui-btn-primary th-btn p-btn-color" data-bind="click:reAuth">重新认证</button>
+			</div>
+		</div>
+	</body>
+	<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/mui/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/cropperjs/cropper.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/picture.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/my/authEdu.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			body,
+			.mui-content {
+				background: #f1f1f1;
+			}
+			
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 200px;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #929292;
+			}
+			 .mui-checkbox.mui-left input[type='checkbox']{
+				left: 10px!important;
+			}
+			.mui-input-group {
+				 margin-bottom: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back" style="width:40px; height:40px; display: inline-block;">&#xe683;</i>
+			<h1 class="mui-title">管理报名</h1>
+		</header>
+		<div class="mui-content">
+			<div class="card-bg">
+				<div class="registeredList-div">所有您的授课学生</div>
+				<form class="mui-input-group" data-bind="template:{name:'regTemplate',foreach: dispList}">
+				</form>
+				
+				<script type="text/html" id="regTemplate">
+					<div class="mui-input-row mui-checkbox mui-left card-row">
+						<div class="card-right">
+							<img data-bind="attr:{'src':common.getPhotoUrl(Photo)}"  onerror="this.src='../../images/my-default.png';"/>
+							<div class="card-row-right">
+								<span data-bind="text:DisplayName"></span><u></u>
+								<u class="u-font-right" data-bind="text:TheAge"></u>
+							</div>
+							<div class="card-row-right card-row-dow">
+								<u data-bind="text:Province + City + District"></u>
+							</div>
+						</div>
+						<div class="card-row-left">
+							<input name="checkbox" type="checkbox" data-bind="value: ID, checked: Checked">
+						</div>
+					</div>
+				</script>
+			</div>
+
+			<nav class="mui-bar mui-bar-tab">
+				<!--<a class="ah-mui-tab-item mui-active works-list-mui-tab-label" href="#tabbar"></a>-->
+				<div class="mui-input-row mui-checkbox mui-left select-all">
+					<label>全选</label>
+					<input name="checkbox" value="all" type="checkbox" id="checkId" data-bind="event:{tap: checkAll}">
+				</div>
+				<a class="ah-mui-tab-item works-list-mui-tab-btn" data-bind="event:{tap:ensure}">
+					<span class="mui-tab-label works-list-mui-btn">确定</span>
+				</a>
+			</nav>
+		</div>
+		<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/course/registeredList.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

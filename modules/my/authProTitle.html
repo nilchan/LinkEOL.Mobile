@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../content/cropperjs/cropper.css" />
+		<style>
+			.mui-table-view {
+				margin: 0!important;
+				background: #F1F1F1!important;
+			}
+			.mui-table-view-cell.mui-navigate-right>.mui-badge {
+				right: 160px!important;
+			}
+			.mui-navigate-right:after {
+				content: "\e618"!important;
+				top: 22px!important;
+				font-size: 16px!important;
+				right: 15px;
+			}
+			.mui-badge {
+				background: none!important;
+				color: #999;
+				font-size: 0.98rem;
+				padding: 3px 87px!important;
+				text-align: center;
+			}
+			.mui-table-view-cell {
+    			position: relative;
+    			overflow: hidden;
+    			padding: 11px 0px;
+    			-webkit-touch-callout: none;
+			}
+			.mui-table-view-cell>a:not(.mui-btn) {
+				font-size: 16px;
+				background: none!important;
+				margin: -11px 0px!important;
+				padding-left: 15px;
+				padding-right: 15px;
+			}
+			.mui-navigate-right{
+				width: 100%;
+				margin-left: 15px;
+			}	
+			.mui-navigate-right span{
+				width: 30%;
+				height: 100%;
+				display: inline-block;
+				padding-left: 15px;
+				box-sizing: border-box;
+				float: left;
+				font-size: 16px;
+			}
+			.mui-navigate-right u{
+				text-decoration: none;
+				width: 60%;
+				float: left;
+				color: #999;
+				font-size: 14px;
+				text-align: center;
+				display: inline-block;				
+				box-sizing: border-box;
+				margin-top: -6px;
+				margin-left: -30px;				
+			}	
+			.mui-btn-blue, .mui-btn-primary, input[type=submit]{
+				    border: 1px solid #e64578;
+    				background-color: #e64578;
+			}
+			@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.mui-navigate-right u{
+				text-decoration: none;
+				width: 60%;
+				float: left;
+				color: #999;
+				font-size: 14px;
+				text-align: center;
+				display: inline-block;				
+				box-sizing: border-box;
+				margin-top: -11px;
+				margin-left: -30px;				
+			}	
+			}
+		</style>
+	</head>
+
+	<body> 
+		<header class="mui-action-back mui-bar mui-bar-nav ">
+			<i class="iconfont">&#xe602;</i>
+			<h1 class="mui-title">职称认证</h1>
+		</header>
+		<div class="mui-content titleCertification-mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell"><a class="mui-navigate-right">
+						<span>职称</span>
+						<u  data-bind="text:ProTitleTypeText, event:{click:chooseAuthPro}, enable: Editable">选择职称</u>
+					</a></li>
+			</ul>
+			<p>请提交在有效期内的职称证件照片，需保证证件及文字清晰可见</p>
+			<div class="titleCertification-pic-div" data-bind="click:showPic">
+				<img id="imgUpload" data-bind="attr: {'src': Path}" />
+				<i class="iconfont" data-bind="visible: Path()==''">&#xe633;</i>
+				<em data-bind="visible: Editable">点击上传图片</em>
+			</div>
+			<u data-bind="text: AuthProStatus, visible: !Editable()"></u>
+			<div class="mui-content-padded" data-bind="visible: Editable">
+				<button class="mui-btn mui-btn-block mui-btn-primary th-btn p-btn-color" data-bind="click:authProTitleSub">提交</button>
+			</div>
+			<div class="mui-content-padded" data-bind="visible: !Editable()">
+				<button class="mui-btn mui-btn-block mui-btn-primary th-btn p-btn-color" data-bind="click:reAuth">重新认证</button>
+			</div>
+		</div>
+	</body>
+	<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/mui/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/cropperjs/cropper.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/picture.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/my/authProTitle.js" type="text/javascript" charset="utf-8"></script>
+</html>

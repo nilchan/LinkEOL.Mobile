@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">彩排流程</h1>
+		</header>
+		<div class="mui-content" data-bind="foreach:{data: rehearsalList}">
+		<table class="activity-table" border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+			<tr class="activityRehearsal-title">
+				<td colspan="4" data-bind="text: RehearsalName">岭南专场音乐会（12.13下午）</td>
+			</tr>
+			<tr class="activity-title">
+				<td>走台时间</td>
+				<td>曲目名称</td>
+				<td>参演嘉宾</td>
+				<td>联系电话</td>
+			</tr>
+			<!--ko foreach:{data: RehearsalSubs}-->
+			<tr>
+				<td data-bind="text: BeginTime.substring(10, 16) + '~'+ EndTime.substring(10, 16)"></td>
+				<td data-bind="text: RehearsalName"></td>
+				<td data-bind="text: Players"></td>
+				<td data-bind="text: ContactInfo"></td>
+			</tr>
+			<!--/ko-->
+		</table>
+		
+		
+		
+		</div>
+			<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/activity/activityRehearsal.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

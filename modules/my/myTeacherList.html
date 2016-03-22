@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+				.content-top {
+				margin-top: 44px;
+			}
+			
+			@media only screen and (min-width:320px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+			}
+			
+			@media only screen and (min-width: 321px) and (max-width: 375px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 5px 0px 15px;
+					position: relative;
+					width: 78%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			@media only screen and (min-width: 376px) and (max-width: 415px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+			}
+			.p-btn-padding{
+					margin: 10px auto!important;
+				    padding: 8px 0!important;
+				    width: 86%!important;
+				    font-size: 16px;
+				}
+				@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.shareTeacher-pic ul li img {
+					height: 3rem;
+					width: 3rem;
+				}
+			}
+			
+			.share-height {
+				top: 100%!important;
+				margin-top: -178px!important;
+				left: 0px!important;
+				position: fixed!important;
+			}
+			
+			.share-height.mui-active {
+				top: 100%!important;
+				margin-top: -178px!important;
+			}
+			
+			@media only screen and (min-width: 415px) and (max-width: 1025px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 82%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.share-height {
+					position: fixed!important;
+				}
+				.share-height {
+					top: 100%!important;
+					margin-top: -178px!important;
+					left: 0px!important;
+				}
+				
+				.margin-top{
+					margin-top: 10px;
+				}	
+				
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe602;</i>
+			<h1 class="mui-title">授课老师列表</h1>
+			<em class="iconfont mui-bar-nav-em" data-bind="click:qrcodeEvent">&#xe656;</em>
+		</header>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper" id="pullrefresh" data-bind='visible:instructedArray().length>0' style="top: 44px;">
+				<div class="mui-scroll">
+					<!--教师显示页-->
+					<ul class="mui-input-group">
+						<div data-bind="foreach:{data:instructedArray}">
+							<div class="p-teacher-list mui-table-view-cell">
+								<a href="javascript:void(0);" data-bind="event:{tap:goTeacherInfo}">
+									<span class="teacher-list-sc" data-bind="visible: IsConfirm==false">未通过</span>
+									<em class="teacher-list-check"></em>
+									<div class="teacher-head">
+										<img data-bind="attr:{src: common.getPhotoUrl(Photo)}" onerror="this.src='../../images/my-default.png';" />
+									</div>
+									<div class="teacher-list-con teacherList-professional">
+										<span class="teacher-list-teacherName" data-bind="text: DisplayName">张三</span>
+										<i data-bind="visible:IsFamous==false,css: 'star'+((Star>4?'3':Star))+' teacher-list-star'"></i>
+										<!--<i data-bind="css: 'star'+(5-teacher.info.Star)+' teacher-list-star-c'"></i>-->
+										<em class="professional" data-bind='visible:IsFamous && ProTitleAuth'><i class="iconfont">&#xe696;</i></em>
+										<em class="education" data-bind='visible:IsFamous==false && EduAuth'><i class="iconfont">&#xe69b;</i></em>
+										<em class="identity" data-bind='visible:IsFamous==false && IDAuth'><i class="iconfont">&#xe69e;</i></em>
+										<span class="teacher-list-subject" data-bind="text: SubjectName">小提琴</span>
+										<p class="teacher-list-p1" data-bind="text:Introduce">著名演奏家，国家一级演奏员，中国民族管弦乐 学会理事，中国音乐家...</p>
+									</div>
+								</a>
+							</div>
+						</div>
+					</ul>
+				</div>
+			</div>
+
+			<!--当没有授课老师时-->
+			<div class="openedCourses-ys" data-bind="visible:instructedArray().length<=0">
+				<i>
+					<img src="../../images/logo-pic.png" />
+				</i>
+				<span>还没有授课老师</span><span>点击右上角扫一扫老师二维码或分享添加</span>
+				<div class="mui-content-padded">
+					<button type="button" class="mui-btn mui-btn-primary mui-btn-block p-btn-padding p-btn-color" data-bind="click: gotoTeacherList">搜索添加老师</button>
+					<a class="mui-btn mui-btn-primary mui-btn-block p-btn-padding p-btn-color" href='#sharePopover'>分享给老师</a>
+				</div>
+			</div>
+
+			<!--分享控件-->
+			<div id="sharePopover" class="mui-popover share-height">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="shareTeacher-pic">
+							<ul>
+								<li id="weichatFriend">
+									<img src="../../images/share-wx.png" />
+									<span>微信好友</span>
+								</li>
+								<li id="weichatMoments">
+									<img src="../../images/share-py.png" />
+									<span>微信朋友圈</span>
+								</li>
+								<li id="qqFriend">
+									<img src="../../images/share-qq.png" />
+									<span>QQ好友</span>
+								</li>
+							</ul>
+						</div>
+						<div class="shareTeacher-qx" data-bind="click:closeShare">取消</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/instructTeacher.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+			body,
+			.mui-content {
+				background: #f1f1f1 !important;
+			}
+			
+			.mui-control-item {
+				color: #666!important;
+				border-right: 1px solid #C8C7CC !important;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				color: #e64578!important;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted ~ .mui-slider-progress-bar {
+				background: none !important;
+			}
+			
+			.mui-slider .mui-segmented-control.mui-segmented-control-inverted ~ .mui-slider-group .mui-slider-item {
+				border-bottom: none !important;
+				border-top: none !important;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted {
+				border-bottom: 0.7px solid #C8C7CC !important;
+				border-top: 0.7px solid #C8C7CC !important;
+			}
+			
+			.mui-control-content {
+				min-height:18.5rem;	
+				margin-bottom: 40px;
+			}
+			.mui-table-view-cell {
+				padding: 12px 15px;
+			}
+			
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			
+			/*.mui-active {
+				color: #666 !important;
+			}
+			*/
+			.mui-slider .mui-slider-group .mui-slider-item .mui-table-view:before,
+			.mui-slider .mui-slider-group .mui-slider-item .mui-table-view:after {
+				height: 1px !important;
+			}
+			.myOrders-t .orderSelect {
+				color: #F08000;
+			}
+			.mui-control-item.mui-active{
+				color: #e64578!important;
+			}
+			/*.mui-active{
+				background: #F1F1F1!important;
+			}*/
+		</style>
+	</head>
+
+	<body>
+		<div class="myAccount-header">
+			<i class="iconfont mui-action-back top-btn">&#xe683;</i>
+			<!--<span class="iconfont top-btn top-btn-right" data-bind="click:Withdraw">提现</span>-->
+			<em>
+				<img data-bind="attr: {'src': Photo}" onerror="this.src='../../images/my-default.png';" />
+			</em>
+			<span style="margin-top: 6.8rem;"><!--ko text:DisplayName--><!--/ko--></span>
+			<span style="margin-top:1.5rem!important;">
+				<u class="span-u">余额：￥</u>
+				<u class="span-u" data-bind="text: Balance"></u>
+			</span>
+		</div>
+		
+		<div>
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item myOrders-active mui-active" href="#item1mobile"> 未支付 </a>
+					<a class="mui-control-item myOrders-active" href="#item2mobile"> 已支付 </a>
+					<a class="mui-control-item myOrders-active" href="#item3mobile"> 已退款 </a>
+				</div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll" data-bind="foreach: {data: OrdersNotPay }">
+								<ul class="mui-table-view" data-bind="click: goDetail">
+									<li class="mui-table-view-cell myAccount-cell">
+										<span class="span-color-grey" style="width: 21%; float: left; display: inline-block;" data-bind='text: TargetTypeName'></span>
+										<span class="span-color-grey" data-bind='text: TargetName'></span>
+										<span class="span-color-grey" data-bind='text: OrderTime.split(" ")[0]'></span>
+										<span data-bind='text: "￥" + Amount'></span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll" data-bind="foreach: {data: OrdersPayed }">
+								<ul class="mui-table-view" data-bind="click: goDetail">
+									<li class="mui-table-view-cell myAccount-cell">
+										<span class="span-color-grey" data-bind='text: TargetTypeName'></span>
+										<span class="span-color-grey" data-bind='text: TargetName'></span>
+										<span class="span-color-grey" data-bind='text: OrderTime.split(" ")[0]'></span>
+										<span data-bind='text: "￥" + Amount'></span>
+										<span style="margin-top: 18px; " data-bind='text: "评分："+ Score.toFixed(1), visible: (Score > 0 && (TargetType == common.gDictOrderTargetType.Comment || TargetType == common.gDictOrderTargetType.CourseToUser))'></span>
+										<!--<div class="mui-content-padded myAccount-sure " data-bind="visible: (Score === 0 && (TargetType == common.gDictOrderTargetType.Comment || TargetType == common.gDictOrderTargetType.CourseToUser))">
+											<a href="#middlePopover" class="mui-btn mui-btn-warning mui-btn-outlined myOrders-sure-btn" data-bind="event:{tap: getOrderID}">
+											确认完成
+											</a>
+										</div>-->
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll3" class="mui-scroll-wrapper">
+							<div class="mui-scroll" data-bind="foreach: {data: OrdersRefunded }">
+								<ul class="mui-table-view" data-bind="click: goDetail">
+									<li class="mui-table-view-cell myAccount-cell">
+										<span class="span-color-grey" data-bind='text: TargetTypeName'>12</span>
+										<span class="span-color-grey" data-bind='text: TargetName'>34</span>
+										<span class="span-color-grey" data-bind='text: OrderTime.split(" ")[0]'>56</span>
+										<span data-bind='text: "￥" + Amount'>78</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<nav class="mui-bar mui-bar-tab">
+				<a class="mui-tab-item works-list-mui-tab-btn"> <span class="mui-tab-label myAccount-mui-tab-label"> <em>小计：￥</em><em data-bind='text: Sum'></em> </span> </a>
+			</nav>
+			<div id="middlePopover" class="mui-popover myOrders-pop">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li id="orderstar" class="myOrders-t">
+							<span>评分：</span><i class="iconfont">&#xe653;</i><i class="iconfont">&#xe653;</i><i class="iconfont">&#xe653;</i><i class="iconfont">&#xe653;</i><i class="iconfont">&#xe653;</i>
+						</li>
+					</ul>
+					<div id="orderSubmit" class="myOrders-wc">
+						完成
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/myOrders.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init({
+				swipeBack: false
+			});
+			(function($) {
+				$('.mui-scroll-wrapper').scroll({
+					indicators: true //是否显示滚动条
+				});
+				var html2 = '<div class="mui-loading"><div class="mui-spinner"></div></div>'
+				var html3 = '<div class="mui-loading"><div class="mui-spinner"></div></div>';
+				//var html2 = '<ul class="mui-table-view"><li class="mui-table-view-cell myAccount-cell"><span>点评</span><span>点评张三的作品点2评张三的作品</span><span>2015-9-29</span><span>￥50.00</span></li><li class="mui-table-view-cell myAccount-cell"><span>点评</span><span>点评张三的作品点评张三的作品</span><span>2015-9-29</span><span>￥50.00</span></li></ul>';
+				//var html3 = '<ul class="mui-table-view"><li class="mui-table-view-cell myAccount-cell"><span>点评</span><span>点评张三的作品点3评张三的作品</span><span>2015-9-29</span><span>￥50.00</span></li><li class="mui-table-view-cell myAccount-cell"><span>点评</span><span>点评张三的作品点评张三的作品</span><span>2015-9-29</span><span>￥50.00</span></li></ul>';
+				var item2 = document.getElementById('item2mobile');
+				var item3 = document.getElementById('item3mobile');
+				document.getElementById('slider').addEventListener('slide', function(e) {
+					if (e.detail.slideNumber === 1) {
+						GetPayed();
+						if (item2.querySelector('.mui-loading')) {
+							setTimeout(function() {
+								item2.querySelector('.mui-scroll').innerHTML = html2;
+							}, 500);
+						}
+					} else if (e.detail.slideNumber === 2) {
+						GetRefunded();
+						if (item3.querySelector('.mui-loading')) {
+							setTimeout(function() {
+								item3.querySelector('.mui-scroll').innerHTML = html3;
+							}, 500);
+						}
+					} else {
+						GetNotPay();
+					}
+				});
+				var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
+				$('.mui-input-group').on('change', 'input', function() {
+					if (this.checked) {
+						sliderSegmentedControl.className = 'mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-' + this.value;
+						//force repaint
+						sliderProgressBar.setAttribute('style', sliderProgressBar.getAttribute('style'));
+					}
+				});
+			})(mui);
+		</script>
+	</body>
+
+</html>

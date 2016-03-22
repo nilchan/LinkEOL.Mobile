@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<style>
+				body {
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-size: cover;
+			}
+			
+			.mui-input-group,
+			.mui-content {
+				background: #eee!important;
+			}
+			
+			.ah-select-list ul li {
+				width: 33.3333%;
+				padding: 0 20px;
+			}
+			
+			.ah-select-list a {
+				height: 100%;
+				display: block;
+			}
+			
+			.ah-select-list span,
+			.ah-mui-navigate-right:after {
+				right: 9%;
+			}
+			
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #929292;
+			}
+			
+			.mui-radio.mui-left input[type='radio'] {
+				left: 10px;
+			}
+			
+			.mui-input-group:after,
+			.mui-input-group:before,
+			.mui-input-group {
+				background: #f7f7f7!important;
+			}
+			
+			.mui-content-padded {
+				margin: 10px 0 0 0!important;
+			}
+			
+			.mui-popover {
+				min-height: 255px;
+				position: fixed;
+				top: 0;
+			}
+			
+			.works-center {
+				height: auto;
+				background-color: rgb(255, 255, 255);
+				box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.118);
+				width: 96%;
+				margin-left: 2%;
+				padding: 15px 0;
+				box-sizing: border-box;
+				margin-bottom: 10px;
+				position: relative;
+				overflow: hidden;
+			}
+			/*下拉样式*/
+			
+			#pull-down-nav {
+				width: 100%;
+				position: fixed;
+				top: 0px;
+				left: 0px;
+				background: #e6e5e5;
+				min-height: 250px;
+				z-index: 999;
+				display: none;
+				overflow: hidden;
+			}
+			
+			#down-nav1 {
+				width: 100%;
+				background: #f1f1f1;
+				height: 100%;
+				overflow: hidden;
+				float: left;
+			}
+			
+			#down-nav1 ul {
+				min-height: 250px;
+				overflow-y: scroll;
+			}
+			
+			#down-nav1 ul li {
+				height: 36px;
+				color: #666;
+				padding: 0 15px;
+				width: 100%;
+				line-height: 32px;
+				box-sizing: border-box;
+				font-size: 14px;
+				border-bottom: 0.5px solid #cbcbcb;
+			}
+			
+			#down-nav2 {
+				width: 70%;
+				height: 250px;
+				background: #e5e5e5;
+				float: left;
+				position: absolute;
+				overflow-y: scroll;
+				left: 30%;
+			}
+			
+			#down-nav2 ul {
+				min-height: 250px;
+				overflow-y: scroll;
+			}
+			
+			#down-nav2 ul li {
+				height: 36px;
+				color: #666;
+				padding: 0 15px;
+				width: 100%;
+				line-height: 32px;
+				box-sizing: border-box;
+				font-size: 14px;
+				border-bottom: 0.5px solid #cbcbcb;
+			}
+			
+			#down-nav3 {
+				width: 40%;
+				height: 250px;
+				background: #dedede;
+				float: left;
+				left: 60%;
+				position: absolute;
+				overflow-y: scroll;
+				display: none;
+			}
+			
+			#down-nav3 ul {
+				min-height: 250px;
+				overflow-y: scroll;
+			}
+			
+			#down-nav3 ul li {
+				height: 36px;
+				color: #666;
+				padding: 0 15px;
+				width: 100%;
+				line-height: 32px;
+				box-sizing: border-box;
+				font-size: 14px;
+				border-bottom: 0.5px solid #cbcbcb;
+			}
+			
+			#down-nav1 ul li:active {
+				background: #e5e5e5;
+			}
+			
+			#down-nav2 ul li:active {
+				background: #dedede;
+			}
+			
+			#down-nav3 ul li:active {
+				background: #d6d6d6;
+			}
+			
+			#subject-nav-list {
+				display: none;
+			}
+			
+			#sort-nav-list {
+				display: none;
+			}
+			
+			.select-current-1 {
+				background: #e5e5e5;
+			}
+			.select-current-2 {
+				background: #dedede;
+			}
+			.select-current-3 {
+				background: #d6d6d6;
+			}
+			.teacherList-photo{
+				margin: 15px 0 10px 10px;
+			}
+			.teacherList-professional .professional-teacherList{
+				padding: 1px 5px;
+			}
+			@media only screen and (min-width:320px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+			}
+			
+			@media only screen and (min-width: 321px) and (max-width: 375px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 5px 0px 15px;
+					position: relative;
+					width: 78%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			@media only screen and (min-width: 376px) and (max-width: 415px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+			}
+			
+			@media only screen and (min-width: 415px) and (max-width: 1025px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 82%;
+					box-sizing: border-box;
+					position: relative;
+				}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div id="pull-down-nav" class="mui-popover">
+				<div id="pull-down-nav-big">
+					<div id="down-nav1">
+						<ul>
+							<li id="subject-nav">科目</li>
+							<li id="sort-nav">排序</li>
+						</ul>
+					</div>
+					<div id="down-nav2">
+						<ul id="subject-nav-list" data-bind="foreach: {data: tmplSubjectClasses, as: 'class1'}">
+							<li data-bind="text: class1.subjectClassName, event: {'tap': setClasses}, css:{'select-current-2': (class1.subjectClass == currentSubjectClasses().subjectClass)}">西洋乐器</li>
+						</ul>
+						<ul id="sort-nav-list" data-bind="foreach:{data: sorts}">
+							<li data-bind="text: text,event: {'tap': selectSort},css:{'select-current-2': (value == currentSort())}">西洋乐器2</li>
+						</ul>
+					</div>
+					<div id="down-nav3">
+						<ul data-bind="foreach: {data: subjectSelect, as: 'subject'}">
+							<li data-bind="text: subject.subjectName, event: {'tap': selectSubject}, css:{'select-current-3': (subject.id == currentSubject().id)}">西洋乐器</li>
+						</ul>
+					</div>
+
+				</div>
+
+			</div>
+			<div id="pullrefresh" class="mui-scroll-wrapper">
+				<div id="teacher-scroll" class="mui-scroll">
+					<!--教师显示页-->
+					<ul class="mui-input-group">
+						<div data-bind="foreach:{data:teacherList, as:'teacher'}">
+							<div data-bind="css: (selected() ? 'teacher-list-check-bgColor ' : '') + 'p-teacher-list mui-table-view-cell'">
+								<a href="javascript:void(0);" data-bind="event:{tap:clickOne}">
+									<span class="teacherList-sc" data-bind="visible: teacher.info.IsFavorite">已关注</span>
+									<em class="teacher-list-check" data-bind="visible: displayCheck">
+										<img data-bind="attr:{src: '../../images/radio-check'+(teacher.selected() ? '-active' : '')+'.png'}" />
+									</em>
+									<div class="teacher-head teacherList-photo">
+										<img data-bind="attr:{src: common.getPhotoUrl(teacher.info.Photo)}" onerror="this.src='../../images/my-default.png';" />
+									</div>
+									<div class="teacher-list-con teacherList-professional">
+										<span class="teacher-list-teacherName" data-bind="text: teacher.info.DisplayName">张三</span>
+										<i data-bind="visible:teacher.info.IsFamous==false,css: 'star'+(teacher.info.Star>3?'3':teacher.info.Star)+' teacher-list-star'"></i>
+										<!--<i data-bind="css: 'star'+(5-teacher.info.Star)+' teacher-list-star-c'"></i>-->
+										<em class="professional professional-teacherList" data-bind='visible:teacher.info.ProTitleAuth && teacher.info.IsFamous'><i class="iconfont">&#xe696;</i></em>
+										<em class="education" data-bind='visible:teacher.info.EduAuth && teacher.info.IsFamous==false'><i class="iconfont">&#xe69b;</i></em>
+										<em class="identity" data-bind='visible:teacher.info.IDAuth && teacher.info.IsFamous==false'><i class="iconfont">&#xe69e;</i></em>
+										<span class="teacher-list-subject" data-bind="text: teacher.info.SubjectName">小提琴</span>
+										<p class="teacher-list-p1" data-bind="text: teacher.info.Introduce">著名演奏家，国家一级演奏员，中国民族管弦乐 学会理事，中国音乐家...
+										</p>
+									</div>
+								</a>
+							</div>
+						</div>
+					</ul>
+				</div>
+			</div>
+
+			<nav class="mui-bar mui-bar-tab" data-bind="visible: displayCheck">
+				<a class="ah-mui-tab-item mui-active works-list-mui-tab-label mui-action-back">
+					<span class="mui-tab-label ">取消</span>
+				</a>
+
+				<a class="ah-mui-tab-item works-list-mui-tab-btn" data-bind="click: gotoSubmitClass">
+					<span class="mui-tab-label works-list-mui-btn">确定</span>
+				</a>
+			</nav>
+		</div>
+
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/jquery.min.js"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/teacher/teacherList.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
+
+	</body>
+
+</html>

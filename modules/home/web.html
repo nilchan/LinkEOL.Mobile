@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link rel="stylesheet" type="text/css" href="../../content/mui/mui.min.css" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/my/messageList.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../content/common/style.css"/>
+		<style>
+			/*.mui-bar h1{
+				color: #fff!important;
+			}*/
+			.mui-bar i{
+				color: #666!important;
+				line-height: 44px!important;
+			}
+			/*.index-title {
+				width: 18.26%!important;
+				height: auto;
+				margin: 0 15%;
+				overflow: hidden;
+				display: inline-block;
+			}*/
+			.index-title img {
+				width: 100%;
+				margin: 0 auto;
+			}
+			.activityInfo-nav {
+				width: 100%;
+			}
+			
+			@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.shareTeacher-pic ul li img {
+					height: 3rem;
+					width: 3rem;
+				}
+			}
+			
+			.share-height {
+				position: fixed!important;
+				z-index: 99999;
+			}
+			
+			.share-height.mui-active {
+				top: 100%!important;
+				margin-top: -168px!important;
+				z-index: 99999;
+			}
+			.mui-bar-nav .shareTeacher-tb {
+				float: right;
+				text-align: right;
+			}
+			.web-share{
+				text-align: right;
+				margin-right: 15px;
+				float: right;
+				margin-top: 10px;
+			}
+			@media only screen and (min-width: 415px) and (max-width: 1025px) {
+				.index-title {
+					width: 8%!important;
+					height: auto;
+					margin: 0 auto;
+					overflow: hidden;
+					display: block;
+					padding-top: 15px;
+				}
+				.index-title img {
+					width: 100%;
+					margin: 0 auto;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		<!--	<h1 id="title" class="mui-title">-->
+				<i class="iconfont mui-action-back">&#xe683;</i>
+				<h1 class="mui-title">乐评家</h1>
+				<!--<a href="#middlePopover" class="iconfont web-share">&#xe670;</a>-->
+		</header>
+		
+		<!--<div id="middlePopover" class="mui-popover share-height">
+			<div class="shareTeacher-pic">
+				<ul id="recommendArray">
+					<li id="weichatFriend">
+						<img src="../../images/share-wx.png" />
+						<span>微信好友</span>
+					</li>
+					<li id="weichatMoments">
+						<img src="../../images/share-py.png" />
+						<span>微信朋友圈</span>
+					</li>
+					<li id="qqFriend">
+						<img src="../../images/share-qq.png" />
+						<span>QQ好友</span>
+					</li>
+				</ul>
+			</div>
+			<div class="shareTeacher-qx" data-bind="click:closeShare">取消</div>
+		</div>-->
+		<nav class="mui-bar mui-bar-tab p-btn-color">
+				<a id="gotoSingUp" class="ah-mui-tab-item teacherList-mui-bar-tab">
+					<span class="mui-tab-label activityInfo-nav">我要报名</span>
+				</a>
+			</nav>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+			var web = plus.webview.currentWebview();
+			if( web.url.indexOf('?') > 0 ) {
+				web.url += '&device=app';
+			} else {
+				web.url += '?device=app';
+			}
+			var ID = 0;
+			ID =  parseInt(common.getQueryStringByName('t',web.url));
+			if( ID > 0 ) {
+				mui.init({
+					subpages: [{
+						url: web.url,
+						styles: {
+							top: '60px',
+							bottom: '48px'
+						}
+					}]
+				});
+			} else {
+				mui.init({
+					subpages: [{
+						url: web.url,
+						styles: {
+							top: '60px',
+							bottom: '0px'
+						}
+					}]
+				});
+			}
+			$A.gI('gotoSingUp').addEventListener('click', function() {
+				common.transfer('../activity/activityInfo.html', false, {
+					aid: ID
+				});
+			});
+			});
+			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style type="text/css">
+			.ah-select-list ul li {
+				width: 50%;
+				padding: 0 20px;
+			}
+			
+			.ah-select-list a {
+				height: 100%;
+				display: block;
+			}
+			
+			.ah-select-list span {}
+			
+			.ah-mui-navigate-right:after {
+				right: 33%;
+			}
+			
+			.mui-bar-nav ~ .mui-content .mui-pull-top-pocket {
+				top: 138px !important;
+			}
+			
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #929292;
+			}
+			
+			.works-list-mui-active1 {
+				border-radius: 39px 0 0 39px;
+			}
+			
+			.works-list-mui-active2 {
+				border-radius: 0 39px 39px 0;
+			}
+			
+			.works-list-mui-active .mui-active {
+				color: #fff!important;
+				background: #036FB8!important;
+				border: 1px solid #036FB8!important;
+			}
+			
+			.works-list-mui-active {
+				line-height: 30px!important;
+			}
+			
+			.mui-segmented-control .mui-control-item.mui-active {
+				color: #fff!important;
+			}
+			
+			.mui-segmented-control .mui-control-item.mui-active {
+				background: #e64578!important;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				color: #e64578!important;
+			}
+			
+			.mui-active {
+				color: #666!important;
+			}
+			
+			.works-list-mui {
+				margin-left: -77px!important;
+				width: 154px!important;
+			}
+			
+			.works-list-mui {
+				border: 1px solid #e64578!important;
+			}
+			
+			.list-search-show {
+				height: 34px;
+				width: 50%;
+				position: absolute;
+				right: 25%;
+				top:-1px;
+				opacity: 1;
+				z-index: 100;
+				animation: tolong 0.3s;
+			}
+			
+			.list-search-hide {
+				height: 34px;
+				width: 10%;
+				opacity: 0;
+				position: absolute;
+				right: 25%;
+				top: -1px;
+				animation: toshort 0.2s;
+			}
+			
+			#seachIcon {
+				position: absolute;
+				top: 0px;
+				left: 3px;
+			}
+			
+			@keyframes tolong {
+				0% {
+					width: 10%;
+				}
+				100% {
+					width: 50%;
+				}
+			}
+			
+			@keyframes toshort {
+				0% {
+					width: 50%;
+					opacity: 1;
+				}
+				80% {
+					opacity: 1;
+				}
+				100% {
+					width: 10%;
+					opacity: 0;
+				}
+			}
+			
+			input[type='text'] {
+				height: 34px;
+				background: #fff;
+				border: 1px solid #eee;
+				width: 100%;
+				border-radius: 20px;
+				color: #666;
+				line-height:34px;
+				font-family: "微软雅黑";
+				font-size: 14px;
+				padding-left: 38px;
+				box-sizing: border-box;
+			}
+			
+			.list-search i {
+				color: #999;
+				font-size: 32px;
+				position: absolute;
+				top: -5px;
+				left: 1%;
+			}
+			
+			.works-list-mui {
+				top: 8px!important;
+			}
+			.mui-bar .mui-input-row .mui-input-clear ~ .mui-icon-clear, .mui-bar .mui-input-row .mui-input-speech ~ .mui-icon-speech{
+				top: 3px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav works-list-mui-bar-nav">
+			<i class="iconfont mui-action-back ah-back">&#xe683;</i>
+			<!--<h1 class="mui-title"> 老师列表</h1>-->
+			<div id="input-search" class="list-search-hide mui-input-row">
+				<!--<form action="" method="post" onsubmit="seachValueEvent();return false">-->
+				<input class="mui-input-clear" type="text" placeholder="输入关键字搜索" id="seachInput" data-bind='value:seachValue' />
+				<!--</form>-->
+				<i class="iconfont" id="seachIcon">&#xe603;</i>
+			</div>
+			<div class="myAttention-bg-color">
+				<div id="segmentedControl" class="mui-segmented-control works-list-mui specialHeader">
+					<a id="btn1" class="mui-control-item  works-list-mui-active works-list-mui-active1 mui-active" href="#item1">
+            			名师专区
+            		</a>
+					<a id="btn2" class="mui-control-item works-list-mui-active works-list-mui-active2 works-list-mui-control-item" href="#item2">
+	                	专业老师
+		            </a>
+				</div>
+			</div>
+			<div class="filtrate-icon search-icon add-padding-top" id="seachBtn">
+				<i class="iconfont ">&#xe603;</i>
+			</div>
+			<div class="filtrate-icon add-padding-top" id="filtrate-icon">
+				<i class="iconfont">&#xe647;</i>
+			</div>
+		</header>
+
+		<!--<div class="myAttention-bg-color">
+				<div id="segmentedControl" class="mui-segmented-control works-list-mui myAttention-table specialHeader">
+					<a id="btn1" class="mui-control-item  works-list-mui-active works-list-mui-active1 mui-active" href="#item1">
+            			名师专区
+            		</a>
+					<a id="btn2" class="mui-control-item works-list-mui-active works-list-mui-active2 works-list-mui-control-item" href="#item2">
+	                	专业老师专区
+		            </a>
+				</div>
+			</div>-->
+		<!--<div class="works-list-select ah-select-list">
+			<ul>
+				<li id="subject" class="mui-collapse">
+					<a data-bind="text: dbSubject">科目</a>
+					<span class="mui-navigate-right ah-mui-navigate-right"> </span>
+				</li>
+				<li id="star" class="mui-collapse" data-bind="click: setStar">
+					<a data-bind="text: dbStar">星级</a>
+					<span class="mui-navigate-right ah-mui-navigate-right"> </span>
+				</li>
+				<li id="sort" class="mui-collapse" data-bind="click: setSort">
+					<a data-bind="text: dbSort">排序</a>
+					<span class="mui-navigate-right ah-mui-navigate-right"> </span>
+				</li>
+			</ul>
+		</div>-->
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/mui/mui.picker.min.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/jquery.min.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				function hiddenSeacher() {
+					$('#input-search').removeClass('list-search-show');
+					$('#input-search').addClass('list-search-hide');
+					$('.myAttention-bg-color').show();
+					$('#seachInput').blur();
+					$('#seachInput').val("");
+					seachValueEvent();
+				}
+				
+				function seachValueEvent() {
+					var contentWebview = null;
+					var seachValue = document.getElementById("seachInput").value;
+					if (contentWebview == null) {
+						contentWebview = plus.webview.currentWebview().children()[0];
+					}
+					mui.fire(contentWebview, 'seachEvent', {
+						seachValue: seachValue
+					});
+				}
+				
+				var contentWebview = null;
+				document.querySelector('#filtrate-icon').addEventListener('tap', function() {
+					if (contentWebview == null) {
+						contentWebview = plus.webview.currentWebview().children()[0];
+					}
+					hiddenSeacher();
+					contentWebview.evalJS("mui('#pull-down-nav').popover('toggle')");
+				});
+				document.querySelector('#btn1').addEventListener('tap', function() {
+					if (contentWebview == null) {
+						contentWebview = plus.webview.currentWebview().children()[0];
+					}
+					mui.fire(contentWebview, 'changeItem1', {});
+				});
+				document.querySelector('#btn2').addEventListener('tap', function() {
+					if (contentWebview == null) {
+						contentWebview = plus.webview.currentWebview().children()[0];
+					}
+					mui.fire(contentWebview, 'changeItem2', {});
+				});
+				var t;
+				$('#seachInput').bind('input propertychange', function() {
+					var seachValue = document.getElementById("seachInput").value;
+					if (contentWebview == null) {
+						contentWebview = plus.webview.currentWebview().children()[0];
+					}
+					clearTimeout(t);
+					t = setTimeout(function(){
+						mui.fire(contentWebview, 'seachEvent', {
+							seachValue: seachValue
+						});
+					},1000);
+					
+				});
+				var web = plus.webview.currentWebview(); //页面间传值
+				var work, display, udata;
+				if (typeof(web.displayCheck) !== "undefined") {
+					work = web.works;
+					display = web.displayCheck;
+				}
+				udata = web.data;
+				var topPx = '45px';
+				if (plus.os.vendor == 'Apple') {
+					topPx = '60px';
+				}
+				mui.init({
+					subpages: [{
+						url: 'teacherList.html',
+						id: 'teacherListID',
+						styles: {
+							top: topPx,
+							bottom: '0px'
+						},
+						extras: {
+							displayCheck: display,
+							works: work,
+							data: udata
+						}
+					}]
+				});
+				
+				var old_back=mui.back;
+				mui.back=function(){
+					old_back();
+					hiddenSeacher();
+				}
+				$('#seachBtn').click(function() {
+						$('#input-search').toggleClass('list-search-show');
+						$('#input-search').toggleClass('list-search-hide');
+						$('.myAttention-bg-color').toggle();
+						if ($('#input-search').hasClass('list-search-show')) {
+							$('#seachInput').focus();
+						}
+					});
+					
+					$(document).on('tap', '.mui-icon-clear', function(){
+						seachValueEvent();
+					});
+					
+					$('#seachInput').blur(function(){
+						$('#input-search').removeClass('list-search-show');
+						$('#input-search').addClass('list-search-hide');
+						$('.myAttention-bg-color').show();
+					});
+				});
+		</script>
+
+	</body>
+
+</html>

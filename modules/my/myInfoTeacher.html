@@ -1,0 +1,163 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />	
+		<style>
+			.p-header-div{ margin-top: 44px;}
+			.p-footer-btn{
+				top:11.3rem!important;
+				bottom: 0!important;
+			}
+			.p-header-div span:nth-of-type(1){
+				top: 9rem;
+			}
+			.p-header-div{
+				height: 15rem!important;
+			}
+			.p-footer-btn ul li{
+				line-height:3.1rem!important;
+			}
+			
+			#qrcode img {
+				margin: 10px;
+				margin-top: 5px;
+			}
+			
+			#photo {
+				height: 50px;
+				width: 50px;
+				top: 80px;
+				left: 90px;
+				position: absolute;
+			}
+			
+			.mui-popover {
+				min-height: 220px;
+				width: 220px;
+				top: 50%!important;
+				left: 50%!important;
+				margin-left: -110px;
+				margin-top: -110px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 id="title" class="mui-title">个人信息</h1>
+		</header>
+		<div class="p-header-div">
+			<div class="photo" data-bind="click: goMyinfo">
+				<img data-bind="attr: {'src': Photo}" />
+			</div>
+			<span>
+				<!--ko text: DisplayName--><!--/ko-->
+				<a href="#qrcodePopover" data-bind="visible: ID() > 0"><i class="iconfont">&#xe658;</i></a>
+			</span>
+			<div class="p-footer-btn">
+				<ul data-bind="visible: typeof(ID())==='Number'||ID() > 0 ">
+					<li>
+						<button>
+							得分
+							<!--ko text:Score().toFixed(1)-->
+							<!--/ko-->
+						</button>
+					</li>
+					<li>
+						<button data-bind="visible:ID() > 0,event:{click:goMyUserAttented}">
+							关注
+							<!--ko text:FavCount-->
+							<!--/ko-->
+						</button>
+					</li>
+					
+				</ul>
+			</div>
+		</div>
+		
+		<div id="qrcodePopover" class="mui-popover">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div id="qrcode"></div>
+					<img id="photo" data-bind="attr: {'src': Photo}" />
+				</div>
+			</div>
+		</div>
+		
+		<div class="mui-content my-content" >
+			<ul class="mui-table-view mui-table-view-chevron my-mui-table-view">
+				<li class="mui-table-view-cell" data-bind="click: goAuth">
+					<a class="my-mui-navigate-right myInfoTeacher-red">
+						<em class="iconfont myTeacher-yz">&#xe606;</em>
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span>资料认证
+						<i class="red-point" data-bind="visible:common.gDictAuthStatusType.Authed!=IDAuthApproved()"></i>
+					</a>
+				</li>
+				<li class="mui-table-view-cell" data-bind="click: goMyAccount">
+					<a class="my-mui-navigate-right">
+						<em class="iconfont myTeacher-zh">&#xe630;</em>
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span>我的账户
+					</a>
+				</li>
+				<li class="mui-table-view-cell" data-bind="click: goMessageList">
+					<a class="my-mui-navigate-right">
+						<em class="iconfont myTeacher-tz">&#xe607;</em>
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span>通知列表
+					</a>
+				</li>
+				<li class="mui-table-view-cell" data-bind="click: goMyAttention">
+					<a class="my-mui-navigate-right">
+						<em class="iconfont myTeacher-gz">&#xe612;</em>
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span>我的收藏
+					</a>
+				</li>
+				<li class="mui-table-view-cell" data-bind="click: goMyAlbum">
+					<a class="my-mui-navigate-right">
+						<em class="iconfont myTeacher-xc">&#xe642;</em>
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span>个人相册
+					</a>
+				</li>
+			</ul>
+			<div class="pin-blank"></div>
+			<ul class="mui-table-view mui-table-view-chevron ">
+				<li class="mui-table-view-cell my-table-view-chevron" data-bind="click:qrcodeEvent">
+					<a class="my-mui-navigate-right saosao">
+						<em class="iconfont">&#xe656;</em>
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span> 扫一扫
+					</a>
+				</li>
+				<li class="mui-table-view-cell my-table-view-chevron" data-bind="click:goMoreInfo">
+					<a class="my-mui-navigate-right">
+						<em class="iconfont">&#xe605;</em>
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span> 更多
+					</a>
+				</li>
+		
+			</ul>
+			
+			<div class="pin-blank"></div>
+			<ul class="mui-table-view mui-table-view-chevron ">
+				<li class="mui-table-view-cell my-table-chevron" data-bind="click:goHelp">
+					<a class="my-mui-navigate-right">
+						<em class="iconfont">&#xe619;</em>
+						<span class="mui-badge my-mui-badge iconfont">&#xe618;</span> 帮助
+					</a>
+				</li>
+			</ul>
+		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/qrcode.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/myInfoTeacher.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

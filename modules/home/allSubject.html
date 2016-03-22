@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+			body,.mui-content{
+				background: #f1f1f1!important;
+			}
+			.allSubject li:active{
+				background: #f1f1f1!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">所有科目</h1>
+		</header>
+		<div class="mui-content" data-bind="foreach: {data: tmplSubjectClasses, as: 'class1'}">
+			<div class="allTitle" data-bind="text: subjectClassName, visible: class1.subjectClass > 0"></div>
+			<div class="allSubject" data-bind="visible: class1.subjectClass > 0">
+				<ol data-bind="foreach: {data: tmplSubjects, as: 'subject'}">
+					<li data-bind="visible: (subject.subjectClass == class1.subjectClass) && (subject.id > 0), click: gotoTeachers">
+						<img data-bind="attr: {src: '../../images/subject_'+subject.id+'.png'}" />
+						<span data-bind="text: subject.subjectName"></span>
+					</li>
+				</ol>
+			</div>
+		</div>
+
+	</body>
+	<script src="../../script/mui/mui.min.js"></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/home/allSubject.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style type="text/css">
+			.mui-input-group:after,
+			.mui-input-group:before,
+			.mui-input-group {
+				background: #f1f1f1!important;
+			}
+			
+			.mui-content-padded {
+				margin: 10px 0 0 0!important;
+			}
+			
+			.mui-popover {
+				min-height: 255px;
+				position: fixed;
+				top: 0;
+			}
+			
+			.myWorksList-bg {
+				background: #000;
+				opacity: 0.4;
+				height: 100%;
+				width: 100%;
+				z-index: 666;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			
+			.myWorksList-aline-left,
+			.myWorksList-aline-right {
+				width: 26%;
+				text-align: left;
+			}
+			
+			.myWorksList-aline-right-delet {
+				width: 32%;
+				position: absolute;
+				right: 0%;
+				color: #F4F4F4;
+				font-size: 14px;
+				top: -19px;
+				z-index: 9999;
+			}
+			
+			.uploading-loading {
+				width: 100%;
+				height: 2px;
+				background: #fff;
+				position: absolute;
+				left: 0;
+				bottom: -60px;
+				z-index: 669;
+				margin-left: 10%;
+				box-sizing: border-box;
+			}
+			
+			.uploading-loading-now {
+				width: 20%;
+				height: 2px;
+				background: #2797FB;
+				position: absolute;
+				left: 0;
+				bottom: -60px;
+				z-index: 669;
+				margin-left: 10%;
+				box-sizing: border-box;
+			}
+			
+			.uploading-loading-stop {
+				background: #ccc;
+			}
+			
+			.myWorksList-aline-left-upLoading {
+				width: 32%;
+				position: absolute;
+				left: 41%;
+				color: #F4F4F4;
+				font-size: 14px;
+				top: -19px;
+				text-align: left;
+				z-index: 9999;
+			}
+			
+			.myWorksList-upLoading-icon:before {
+				content: "\e677";
+				color: #F4F4F4;
+				font-size: 16px;
+				padding-right: 5px;
+				z-index: 9999;
+			}
+			
+			.myWorksList-stop-icon:before {
+				content: "\e68d";
+				color: #F4F4F4;
+				font-size: 16px;
+				padding-right: 5px;
+				z-index: 9999;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="pullrefreshAll" class="mui-scroll-wrapper" data-bind="visible:works().length>0">
+			<div class="mui-scroll">
+				<ul class="mui-input-group" data-bind="foreach:{data:works}">
+					<li class="mui-table-view-cell works-list" data-bind="event:{tap: goWorksDetails}">
+						<a href="javascript:void(0);">
+							<div class="works-list-works" data-bind="style: {'background-image': 'url(' + (common.StrIsNull(VideoThumbnail) == '' ? '../../images/video-big-default.png' : common.getThumbnail(VideoThumbnail)) +')'}">
+								<span class="works-list-date-bg"></span>
+								<span class="works-list-date-font" data-bind="text:AddTime.split(' ')[0]">2015-12-17</span>
+							</div>
+							<div class="works-list-right">
+								<div class="works-list-title">
+									<span class="works-list-title-span" data-bind="text:Title">张小杰的作品</span>
+								</div>
+								<div class="works-list-subject" data-bind="text:SubjectName">钢琴</div>
+								<div class="works-list-name" data-bind="text: AuthorName">张小杰</div>
+							</div>
+						</a>
+						<div class="uploading">
+							<div class="myWorksList-bg">
+							</div>
+							<div class="works-list-f" style="z-index: 999; width: 92%;">
+								<ul>
+									<li class="aline-right myWorksList-aline-right-delet">
+										<i class="iconfont" style="margin-right: 5px;">&#xe61b;</i>删除
+									</li>
+									<li class="aline-right myWorksList-aline-left-upLoading">
+										<!--暂停icon类myWorksList-stop-icon -->
+										<i class="iconfont myWorksList-upLoading-icon"></i>上传
+									</li>
+								</ul>
+							</div>
+							<div class="works-list-right">
+								<div class="uploading-loading"></div>
+								<!--停止上传类：uploading-loading-stop  -->
+								<div class="uploading-loading-now"></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="openedCourses-ys" data-bind="visible:works().length<=0">
+				<i>
+				<img src="../../images/logo-pic.png" />
+			</i>
+				<span>还没有该类型作品~</span>
+			</div>
+			<div id="popSubjects" class="mui-popover">
+				<div id="subject-scroll" class="mui-scroll-wrapper wrapper-margin">
+					<div class="mui-scroll">
+						<ul>
+							<li class="mui-table-view-cell mui-collapse ah-scroll">
+								<a class="mui-navigate-right navigate-font" href="#" data-bind="text: subjectClassName"></a>
+								<div class="mui-collapse-content" data-bind="foreach: {data: tmplSubjects, as: 'subject'}">
+									<span data-bind="text: subject.subjectName, event: {'tap': selectSubject}, visible: (subject.subjectClass == class1.subjectClass), css:{'table-current': (subject.id == currentSubject().id && subject.subjectClass == currentSubject().subjectClass)}"></span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="popType" class="mui-popover popover-height">
+				<ul id="sortCommentList" class="mui-table-view" data-bind="foreach:{data:workType}">
+					<li class="mui-table-view-cell navigate-font current-flag" data-bind="event:{tap:selectWorksType}">
+						<i data-bind="text:text"></i><span class="iconfont" data-bind="visible: value == currentWorkTypes()">&#xe64e;</span>
+					</li>
+				</ul>
+			</div>
+			<div id="popSort" class="mui-popover popover-height">
+				<ul id="sortCommentList" class="mui-table-view" data-bind="foreach:{data:common.gJsonWorkSort}">
+					<li class="mui-table-view-cell navigate-font current-flag" data-bind="event:{tap:sortWorks}">
+						<i data-bind="text:text"></i><span class="iconfont" data-bind="visible: value == currentSort()">&#xe64e;</span>
+					</li>
+				</ul>
+			</div>
+			<script src="../../script/mui/mui.min.js"></script>
+			<script src="../../script/mui/mui.picker.min.js"></script>
+			<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+			<!--<script src="../../script/works/workListAll.js" type="text/javascript" charset="utf-8"></script>-->
+	</body>
+
+</html>

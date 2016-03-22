@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style type="text/css">
+			body,
+			.mui-content {
+				background: #f1f1f1!important;
+			}
+			
+			.mui-bar-nav~.mui-content {
+				padding-top: 0px;
+			}
+			
+			.mui-bar-nav ~ .mui-content .mui-pull-top-pocket{
+				top: 40px !important;
+			}
+			
+		</style>
+	</head>
+
+	<body style="background:#f1f1f1;">
+		<header class="mui-bar mui-bar-nav works-list-mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title" data-bind="text:workTitle"></h1>
+			<em class="iconfont mui-bar-nav-em" data-bind='click:goUploads'>&#xe6a4;</em>
+		</header>
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/mui/mui.picker.min.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/works/workListMyHeader.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

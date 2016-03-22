@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			html,body,.mui-content{
+				background:#eeeeee!important;
+			}
+
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">课程列表</h1>
+		</header>
+		<div class="mui-content">
+			<div class="activityEnrollSuccess-con-bg">
+				<div class="success-title">
+					<div class="success-title-img">
+						<img src="../../images/activityErollSuccess-Success.png" />
+					</div>
+					<div class="success-title-span">恭喜您，报名成功</div>
+				</div>
+				<p class="activityEnrollSuccess-p">评选规则：</p>
+				<p class="activityEnrollSuccess-p1">1.成功报名后，指导名师将进行名额筛选</p>
+				<p class="activityEnrollSuccess-p1" data-bind="visible: needWorks">2.可在作品库中关注活动实时动态、排名热度</p>
+				<div class="activityEnrollSuccess-btn">
+					<button data-bind="click: gotoAllWorks, visible: needWorks">进入活动作品库</button>
+					<button data-bind="click: gotoActivity, visible: needWorks() == false">返回活动</button>
+				</div>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../script/activity/activityEnrollSuccess.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+			html,body,.mui-content{
+				background: #f0f0f0!important;
+			}
+			/*.share-height{
+				position: fixed!important;
+			}
+			.share-height.mui-active{
+				top: 100%!important;
+				margin-top: -168px!important;
+			}	
+				.mui-card .mui-control-content {
+				padding: 10px;
+			}*/
+			.techerInfo-share{
+				color: #666!important;
+				/*top: 0!important;
+				right: -38px!important;*/
+			}
+	
+			
+			@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.shareTeacher-pic ul li img {
+					height: 3rem;
+					width:  3rem;
+				}
+			}
+			.share-height{
+				position: fixed!important;
+			}
+			.share-height.mui-active{
+				top: 100%!important;
+				margin-top: -180px!important;
+				min-height: 400px!important;
+			}	
+				.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			.title {
+				margin: 20px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			.mui-bar-tab .ah-mui-tab-item {
+			    display: table-cell;
+			    overflow: hidden;
+			    width: 1%;
+			    height: 50px;
+			    text-align: center;
+			    vertical-align: middle;
+			    white-space: nowrap;
+			    text-overflow: ellipsis;
+			    color: #929292;
+			    background: #fff;
+}
+			
+			.mui-tab-item,.ah-mui-tab-item{
+				color: #E64578!important;
+			}
+			.top-btn {
+				height: 40px;
+				width: 60px;
+				display: inline-block;
+				margin: -15px 0 0 -15px;
+				padding: 0 10px 0 10px;
+				line-height: 40px;
+			}
+			.top-btn-right {
+				text-align: right;
+			}
+			.info-li:after{
+				height: 0!important;
+				background: none!important;
+			}	
+			.info-li{
+				border-bottom: 1px solid #e1e1e1;
+				border-top: 1px solid #e1e1e1;
+				line-height:24px!important;	
+			}
+			.mui-table-view-cell.mui-collapse.mui-active >.info-pic{
+				color: #666;
+				line-height:24px!important;				
+				border-bottom:1px solid #e1e1e1;
+				border-top:1px solid #e1e1e1;
+				
+			}
+			.mui-table-view-cell.mui-collapse.mui-active >.info-pic:after{
+				color: #e1e1e4!important;
+				font-size: 20px!important;
+				right: 10px!important;
+				content: "\e66c"!important;
+				top: 24px;	
+			}
+			.mui-table-view-cell.mui-collapse >.info-pic:after{
+				color: #e1e1e4!important;
+				font-size: 20px!important;
+				right: 10px!important;
+				content: "\e672"!important;
+				top: 24px;				
+			}			
+			.mui-control-content {
+				background-color: white;
+				margin-top: 10px;
+				min-height:200px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			.mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar{
+				background: #E64578;
+			}
+			.mui-slider .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+				color: #E64578!important;
+				background: none!important;
+			}
+			.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item{
+				border: none!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">考级通告</h1>
+			<a href="#sharePopover" class="iconfont techerInfo-share specialHeader">&#xe670;</a>
+		</header>
+		<div class="mui-content">
+			<h2 id="examNotice-h2" data-bind="text:examInfo().ExamName">中国民族管弦乐学会全国民族乐器演奏艺术水平考级</h2>
+			<ul class="examNotice-con">
+				<li>
+					<span class="examNotice-con-left">报名截止日期：</span>
+					<span class="examNotice-con-right" data-bind="text:examInfo().RegEndTimeChar">2016年01月23日  </span>
+				</li>
+				<li>
+					<span class="examNotice-con-left">查询考场日期：</span>
+					<span class="examNotice-con-right" data-bind="text:examInfo().SearchPlaceTimeChar">2016年1月24日  </span>
+				</li>
+				<li>
+					<span class="examNotice-con-left">考试日期：</span>
+					<span class="examNotice-con-right" data-bind="text:examInfo().BeginTimeChar">2016年01月23日  </span>
+				</li>
+				<li>
+					<span class="examNotice-con-left">考试地点：</span>
+					<span class="examNotice-con-right" data-bind="text:examInfo().ExamPlace"> 广州市越秀区东风东路703号文化大楼1-2层乐都
+                     音乐集团（广东粤剧院旁，区庄地铁B2出口）</span>
+				</li>
+				<li>
+					<span class="examNotice-con-left">考试方式：</span>
+					<span class="examNotice-con-right" data-bind="text:examInfo().ExamMode">1首乐曲 </span>
+				</li>
+				<li>
+					<span class="examNotice-con-left">联系人：</span>
+					<!--ko foreach: {data: ExamContactsArray}-->
+					<span class="examNotice-con-right">  <!--ko text:ContactsName--><!--/ko-->  <!--ko text:ContactsPhone--><!--/ko--></span>
+					<!--/ko-->
+				</li>
+				<!--<li>
+					<span class="examNotice-con-right">成毓婷老师  13600080466 </span>
+				</li>-->
+			</ul>
+			<h2 id="examNotice-h2">民乐考级的六大好处</h2>
+			<div class="examNotice-con">
+				<ul class="examNotice-center">
+					<li>
+						<span class="examNotice-con-num">一、</span>
+						<span class="examNotice-con-title">检测成绩：</span>
+						<span class="examNotice-con-con">基础阶段学琴，适宜经常检测；</span>
+						<span class="examNotice-con-con">方能循序渐进，不断提高成绩。</span>
+					</li>
+					<li>
+						<span class="examNotice-con-num">二、</span>
+						<span class="examNotice-con-title">观摩交流：</span>
+						<span class="examNotice-con-con">观摩同学演奏，内心进行比较；</span>
+						<span class="examNotice-con-con">发现别人长短，过程就是学习。</span>
+					</li>
+					<li>
+						<span class="examNotice-con-num">三、</span>
+						<span class="examNotice-con-title">聆听教诲：</span>
+						<span class="examNotice-con-con">倾听专家点评，吸取内行高见；</span>
+						<span class="examNotice-con-con">了解问题深度，更利今后改进。</span>
+					</li>
+					<li>
+						<span class="examNotice-con-num">四、</span>
+						<span class="examNotice-con-title">难得机会：</span>
+						<span class="examNotice-con-con">长期闭门练琴，容易乏味懒散；   </span>
+						<span class="examNotice-con-con">难得有个艺坛，一展身手舒畅。</span>
+					</li>
+					<li>
+						<span class="examNotice-con-num">五、</span>
+						<span class="examNotice-con-title">积累经验：</span>
+						<span class="examNotice-con-con">经历考级场面，丰富舞台经验；</span>
+						<span class="examNotice-con-con">增强心理素质，演出比赛领先。</span>
+					</li>
+					<li>
+						<span class="examNotice-con-num">六、</span>
+						<span class="examNotice-con-title">人生纪念：</span>
+						<span class="examNotice-con-con">捧起考级证书，往事历历目前；</span>
+						<span class="examNotice-con-con">品味艰辛甜蜜，确值珍惜纪念。</span>
+					</li>
+				</ul>
+			</div>
+			<p class="examNotice-con-p">学习民族乐器，进行考级和各种比赛既是弘扬民族音乐，又可普及艺术教育，实在有好处，同学们应多找机会锻炼实践。 关键是要找一个有权威性、严肃性、艺术性、普及性的可靠机构——中国民族管弦乐学会进行考级，而不要到那种不规范、低 标准、交钱就能买证的机构去考级，因为那样不但得不到真正的锻炼，而且会使考级失去实际的意义。
+			</p>
+
+			<h2 id="examNotice-h2">民族乐器考级收费项目</h2>
+			<div class="examNotice-con">
+				<table border="1" cellpadding="0" cellspacing="0">
+					<tr>
+						<td>级别</td>
+						<td>考务费</td>
+						<td>报名费</td>
+						<td style="width: 30%;">证书费
+							<p>(内页、外壳合一)</p>
+						</td>
+						<td>合计</td>
+					</tr>
+					<!--ko foreach: {data: examFeeArray}-->
+					<tr>
+						<td data-bind="text:Level">一级</td>
+						<td data-bind="text:TestFee">110元</td>
+						<td data-bind="text:EntryFee">20元</td>
+						<td data-bind="text:CredentialFee">30元</td>
+						<td data-bind="text:TotalFee">160元</td>
+					</tr>
+					<!--/ko	-->
+				</table>
+			</div>
+			<div class="examNotice-con">
+				<img src="../../images/tree.png" />
+			</div>
+			<ul class="examNotice-con examNotice-exam-btn">
+				<li>
+					<button class="examNotice-exam-in" data-bind="css:IsCanRegister() ? '' :'examNotice-exam-grey',click:goExamEnroll">报名入口</button>
+				</li>
+				<li>
+					<button class="examNotice-exam-in" data-bind="css:IsUserStatNew() ? '' :'examNotice-exam-grey' ,click:goexamEnrollList">报名记录
+					</button>
+				</li>
+				<li>
+					<button class="examNotice-exam-in" data-bind="css:examInfo().IsPlace ? '':'examNotice-exam-grey' ,click:gotoExamplace">查询考场
+					</button>
+				</li>
+				<li>
+					<button class="examNotice-exam-in" data-bind="css:examInfo().IsGrade ? '':'examNotice-exam-grey' ,click:goExamScore">查询成绩
+					</button>
+				</li>
+				
+				<li></li>
+				<li></li>
+				<li style="font-size: 12px;"><!--ko text: searchGradeTimeText--><!--/ko-->
+				</li>
+				<li style="font-size: 12px;">
+					(考试后开放)
+
+				</li>
+			</ul>
+			
+			
+			
+		</div>
+		<div id="sharePopover" class="mui-popover share-height">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="shareTeacher-pic">
+						<ul>
+							<li id="weichatFriend">
+								<img src="../../images/share-wx.png" />
+								<span>微信好友</span>
+							</li>
+							<li id="weichatMoments">
+								<img src="../../images/share-py.png" />
+								<span>微信朋友圈</span>
+							</li>
+							<li id="qqFriend">
+								<img src="../../images/share-qq.png" />
+								<span>QQ好友</span>
+							</li>
+						</ul>
+					</div>
+					<div class="shareTeacher-qx" data-bind="click:closeShare">取消</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/exam/examNotice.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

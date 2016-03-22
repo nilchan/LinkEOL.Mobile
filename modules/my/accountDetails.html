@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			/*账目明细样式*/
+			.accountDetails-ul:after{
+				background: none;
+			}
+			.accountDetails-li{
+				height: 85px;
+				width: 100%;
+				padding: 15px;
+				overflow: hidden;
+				box-sizing: border-box;
+				position: relative;
+				border-bottom: 1px solid #c8c7cc;
+			}
+			/*.accountDetails-li:after{
+				    position: absolute;
+				    right: 0;
+				    bottom: 0;
+				    left: 0;
+				    height: 1px;
+				    content: '';
+				    -webkit-transform: scaleY(.5);
+				    transform: scaleY(.5);
+				    background-color: #c8c7cc;
+			}*/
+			.accountDetails-left{
+				width: 72%;
+				float: left;
+			}
+			.accountDetails-time{
+				color: #666;
+				font-size: 12px;
+				padding-top: 4px;
+			}
+			.accountDetails-right{
+				height: 20px;
+				color: #e64578;
+				font-size: 18px;
+				width: 28%;
+				float: right;
+				text-align: right;
+			}
+			.loss-num{
+				color: #333;
+			}
+			.remarks-box{
+				width: 100%; font-size: 12px; color: #999; height: 25px; float: left;margin-top: 3px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper" id="pullrefreshAccount" data-bind="visible:accountLength()>0">
+				<div class="mui-scroll">
+					<ul class="mui-input-group accountDetails-ul" data-bind="foreach:{data:accountDetail}">
+						<li class="accountDetails-li">
+							<div class="accountDetails-left">
+								<h3 data-bind="text:TargetName">微信红包</h3>
+								<p class="accountDetails-time" data-bind='text:AddTime'>2016-02-14 19:30:05</p>
+							</div>
+							<div class="accountDetails-right" data-bind="text:(DetailsType==common.gAccountDetail[1].value?'+':'-')+Amount.toFixed(2)">+12.00
+							</div>
+							<div class="remarks-box" data-bind="text: Remark">有效期2016年3月10日-2016年4月1日</div>
+						</li>	
+					</ul>
+				</div>
+			</div>
+			<div class="openedCourses-ys" data-bind="visible:accountLength()<=0">
+				<i>
+				<img src="../../images/logo-pic.png" />
+			</i>
+				<span>还没有收入...</span>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/bankList.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/accountDetails.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

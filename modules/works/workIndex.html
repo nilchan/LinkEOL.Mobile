@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">作品作业</h1>
+			<em class="iconfont mui-bar-nav-em" style="font-size: 22px!important;" data-bind="click:goFeedBack">&#xe69a;
+			</em>
+		</header>
+		<div class="mui-content">
+			<div class="worksIndex-banner">
+				<img src="../../images/worksIndex-banner.jpg" />
+			</div>
+			<!--<div class="worksIndex-li">
+				<ul>
+					<li data-bind="click:goUpworks">
+						<span class="workIndex-works"><h3>上传作品</h3></span>
+						<span class="small-title">演奏风采展示</span>
+						<div class="workIndex-img">
+							<img src="../../images/worksIndex2.png" />
+						</div>
+					</li>
+					<li data-bind="click:goUptasks, visible: isTeacher() == false">
+						<span class="workIndex-works"><h3>上传作业</h3></span>
+						<span class="small-title">作业即时互动</span>
+						<div class="workIndex-img upWorks">
+							<img src="../../images/worksIndex1.png" />
+						</div>
+					</li>
+					<li data-bind="click:goComments,visible: isTeacher">
+						<span class="workIndex-works"><h3>我的点评</h3></span>
+						<span class="small-title">作品作业点评</span>
+						<div class="workIndex-img">
+							<img src="../../images/worksIndex3.png" />
+						</div>
+					</li>
+
+				</ul>
+			</div>-->
+			<div class="worksIndex-footer-div" data-bind="click:goWorksFamousTea">
+				<img src="../../images/workIndex-1.jpg" />
+			</div>
+
+			<div class="worksIndex-footer-div" data-bind="click:goWorksMajorTea">
+				<img src="../../images/workIndex-2.jpg" />
+			</div>
+			<div class="worksIndex-footer-div" data-bind="click:goAllworksStudent">
+				<img src="../../images/workIndex-3.jpg" />
+			</div>
+
+		</div>
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/works/worksIndex.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

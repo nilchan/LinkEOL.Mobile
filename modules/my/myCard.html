@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			html,
+			.mui-content {
+				background: #F1F1F1!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe602;</i>
+			<h1 class="mui-title">我的银行卡</h1>
+		</header>
+		<div class="mui-content">
+			<div data-bind="template:{name:'bankcardTemplate',foreach:bankcardArray}"></div>
+			
+			<!--银行卡模板-->
+			<script type="text/html" id="bankcardTemplate">
+				<div class="myCard-add" data-bind="event:{longtap:setDefault}">
+					<i class="iconfont card-logo">&#xe659;</i>
+					<span class="bank-name" data-bind="text:DepositBank.split(',')[0].split('-')[0]"></span>
+					<span class="card-class" data-bind="text:DepositBank.split(',')[1]"></span>
+					<i class="iconfont defeaut-right" data-bind="visible:IsDefault">&#xe657;</i>
+					<span class="card-number" data-bind="text:common.getbankcardNum(CardNumber)"></span>
+				</div>
+			</script>
+			<div class="defeaut-font" data-bind="visible:bankcardArray().length>0">
+				长按设为默认银行卡
+			</div>
+			<div class="add-card" data-bind="click:addBankcard">
+				<i class="iconfont">&#xe621;</i>
+				<span class="add-font">添加银行卡</span>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/myCard.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>
