@@ -26,6 +26,11 @@ var home = function() {
 			}
 		});
 	};
+	
+	//跳转新闻列表
+	self.gotoNewsList = function() {
+		common.transfer('../news/newsList.html', false);
+	}
 
 	self.clampDes = function() {
 		var intros = document.getElementsByClassName('teacher-list-p1');

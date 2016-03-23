@@ -274,48 +274,22 @@ var compatible = supportHTML5Upload();
 	var polyvUploadSDK = function(opts) {
 		var self = this;
 
-		var videoFile; //视频文件
-		var fileExt = 'mp4';
-
 		self.startUpload = function() {
-            alert(opts.filePath);
             self.uploadFile();
-//			plus.io.resolveLocalFileSystemURL(opts.filePath, function(entry) {
-//				entry.file(function(file) {
-//					videoFile = file;
-//					var arr = videoFile.name.split('.');
-//					if (arr.length > 1) {
-//						fileExt = arr[arr.length - 1];
-//					}
-//					self.uploadFile();
-//				});
-//			}, function(e) {
-//				opts.callback({}, true, '读取视频文件失败');
-//				alert("获取文件出错：" + e.message);
-//			});
 		}
-		console.log(JSON.stringify(opts));
 
 		var processStatusText; //处理状态文字
 
 		self.uploadFile = function() {
 			plus.VideoUtility.UploadVideo(opts.filePath, opts.workId.toString(), '', function(arg) {
-                                          //alert(JSON.stringify(arg));
 				var retObj = {
 					uploadTask: arg,
 					workId: opts.workId
 				}
-				if(arg.isFinish){
-					opts.callback(retObj, false);
-					alert('上传完毕，arg：' + JSON.stringify(arg));
-				}
-				else{
-					opts.callback(retObj, true);
-					self.uploadPercentage(arg.uploadedSize * 100 / arg.totalSize);
-				}
+				
+				opts.callback(retObj);
 			}, function(error) {
-				opts.callback({}, true, '上传失败，请重试');
-				alert('上传失败：' + error);
+				opts.callback({}, '上传失败，请重试');
 			});
 		}
 
@@ -381,7 +355,7 @@ upload.initTasks = function(callback) {
 			arrRet.push(ret);
 		})
 	}
-	console.log('initTasks:' + JSON.stringify(arrRet));
+	alert('initTasks:' + JSON.stringify(arrRet));
 	return arrRet;
 }
 

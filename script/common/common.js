@@ -1,8 +1,8 @@
 ﻿var common = {
 	//Web API地址
 	//gServerUrl: "http://cloud.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
-	//gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
-	gServerUrl: "http://192.168.1.66:8090/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
+	gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
+	//gServerUrl: "http://192.168.1.66:8090/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
 	//gServerUrl: "http://linkeol.6655.la:8090/",gVideoServerUrl: "http://linkeol.6655.la:8099/",gWebsiteUrl: "http://linkeol.6655.la:8081/",
 	//判断字符串是否为空，空则返回""
 	StrIsNull: function(str) {
@@ -58,29 +58,8 @@
 
 	//空格分割
 	transforJSON: function(txt) {
-		var result = txt.split(' '); //得到 分割数组
-		return result
-	},
-
-	//是否为数字
-	IsNum: function(str) {
-		var reg = /^[0-9]{1,20}$/; //数字匹配
-		var result = reg.test(str);
-		return result; //返回boolean  true为数字，false为非数字
-	},
-
-	//是否为正确的手机号码
-	isPhone: function(str) {
-		//var reg = /^1[3|4|5|7|8][0-9]\d{4,8}$/; //手机号码匹配
-		var reg = /^[1][3|4|5|7|8][0-9]{9}$/; //手机号码匹配
-		var result = reg.test(str);
-		return result; //返回boolean  true为手机号码，false为不正确手机号码
-	},
-
-	JsonConvert: function(jsonSrc, ValueField, TextField) {
-		var jsonDest = [];
-		if (typeof(jsonSrc) == "string") {
-			jsonSrc = JSON.parse(jsonSrc);
+		if(common.StrIsNull(txt)==''){
+			return [];
 		}
 		if (jsonSrc) {
 			for (var i = 0; i < jsonSrc.length; i++) {
@@ -420,21 +399,6 @@
 				TargetType: targetType,
 				TargetID: targetID
 			},
-			success: function(responseText) {
-				ret = true;
-			}
-		})
-
-		return ret;
-	},
-	
-	//删除动作（收藏，赞）
-	deleteAction: function(actionType, targetType, targetID,userid) {
-		var ret = false;
-		var ajaxUrl = common.gServerUrl + 'API/Action?actionType='+actionType+'&targetType='+targetType+'&targetId='+targetID+'&userid='+userid;
-		mui.ajax(ajaxUrl, {
-			type: 'DELETE',
-			async: false,
 			success: function(responseText) {
 				ret = true;
 			}
@@ -933,6 +897,12 @@
 	gDictWorkSourceType: {
 		Teacher: 1, //老师
 		Activity: 2 //活动
+	},
+	
+	gDictAttachmentConvertResult: {
+		NotHandle: 0,	//未处理
+		Succeeded: 1,	//转换成功
+		Failed: 2		//转换失败
 	},
 
 	//是否类型JSON

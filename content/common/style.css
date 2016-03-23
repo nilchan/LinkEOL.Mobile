@@ -96,6 +96,65 @@ li {
 	display: inline-block;
 	text-align: left!important;
 }
+/*-------发布资讯--------*/
+.requestInformation-box{
+	height: 44px;
+	width: 100%;
+	padding-left: 15px;
+	box-sizing: border-box;
+	position: relative;
+	border-bottom: 0.5px solid #C8C7CC;
+}
+.requestInformation-box input{
+	height: 100%;
+	width: 100%;
+	border: none;
+	font-size: 16px;
+	font-family: "微软雅黑";
+	/*line-height: 43px;*/
+}
+.requestInformation-textarea{
+	height: auto;
+	width: 100%;
+	padding-left: 15px;
+	box-sizing: border-box;
+	padding-top: 10px;
+}
+
+.requestInformation-textarea textarea{
+	height: 100%;
+	width: 100%;
+	border: none;
+	font-size: 16px;
+	font-family: "微软雅黑";
+	padding:0 14px;
+}
+.requestInformation-nav{
+	background: #F0F0F0;
+	height: 50px;
+	border-top: 0.5px solid #C8C7CC;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+}
+.requestInformation-nav ul li{
+	width: 16%;
+	float: left;
+	height: 100%;
+	color: #797979;
+	text-align: right;
+	line-height: 50px;
+}
+.requestInformation-nav ul li .requestInformation-nav-i{
+	font-size: 39px;
+}
+.requestInformation-nav ul li i{
+	font-size: 28px;
+}
+.requestInformation-nav ul li a i:active{
+	color: #efa900!important;
+}
 /*-------informationList分享与发布页面---------*/
 .informationList-box{
 	height: 150px;
@@ -133,7 +192,7 @@ li {
 	position: relative;
 }
 .informationList-right-l{
-	width: 70%;
+	width: 65%;
 	float: left;
 	height: 20px;	
 	margin-top: 10px;
@@ -161,7 +220,7 @@ li {
 	line-height: 24px;
 }
 .informationList-right-r{
-	width: 30%;
+	width: 35%;
 	float: left;
 	height: 20px;
 	font-size: 13px;
@@ -184,12 +243,13 @@ li {
 }
 .add-information-icon{
 	position: fixed;
-	right: -20px;
+	right: 20px;
 	bottom: 25px;
 	z-index: 999;
 }
 .add-information-icon img{
 	width: 40%;
+	float: right;
 	display: block;
 }
 /*-----login登录页面开始-----*/
@@ -585,20 +645,20 @@ li {
 	padding: 8px 0;
 }
 .headline-left{
-	width: 17.6%;
+	width: 22.6%;
 	float: left;
 	box-sizing: border-box;
 	padding-left: 5%;
 	
 }
 .headline-left img{
-	height: 19px;
+	height: 18px;
 	display: block;
 	vertical-align: middle;
 	text-align: center;
 }
 .headline-right{
-	width: 75%;
+	width: 70%;
 	height: 19px;
 	border-left: 1px solid #bebebe;
 	float: left;

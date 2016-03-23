@@ -48,9 +48,7 @@
 		"Gallery": {
 			"description": "访问系统相册"
 		},
-		"Geolocation": {
-			"description": "访问位置信息"
-		},
+		
 		"Invocation": {
 			"description": "使用Native.js能力"
 		},
@@ -2493,7 +2491,8 @@
 					"images/share-wx.png",
 					"images/share-py.png",
 					"script/common/share.js",
-					"content/fonts/mui.ttf"
+					"content/fonts/mui.ttf",
+					"images/radio-check-active.png"
 				],
 				"refer": [
 					"modules/my/qrcodeEvent.html",
