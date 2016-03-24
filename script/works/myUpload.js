@@ -73,12 +73,12 @@ var myUpload = function() {
 				if (result && result.length > 0) {
 					for (var i = 0; i < self.uploadList().length; i++) { //刷新处理状态
 						var item = self.uploadList()[i];
-						for(var j = 0; j < result.length; j++){
+						for (var j = 0; j < result.length; j++) {
 							var item2 = result[j];
 							if (item.WorkID() == item2.SourceID) {
 								item.IsFinish(item2.IsFinish);
 								item.ConvertResult(item2.ConvertResult);
-								item.videoThumbnail(item2.ThumbnailPolyv);		//从附件中获取，该字段为缩略图
+								item.videoThumbnail(item2.ThumbnailPolyv); //从附件中获取，该字段为缩略图
 								break;
 							}
 						}
@@ -119,8 +119,19 @@ var myUpload = function() {
 	//根据状态对上传任务进行重新梳理
 	self.filterTasks = function() {
 		var tmp = plus.storage.getItem(common.gVarLocalUploadTask);
-		alert('gVarLocalUploadTask: '+tmp);
+		alert('gVarLocalUploadTask: ' + tmp);
 		var tasks = JSON.parse(tmp);
+		if(!tasks) {
+			for (var i = 0; i < self.uploadList().length; i++) {
+				self.uploadList()[i].FoundInLocal(false);
+			}
+			return;
+		}
+		
+		for (var j = tasks.length - 1; j >= 0; j--) {	//初始化为服务器端并未保存
+			tasks[j].Found = false;
+		}
+		
 		for (var i = 0; i < self.uploadList().length; i++) {
 			var found = false;
 			if (tasks && tasks.length > 0) {
@@ -149,54 +160,34 @@ var myUpload = function() {
 				tasks.pop(tasks[j]);
 			}
 		}
-		plus.storage.setItem(common.gVarLocalUploadTask, JSON.stringify(tasks));
+		if(tasks.length <= 0)
+			plus.storage.setItem(common.gVarLocalUploadTask, '[]');
+		else
+			plus.storage.setItem(common.gVarLocalUploadTask, JSON.stringify(tasks));
+			
 		if (tasks && tasks.length > 0) {
 			arrUploadTask = upload.initTasks(refreshUploadState);
 		}
 	}
 
-	//停止任务（h5+有bug，暂时无法实现）
-	self.handleTask = function(data) {
-		if (data.IsFinish() == false) {
-
-			arrUploadTask.forEach(function(task) {
-				if (task.workId == data.works.ID) {
-					task.abort();
-					//console.log(task.state);
-					/*switch(task.state){
-						case 0:				//初始状态
-							task.start();	//管用
-							break;
-						case 5:				//暂停状态
-							task.resume();	//plus的bug，无效
-							break;
-						default:
-							task.resume();	//abort和resume均为bug，无效
-							break;
-					}*/
-				}
-			})
-		}
-	}
-
 	//取消任务
 	self.cancelTask = function(data) {
-		if (data.IsFinish() == false || data.ConvertResult() != 1) {
-			var btnArray = ['是', '否'];
-			mui.confirm('确认取消吗', '您点击了取消', btnArray, function(e) {
-				if (e.index == 0) {
-					mui.ajax(common.gServerUrl + 'Common/Work/' + data.works.ID, {
-						type: 'DELETE',
-						success: function(responseText) {
-							mui.toast('成功取消了本次上传');
-							upload.deleteTask(data.works.ID);
+		if (data.CanDelete() == false) return;
 
-							self.uploadList.remove(data);
-						}
-					});
-				}
-			});
-		}
+		var btnArray = ['是', '否'];
+		mui.confirm('确认删除本上传吗', '您点击了删除', btnArray, function(e) {
+			if (e.index == 0) {
+				mui.ajax(common.gServerUrl + 'Common/Work/' + data.works.ID, {
+					type: 'DELETE',
+					success: function(responseText) {
+						mui.toast('成功删除了本次上传');
+						upload.deleteTask(data.works.ID);
+
+						self.uploadList.remove(data);
+					}
+				});
+			}
+		});
 	}
 
 	//添加作品
@@ -214,10 +205,9 @@ var myUpload = function() {
 		self.WorkID = ko.observable(worksObj.ID); //作品编码
 		self.workTitle = ko.observable(worksObj.Title); //作品标题
 		self.videoThumbnail = ko.observable('');
-		if(common.StrIsNull(worksObj.VideoThumbnail) == ''){
+		if (common.StrIsNull(worksObj.VideoThumbnail) == '') {
 			self.videoThumbnail('../../images/video-big-default.png');
-		}
-		else{
+		} else {
 			self.videoThumbnail(worksObj.VideoThumbnail); //缩略图
 		}
 		self.videopath = ko.observable(worksObj.videopath); //视频路径
@@ -228,12 +218,8 @@ var myUpload = function() {
 		self.UploadedSize = ko.observable(0);
 		self.TotalSize = ko.observable(0);
 		self.FoundInLocal = ko.observable(true); //本地任务中存在
-		self.CanDelete = ko.computed(function() { //可删除（上传中和已完成上传的不可删除）
+		self.CanDelete = ko.computed(function() { //可删除（已完成上传的不可删除）
 			if (self.IsFinish() == true && self.ConvertResult() == common.gDictAttachmentConvertResult.Succeeded) {
-				return false;
-			}
-
-			if (self.FoundInLocal() == true && self.IsFinish() == false) {
 				return false;
 			}
 
@@ -279,7 +265,7 @@ var myUpload = function() {
 		});
 
 		self.Percentage = ko.computed(function() {
-			if(self.IsFinish()){
+			if (self.IsFinish()) {
 				return '100%';
 			}
 			return self.TotalSize() == 0 ? '0%' : Math.round(self.UploadedSize() / self.TotalSize() * 100).toString() + '%';

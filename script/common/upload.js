@@ -355,7 +355,7 @@ upload.initTasks = function(callback) {
 			arrRet.push(ret);
 		})
 	}
-	alert('initTasks:' + JSON.stringify(arrRet));
+	//alert('initTasks:' + JSON.stringify(arrRet));
 	return arrRet;
 }
 

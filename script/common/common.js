@@ -57,9 +57,33 @@
 	},
 
 	//空格分割
-	transforJSON: function(txt) {
-		if(common.StrIsNull(txt)==''){
-			return [];
+	transforArray: function(txt) {
+		if (common.StrIsNull(txt) == '') {
+			return;
+		}
+		var result = txt.split(' '); //得到 分割数组
+		return result
+	},
+
+	//是否为数字
+	IsNum: function(str) {
+		var reg = /^[0-9]{1,20}$/; //数字匹配
+		var result = reg.test(str);
+		return result; //返回boolean  true为数字，false为非数字
+	},
+
+	//是否为正确的手机号码
+	isPhone: function(str) {
+		//var reg = /^1[3|4|5|7|8][0-9]\d{4,8}$/; //手机号码匹配
+		var reg = /^[1][3|4|5|7|8][0-9]{9}$/; //手机号码匹配
+		var result = reg.test(str);
+		return result; //返回boolean  true为手机号码，false为不正确手机号码
+	},
+
+	JsonConvert: function(jsonSrc, ValueField, TextField) {
+		var jsonDest = [];
+		if (typeof(jsonSrc) == "string") {
+			jsonSrc = JSON.parse(jsonSrc);
 		}
 		if (jsonSrc) {
 			for (var i = 0; i < jsonSrc.length; i++) {
@@ -159,7 +183,6 @@
 		history.back();
 	},
 
-
 	//页面跳转
 	transfer: function(targetUrl, checkLogin, extras, createNew, autoShowWhileShow, id) {
 		var tmpUrl = targetUrl;
@@ -182,7 +205,6 @@
 
 		if (typeof id == "undefined")
 			id = tmpUrl;
-
 
 		mui.openWindow({
 			url: tmpUrl,
@@ -296,10 +318,10 @@
 			var rs = bankcard.match(reg);
 			rs.push(bankcard.substring(rs.join('').length));
 			result = rs.toString().replace(/\d{4},/g, "**** ");
-		}else if(cardLen == 16){
-			var rs=bankcard.substring(0,12).match(reg);
-			rs.push(bankcard.substring(0,12).substring(rs.join('').length));
-			result = rs.toString().replace(/\d{4},/g, "**** ")+'*'+bankcard.substring(13,17);
+		} else if (cardLen == 16) {
+			var rs = bankcard.substring(0, 12).match(reg);
+			rs.push(bankcard.substring(0, 12).substring(rs.join('').length));
+			result = rs.toString().replace(/\d{4},/g, "**** ") + '*' + bankcard.substring(13, 17);
 		}
 
 		return result; //返回 **** **** **** *** /\d{4}/ 
@@ -364,14 +386,16 @@
 	//根据QueryString参数名称获取值
 	getQueryStringByName: function(name, url) {
 		if (url == 'undefined') {
-			url = location.search;
+			if (typeof url == 'undefined') {
+				url = location.search;
+			}
 		}
 		var result = url.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));
-
+	
 		if (result == null || result.length < 1) {
 			return "";
 		}
-
+	
 		return result[1];
 	},
 
@@ -677,7 +701,6 @@
 		}).start();
 	},
 
-
 	//根据起始时间和结束时间返回类似“9月20日 15:00~16:00”
 	formatTime: function(btime, etime) {
 		if (!btime) return;
@@ -789,8 +812,6 @@
 		return c.slice(0, 1);
 	},
 
-
-
 	gContentRefreshDown: '刷新中...', //下拉时显示的文字
 	gContentRefreshUp: '努力加载中...', //上拉时显示的文字
 	gContentNomoreUp: '没有更多数据了', //上拉无数据时显示的文字
@@ -809,12 +830,12 @@
 		courseModule: 3, //课程表
 		homeworkModule: 4, //作业
 		teacherAuthModule: 5, //老师认证
-		examModule: 6,		//考级报名
+		examModule: 6, //考级报名
 		feedBackModule: 7, //新建页面跳转
 		systemMessageModule: 8, //系统通知
-		activityModule: 9, 	//活动购票
+		activityModule: 9, //活动购票
 		instructModule: 10, //授课关系通知
-		accountModule: 11  //账户通知
+		accountModule: 11 //账户通知
 	},
 
 	//性别类型枚举
@@ -898,11 +919,11 @@
 		Teacher: 1, //老师
 		Activity: 2 //活动
 	},
-	
+
 	gDictAttachmentConvertResult: {
-		NotHandle: 0,	//未处理
-		Succeeded: 1,	//转换成功
-		Failed: 2		//转换失败
+		NotHandle: 0, //未处理
+		Succeeded: 1, //转换成功
+		Failed: 2 //转换失败
 	},
 
 	//是否类型JSON
@@ -956,12 +977,12 @@
 		orchestraRecruit: 4 //青少年乐团团员招募
 
 	},
-	
+
 	//视频码率类型
 	gJsonVideoLevel: {
-		SD: 1,		//流畅（即标清）
-		HD: 2,		//高清
-		UltraHD: 3	//超高清
+		SD: 1, //流畅（即标清）
+		HD: 2, //高清
+		UltraHD: 3 //超高清
 	},
 
 	//老师评级
