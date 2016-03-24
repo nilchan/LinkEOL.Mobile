@@ -35,16 +35,15 @@
 		</header>
 		<div class="mui-content">
 			<ul class="mui-table-view" data-bind="foreach: newsList">
-				<li class="informationList-box mui-table-view-cell">
-					<div class="informationList-left" data-bind="event:{tap: gotoInfo}">
+				<li class="informationList-box mui-table-view-cell" data-bind="event:{tap: gotoInformationDetail}">
+					<div class="informationList-left">
 						<em class="informationList-photo">
 								<img data-bind="attr: {'src': common.getPhotoUrl(Photo)}, visible: !IsAuthority" onerror="this.src='../../images/my-default.png';" />
 								<img src="../../images/linkPhoto.png" data-bind="visible: IsAuthority" onerror="this.src='../../images/my-default.png';" />
 							</em>
 						<p class="informationList-name" data-bind="text: DisplayName">陈老师</p>
 					</div>
-					<div class="informationList-right" data-bind="event:{tap: gotoInformationDetail}">
-
+					<div class="informationList-right">
 						<h3 class="informationList-h3" data-bind="text: Title">「乐」趣 | 未来钢琴长怎样？来看匈牙利音乐家Bogányi 的10年</h3>
 						<div class="informationList-right-l">
 							<em class="informationList-em stick" data-bind="visible: IsTop">置顶</em>
