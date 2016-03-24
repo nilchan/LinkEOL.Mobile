@@ -108,14 +108,13 @@ var worksDetails = function() {
 				//设置位置
 				var ret = plus.VideoUtility.InitPlayer([
 					0, top, width, height
-				], work.VidPolyv, common.gJsonVideoLevel.SD);
-//				if (ret && ret.status) {
-//					var ret = plus.VideoUtility.PlayVideo(work.VidPolyv, common.gJsonVideoLevel.SD);
-//					if (ret && !ret.status) {
-//						//alert('error');
-//						mui.toast('视频加载失败');
-//					}
-//				}
+				]);
+				if (ret && ret.status) {
+					var ret = plus.VideoUtility.PlayVideo(work.VidPolyv, common.gJsonVideoLevel.SD);
+					if (ret && !ret.status) {
+						mui.toast('视频加载失败');
+					}
+				}
 			}
 			else{
 				var player = polyvObject('#videoPos').videoPlayer({

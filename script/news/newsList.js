@@ -39,7 +39,6 @@ var informationList = function() {
 	self.gotoAddInformation = function() {
 		
 	}
-	
 	//跳转个人信息
 	self.gotoInfo = function() {
 		
