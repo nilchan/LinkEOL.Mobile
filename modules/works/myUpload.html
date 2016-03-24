@@ -98,12 +98,12 @@
 			<div class="mui-scroll">
 				<!--数据列表-->
 				<ul class="mui-input-group" data-bind="foreach:{data:uploadList}">
-					<li class="mui-table-view-cell works-list">
-						<div class="works-list-works">
+					<li class="mui-table-view-cell works-list" data-bind="click: cancelTask">
+						<div class="works-list-works" data-bind="style: {'background-image': 'url(' + common.getThumbnail(videoThumbnail()) +')'}">
 						</div>
 						<div class="works-list-right">
 							<span class="title-one" data-bind="text: workTitle"></span>
-							<i class="iconfont myUpLoad-delete" data-bind="visible: CanDelete, click: cancelTask">&#xe61b;</i>
+							<i class="iconfont myUpLoad-delete" data-bind="visible: CanDelete">&#xe61b;</i>
 							<div class="loading-box"></div>
 							<!--suspend暂停样式-->
 							<div class="plan-box" data-bind="style:{width: Percentage}"></div>
@@ -118,8 +118,8 @@
 			</div>
 		</div>
 
-		<nav class="mui-bar mui-bar-tab p-btn-color">
-			<a class="ah-mui-tab-item teacherList-mui-bar-tab-1" data-bind="click: gotoAddWorks">
+		<nav class="mui-bar mui-bar-tab p-btn-color" data-bind="click: gotoAddWorks">
+			<a class="ah-mui-tab-item teacherList-mui-bar-tab-1">
 				<span class="mui-tab-label myUpLoad-nav">上传作品</span>
 			</a>
 		</nav>
@@ -128,7 +128,8 @@
 		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../script/libs/video.js/video2.0.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../script/libs/video.js/video2.0.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../script/libs/plugins/videoUtility.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/upload.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/works/myUpload.js" type="text/javascript" charset="utf-8"></script>
 	</body>

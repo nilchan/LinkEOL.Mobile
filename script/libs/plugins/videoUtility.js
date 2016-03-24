@@ -12,14 +12,33 @@ document.addEventListener( "plusready",  function()
     	Test : function(strPara){
 			return _BRIDGE.execSync(_VIDEOPLUGIN, "Test", [strPara]);
     	},
-    	
+
+//  	/**
+//  	 * 初始化视频播放器
+//  	 * @param {Object} position 播放器的位置，json数组对象[x, y, width, height]，如[0, 0, 360, 240]，单位为像素
+//  	 * @return {String} json格式字符串
+//  	 */
+//  	InitPlayer : function(position){
+//			return _BRIDGE.execSync(_VIDEOPLUGIN, "InitPlayer", [position]);
+//  	},
+
     	/**
     	 * 初始化视频播放器
     	 * @param {Object} position 播放器的位置，json数组对象[x, y, width, height]，如[0, 0, 360, 240]，单位为像素
+    	 * @param {String} vid 视频ID或本地视频文件路径
+    	 * @param {Number} level 码率。1、2、3分别代表流畅、高清、超清码率
     	 * @return {String} json格式字符串
     	 */
-    	InitPlayer : function(position){
-			return _BRIDGE.execSync(_VIDEOPLUGIN, "InitPlayer", [position]);
+    	InitPlayer : function(position, vid, level){
+			return _BRIDGE.execSync(_VIDEOPLUGIN, "InitPlayer", [position, vid, level]);
+    	},
+    	
+    	/**
+    	 * 关闭视频播放器
+    	 * @return {String} json格式字符串
+    	 */
+    	ClosePlayer : function(){
+			return _BRIDGE.execSync(_VIDEOPLUGIN, "closePlayer");
     	},
     	
     	/**

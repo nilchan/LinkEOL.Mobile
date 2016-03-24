@@ -12,29 +12,27 @@ var myUpload = function() {
 		}
 	});
 
-	var setItemFinish = function(item, returnJson) {
+	/**
+	 * 上传完成提交返回的vid至服务器
+	 * @param {Object} item 本地缓存的上传任务
+	 * @param {String} vid 视频对应保利威视平台的vid
+	 */
+	var setItemFinish = function(item, vid) {
 		var url = common.gServerUrl + "API/PolyvCloud/SetUploadFinish";
-		console.log(url);
 		mui.ajax(url, {
 			type: 'PUT',
 			data: {
 				SourceID: item.works.ID,
-				ReturnJsonPolyv: returnJson
+				VidPolyv: vid
 			},
 			success: function(responseText) {
-				console.log('111:' + responseText);
 				var result = JSON.parse(responseText);
-				console.log(typeof result);
-				console.log(result.VidPolyv);
 				if (result) {
-					console.log('222:' + JSON.stringify(item));
 					item.IsFinish(true);
 					//更换缩略图
 					item.VideoThumbnail('');
-					item.VideoThumbnail(result.ThumbnailPolyv);
-					console.log(result.ThumbnailPolyv);
+					//item.VideoThumbnail(result.ThumbnailPolyv);
 					item.works.VidPolyv = result.VidPolyv;
-					console.log('333:' + JSON.stringify(item.works));
 
 					//从本地缓存中删除
 					upload.deleteTask(item.works.ID);
@@ -50,28 +48,62 @@ var myUpload = function() {
 	}
 
 	/**
+	 * 刷新处理状态
+	 */
+	var refreshHandleState = function() {
+		var workIds = '';
+		for (var i = 0; i < self.uploadList().length; i++) {
+			var item = self.uploadList()[i];
+			if (item.IsFinish() == false || item.ConvertResult() != common.gDictAttachmentConvertResult.Succeeded) {
+				if (workIds == '') {
+					workIds += item.WorkID().toString();
+				} else {
+					workIds += ',' + item.WorkID().toString();
+				}
+			}
+		}
+		if (workIds == '') return;
+
+		var url = common.gServerUrl + "API/Attachment/GetAttachmentStatus?workIds=" + encodeURI(workIds);
+		//alert(url);
+		mui.ajax(url, {
+			type: 'GET',
+			success: function(responseText) {
+				var result = JSON.parse(responseText);
+				if (result && result.length > 0) {
+					for (var i = 0; i < self.uploadList().length; i++) { //刷新处理状态
+						var item = self.uploadList()[i];
+						for (var j = 0; j < result.length; j++) {
+							var item2 = result[j];
+							if (item.WorkID() == item2.SourceID) {
+								item.IsFinish(item2.IsFinish);
+								item.ConvertResult(item2.ConvertResult);
+								item.videoThumbnail(item2.ThumbnailPolyv); //从附件中获取，该字段为缩略图
+								break;
+							}
+						}
+					}
+				}
+			}
+		});
+	}
+
+	/**
 	 * 刷新上传进度
-	 * @param {Object} task 上传任务。{workId: 作品ID, uploadTask: plus.uploader.upload对象}
-	 * @param {Boolean} finished 是否完成
+	 * @param {Object} task 上传任务。{workId: 作品ID, uploadTask: {isFinish: false, uploadedSize: 0, totalSize: 999, vid: '123'}}
 	 * @param {String} description 描述（成功则为空字符串）
 	 */
-	var refreshUploadState = function(task, finished, description) {
+	var refreshUploadState = function(task, description) {
 		for (var i = 0; i < self.uploadList().length; i++) {
 			var item = self.uploadList()[i];
 			if (item.IsFinish()) continue; //已上传完成的无需刷新
 
 			if (task.workId == item.works.ID) {
-				if (item.UploadTask == null) item.UploadTask = task.uploadTask;
-				//console.log(task.uploadTask.state);
-
-				console.log(finished + '||' + description + '||' + JSON.stringify(task));
-				if (finished && common.StrIsNull(description) == '') {
+				if (task.uploadTask.isFinish && common.StrIsNull(description) == '') {
 					item.UploadedSize(item.TotalSize());
 
-					var ret = JSON.parse(task.uploadTask.responseText);
-					var returnJson = ret ? JSON.stringify(ret.data) : "";
-
-					setItemFinish(item, returnJson);
+					var vid = task.uploadTask.vid;
+					setItemFinish(item, vid);
 
 					continue;
 				}
@@ -86,48 +118,40 @@ var myUpload = function() {
 
 	//根据状态对上传任务进行重新梳理
 	self.filterTasks = function() {
-        alert(common.gVarLocalUploadTask);
 		var tmp = plus.storage.getItem(common.gVarLocalUploadTask);
-        alert(tmp);
-		var arrRet = [];
+		alert('gVarLocalUploadTask: ' + tmp);
 		var tasks = JSON.parse(tmp);
+		if(!tasks) {
+			for (var i = 0; i < self.uploadList().length; i++) {
+				self.uploadList()[i].FoundInLocal(false);
+			}
+			return;
+		}
+		
+		for (var j = tasks.length - 1; j >= 0; j--) {	//初始化为服务器端并未保存
+			tasks[j].Found = false;
+		}
+		
 		for (var i = 0; i < self.uploadList().length; i++) {
 			var found = false;
 			if (tasks && tasks.length > 0) {
 				for (var j = tasks.length - 1; j >= 0; j--) {
 					if (tasks[j].workId == self.uploadList()[i].works.ID) {
 						found = true;
-						tasks[j].Found = true;
+						tasks[j].Found = found;
 						if (self.uploadList()[i].works.IsFinish) { //若服务器端认为已完成，则需清除本地该任务
 							tasks.pop(tasks[j]);
-
-							break;
-						} else {
-							self.uploadList()[i].TaskStatusText('上传中');
 						}
+
+						break;
 					}
 				}
 			}
+			self.uploadList()[i].FoundInLocal(found);
 
-			if (!found) { //服务器端并无保存该上传任务
-				if (self.uploadList()[i].works.IsFinish) {
-					self.uploadList()[i].TotalSize(1);
-					self.uploadList()[i].UploadedSize(1);
-					if (self.uploadList()[i].ConvertResult() == 1) { //转换成功
-						self.uploadList()[i].TaskStatusText('上传完成');
-					} else if (self.uploadList()[i].ConvertResult() == 2) { //转换失败
-						self.uploadList()[i].TaskStatusText('审核未通过');
-						self.uploadList()[i].TaskStatus(false);
-						self.uploadList()[i].CanDelete(true);
-					} else {
-						self.uploadList()[i].TaskStatusText('待审核');
-						self.uploadList()[i].CanDelete(true);
-					}
-				} else {
-					self.uploadList()[i].TaskStatusText('上传已失效');
-					self.uploadList()[i].TaskStatus(false);
-					self.uploadList()[i].CanDelete(true);
-				}
+			if (!found && self.uploadList()[i].works.IsFinish) { //服务器端并无保存该上传任务
+				self.uploadList()[i].TotalSize(1);
+				self.uploadList()[i].UploadedSize(1);
 			}
 		}
 
@@ -136,54 +160,34 @@ var myUpload = function() {
 				tasks.pop(tasks[j]);
 			}
 		}
-		plus.storage.setItem(common.gVarLocalUploadTask, JSON.stringify(tasks));
+		if(tasks.length <= 0)
+			plus.storage.setItem(common.gVarLocalUploadTask, '[]');
+		else
+			plus.storage.setItem(common.gVarLocalUploadTask, JSON.stringify(tasks));
+			
 		if (tasks && tasks.length > 0) {
 			arrUploadTask = upload.initTasks(refreshUploadState);
 		}
 	}
 
-	//停止任务（h5+有bug，暂时无法实现）
-	self.handleTask = function(data) {
-		if (data.IsFinish() == false) {
-
-			arrUploadTask.forEach(function(task) {
-				if (task.workId == data.works.ID) {
-					task.abort();
-					//console.log(task.state);
-					/*switch(task.state){
-						case 0:				//初始状态
-							task.start();	//管用
-							break;
-						case 5:				//暂停状态
-							task.resume();	//plus的bug，无效
-							break;
-						default:
-							task.resume();	//abort和resume均为bug，无效
-							break;
-					}*/
-				}
-			})
-		}
-	}
-
 	//取消任务
 	self.cancelTask = function(data) {
-		if (data.IsFinish() == false || data.ConvertResult() != 1) {
-			var btnArray = ['是', '否'];
-			mui.confirm('确认取消吗', '您点击了取消', btnArray, function(e) {
-				if (e.index == 0) {
-					mui.ajax(common.gServerUrl + 'Common/Work/' + data.works.ID, {
-						type: 'DELETE',
-						success: function(responseText) {
-							mui.toast('成功取消了本次上传');
-							upload.deleteTask(data.works.ID);
+		if (data.CanDelete() == false) return;
 
-							self.uploadList.remove(data);
-						}
-					});
-				}
-			});
-		}
+		var btnArray = ['是', '否'];
+		mui.confirm('确认删除本上传吗', '您点击了删除', btnArray, function(e) {
+			if (e.index == 0) {
+				mui.ajax(common.gServerUrl + 'Common/Work/' + data.works.ID, {
+					type: 'DELETE',
+					success: function(responseText) {
+						mui.toast('成功删除了本次上传');
+						upload.deleteTask(data.works.ID);
+
+						self.uploadList.remove(data);
+					}
+				});
+			}
+		});
 	}
 
 	//添加作品
@@ -200,7 +204,12 @@ var myUpload = function() {
 		self.works = worksObj;
 		self.WorkID = ko.observable(worksObj.ID); //作品编码
 		self.workTitle = ko.observable(worksObj.Title); //作品标题
-		self.workimgUrl = ko.observable(worksObj.workimgUrl); //缩略图
+		self.videoThumbnail = ko.observable('');
+		if (common.StrIsNull(worksObj.VideoThumbnail) == '') {
+			self.videoThumbnail('../../images/video-big-default.png');
+		} else {
+			self.videoThumbnail(worksObj.VideoThumbnail); //缩略图
+		}
 		self.videopath = ko.observable(worksObj.videopath); //视频路径
 		self.localpath = ko.observable(worksObj.localpath); //本地路径
 		self.IsFinish = ko.observable(worksObj.IsFinish); //专门用ko变量记录，便于更新*/
@@ -208,9 +217,42 @@ var myUpload = function() {
 		self.IsChecked = ko.observable(false); //标记是否选中
 		self.UploadedSize = ko.observable(0);
 		self.TotalSize = ko.observable(0);
-		self.CanDelete = ko.observable(false); //可删除（只要未完成上传均可删除）
-		self.TaskStatus = ko.observable(true); //任务状态（true-正常；false-不正常）
-		self.TaskStatusText = ko.observable(''); //任务状态文字
+		self.FoundInLocal = ko.observable(true); //本地任务中存在
+		self.CanDelete = ko.computed(function() { //可删除（已完成上传的不可删除）
+			if (self.IsFinish() == true && self.ConvertResult() == common.gDictAttachmentConvertResult.Succeeded) {
+				return false;
+			}
+
+			return true;
+		});
+		self.TaskStatus = ko.computed(function() { //任务状态（完成但审核未通过、无缓存且未完成，均为不正常）
+			if (self.IsFinish() == true && self.ConvertResult() == common.gDictAttachmentConvertResult.Failed) { //转换失败
+				return false;
+			}
+
+			if (self.FoundInLocal() == false && self.IsFinish() == false) {
+				return false;
+			}
+
+			return true;
+		});
+		self.TaskStatusText = ko.computed(function() { //任务状态文字
+			if (self.IsFinish()) {
+				if (self.ConvertResult() == common.gDictAttachmentConvertResult.Succeeded) { //转换成功
+					return '上传完成';
+				} else if (self.ConvertResult() == common.gDictAttachmentConvertResult.Failed) { //转换失败
+					return '审核未通过';
+				} else {
+					return '待审核';
+				}
+			} else {
+				if (self.FoundInLocal()) {
+					return '上传中';
+				} else {
+					return '上传已失效';
+				}
+			}
+		});
 		self.videoHtml = ko.computed(function() {
 			if (self.IsFinish()) {
 				//console.log('<div class="video-js-box" style="margin:18px auto"><video controls width="' + 320 + 'px" height="' + 240 + 'px" class="video-js" data-setup="{}"><source src="' + plus.io.convertLocalFileSystemURL(self.localpath()) + '" type="video/mp4" /></video></div>');
@@ -223,6 +265,9 @@ var myUpload = function() {
 		});
 
 		self.Percentage = ko.computed(function() {
+			if (self.IsFinish()) {
+				return '100%';
+			}
 			return self.TotalSize() == 0 ? '0%' : Math.round(self.UploadedSize() / self.TotalSize() * 100).toString() + '%';
 		});
 	}
@@ -240,8 +285,8 @@ var myUpload = function() {
 						self.uploadList.push(obj);
 						//console.log(obj.VideoThumbnail());
 					})
-                    mui('#pullrefreshdown').pullRefresh().refresh(true); //重置上拉加载
- 					self.filterTasks();
+					mui('#pullrefreshdown').pullRefresh().refresh(true); //重置上拉加载
+					self.filterTasks();
 
 					common.showCurrentWebview();
 				} else {
@@ -258,7 +303,8 @@ var myUpload = function() {
 	function pulldownRefresh() {
 		setTimeout(function() {
 			mui('#pullrefreshdown').pullRefresh().endPulldownToRefresh(); //refresh completed
-			self.getWorks();
+			//self.getWorks();
+			refreshHandleState();
 		}, 1500);
 	}
 	if (mui.os.plus) {
