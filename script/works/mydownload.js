@@ -50,19 +50,24 @@ var mydownload = function() {
 			}
 		}
 	}
+	
+	//删除下载
+	self.deleteTask = function(data){
+		var btnArray = ['是', '否'];
+		mui.confirm('确认删除本下载吗', '您点击了删除', btnArray, function(e) {
+			if (e.index == 0) {
+				mui.toast('成功删除了本次下载');
+				download.deleteTask(data.works.workId);
+
+				self.downloadList.remove(data);
+			}
+		});
+	}
 
 	//点击任务
 	self.clickTask = function(data) {
 		if (data.isFinish() == false){	//未完成下载
-			var btnArray = ['是', '否'];
-			mui.confirm('确认删除本下载吗', '您点击了删除', btnArray, function(e) {
-				if (e.index == 0) {
-					mui.toast('成功删除了本次下载');
-					download.deleteTask(data.works.workId);
-	
-					self.downloadList.remove(data);
-				}
-			});
+			self.deleteTask(data);
 		}
 		else{	//已完成下载，可跳转浏览
 			plus.nativeUI.showWaiting();
