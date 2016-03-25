@@ -26,8 +26,10 @@ var informationList = function() {
 	}
 	
 	//跳转详情
-	self.gotoInformationDetail = function() {
-		
+	self.gotoInformationDetail = function(data) {
+		common.transfer('newsDetail.html',false,{
+			newsId:data.ID
+		},false,false);
 	}
 	
 	//跳转我的资讯

@@ -12,6 +12,7 @@ var home = function() {
 	self.slideshowEndUrl = ko.observable();
 	self.slideshowEndPic = ko.observable();
 	self.activitys = ko.observableArray([]);
+	self.newsTitleArray =ko.observableArray([]);
 
 	self.getTeachers = function() {
 		mui.ajax(common.gServerUrl + "API/Teacher/GetIndexTeachers?count=" + self.count, {
@@ -136,6 +137,18 @@ var home = function() {
 			}
 		});
 	};
+	
+	//首页新闻咨询轮播
+	self.getHeadlineNewsList=function(){
+		var ajaxUrl=common.gServerUrl+'Common/News/GetHeadlineNewsList';
+		mui.ajax(ajaxUrl,{
+			type:'GET',
+			success:function(responseText){
+				var result=JSON.parse(responseText);
+				self.newsTitleArray(result);
+			}
+		})
+	}
 
 	self.gotoactivityList = function() {
 		common.showIndexWebview(1, false);
@@ -170,6 +183,7 @@ var home = function() {
 				self.UnreadCount(result.MessageCount);
 				self.UnreadCount(0);
 				self.getUserID(getLocalItem('UserID'));
+				self.getHeadlineNewsList();
 				common.showCurrentWebview();
 				plus.navigator.closeSplashscreen(); //关闭启动界面
 				teacherTest = common.preload('../../modules/teacher/teacherListHeader.html', {}, 'teacherListHeader.html')
