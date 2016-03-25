@@ -1,7 +1,10 @@
+var _bought = false;
+
 function s2j_onPlayOver() {
-	//console.log("播放结束");
-	document.getElementById("videoBuy").style.display = "block";
-	document.getElementById("videoPos").style.display = "none";
+	if(!_bought){
+		document.getElementById("videoBuy").style.display = "block";
+		document.getElementById("videoPos").style.display = "none";
+	}
 }
 
 var worksDetails = function() {
@@ -103,26 +106,29 @@ var worksDetails = function() {
 		var top = 80;
 		var width = document.body.clientWidth;
 		var height = width * 9 / 16;
+		_bought = work.IsBought;
+		//document.getElementById('pay-box').style.height = height+'px';
 		if (work.IsBought) {
-			if(plus.VideoUtility){
-				//设置位置
-				var ret = plus.VideoUtility.InitPlayer([
-					0, top, width, height
-				]);
-				if (ret && ret.status) {
-					var ret = plus.VideoUtility.PlayVideo(work.VidPolyv, common.gJsonVideoLevel.SD);
-					if (ret && !ret.status) {
-						mui.toast('视频加载失败');
-					}
-				}
-			}
-			else{
+//			if(plus.VideoUtility){
+//				//设置位置
+//				var ret = plus.VideoUtility.InitPlayer([
+//					0, top, width, height
+//				]);
+//				if (ret && ret.status) {
+//					var ret = plus.VideoUtility.PlayVideo(work.VidPolyv, common.gJsonVideoLevel.SD);
+//					if (ret && !ret.status) {
+//						mui.toast('视频加载失败');
+//					}
+//				}
+//			}
+//			else{
+				
 				var player = polyvObject('#videoPos').videoPlayer({
 					'width': '100%',
 					'height': height,
 					'vid': work.VidPolyv
 				});
-			}
+//			}
 		} else {
 			var player = polyvObject('#videoPos').previewPlayer({
 				'width': '100%',
@@ -246,9 +252,10 @@ var worksDetails = function() {
 				workAuthorId: self.Works().AuthorID(),
 				workAuthorName: self.Works().AuthorName(),
 				workimgUrl: self.Works().imgUrl,
+				workVidPolyv: self.Works().VidPolyv,
 				workSubjectName: self.Works().SubjectName(),
 				workContentText: self.Works().ContentText(),
-				IsFinish: false,
+				isFinish: false,
 				videopath: videoUrl, //远程路径
 				localpath: '' //本地路径
 			}
@@ -261,7 +268,8 @@ var worksDetails = function() {
 			})
 			if (!downloaded)
 				arr.push(data);
-
+			
+			//alert('worksDetails setItem before: ' + JSON.stringify(arr));
 			plus.storage.setItem(common.gVarLocalDownloadTask, JSON.stringify(arr));
 			common.transfer("mydownloadHeader.html", true, {}, false, true);
 		} else {
@@ -320,7 +328,7 @@ var worksDetails = function() {
 		mui.prompt('请输入咨询内容：', '', '咨询', btnArray, function(e) {
 			if (e.index == 0) {
 				if (common.StrIsNull(e.value) == "") {
-					mui.alert('咨询内容不能为空，请输入咨询内容', '出错了~~', function() {});
+					mui.alert('咨询内容不能为空', '出错了~', function() {});
 				} else {
 					mui.ajax(common.gServerUrl + "API/Comment/AddCommentFeedback", {
 						type: "POST",

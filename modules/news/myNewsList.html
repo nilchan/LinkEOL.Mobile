@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<style>
+			.mui-content > .mui-table-view:first-child {
+				margin-top: 0px;
+			}
+			
+			.mui-table-view:after,
+			.mui-table-view-cell:after {
+				height: 0px;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background: #eee!important;
+			}
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #929292;
+				background: #fff;
+			}
+			
+			.mui-tab-item,
+			.ah-mui-tab-item {
+				color: #E64578!important;
+			}
+			
+			.teacherList-mui:active {
+				background: #eee;
+			}
+			
+			.share-height {
+				position: fixed!important;
+			}
+			
+			.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #E64578!important;
+				background: #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe602;</i>
+			<h1 class="mui-title">我的分享与发布</h1>
+			<em class="iconfont mui-bar-nav-em" data-bind="event:{tap: deleteNews}">&#xe61b;</em>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" data-bind="foreach: newsList">
+				<li class="informationList-box mui-table-view-cell">
+					<em class="teacher-list-check myStudent-check" data-bind="visible: displayCheck">
+							<img data-bind="attr:{src: '../../images/radio-check'+(selected() ? '-active' : '')+'.png'}" />
+						</em>
+					<div class="informationList-left" data-bind="event:{tap: gotoInfo}">
+						<em class="informationList-photo">
+								<img data-bind="attr: {'src': common.getPhotoUrl(info.Photo)}, visible: !info.IsAuthority" onerror="this.src='../../images/my-default.png';" />
+								<img src="../../images/linkPhoto.png" data-bind="visible: info.IsAuthority" onerror="this.src='../../images/my-default.png';" />
+							</em>
+						<p class="informationList-name" data-bind="text: info.DisplayName">陈老师</p>
+					</div>
+					<div class="informationList-right" data-bind="event:{tap: clickOne}">
+						<h3 class="informationList-h3" data-bind="text: info.Title">「乐」趣 | 未来钢琴长怎样？来看匈牙利音乐家Bogányi 的10年</h3>
+						<div class="informationList-right-l">
+							<em class="informationList-em stick" data-bind="visible: info.IsTop">置顶</em>
+							<em class="informationList-em essence" data-bind="visible: info.IsElite">精华</em>
+						</div>
+						<div class="informationList-right-r" data-bind="text: info.TimeSatatus">1分钟前</div>
+						<div class="informationList-right-position">
+							<div class="informationList-right-l">
+								<i class="iconfont">&#xe661;</i>
+								<!-- ko text: info.ReadCount -->3652
+								<!-- /ko -->人已浏览
+							</div>
+							<div class="informationList-right-r" style="padding-right: 19px;"><i class="iconfont">&#xe663;</i>
+								<!-- ko text: info.LikeCount -->20
+								<!-- /ko -->
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<nav class="mui-bar mui-bar-tab" data-bind="visible: displayCheck">
+				<a class="ah-mui-tab-item mui-active works-list-mui-tab-label" data-bind="event:{tap: cacelSelect}">
+					<span class="mui-tab-label ">取消</span>
+				</a>
+
+				<a class="ah-mui-tab-item works-list-mui-tab-btn" data-bind="event:{tap: submitSelect}">
+					<span class="mui-tab-label works-list-mui-btn">确认</span>
+				</a>
+			</nav>
+			<!--<ul class="mui-table-view">
+					<li class="informationList-box mui-table-view-cell teacher-list-check-bgColor">
+						<em class="teacher-list-check myStudent-check">
+							<img src="../../images/radio-check.png" />
+						</em>
+						<em class="teacher-list-check myStudent-check" >
+							<img src="../../images/radio-check-active.png" />
+						</em>
+						<div class="informationList-left">
+							<em class="informationList-photo"><img src="../../images/Identity.jpg" /></em>
+							<p class="informationList-name">陈老师</p>
+						</div>
+						<div class="informationList-right">
+							<h3 class="informationList-h3">「乐」趣 | 未来钢琴长怎样？来看匈牙利音乐家Bogányi 的10年</h3>
+							<div class="informationList-right-l">
+								<em class="informationList-em stick">置顶</em>
+								<em class="informationList-em essence">精华</em>
+							</div>
+							<div class="informationList-right-r">1分钟前</div>
+							<div class="informationList-right-position">
+								<div class="informationList-right-l">
+									<i class="iconfont">&#xe661;</i>3652人已浏览</div>
+								<div class="informationList-right-r" style="padding-right: 19px;"><i class="iconfont">&#xe663;</i>20</div>
+							</div>
+						</div>
+					</li>
+				</ul>-->
+		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/qrcode.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/news/myNewsList.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

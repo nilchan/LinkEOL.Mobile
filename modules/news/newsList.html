@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<style>
+			.mui-content > .mui-table-view:first-child {
+				margin-top: 0px;
+			}
+			
+			.mui-table-view:after,
+			.mui-table-view-cell:after {
+				height: 0px;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background: #eee!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe602;</i>
+			<h1 class="mui-title">分享与发布</h1>
+			<em class="iconfont mui-bar-nav-em" style="font-size: 22px!important;">&#xe6a9;
+			</em>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" data-bind="foreach: newsList">
+				<li class="informationList-box mui-table-view-cell" data-bind="event:{tap: gotoInformationDetail}">
+					<div class="informationList-left">
+						<em class="informationList-photo">
+								<img data-bind="attr: {'src': common.getPhotoUrl(Photo)}, visible: !IsAuthority" onerror="this.src='../../images/my-default.png';" />
+								<img src="../../images/linkPhoto.png" data-bind="visible: IsAuthority" onerror="this.src='../../images/my-default.png';" />
+							</em>
+						<p class="informationList-name" data-bind="text: DisplayName">陈老师</p>
+					</div>
+					<div class="informationList-right">
+						<h3 class="informationList-h3" data-bind="text: Title">「乐」趣 | 未来钢琴长怎样？来看匈牙利音乐家Bogányi 的10年</h3>
+						<div class="informationList-right-l">
+							<em class="informationList-em stick" data-bind="visible: IsTop">置顶</em>
+							<em class="informationList-em essence" data-bind="visible: IsElite">精华</em>
+						</div>
+						<div class="informationList-right-r" data-bind="text: TimeSatatus">1分钟前</div>
+						<div class="informationList-right-position">
+							<div class="informationList-right-l">
+								<i class="iconfont">&#xe661;</i>
+								<!-- ko text: ReadCount -->3652
+								<!-- /ko -->人已浏览
+							</div>
+							<div class="informationList-right-r" style="padding-right: 19px;"><i class="iconfont">&#xe663;</i>
+								<!-- ko text: LikeCount -->20
+								<!-- /ko -->
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<div class="add-information-icon">
+				<img src="../../images/add-information.png" />
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/qrcode.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/news/newsList.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

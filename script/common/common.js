@@ -1,8 +1,8 @@
 ﻿var common = {
 	//Web API地址
 	//gServerUrl: "http://cloud.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
-	gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
-	//gServerUrl: "http://192.168.1.66:8090/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
+	//gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
+	gServerUrl: "http://192.168.1.66:8090/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
 	//gServerUrl: "http://linkeol.6655.la:8090/",gVideoServerUrl: "http://linkeol.6655.la:8099/",gWebsiteUrl: "http://linkeol.6655.la:8081/",
 	//判断字符串是否为空，空则返回""
 	StrIsNull: function(str) {
