@@ -14,13 +14,14 @@ var newsDetail=function(){
 		self.Title=ko.observable(newsDetail.Title);//新闻咨询标题
 		self.PostTime=ko.observable(newsDetail.PostTime);//新闻发布时间
 		self.PublisherUserID=ko.observable(newsDetail.PublisherUserID);//新闻咨询作者id
-		self.FilePath=ko.observable(newsDetail.FilePath);//新闻咨询内容html
+		self.HtmlContent=ko.observable(newsDetail.HtmlContent);//新闻咨询内容html
 		self.DisplayName=ko.observable(newsDetail.DisplayName);//新闻咨询作者名字
 		self.LikeCount=ko.observable(newsDetail.LikeCount);//新闻点赞数
 		self.ShareCount=ko.observable(newsDetail.ShareCount);//新闻分享次数
 		self.IsTop=ko.observable(newsDetail.IsTop);//新闻是否置顶
 		self.IsElite=ko.observable(newsDetail.IsElite);//新闻是否精华
 		self.FavCount=ko.observable(newsDetail.FavCount);//新闻收藏次数
+		self.Photo = ko.observable(newsDetail.Photo);
 	}
 	
 	//获取详情
@@ -75,8 +76,7 @@ var newsDetail=function(){
 			var data={
 				ID:newsID,
 				Title:self.newsDetail().Title(),
-				//HtmlContent:
-				FilePath:self.newsDetail().FilePath()
+				HtmlContent:self.newsDetail().HtmlContent()
 			};
 			
 			mui.ajax(ajaxUrl,{

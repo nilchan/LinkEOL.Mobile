@@ -108,7 +108,7 @@
 		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe602;</i>
 			<h1 class="mui-title">资讯详情</h1>
-			<em class="mui-bar-nav-em" style="font-size: 16px;" data-bind='click:edit,text:editText'>编辑</em>
+			<!--<em class="mui-bar-nav-em" style="font-size: 16px;" data-bind='click:edit,text:editText'>编辑</em>-->
 		</header>
 		<div class="mui-content">
 			<!--查看区-->
@@ -117,7 +117,7 @@
 				<div class="newsInfo-second">
 					<div class="second-left">
 						<div class="newsInfo-photo">
-							<img data-bind="attr:{src:newsDetail().Photo=='../../images/linkPhoto.png'?'':'newsDetail().Photo'}" onerror="this.src='../../images/linkPhoto.png';" />
+							<img data-bind="attr:{src:newsDetail().Photo=='../../images/linkPhoto.png'?'':common.getPhotoUrl(newsDetail().Photo)}" onerror="this.src='../../images/linkPhoto.png';" />
 						</div>
 						<span class="second-left-font" data-bind="text:newsDetail().DisplayName">乐评家</span>
 					</div>
@@ -129,7 +129,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class='newsInfo-p' data-bind='html:newsDetail().FilePath'>
+				<div class='newsInfo-p' data-bind='html:newsDetail().HtmlContent'>
 
 				</div>
 			</div>
@@ -138,7 +138,7 @@
 			<div class="newsInfo-content" data-bind='visible:editStat'>
 				<input type="text" placeholder="标题" data-bind='value:newsDetail().Title' />
 				<div class="requestInformation-textarea">
-					<textarea placeholder="分享新资讯……" data-bind='value:newsDetail().FilePath'></textarea>
+					<textarea placeholder="分享新资讯……" data-bind='value:newsDetail().HtmlContent'></textarea>
 				</div>
 			</div>
 		</div>
