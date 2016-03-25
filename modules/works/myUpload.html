@@ -98,7 +98,7 @@
 			<div class="mui-scroll">
 				<!--数据列表-->
 				<ul class="mui-input-group" data-bind="foreach:{data:uploadList}">
-					<li class="mui-table-view-cell works-list" data-bind="click: cancelTask">
+					<li class="mui-table-view-cell works-list" data-bind="event:{tap: cancelTask}">
 						<div class="works-list-works" data-bind="style: {'background-image': 'url(' + common.getThumbnail(videoThumbnail()) +')'}">
 						</div>
 						<div class="works-list-right">

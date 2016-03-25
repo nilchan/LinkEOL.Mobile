@@ -118,7 +118,7 @@
 	</head>
 
 	<body style="background:#f1f1f1;">
-		<div class="openedCourses-ys" data-bind="visible:downloadList().length<=0">
+		<div class="openedCourses-ys" data-bind="visible:downloadList().length<=0 && viewDetail() == false">
 			<i>
 				<img src="../../images/logo-pic.png" />
 			</i>
@@ -127,11 +127,11 @@
 				<button type="button" class="mui-btn mui-btn-block mui-btn-primary th-btn th-mui-f p-btn-color p-btn-padding" data-bind="click: gotoAllWorks">去看看吧</button>
 			</div>
 		</div>
-		<div id="pullrefreshdown" class="mui-content myUpLoad-content" data-bind="visible:downloadList().length>0">
+		<div id="pullrefreshdown" class="mui-content myUpLoad-content" data-bind="visible:downloadList().length>0 && viewDetail() == false">
 			<div class="mui-scroll">
 				<!--数据列表-->
 				<ul class="mui-input-group" data-bind="foreach:{data:downloadList}">
-					<li class="mui-table-view-cell works-list" data-bind="click: clickTask">
+					<li class="mui-table-view-cell works-list" data-bind="event:{tap: clickTask}">
 						<div class="works-list-works" data-bind="style: {'background-image': 'url(' + common.getThumbnail(videoThumbnail()) +')'}">
 						</div>
 						<div class="works-list-right">
@@ -151,26 +151,15 @@
 			</div>
 		</div>
 
-		<div class="myDownLoad-con">
-			<header class="mui-bar mui-bar-nav works-list-mui-bar-nav">
-			<i class="iconfont mui-action-back">&#xe683;</i>
-			<h1 class="mui-title">我的下载</h1>
-		</header>
+		<div class="myDownLoad-con" data-bind="visible: viewDetail() == true">
+			<!--<header class="mui-bar mui-bar-nav works-list-mui-bar-nav">
+				<i class="iconfont mui-action-back" data-bind="click: cancelView">&#xe683;</i>
+				<h1 class="mui-title" data-bind="text: workTitle">我的下载</h1>
+			</header>-->
 			<!--<h5 class="works-title">作品标题作品标题作品标题</h5>-->
-			<div class="myDownLoad-video"></div>
-			<div class="myDownLoad-content">我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我
-				我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容
-				我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容
-				我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容我的作品内容</div>
-			
-			
-			
+			<div class="myDownLoad-video" id="videoCtrl"></div>
+			<div class="myDownLoad-content" data-bind="text: workContentText">作品内容</div>
 		</div>
-
-
-
-
-
 
 		<script src="../../script/mui/mui.min.js"></script>
 		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>

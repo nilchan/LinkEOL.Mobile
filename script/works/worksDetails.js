@@ -676,8 +676,6 @@ var worksDetails = function() {
 
 	mui.init({
 		beforeback: function() {
-			plus.VideoUtility.ClosePlayer();
-			
 			var workParent = workVaule.opener();
 			if (workParent != null) {
 				if (workParent.id == 'worksListAllWorks.html' || workParent.id == 'classmateWorks.html') {

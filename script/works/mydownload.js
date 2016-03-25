@@ -2,6 +2,8 @@ var mydownload = function() {
 	var self = this;
 	var arrDownloaderTask = [];
 	self.downloadList = ko.observableArray([]);
+	self.viewDetail = ko.observable(false);
+	self.workContentText = ko.observable('');
 
 	mui.init({
 		pullRefresh: {
@@ -63,10 +65,47 @@ var mydownload = function() {
 			});
 		}
 		else{	//已完成下载，可跳转浏览
-			alert('下载完成了的');
+			plus.nativeUI.showWaiting();
+			
+			//触发Header页面的事件
+			var workParent = plus.webview.currentWebview().opener();
+			if (workParent != null) {
+				mui.fire(workParent, 'changeHeaderViewState', {
+					workTitle: data.workTitle()
+				});
+			}
+			
+			var top = 44 * 2;
+			var width = document.body.clientWidth;
+			var height = width * 9 / 16;
+			
+			document.getElementById('videoCtrl').style.top = top+'px';
+			document.getElementById('videoCtrl').style.height = height+'px';
+			self.workContentText(data.workContentText());
+			self.viewDetail(true);
+			
+			//设置视频位置
+			var ret = plus.VideoUtility.InitPlayer([
+				0, top, width, height
+			]);
+			if (ret && ret.status) {
+				var ret = plus.VideoUtility.PlayVideo(data.workVidPolyv(), common.gJsonVideoLevel.SD);
+				if (ret && !ret.status) {
+					mui.toast('视频加载失败');
+				}
+			}
+			
+			plus.nativeUI.closeWaiting();
 		}
 	}
-
+	
+	//取消查看下载作品详情
+	window.addEventListener('changeContentViewState',function(event) {
+		plus.VideoUtility.ClosePlayer();
+		
+		self.viewDetail(false);
+	});
+	
 	//跳转至所有作品
 	self.gotoAllWorks = function() {
 		common.transfer("worksListAllHeader.html", false, {
