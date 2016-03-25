@@ -1105,7 +1105,9 @@
 					"content/fonts/mui.ttf",
 					"content/fonts/iconfont.woff",
 					"script/libs/resumable.js/resumable.js",
-					"images/video-default.png"
+					"images/video-default.png",
+					"script/common/videoUtility.js",
+					"script/works/videoPlugAndriod.js"
 				],
 				"refer": [
 					"modules/works/worksListMyHeader.html",
@@ -2817,7 +2819,8 @@
 					"script/common/common.js",
 					"script/common/base.js",
 					"content/fonts/iconfont.ttf",
-					"script/libs/video.js/video2.0.min.css"
+					"script/libs/video.js/video2.0.min.css",
+					"script/libs/plugins/videoUtility.js"
 				],
 				"refer": [],
 				"priority": 0

@@ -48,7 +48,16 @@ var informationList = function() {
 	
 	//跳转个人信息
 	self.gotoInfo = function() {
-		mui.toast('ppp');
+		var user = this;
+		if (user.UserType == common.gDictUserType.teacher) {
+			common.transfer('../../modules/teacher/teacherInfo.html', false, {
+				teacherID: user.ID
+			}, false, false);
+		} else if (user.UserType == common.gDictUserType.student) {
+			common.transfer('../../modules/student/studentInfo.html', false, {
+				studentID: user.ID
+			}, false, false);
+		}
 	}
 	
 	//选择列表

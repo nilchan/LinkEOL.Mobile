@@ -83,6 +83,7 @@
 			.myUpLoad-delete {
 				float: right;
 				font-size: 16px;
+				margin-right: 5%;
 			}
 			/*我的下载的内容myDownLoad-con*/
 			.myDownLoad-con{
@@ -154,10 +155,11 @@
 					<li class="mui-table-view-cell works-list" data-bind="event:{tap: clickTask}">
 						<div class="works-list-works" data-bind="style: {'background-image': 'url(' + common.getThumbnail(videoThumbnail()) +')'}">
 						</div>
+						<i class="iconfont myUpLoad-delete" data-bind="visible: isFinish" onclick="alert('123');">&#xe61b;</i>
 						<div class="works-list-right">
 							<div class="myDownLoad-con-title">
 								<span class="title-one" data-bind="text: workTitle">标题</span>
-								<i class="iconfont myUpLoad-delete" data-bind="visible: isFinish" onclick="alert('123');">&#xe61b;</i>
+								
 							</div>
 							<div class="myDownLoad-author" data-bind="text: workAuthorName">张长张</div>
 							<div class="myDownLoad-subject" data-bind="text: workSubjectName">小提琴</div>
