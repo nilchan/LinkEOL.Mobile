@@ -101,6 +101,10 @@
 				top: 100%!important;
 				margin-top: -178px!important;
 			}
+			.newsInfo-p,
+			.newsInfo-p * {
+				-webkit-user-select: auto;
+			}
 		</style>
 	</head>
 
@@ -108,7 +112,7 @@
 		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe602;</i>
 			<h1 class="mui-title">资讯详情</h1>
-			<!--<em class="mui-bar-nav-em" style="font-size: 16px;" data-bind='click:edit,text:editText'>编辑</em>-->
+			<em class="mui-bar-nav-em" style="font-size: 16px;" data-bind='click:edit,text:editText'>编辑</em>
 		</header>
 		<div class="mui-content">
 			<!--查看区-->
@@ -129,7 +133,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class='newsInfo-p' data-bind='html:newsDetail().HtmlContent'>
+				<div contentEditable="true" class='newsInfo-p' data-bind='html:newsDetail().HtmlContent'>
 
 				</div>
 			</div>

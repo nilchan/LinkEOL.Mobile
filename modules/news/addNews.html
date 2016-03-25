@@ -10,13 +10,24 @@
 		<link href="../../content/common/global.css" rel="stylesheet" />
 		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
 		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style type="text/css">
+			#edit,
+			#edit * {
+				-webkit-user-select: auto;
+			}
+			img {
+				display: block;
+				margin: 0 auto;
+			}
+		</style>
 	</head>
-
+	
 	<body>
 		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe602;</i>
 			<h1 class="mui-title">发布资讯</h1>
-			<em class="mui-bar-nav-em" style="font-size: 16px;">发布</em>
+			<em class="mui-bar-nav-em" style="font-size: 16px;" data-bind="event:{tap: submitNews}">发布</em>
 		</header>
 		<div class="mui-content">
 
@@ -24,7 +35,7 @@
 				<input type="text" placeholder="标题" data-bind='value:newsTitle' />
 			</div>
 			<div class="requestInformation-textarea">
-				<textarea placeholder="分享新资讯……" data-bind='value:newsContent'></textarea>
+				<div id="edit" contentEditable="true" data-bind='html:newsContent'></div>
 			</div>
 
 			<div class="requestInformation-nav">
@@ -32,9 +43,9 @@
 					<li data-bind='click:addPhoto'>
 						<a href="#"><i class="iconfont requestInformation-nav-i">&#xe695;</i></a>
 					</li>
-					<li data-bind='click:addEmoij'>
+					<!--<li data-bind='click:addEmoij'>
 						<a href="#"><i class="iconfont">&#xe6ab;</i></a>
-					</li>
+					</li>-->
 				</ul>
 			</div>
 
@@ -42,7 +53,9 @@
 		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/mui/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/picture.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/news/addNews.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
