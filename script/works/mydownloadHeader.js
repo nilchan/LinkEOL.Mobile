@@ -37,6 +37,12 @@ mui.back = function() {
 		}
 	}
 	else{
+		//触发Content页面的事件
+		var sub = plus.webview.getWebviewById(subpageId);
+		if (sub != null) {
+			mui.fire(sub, 'changeContentViewState', {});
+		}
+		
 		common.showIndexWebview(4);
 	}
 };

@@ -156,9 +156,8 @@
 						<div class="works-list-right" data-bind="event:{tap: clickTask}">
 							<div class="myDownLoad-con-title">
 								<span class="title-one" data-bind="text: workTitle">标题</span>
-								
 							</div>
-							<div class="myDownLoad-author" data-bind="text: workAuthorName"><span  data-bind="text: workSubjectName">【小提琴】</span>张长张</div>
+							<div class="myDownLoad-author" data-bind="text: '【' + workSubjectName() + '】' + workAuthorName()">张长张</div>
 							<!--<div class="myDownLoad-subject" data-bind="text: workSubjectName">小提琴</div>-->
 							<div class="loading-box" data-bind="visible: isFinish() == false"></div>
 							<!--suspend暂停样式-->
