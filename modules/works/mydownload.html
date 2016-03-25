@@ -159,8 +159,8 @@
 								<span class="title-one" data-bind="text: workTitle">标题</span>
 								<i class="iconfont myUpLoad-delete" data-bind="visible: isFinish" onclick="alert('123');">&#xe61b;</i>
 							</div>
-							<div class="myDownLoad-author">张长张</div>
-							<div class="myDownLoad-subject">小提琴</div>
+							<div class="myDownLoad-author" data-bind="text: workAuthorName">张长张</div>
+							<div class="myDownLoad-subject" data-bind="text: workSubjectName">小提琴</div>
 							<div class="loading-box" data-bind="visible: isFinish() == false"></div>
 							<!--suspend暂停样式-->
 							<div class="plan-box" data-bind="style:{width: percentage() + '%'}, visible: isFinish() == false"></div>
