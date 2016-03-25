@@ -381,7 +381,8 @@
 					"modules/activity/activityInfo.html",
 					"modules/exam/examList.html",
 					"modules/my/help.html",
-					"modules/home/userGuide.html"
+					"modules/home/userGuide.html",
+					"modules/news/newsList.html"
 				],
 				"priority": 0
 			},
@@ -2843,6 +2844,54 @@
 					"script/libs/knockout/knockout-3.3.0.min.js"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"modules/news/newsDetail.html": {
+				"resources": [
+					"script/news/newsDetail.js",
+					"images/share-qq.png",
+					"script/mui/mui.previewimage.js",
+					"script/mui/mui.zoom.js",
+					"images/share-wx.png",
+					"script/common/share.js",
+					"images/share-py.png",
+					"content/common/style.css",
+					"images/linkPhoto.png",
+					"script/mui/mui.min.js",
+					"content/common/global.css",
+					"content/mui/mui.css",
+					"content/fonts/iconfont.css",
+					"content/common/Tf_global.css",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/fonts/iconfont.woff",
+					"script/libs/knockout/knockout-3.3.0.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/news/newsList.html": {
+				"resources": [
+					"images/linkPhoto.png",
+					"images/add-information.png",
+					"script/news/newsList.js",
+					"script/mui/mui.js",
+					"content/common/style.css",
+					"content/common/global.css",
+					"content/mui/mui.css",
+					"script/common/qrcode.js",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/fonts/iconfont.css",
+					"content/common/Tf_global.css",
+					"script/common/common.js",
+					"script/libs/clamp/clamp.min.js",
+					"script/common/base.js",
+					"content/fonts/iconfont.woff",
+					"images/my-default.png"
+				],
+				"refer": [
+					"modules/news/newsDetail.html"
+				],
 				"priority": 0
 			}
 		},
