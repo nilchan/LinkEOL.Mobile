@@ -100,16 +100,18 @@ var worksDetails = function() {
 
 	//获取视频
 	self.getVideo = function(work) {
+		var top = 80;
+		var width = document.body.clientWidth;
+		var height = width * 9 / 16;
 		if (work.IsBought) {
 			if(plus.VideoUtility){
 				//设置位置
 				var ret = plus.VideoUtility.InitPlayer([
-					0, 0, 320, 240
+					0, top, width, height
 				]);
 				if (ret && ret.status) {
 					var ret = plus.VideoUtility.PlayVideo(work.VidPolyv, common.gJsonVideoLevel.SD);
 					if (ret && !ret.status) {
-						//alert('error');
 						mui.toast('视频加载失败');
 					}
 				}
@@ -117,14 +119,14 @@ var worksDetails = function() {
 			else{
 				var player = polyvObject('#videoPos').videoPlayer({
 					'width': '100%',
-					'height': '240',
+					'height': height,
 					'vid': work.VidPolyv
 				});
 			}
 		} else {
 			var player = polyvObject('#videoPos').previewPlayer({
 				'width': '100%',
-				'height': '240',
+				'height': height,
 				'vid': work.VidPolyvPreview
 			});
 		}
@@ -666,6 +668,8 @@ var worksDetails = function() {
 
 	mui.init({
 		beforeback: function() {
+			plus.VideoUtility.ClosePlayer();
+			
 			var workParent = workVaule.opener();
 			if (workParent != null) {
 				if (workParent.id == 'worksListAllWorks.html' || workParent.id == 'classmateWorks.html') {
@@ -687,6 +691,7 @@ var worksDetails = function() {
 					})
 				}
 			}
+			
 			return true;
 		}
 	});

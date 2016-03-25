@@ -1,8 +1,8 @@
 ﻿var common = {
 	//Web API地址
 	//gServerUrl: "http://cloud.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
-	//gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
-	gServerUrl: "http://192.168.1.66:8090/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
+	gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
+	//gServerUrl: "http://192.168.1.66:8090/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
 	//gServerUrl: "http://linkeol.6655.la:8090/",gVideoServerUrl: "http://linkeol.6655.la:8099/",gWebsiteUrl: "http://linkeol.6655.la:8081/",
 	//判断字符串是否为空，空则返回""
 	StrIsNull: function(str) {
@@ -57,7 +57,10 @@
 	},
 
 	//空格分割
-	transforJSON: function(txt) {
+	transforArray: function(txt) {
+		if (common.StrIsNull(txt) == '') {
+			return;
+		}
 		var result = txt.split(' '); //得到 分割数组
 		return result
 	},
@@ -180,7 +183,6 @@
 		history.back();
 	},
 
-
 	//页面跳转
 	transfer: function(targetUrl, checkLogin, extras, createNew, autoShowWhileShow, id) {
 		var tmpUrl = targetUrl;
@@ -203,7 +205,6 @@
 
 		if (typeof id == "undefined")
 			id = tmpUrl;
-
 
 		mui.openWindow({
 			url: tmpUrl,
@@ -317,10 +318,10 @@
 			var rs = bankcard.match(reg);
 			rs.push(bankcard.substring(rs.join('').length));
 			result = rs.toString().replace(/\d{4},/g, "**** ");
-		}else if(cardLen == 16){
-			var rs=bankcard.substring(0,12).match(reg);
-			rs.push(bankcard.substring(0,12).substring(rs.join('').length));
-			result = rs.toString().replace(/\d{4},/g, "**** ")+'*'+bankcard.substring(13,17);
+		} else if (cardLen == 16) {
+			var rs = bankcard.substring(0, 12).match(reg);
+			rs.push(bankcard.substring(0, 12).substring(rs.join('').length));
+			result = rs.toString().replace(/\d{4},/g, "**** ") + '*' + bankcard.substring(13, 17);
 		}
 
 		return result; //返回 **** **** **** *** /\d{4}/ 
@@ -385,14 +386,16 @@
 	//根据QueryString参数名称获取值
 	getQueryStringByName: function(name, url) {
 		if (url == 'undefined') {
-			url = location.search;
+			if (typeof url == 'undefined') {
+				url = location.search;
+			}
 		}
 		var result = url.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));
-
+	
 		if (result == null || result.length < 1) {
 			return "";
 		}
-
+	
 		return result[1];
 	},
 
@@ -420,21 +423,6 @@
 				TargetType: targetType,
 				TargetID: targetID
 			},
-			success: function(responseText) {
-				ret = true;
-			}
-		})
-
-		return ret;
-	},
-	
-	//删除动作（收藏，赞）
-	deleteAction: function(actionType, targetType, targetID,userid) {
-		var ret = false;
-		var ajaxUrl = common.gServerUrl + 'API/Action?actionType='+actionType+'&targetType='+targetType+'&targetId='+targetID+'&userid='+userid;
-		mui.ajax(ajaxUrl, {
-			type: 'DELETE',
-			async: false,
 			success: function(responseText) {
 				ret = true;
 			}
@@ -713,7 +701,6 @@
 		}).start();
 	},
 
-
 	//根据起始时间和结束时间返回类似“9月20日 15:00~16:00”
 	formatTime: function(btime, etime) {
 		if (!btime) return;
@@ -825,8 +812,6 @@
 		return c.slice(0, 1);
 	},
 
-
-
 	gContentRefreshDown: '刷新中...', //下拉时显示的文字
 	gContentRefreshUp: '努力加载中...', //上拉时显示的文字
 	gContentNomoreUp: '没有更多数据了', //上拉无数据时显示的文字
@@ -845,12 +830,12 @@
 		courseModule: 3, //课程表
 		homeworkModule: 4, //作业
 		teacherAuthModule: 5, //老师认证
-		examModule: 6,		//考级报名
+		examModule: 6, //考级报名
 		feedBackModule: 7, //新建页面跳转
 		systemMessageModule: 8, //系统通知
-		activityModule: 9, 	//活动购票
+		activityModule: 9, //活动购票
 		instructModule: 10, //授课关系通知
-		accountModule: 11  //账户通知
+		accountModule: 11 //账户通知
 	},
 
 	//性别类型枚举
@@ -935,6 +920,12 @@
 		Activity: 2 //活动
 	},
 
+	gDictAttachmentConvertResult: {
+		NotHandle: 0, //未处理
+		Succeeded: 1, //转换成功
+		Failed: 2 //转换失败
+	},
+
 	//是否类型JSON
 	gJsonYesorNoType: [{
 		value: 1,
@@ -986,12 +977,12 @@
 		orchestraRecruit: 4 //青少年乐团团员招募
 
 	},
-	
+
 	//视频码率类型
 	gJsonVideoLevel: {
-		SD: 1,		//流畅（即标清）
-		HD: 2,		//高清
-		UltraHD: 3	//超高清
+		SD: 1, //流畅（即标清）
+		HD: 2, //高清
+		UltraHD: 3 //超高清
 	},
 
 	//老师评级

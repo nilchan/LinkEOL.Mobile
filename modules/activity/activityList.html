@@ -220,8 +220,10 @@
 					</div>
 					<p class="activity-con-time" data-bind="text:Times">2016.1.23 - 2016.1.28</p>
 					<p class="activity-con-address" data-bind="text: PlaceName == '' ? '地点：待定' : PlaceName">广州星海音乐厅</p>
-					<em class="activity-con-set" data-bind="text: NeedBuyTicket==true ? '售票中' : '',visible:NeedBuyTicket==true">座</em>
-					<em class="activity-con-enroll" data-bind="text: common.getTextByValue(common.gActivityStatus, ActStat), visible: !(NeedBuyTicket==true && ActStat==common.gActivityStatus[0].value),style:{left: NeedBuyTicket==false?'35%':'52%'}">报名中</em>
+					<div data-bind='foreach:common.transforArray(ActText)'>  
+						<em data-bind="style:{left:$index()==0?'35%':'52%'},text:$data,css:$index()==0?'activity-con-set':'activity-con-enroll'"></em>
+					</div>
+					
 					<!--<em class="activity-enroll-money">100~200元</em>-->
 				</li>
 				</script>

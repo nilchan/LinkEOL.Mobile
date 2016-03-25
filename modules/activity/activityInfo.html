@@ -130,8 +130,10 @@
 					<h2 class="activityInfo-con-right-h2" data-bind="text: Title">2016年广州星海音乐厅专场音乐会</h2>
 					<p class="activityInfo-subhead" data-bind='text:SubTitle'>副标题副标题副标题副标题副标题副标题副</p>
 				</div>
-				<em class="activity-con-set-1" data-bind="text:BuyText,visible:NeedBuyTicket==true">座</em>
-				<em class="activity-con-enroll-1" data-bind="text: common.getTextByValue(common.gActivityStatus, ActStat), visible: !(NeedBuyTicket==true && ActStat==common.gActivityStatus[0].value),style:{left: NeedBuyTicket==false?'38%':'55%'}">报名中</em>
+				<div data-bind='foreach:common.transforArray(ActText)'>  
+						<em data-bind="style:{left:$index()==0?'38%':'55%'},text:$data,css:$index()==0?'activity-con-set-1':'activity-con-enroll-1'"></em>
+				</div>
+				
 				<!--<em class="activity-con-set activityInfo-con-set" data-bind="text: BuyText">座</em>-->
 				<!--<em class="activityInfo-enroll-money">100~200元</em>-->
 			</div>
@@ -157,20 +159,20 @@
 					<li  data-bind="visible:common.StrIsNull(Sponsor)!=''">
 						<span class="activityInfo-span1">主办方:</span>
 						<!--<span class="activityInfo-span2" data-bind="text:Sponsor">主办方</span>-->
-						<div id="activityInfo-div" data-bind="foreach:common.transforJSON(Sponsor)">
+						<div id="activityInfo-div" data-bind="foreach:common.transforArray(Sponsor)">
 							<p data-bind="text:$data,visible:$data!='' "></p>
 						</div>
 					</li>
 					<li  data-bind="visible:common.StrIsNull(Organizer)!=''">
 						<span class="activityInfo-span1">承办方:</span>
 						<!--<span class="activityInfo-span2" data-bind="text:Organizer">承办方</span>-->
-						<div id="activityInfo-div" data-bind="foreach:common.transforJSON(Organizer)">
+						<div id="activityInfo-div" data-bind="foreach:common.transforArray(Organizer)">
 							<p data-bind="text:$data,visible:$data!='' "></p>
 						</div>
 					</li>
 					<li class="activityInfo-last-li" data-bind="visible:common.StrIsNull(CoSponsor)!=''">
 						<span class="activityInfo-span1">协办方:</span>
-						<div id="activityInfo-div" data-bind="foreach:common.transforJSON(CoSponsor)">
+						<div id="activityInfo-div" data-bind="foreach:common.transforArray(CoSponsor)">
 							<p data-bind="text:$data,visible:$data!='' "></p>
 							
 						</div>
