@@ -26,7 +26,7 @@
 			
 			.mui-tab-item,
 			.ah-mui-tab-item {
-				color: #E64578!important;
+				/*color: #E64578!important;*/
 			}
 			
 			.teacherList-mui:active {
@@ -46,7 +46,6 @@
 				vertical-align: middle;
 				white-space: nowrap;
 				text-overflow: ellipsis;
-				color: #E64578!important;
 				background: #fff;
 			}
 			
@@ -105,6 +104,11 @@
 			.newsInfo-p * {
 				-webkit-user-select: auto;
 			}
+			#edit {
+				max-height: 250px;
+				overflow-y: scroll;
+				background: #FAFAFA;
+			}
 		</style>
 	</head>
 
@@ -112,16 +116,17 @@
 		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe602;</i>
 			<h1 class="mui-title">资讯详情</h1>
-			<em class="mui-bar-nav-em" style="font-size: 16px;" data-bind='click:edit,text:editText'>编辑</em>
+			<em class="mui-bar-nav-em" style="font-size: 16px;" data-bind='click:edit,text:editText,visible: IsAuthor'>编辑</em>
 		</header>
 		<div class="mui-content">
 			<!--查看区-->
-			<div class="newsInfo-content" data-bind='visible:editStat()==false'>
+			<div class="newsInfo-content">
 				<h3 data-bind='text:newsDetail().Title'>【开学礼】蹲下来，同孩子一起看世界</h3>
 				<div class="newsInfo-second">
 					<div class="second-left">
 						<div class="newsInfo-photo">
-							<img data-bind="attr:{src:newsDetail().Photo=='../../images/linkPhoto.png'?'':common.getPhotoUrl(newsDetail().Photo)}" onerror="this.src='../../images/linkPhoto.png';" />
+							<img data-bind="visible: isLink() == false, attr: {'src': newsDetail().Photo}" onerror="this.src='../../images/my-default.png';" />
+							<img src="../../images/linkPhoto.png" data-bind="visible: isLink() == true " onerror="this.src='../../images/my-default.png';" />
 						</div>
 						<span class="second-left-font" data-bind="text:newsDetail().DisplayName">乐评家</span>
 					</div>
@@ -133,24 +138,16 @@
 						</ul>
 					</div>
 				</div>
-				<div contentEditable="true" class='newsInfo-p' data-bind='html:newsDetail().HtmlContent'>
+				<div id="edit" contentEditable="false" class='newsInfo-p' data-bind='html:newsDetail().HtmlContent'>
 
-				</div>
-			</div>
-
-			<!--编辑区-->
-			<div class="newsInfo-content" data-bind='visible:editStat'>
-				<input type="text" placeholder="标题" data-bind='value:newsDetail().Title' />
-				<div class="requestInformation-textarea">
-					<textarea placeholder="分享新资讯……" data-bind='value:newsDetail().HtmlContent'></textarea>
 				</div>
 			</div>
 		</div>
 
-		<nav class="mui-bar mui-bar-tab" data-bind='visible:editStat()==false'>
+		<nav class="mui-bar mui-bar-tab">
 			<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" data-bind='click:addLikeCount'>
-				<i class="iconfont" style="font-size: 20px;">&#xe663;</i>
-				<span class="mui-tab-label" data-bind="text:newsDetail().LikeCount">20人点赞</span>
+				<i class="iconfont" style="font-size: 20px;" ></i>
+				<span class="mui-tab-label"><!--ko text:newsDetail().LikeCount-->20<!--/ko-->人点赞</span>
 			</a>
 			<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui newsInfo-nav" href="#sharePopover">
 				<i class="iconfont" style="font-size: 20px;">&#xe670;</i>

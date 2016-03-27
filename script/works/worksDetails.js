@@ -191,7 +191,7 @@ var worksDetails = function() {
 
 	//跳转用户详情页面
 	self.gotoAuthor = function() {
-		var url = '../student/studentInfo.html';
+		var url = '../student/studentInfo1.html';
 		var arg = {
 			studentID: self.Works().AuthorID()
 		};

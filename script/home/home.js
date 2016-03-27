@@ -30,7 +30,7 @@ var home = function() {
 	
 	//跳转新闻列表
 	self.gotoNewsList = function() {
-		common.transfer('../news/newsList.html', false);
+		common.transfer('../news/newsListHeader.html', false);
 	}
 
 	self.clampDes = function() {
@@ -48,7 +48,7 @@ var home = function() {
 	}
 	
 	self.goHelp=function(){
-		common.transfer('userGuide.html');
+		common.transfer('userGuide.html', false);
 	}
 
 	//跳转至老师详情
@@ -146,6 +146,8 @@ var home = function() {
 			success:function(responseText){
 				var result=JSON.parse(responseText);
 				self.newsTitleArray(result);
+				self.newsTitleArray.push(result[0]);
+				console.log(JSON.stringify(self.newsTitleArray()));
 			}
 		})
 	}

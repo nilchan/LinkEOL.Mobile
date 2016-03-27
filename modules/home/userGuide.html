@@ -22,11 +22,14 @@
 		<script src="../../script/mui/mui.js"></script>
 		<script type="text/javascript">
 			mui.plusReady(function() {
-				var web = plus.webview.currentWebview();
-				if (web.identity == "teacher") {
-					webUrl = 'http://www.linkeol.com/modules/home/userGuideT.html';
+				var identity;
+				if( getLocalItem("UserType") == common.gDictUserType.teacher ) {
+					identity = "teacher";
+				}
+				if (identity == "teacher") {
+					webUrl = common.gWebsiteUrl + 'mobile/modules/home/userGuideT.html';
 				} else {
-					webUrl = 'http://www.linkeol.com/modules/home/userGuideS.html';
+					webUrl = common.gWebsiteUrl + 'mobile/modules/home/userGuideS.html';
 				}
 				mui.init({
 					subpages: [{

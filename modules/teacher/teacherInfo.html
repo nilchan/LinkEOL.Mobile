@@ -10,13 +10,7 @@
 		<link href="../../content/common/global.css" rel="stylesheet" />
 		<link href="../../content/common/style.css" rel="stylesheet" />
 
-		<style>
-			/*html,body{
-			overflow-y: hidden;
-			overflow: hidden;
-		}*/
-			/*分享css*/
-			
+		<style>		
 			@media only screen and (min-width: 376px) and (max-width: 414px) {
 				.shareTeacher-pic ul li img {
 					height: 3rem;
@@ -100,7 +94,7 @@
 				color: #e1e1e4!important;
 				font-size: 20px!important;
 				right: 10px!important;
-				content: "\e66c"!important;
+				content: "\e672"!important;
 				top: 24px;
 			}
 			
@@ -155,6 +149,20 @@
 				left: 50%!important;
 				margin-left: -40%!important;
 			}
+			.introduction{
+				color: #666;
+				font-size: 14px;
+				width: 100%;
+				padding: 0px 15px;
+				margin-bottom: 12px;
+				text-indent: 2em;
+				line-height: 23px;
+			}
+			.introduction-open{
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
 		</style>
 	</head>
 
@@ -193,7 +201,7 @@
 				</div>
 			</div>
 			<!--teacheeInfo-sc-after关注之后样式-->
-			<div><a href="#"><em class="teacheeInfo-sc" data-bind="text:'关注'+FavCount(), event:{tap: Fav},css:collectionStatus"></em></a></div>
+			<div><a href="#"><em class="teacheeInfo-sc " data-bind="text:'关注'+FavCount(), event:{tap: Fav},css:collectionStatus"></em></a></div>
 		</div>
 
 		<!--<div class="teacheeInfo-album">
@@ -291,13 +299,11 @@
 			</div>
 		</div>-->
 		<div class="mui-content">
-			<li class="mui-table-view-cell mui-collapse info-li">
+			<div class="introduction introduction-open" id="introduction" >个人简介：郭正，长号硕士。广州星海音乐厅院长长号副教授个人简介：郭正，长号硕士。广州星海音乐厅院长长号副教授个人简介：郭正，长号硕士。广州星海音乐厅院长长号副教授……</div>
+			<li class="mui-table-view-cell mui-collapse info-li" data-bind='click:goUserNews'>
 				<a class="mui-navigate-right info-pic" href="#">
-					个人简介
+					<!--ko text:DisplayName--><!--/ko-->资讯
 				</a>
-				<ul class="mui-table-view mui-table-view-chevron">
-					<p class="font-p" data-bind="text: Introduce">123</p>
-				</ul>
 			</li>
 
 			<div id="slider" class="mui-slider teacheeInfo-slider">
@@ -468,6 +474,13 @@
 //			      $(".box2").hide()         
 //			}
 //			})
+		
+			$(function() {
+				$('#introduction').click(function(){
+					$('.introduction').toggleClass('introduction-open');
+				})
+			});
+			
 
 	</script>
 

@@ -2,8 +2,6 @@ var informationList = function() {
 	var self = this;
 	
 	var userID = getLocalItem('UserID');
-	userID = 37;
-	
 	self.newsList = ko.observableArray([]); //列表数组
 	self.displayCheck = ko.observable(false);
 	
@@ -19,10 +17,11 @@ var informationList = function() {
 	
 	//获取资讯列表
 	self.getNewsList = function() {
-		var url = common.gServerUrl + 'API/News/GetAPPNewsList?userid=' + userID;
+		var url = common.gServerUrl + 'API/News/GetAPPNewsList?userid=' + userID + '&pageSize=1000';
 		mui.ajax(url, {
 			type: 'GET',
 			success: function(responseText) {
+				self.newsList([]);
 				var result = JSON.parse(responseText);
 				result.forEach(function(item) {
 						var obj = {
@@ -34,7 +33,7 @@ var informationList = function() {
 				self.clampText();
 			}
 		});
-	}();
+	};
 	
 	//删除列表
 	self.deleteNews = function() {
@@ -87,8 +86,32 @@ var informationList = function() {
 	}
 	//提交选择
 	self.submitSelect = function() {
-		
+		var sID = [];
+		for (i in self.newsList()) {
+			if (self.newsList()[i].selected()) {
+				sID.push(self.newsList()[i].info.ID);
+			}
+		}
+		if (sID.length === 0) {
+			mui.toast("请至少选择一个资讯！");
+			return;
+		}
+		plus.nativeUI.showWaiting();
+		var url = common.gServerUrl + 'API/News/APPNewsDel';
+		mui.ajax(url, {
+			type: 'DELETE',
+			contentType: "application/json",
+			data: JSON.stringify(sID),
+			success: function(responsText) {
+				mui.toast('操作成功');
+				self.cacelSelect();
+				self.getNewsList();
+				plus.nativeUI.closeWaiting();
+			}
+		});
 	}
+	
+	self.getNewsList();
 };
 
 ko.applyBindings(informationList);

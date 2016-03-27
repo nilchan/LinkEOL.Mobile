@@ -103,6 +103,11 @@
 				background: none;
 				margin: -11px -30px;
 			}
+			#marquee-view {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
 		</style>
 	</head>
 
@@ -317,7 +322,7 @@
 					}
 				}, inter);
 			}
-			marqueeText(22, 50, 4000, 4);
+			marqueeText(22, 50, 4000, 8);
 			
 			
 		</script>

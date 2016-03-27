@@ -283,6 +283,14 @@
 	self.closeShare = function() {
 		mui('#sharePopover').popover('toggle');
 	}
+	
+	//跳转至咨询
+	self.goUserNews = function() {
+		common.transfer('../news/newsListHeader.html', false, {
+			userid: TUserID,
+			useName:self.DisplayName()
+		}, false, false);
+	}
 
 	mui.init({
 		beforeback: function() {

@@ -6,7 +6,7 @@ var newsDetail=function(){
 	var userId=getLocalItem('UserID');
 	self.editText=ko.observable('编辑');//编辑按钮名字
 	self.editStat=ko.observable(false);//是否启动编辑状态
-	
+	self.isLink = ko.observable(true);
 	//新闻咨询实例化
 	self.initNews=function(newsDetail){
 		var self=this;
@@ -21,7 +21,9 @@ var newsDetail=function(){
 		self.IsTop=ko.observable(newsDetail.IsTop);//新闻是否置顶
 		self.IsElite=ko.observable(newsDetail.IsElite);//新闻是否精华
 		self.FavCount=ko.observable(newsDetail.FavCount);//新闻收藏次数
-		self.Photo = ko.observable(newsDetail.Photo);
+		self.Photo = ko.observable(common.getPhotoUrl(newsDetail.Photo));//头像
+
+		self.IsAuthority = ko.observable(newsDetail.IsAuthority);//是否官方
 	}
 	
 	//获取详情
@@ -33,6 +35,7 @@ var newsDetail=function(){
 				var result=JSON.parse(responseText);
 				var obj = new self.initNews(result);
 				self.newsDetail(obj);
+				self.isLink(newsDetail().IsAuthority());
 				common.showCurrentWebview();
 			}
 		})
@@ -74,9 +77,8 @@ var newsDetail=function(){
 		if(self.editStat()){//点击完成事件
 			var ajaxUrl=common.gServerUrl+'API/News/APPNewsUpdate?id='+newsID;
 			var data={
-				ID:newsID,
 				Title:self.newsDetail().Title(),
-				HtmlContent:self.newsDetail().HtmlContent()
+				HtmlContent:$A.gI('edit').innerHTML
 			};
 			
 			mui.ajax(ajaxUrl,{
@@ -84,13 +86,16 @@ var newsDetail=function(){
 				data:data,
 				success:function(responseText){
 					self.getNewsDetail();
+					mui.toast('编辑成功！');
 				}
 			})
 			self.editStat(false);
-			self.editText('编辑')
+			$A.gI('edit').contentEditable = "false";
+			self.editText('编辑');
 		}else{//点击编辑事件
 			self.editStat(true);
-			self.editText('完成')
+			self.editText('完成');
+			$A.gI('edit').contentEditable = "true";
 		}
 		
 	}
@@ -116,7 +121,6 @@ var newsDetail=function(){
 		}
 	}
 
-	
 	mui.plusReady(function(){
 		Share.updateSerivces(); //初始化分享
 		var thisWeb=plus.webview.currentWebview();

@@ -1,26 +1,18 @@
 var studentInfo = function() {
 	var self = this;
-	var sUserID = 1932; //学生UserID，需从上一个页面传递而得
-	var sUserType = 64; //学生用户类型
+	var sUserID; //学生UserID，需从上一个页面传递而得
 	var page = 1;
+	self.isFav = ko.observable(false);
+	self.collectionStatus = ko.observable(""); //关注
 	self.userInfo = ko.observableArray([]);
-	self.Photo = ko.observable("../../images/my-default.png"); //头像
-	self.DisplayName = ko.observable(""); //姓名
-	self.Gender = ko.observable("女"); //性别
-	self.Years = ko.observable("0"); //年龄
-	//self.Score = ko.observable("0"); //得分
-	self.FavCount = ko.observable("0"); //关注
 	self.works = ko.observableArray([]);
-
+	var UserId = getLocalItem('UserID');
 	self.getStudentInfo = function() {
-		mui.ajax(common.gServerUrl + "API/Account/GetInfo?userid=" + sUserID + "&usertype=" + sUserType, {
+		mui.ajax(common.gServerUrl + "API/Account/GetInfo?userid=" + sUserID + "&usertype=" + common.gDictUserType.student, {
 			type: 'GET',
 			success: function(responseText) {
 				var result = eval("(" + responseText + ")");
-
 				self.userInfo(result);
-				self.Gender(common.gJsonGenderType[parseInt(result.Gender)].text)
-				self.Years(result.Age);
 				common.showCurrentWebview();
 			}
 		})
@@ -35,23 +27,6 @@ var studentInfo = function() {
 			}
 		})
 	};
-
-	//赞
-	self.Like = function() {
-		var tmp = common.clone(this);
-		//mui.toast(this.LikeCount);
-		if (this.AuthorID == self.UserID) {
-			mui.toast("作者本人不允许赞");
-			return
-		} else {
-			var ret = common.postAction(common.gDictActionType.Like, common.gDictActionTargetType.Works, this.ID);
-			if (ret) {
-				tmp.LikeCount = tmp.LikeCount + 1;
-				self.works.replace(this, tmp);
-				mui.toast('感谢您的赞许');
-			}
-		}
-	}
 
 	//跳转到作品详情页面
 	self.goWorksDetails = function(data) {
@@ -96,14 +71,41 @@ var studentInfo = function() {
 
 	//关注
 	self.Fav = function() {
-		var ret = common.postAction(common.gDictActionType.Favorite, common.gDictActionTargetType.User, sUserID);
-		if (ret) {
-			self.FavCount(self.FavCount() + 1);
-			mui.toast('关注成功');
-			var myWebview=plus.webview.getWebviewById('modules/my/my.html');
-			mui.fire(myWebview,'getAttention');
+		if (getLocalItem("UserID") <= 0) {
+			mui.toast("登录后才能关注~")
+			return;
 		}
+
+		if (self.isFav() == true) { //取消关注
+			var ret = common.deleteAction(common.gDictActionType.Favorite, common.gDictActionTargetType.User, sUserID, UserId);
+			if (ret) {
+				self.isFav(false);
+				self.collectionStatus('');
+				mui.toast('成功取消关注');
+				var myWebview = plus.webview.getWebviewById('modules/my/my.html');
+				mui.fire(myWebview, 'getAttention');
+			}
+		} else {
+			var ret = common.postAction(common.gDictActionType.Favorite, common.gDictActionTargetType.User, sUserID);
+			if (ret) {
+				self.isFav(true);
+				self.collectionStatus('teacheeInfo-sc-after');
+				mui.toast('关注成功');
+				var myWebview = plus.webview.getWebviewById('modules/my/my.html');
+				mui.fire(myWebview, 'getAttention');
+			}
+		}
+
 	}
+
+	//跳转至咨询
+	self.goUserNews = function() {
+		common.transfer('../news/newsListHeader.html', false, {
+			userid: sUserID,
+			useName:self.userInfo().DisplayName
+		}, false, false);
+	}
+
 	mui.plusReady(function() {
 		var currentWeb = plus.webview.currentWebview();
 		if (common.StrIsNull(currentWeb.studentID) != "") {
@@ -111,6 +113,24 @@ var studentInfo = function() {
 		}
 		self.getStudentInfo();
 		self.getWorks();
+
+		common.getActions(common.gDictActionType.Favorite, common.gDictActionTargetType.User, sUserID, function(result) {
+			if (common.StrIsNull(result) != '') {
+				var arr = JSON.parse(result);
+				for (var i = 0; i < arr.length; i++) {
+					var item = arr[i];
+					if (item.UserID.toString() != getLocalItem("UserID") ||
+						item.TargetType.toString() != common.gDictActionTargetType.User ||
+						item.TargetID.toString() != sUserID) {
+						continue;
+					}
+					if (item.ActionType.toString() == common.gDictActionType.Favorite) {
+						self.collectionStatus('teacheeInfo-sc-after');
+						self.isFav(true);
+					}
+				}
+			}
+		});
 	})
 
 	//初始化界面

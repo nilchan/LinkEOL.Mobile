@@ -115,7 +115,7 @@ var viewModel = function() {
 			return;
 		}
 		plus.nativeUI.showWaiting();
-		var url = common.gServerUrl + 'API/AccountDetails/TeacherGivingStudentMoney?TeacherID=' + userId;
+		var url = common.gServerUrl + 'API/AccountDetails/TeacherGivingStudentMoney';
 		mui.ajax(url, {
 			type: 'POST',
 			contentType: "application/json",

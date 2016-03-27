@@ -1,9 +1,9 @@
 ﻿var common = {
 	//Web API地址
 	//gServerUrl: "http://cloud.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
-	//gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
+	gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
 	//gServerUrl: "http://192.168.1.88:8090/",gVideoServerUrl: "http://192.168.1.88:8099/",gWebsiteUrl: "http://192.168.1.88:8081/",
-	gServerUrl: "http://192.168.1.66:8090/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
+	//gServerUrl: "http://192.168.1.66:8090/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
 	//gServerUrl: "http://linkeol.6655.la:8090/",gVideoServerUrl: "http://linkeol.6655.la:8099/",gWebsiteUrl: "http://linkeol.6655.la:8081/",
 	//判断字符串是否为空，空则返回""
 	StrIsNull: function(str) {
@@ -1233,6 +1233,16 @@
 	gIsHaveInstructType: {
 		isHaveTeacher: 1, //是否有授课老师
 		isHaveClassmate: 2 //是否有同学
+	},
+	
+	//分享的类型
+	gSharetype:{
+		teacher:1,  //老师
+		video:2,    //视频
+		activity:3, //活动
+		exam:4,		//考级
+		news:5,		//咨询
+		recommend:6,//推荐好友
 	},
 
 	gArrayDayOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
