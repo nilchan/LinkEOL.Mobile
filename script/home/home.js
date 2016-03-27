@@ -147,7 +147,6 @@ var home = function() {
 				var result=JSON.parse(responseText);
 				self.newsTitleArray(result);
 				self.newsTitleArray.push(result[0]);
-				console.log(JSON.stringify(self.newsTitleArray()));
 			}
 		})
 	}

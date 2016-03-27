@@ -32,6 +32,12 @@ var newsDetail=function(){
 		mui.ajax(ajaxUrl,{
 			type:'GET',
 			success:function(responseText){
+				if( responseText == "" ) {
+					plus.nativeUI.closeWaiting();
+					alert('资讯已被删除，请返回列表刷新~');
+					mui.back();
+					return ;
+				}
 				var result=JSON.parse(responseText);
 				var obj = new self.initNews(result);
 				self.newsDetail(obj);
