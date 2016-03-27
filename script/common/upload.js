@@ -373,7 +373,6 @@ upload.initTasks = function(callback) {
 upload.deleteTask = function(workId) {
 	//从本地缓存中删除
 	var tmp = plus.storage.getItem(common.gVarLocalUploadTask);
-	console.log('deleteTask:' + tmp);
 	var tasks = JSON.parse(tmp);
 	if (tasks && tasks.length > 0) {
 		for (var j = 0; j < tasks.length; j++) {
@@ -382,7 +381,7 @@ upload.deleteTask = function(workId) {
 				break;
 			}
 		}
-		alert('Tasks after delete:' + JSON.stringify(tasks));
+		//alert('Tasks after delete:' + JSON.stringify(tasks));
 		plus.storage.setItem(common.gVarLocalUploadTask, JSON.stringify(tasks));
 	}
 }

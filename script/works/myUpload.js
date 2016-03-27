@@ -16,14 +16,34 @@ var myUpload = function() {
 	 * 上传完成提交返回的vid至服务器
 	 * @param {Object} item 本地缓存的上传任务
 	 * @param {String} vid 视频对应保利威视平台的vid
+	 * @param {String} returnJson 上传完成返回的视频信息（目前Android sdk可返回，iOS不能）
 	 */
-	var setItemFinish = function(item, vid) {
+	var setItemFinish = function(item, vid, returnJson) {
+		var retJson = '';
+		if(typeof returnJson == "undefined"){
+			retJson = "";
+		}
+		else{
+			var tmp = JSON.parse(returnJson);
+			if(tmp.error != 0){		//发生错误
+				item.IsFinish(true);
+				upload.deleteTask(item.works.ID);
+				mui.toast('上传出错');
+				return;
+			}
+			
+			if(typeof tmp.data != 'undefined'){
+				retJson = JSON.stringify(tmp.data);
+			}
+		}
+		alert(retJson);
 		var url = common.gServerUrl + "API/PolyvCloud/SetUploadFinish";
 		mui.ajax(url, {
 			type: 'PUT',
 			data: {
 				SourceID: item.works.ID,
-				VidPolyv: vid
+				VidPolyv: vid,
+				ReturnJsonPolyv: retJson
 			},
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
@@ -92,7 +112,7 @@ var myUpload = function() {
 
 	/**
 	 * 刷新上传进度
-	 * @param {Object} task 上传任务。{workId: 作品ID, uploadTask: {isFinish: false, uploadedSize: 0, totalSize: 999, vid: '123'}}
+	 * @param {Object} task 上传任务。{workId: 作品ID, uploadTask: {isFinish: false, uploadedSize: 0, totalSize: 999, vid: '123', returnJson: {"error":"0","data":[vid: '', first_image: '']}}}
 	 * @param {String} description 描述（成功则为空字符串）
 	 */
 	var refreshUploadState = function(task, description) {
@@ -101,11 +121,13 @@ var myUpload = function() {
 			if (item.IsFinish()) continue; //已上传完成的无需刷新
 
 			if (task.workId == item.works.ID) {
+				//alert(JSON.stringify(task));
 				if (task.uploadTask.isFinish && common.StrIsNull(description) == '') {
 					item.UploadedSize(item.TotalSize());
+					//alert(JSON.stringify(task));
 
 					var vid = task.uploadTask.vid;
-					setItemFinish(item, vid);
+					setItemFinish(item, vid, task.uploadTask.returnJson);
 
 					continue;
 				}
