@@ -9,12 +9,14 @@ var download = download || {};
 download.downloadVideo = function(downtask, callback) {
 	//alert(downtask.workVidPolyv);
 	plus.VideoUtility.DownloadVideo(downtask.workVidPolyv, common.gJsonVideoLevel.SD, function(arg) {
+		//alert(JSON.stringify(arg));
 		var retObj = {
 			downloadTask: arg,
 			workId: downtask.workId
 		}
 		callback(retObj);
 	}, function(error) {
+		//alert(error);
 		callback({}, '上传失败，请重试');
 	});
 }

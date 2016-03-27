@@ -106,7 +106,8 @@ var mydownload = function() {
 	
 	//取消查看下载作品详情
 	window.addEventListener('changeContentViewState',function(event) {
-		plus.VideoUtility.ClosePlayer();
+		if(self.viewDetail() == true)
+			plus.VideoUtility.ClosePlayer();
 		
 		self.viewDetail(false);
 	});

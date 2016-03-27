@@ -93,6 +93,7 @@
 		"Share": {
 			"description": "管理社交分享插件"
 		},
+		"VideoUtility": {"description": "视频插件"},
 		"Zip": {},
 		"Payment": {},"Push":{},"Statistic":{}
 	},
@@ -1107,7 +1108,8 @@
 					"script/libs/resumable.js/resumable.js",
 					"images/video-default.png",
 					"script/common/videoUtility.js",
-					"script/works/videoPlugAndriod.js"
+					"script/works/videoPlugAndriod.js",
+					"script/libs/plugins/videoUtility.js"
 				],
 				"refer": [
 					"modules/works/worksListMyHeader.html",

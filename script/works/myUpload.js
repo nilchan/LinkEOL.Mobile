@@ -30,13 +30,15 @@ var myUpload = function() {
 				if (result) {
 					item.IsFinish(true);
 					//更换缩略图
-					item.VideoThumbnail('');
-					//item.VideoThumbnail(result.ThumbnailPolyv);
+					item.videoThumbnail('');
+					if(common.StrIsNull(result.ThumbnailPolyv)){
+						item.videoThumbnail(result.ThumbnailPolyv);		//上传完成并未有缩略图，编码完成会有
+					}
 					item.works.VidPolyv = result.VidPolyv;
 
 					//从本地缓存中删除
 					upload.deleteTask(item.works.ID);
-					mui.toast('上传完成');
+					mui.toast('上传完成，请等待审核');
 				} else {
 					mui.toast('保存时发生错误，请重试');
 				}

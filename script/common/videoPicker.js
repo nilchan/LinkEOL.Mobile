@@ -77,9 +77,10 @@ videoPicker.SelectVideo = function(multiple, callback) {
 	//获取可用的分辨率及弹窗json数据
 	var cmr = plus.camera.getCamera();
 	var myRes = [];
-	if (plus.os.vendor == 'Apple') //只有在iOS才可以在录像前设置分辨率
+	//if (plus.os.vendor == 'Apple') //只有在iOS才可以在录像前设置分辨率
 		myRes = getResolution(cmr.supportedVideoResolutions);
-
+	
+	alert(JSON.stringify(myRes));
 	var counter = 0;
 	if (myRes.length > 0) {
 		myRes.forEach(function(res) {
@@ -193,27 +194,46 @@ videoPicker.SelectVideo = function(multiple, callback) {
 			});
 		}
 		else { //拍摄
-			var res = myRes.length > 0 ? myRes[items[0].value] : '';
-			var fmt = 'mp4';
-			var cmr = plus.camera.getCamera();
-			console.log(cmr);
-
-			cmr.startVideoCapture(function(path) {
-				console.log(path);
-				_returnVideos = [];
-				plus.gallery.save(path);
-				var videoVM = new self.returnVideoVM(path, generateTempFilePath());
-				_returnVideos.push(videoVM);
-
-				if (_callback) {
-					_callback(_returnVideos);
-				}
-			}, function(e) {console.log(e.message);}, {
-				filename: "_doc/gallery/",
-				index: 1,
-				format: fmt,
-				resolution: res
-			});
+			if (plus.os.vendor == 'Apple'){
+				alert('ios');
+				var res = myRes.length > 0 ? myRes[items[0].value] : '';
+				var fmt = 'mp4';
+				var cmr = plus.camera.getCamera();
+				console.log(cmr);
+	
+				cmr.startVideoCapture(function(path) {
+					console.log(path);
+					_returnVideos = [];
+					plus.gallery.save(path);
+					var videoVM = new self.returnVideoVM(path, generateTempFilePath());
+					_returnVideos.push(videoVM);
+	
+					if (_callback) {
+						_callback(_returnVideos);
+					}
+				}, function(e) {console.log(e.message);}, {
+					filename: "_doc/gallery/",
+					index: 1,
+					format: fmt,
+					resolution: res
+				});
+			}
+			else{
+				alert('android');
+				plus.VideoUtility.recordVideo(640, 480, 500*1024, function(arg){
+					alert(arg);
+					if(arg && arg.status == true){
+						var videoVM = new self.returnVideoVM(arg.value, generateTempFilePath());
+						_returnVideos.push(videoVM);
+		
+						if (_callback) {
+							_callback(_returnVideos);
+						}
+					}
+				}, function(error){
+					mui.toast('拍摄出错');
+				})
+			}
 		}
 
 		self.videos.dispose();
