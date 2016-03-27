@@ -2,8 +2,11 @@ var informationList = function() {
 	var self = this;
 	
 	var userID = getLocalItem('UserID');
+	
 	self.newsList = ko.observableArray([]); //列表数组
+	self.userName = ko.observable('我');
 	self.displayCheck = ko.observable(false);
+	self.isAuthor = ko.observable('false');
 	
 	//限制行数
 	self.clampText = function() {
@@ -31,6 +34,7 @@ var informationList = function() {
 						self.newsList.push(obj);
 				});
 				self.clampText();
+				plus.nativeUI.closeWaiting();
 			}
 		});
 	};
@@ -41,8 +45,10 @@ var informationList = function() {
 	}
 	
 	//跳转详情
-	self.gotoInformationDetail = function() {
-		mui.toast('gotoInfo');
+	self.gotoInformationDetail = function(data) {
+		common.transfer('newsDetail.html',false,{
+			newsId:data.ID
+		},false,false);
 	}
 	
 	//跳转个人信息
@@ -111,7 +117,25 @@ var informationList = function() {
 		});
 	}
 	
-	self.getNewsList();
+	//判断是否作者
+	self.judgeAuthor = function() {
+		if( userID === getLocalItem('UserID') ) {
+			self.isAuthor(true);
+		} else {
+			self.isAuthor(false);
+		}
+	}
+	
+	mui.plusReady(function() {
+		var web = plus.webview.currentWebview();
+		if (typeof(web.userid) !== "undefined") {
+			userID = web.userid;
+			self.userName(web.userName);
+		}
+		self.getNewsList();
+		self.judgeAuthor();
+	});
+	
 };
 
 ko.applyBindings(informationList);

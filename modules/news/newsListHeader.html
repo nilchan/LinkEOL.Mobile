@@ -29,32 +29,18 @@
 	<body>
 		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe602;</i>
-			<h1 class="mui-title" data-bind='text:titleText'>分享与发布</h1>
+			<h1 class="mui-title">分享与发布</h1>
 			<em class="iconfont mui-bar-nav-em" style="font-size: 22px!important;" onclick="gotoMyNews()">&#xe6a9;
 			</em>
 		</header>
 		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-		var newsListHeader=function(){
-			var self=this;
-			
-			self.titleText=ko.observable('分享与发布');
-			
 			function gotoMyNews() {
 				common.transfer('myNewsList.html', true);
 			}
-			var userid;//上级页面传入的id
-			
 			mui.plusReady(function() {
-				var thisWeb=plus.webview.currentWebview();
-				if(typeof thisWeb.userid !='undefined'){
-					userid=thisWeb.userid;
-					self.titleText(thisWeb.useName+'的'+self.titleText());
-				}
-				
 				var topPx = '45px';
 				if (plus.os.vendor == 'Apple') {
 					topPx = '60px';
@@ -66,18 +52,11 @@
 						styles: {
 							top: topPx,
 							bottom: '0px'
-						},
-						extras:{
-							userid:userid
 						}
 					}]
 				});
 				
 			})
-		}
-		ko.applyBindings(newsListHeader);
-		
-			
 		</script>
 	</body>
 

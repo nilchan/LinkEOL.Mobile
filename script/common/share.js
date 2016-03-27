@@ -5,6 +5,8 @@ var share_thumb_img = '' // 缩略图
 var share_content = ''; // 分享内容
 var share_href = ''; // 分享链接
 var share_title = ''; // 分享标题
+var share_Content_type = ''; //分享内容类型
+var share_type = '';
 
 /**
  * 打开分享操作列表
@@ -12,15 +14,19 @@ var share_title = ''; // 分享标题
  * @param {Object} shareTypeID 类型id 必填
  * @param {Object} shareTitle 标题 必填
  * @param {Object} shareContent 内容 必填
- * @param {Object} shareImg 图片 必选 可以本地路径可以网络路径，本地路径需为绝对路径
  * @param {Object} shareURL 链接 必填,格式:'http://linkeol.com'
+ * @param {Object} shareImg 图片 必选 可以本地路径可以网络路径，本地路径需为绝对路径
+ * @param {Object} shareContentType 内容类型 
  */
 
-Share.sendShare = function(shareTypeID, shareTitle, shareContent, shareURL, shareImg) {
+Share.sendShare = function(shareTypeID, shareTitle, shareContent, shareURL, shareImg, shareContentType) {
 	Share.updateSerivces();
 	share_title = shareTitle;
 	share_content = shareContent;
 	share_href = shareURL;
+	if (shareContentType != '') {
+		share_Content_type = shareContentType
+	}
 	if (share_href == '') {
 		share_bhref = false;
 	} else {
@@ -148,25 +154,30 @@ Share.updateSerivces = function() {
 Share.shareShow = function(shareTypeID) {
 	var ids = [{
 		shareID: "sinaWeibo",
-		id: "sinaweibo"
+		id: "sinaweibo",
+
 	}, {
 		shareID: "weichatFriend",
 		id: "weixin",
-		ex: "WXSceneSession"
+		ex: "WXSceneSession",
+		shareType: common.gShareType.WXSceneSession
 	}, {
 		shareID: "weichatMoments",
 		id: "weixin",
-		ex: "WXSceneTimeline"
+		ex: "WXSceneTimeline",
+		shareType: common.gShareType.WXSceneTimeline
 	}, {
 		shareID: "qqFriend",
-		id: "qq"
+		id: "qq",
+		shareType: common.gShareType.qqFriend
 	}];
 	for (var i in ids) {
 		if (ids[i].shareID == shareTypeID) {
 			if (shareTypeID == "qqFriend" && common.isInstallQQ() == 0) {
 				mui.toast("您还没安装QQ~~")
 			} else {
-				 Share.shareAction(ids[i].id, ids[i].ex);
+				Share.shareAction(ids[i].id, ids[i].ex);
+				share_type = ids[i].shareType;
 				//Share.shareMessage(qqShares, ids[i].ex);
 			}
 
@@ -215,6 +226,16 @@ Share.shareMessage = function(s, ex) {
 	msg.pictures = share_img;
 	s.send(msg, function() {
 		console.log("分享到\"" + s.description + "\"成功，返回应用 "); // 分享给qq好友，微信好友如果不返回应用，无法监听到分享成功回调
+		if (share_Content_type != '') {
+			var thisUrl = common.gServerUrl + 'API/LogShare/LogShareAdd?PageType=' + share_Content_type + '&ShareType=' + share_type + '&Remark=' + share_href;
+			mui.ajax(thisUrl, {
+				type: 'POST',
+				success: function(reponseText) {
+
+				}
+			})
+		}
+
 	}, function(e) {
 		console.log("分享到\"" + s.description + "\"失败！ " + e.code + " - " + e.message);
 	});

@@ -180,7 +180,7 @@
 							<span class="mui-badge my-mui-badge iconfont myInfoTeacher-next">&#xe618;</span>同学作品
 						</a>
 					</li>
-					<li class="mui-table-view-cell" data-bind="click:goInviteCode">
+					<li class="mui-table-view-cell" data-bind="click:goInviteCode,visible:UserType() == common.gDictUserType.teacher">
 						<a class="my-mui-navigate-right">
 							<em class="iconfont invite-works" style="padding: 1px 6px;">&#xe6a7;</em>
 							<span class="mui-badge my-mui-badge iconfont myInfoTeacher-next">&#xe618;</span>我的邀请码

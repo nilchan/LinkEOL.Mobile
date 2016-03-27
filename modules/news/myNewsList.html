@@ -67,8 +67,8 @@
 	<body>
 		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe602;</i>
-			<h1 class="mui-title">我的分享与发布</h1>
-			<em class="iconfont mui-bar-nav-em" data-bind="event:{tap: deleteNews}">&#xe61b;</em>
+			<h1 class="mui-title"><!-- ko text: userName-->我<!-- /ko -->的资讯</h1>
+			<em class="iconfont mui-bar-nav-em" data-bind="event:{tap: deleteNews}, visible: isAuthor">&#xe61b;</em>
 		</header>
 		<div class="mui-content">
 			<ul class="mui-table-view" data-bind="foreach: newsList">

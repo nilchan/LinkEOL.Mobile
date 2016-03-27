@@ -91,7 +91,7 @@ var worksDetails = function() {
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
 			//mui.toast("敬请期待");
-			Share.sendShare(this.id, shareTitle, shareContent, shareUrl + self.Works().WorkID(), shareImg);
+			Share.sendShare(this.id, shareTitle, shareContent, shareUrl + self.Works().WorkID(), shareImg,common.gShareContentType.video);
 			mui('#sharePopover').popover('toggle');
 		}
 	}

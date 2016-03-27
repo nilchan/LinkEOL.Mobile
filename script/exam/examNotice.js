@@ -128,7 +128,7 @@ var examNotice = function() {
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
 			//console.log('123');
-			Share.sendShare(this.id, shareTitle, shareContent, shareUrl, shareImg);
+			Share.sendShare(this.id, shareTitle, shareContent, shareUrl, shareImg,common.gShareContentType.exam);
 			mui('#sharePopover').popover('toggle');
 		};
 	}

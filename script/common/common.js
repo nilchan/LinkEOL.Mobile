@@ -1235,14 +1235,22 @@
 		isHaveClassmate: 2 //是否有同学
 	},
 	
-	//分享的类型
-	gSharetype:{
+	//分享内容的类型
+	gShareContentType:{
 		teacher:1,  //老师
 		video:2,    //视频
 		activity:3, //活动
 		exam:4,		//考级
 		news:5,		//咨询
 		recommend:6,//推荐好友
+	},
+	
+	
+	//分享类型
+	gShareType:{
+		WXSceneSession:1,
+		WXSceneTimeline:2,
+		qqFriend:3
 	},
 
 	gArrayDayOfWeek: ['日', '一', '二', '三', '四', '五', '六'],

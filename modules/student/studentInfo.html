@@ -9,114 +9,254 @@
 		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
 		<link href="../../content/common/global.css" rel="stylesheet" />
 		<link href="../../content/common/style.css" rel="stylesheet" />
-		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
 		<style>
-			body,
-			.mui-content {
-				background: #F1F1F1!important;
+			.studentInfo-header-bg {
+				height: auto;
+				overflow: hidden;
+				width: 100%;
 			}
 			
-			.mui-card .mui-control-content {
-				padding: 10px;
+			.studentInfo-header-bgColor {
+				background: #f0f0f0;
+				height: 114px;
+				width: 100%;
+				border-bottom: 1px solid #e1e1e1;
+				position: relative;
 			}
 			
-			.mui-control-content {
-				height: 150px;
+			.studentInfo-address {
+				height: 22px;
+				width: 100%;
+				line-height: 22px;
+				text-align: center;
+				color: #999;
+				font-size: 14px;
+				margin-top: 5px;
+				position: absolute;
+				left: 0;
+				bottom: 10px;
 			}
 			
-			.mui-active {
-				border-bottom: 2px solid #036fb8!important;
-			}
-			
-			.mui-control-content.mui-active {
-				border-bottom: none!important;
-				top: 0px!important;
-				background: #f1f1f1!important;
-			}
-			
-			.title {
-				margin: 20px 15px 7px;
-				color: #6d6d72;
-				font-size: 15px;
-			}
-			
-			.top-btn {
-				height: 40px;
-				width: 60px;
+			.studentInfo-sex {
+				height: 24px;
+				width: 24px;
+				border-radius: 50%;
+				background: #ff8ba4;
 				display: inline-block;
-				margin: -15px 0 0 -15px;
-				padding: 0 10px 0 10px;
-				line-height: 40px;
+				position: relative;
+				right: -98%;
+				top: 8px;
+				vertical-align: middle;
 			}
 			
-			.top-btn-right {
-				text-align: right;
+			@media screen and (min-width: 321px) and (max-width: 375px) {
+				.studentInfo-header-bgColor {
+					background: #f0f0f0;
+					height: 122px;
+					width: 100%;
+					border-bottom: 1px solid #e1e1e1;
+					position: relative;
+				}
+				.studentInfo-address {
+					height: 22px;
+					width: 100%;
+					line-height: 22px;
+					text-align: center;
+					color: #999;
+					font-size: 14px;
+					margin-top: 5px;
+					position: absolute;
+					left: 0;
+					bottom: 16px;
+				}
 			}
-			.mui-scroll-wrapper {
-				top: 18.5rem;
+			
+			@media screen and (min-width: 376px) and (max-width: 414px) {
+				.studentInfo-header-bgColor {
+					background: #f0f0f0;
+					height: 130px;
+					width: 100%;
+					border-bottom: 1px solid #e1e1e1;
+					position: relative;
+				}
+				.studentInfo-sex {
+					height: 24px;
+					width: 24px;
+					border-radius: 50%;
+					background: #ff8ba4;
+					display: inline-block;
+					position: relative;
+					right: -85%;
+					top: 8px;
+					vertical-align: middle;
+				}
+			}
+			
+			.studentInfo-photo {
+				height: 6rem;
+				width: 6rem;
+				border-radius: 50%;
+				padding: 4px;
+				background: #e1e1e1;
+				box-sizing: border-box;
+				position: absolute;
+				left: 50%;
+				margin-left: -3rem;
+				top: -3rem;
+			}
+			
+			.studentInfo-photo img {
+				border-radius: 50%;
+			}
+			
+			.studentInfo-name {
+				height: 24px;
+				width: 100%;
+				line-height: 24px;
+				text-align: center;
+				color: #666;
+				font-size: 16px;
+				position: absolute;
+				left: 0;
+				top: 3.5rem;
+			}
+			
+			.studentInfo-attention {
+				top: 10px;
+			}
+			
+			.sex-woman:after {
+				content: '\e6ac';
+				color: #fff;
+				font-size: 26px;
+				position: absolute;
+				left: -1px;
+				top: 0px;
+			}
+			
+			.sex-man:after {
+				content: '\e6ad';
+				color: #fff;
+				font-size: 26px;
+				position: absolute;
+				left: -1px;
+				top: 0px;
+			}
+			
+			.mui-table-view-cell.mui-collapse.mui-active >.info-pic {
+				color: #666;
+				line-height: 24px!important;
+				border-bottom: 1px solid #e1e1e1;
+				border-top: 1px solid #e1e1e1;
+			}
+			
+			.mui-table-view-cell.mui-collapse.mui-active >.info-pic:after {
+				color: #e1e1e4!important;
+				font-size: 20px!important;
+				right: 10px!important;
+				content: "\e672"!important;
+				top: 24px;
+			}
+			
+			.mui-table-view-cell.mui-collapse >.info-pic:after {
+				color: #e1e1e4!important;
+				font-size: 20px!important;
+				right: 10px!important;
+				content: "\e672"!important;
+				top: 24px;
+			}
+			
+			.info-li {
+				border-bottom: 1px solid #e1e1e1;
+				line-height: 24px!important;
+			}
+			
+			.mui-table-view-cell:after {
+				height: 0px;
+			}
+			
+			.studentInfo-list-bg {
+				background: #fff!important;
+			}
+			
+			.teacheeInfo-sc-after{
+				background: #e64578;
+				color: #fff;
 			}
 		</style>
 	</head>
 
 	<body>
-			<div class="p-header-div">
-				<a class="iconfont mui-action-back top-btn first">&#xe683;</a>
-				<!--<a class="iconfont top-btn top-btn-right second">&#xe670;</a>-->
-				<div class="photo">
-					<img data-bind="attr: {src: common.getPhotoUrl(userInfo().Photo)}" />
-				</div>
-				<span class="userName" data-bind="text:userInfo().DisplayName"></span>
-				<span class="message"><!--ko text:Gender--><!--/ko-->  | <!--ko text:Years--><!--/ko-->岁 
-				
-			</span>
-				<span class="address">
-				<i class="iconfont">&#xe63c;</i>
-				<!--广州市>天河区>体育中心-->
-				<!--ko text:userInfo().Province--><!--/ko-->><!--ko text:userInfo().City--><!--/ko-->><!--ko text:userInfo().District--><!--/ko-->
-			</span>
-				<div class="p-footer-btn">
-					<ul>
-						<!--<li>
-								<button>得分
-									<!--ko text:userInfo().Score-->
-						<!--/ko
-								</button>
-							</li>-->
-						<li>
-							<button data-bind="click: Fav">关注
-								<!--ko text:userInfo().FavCount-->
-								<!--/ko-->
-							</button>
-						</li>
-					</ul>
-				</div>
-			</div>
-		<div class="mui-content">
-					<div data-bind="template:{name:'studentWorkTemplate',foreach:works}"></div>
-			<!--模板文件-->
-			<script type="text/html" id="studentWorkTemplate">
-				<div id="gowork" class="mui-input-group works-list-mui-input-group">
-					<div class="works-center">
-						<span data-bind="text:Title"></span>
-						<div class="works-list-img" data-bind="event:{tap: goWorksDetails}">
-							<img data-bind="attr: {src: common.getThumbnail(VideoThumbnail)}" onerror="this.src='../../images/video-big-default.png';" />
-							<span class='subjectSpace'><i data-bind="text:SubjectName"></i></span>
-						</div>
-						<p data-bind="text:ContentText"></p>
-						<ul>
-							<li data-bind="text:AddTime.split(' ')[0]"></li>
-							<li data-bind="text:ReadCount"></li>
-							<li data-bind="text:LikeCount,event:{tap:Like}"></li>
-						</ul>
-					</div>
-				</div>
-			</script>
+		<div class="studentInfo-header-bg">
+			<img src="../../images/studentInfo-header-bg.jpg" />
 		</div>
-	</body>
-		<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<div class="studentInfo-header-bgColor">
+			<div class="studentInfo-photo">
+				<img data-bind="attr:{src:userInfo().Photo}" onerror="this.src='../../images/my-default.png';" />
+				<!--添加sex-man为男-->
+				<!--data-bind="css:userInfo().Gender==common.gDictGenderType.male?'sex-man':'sex-woman'"-->
+				<i class="iconfont studentInfo-sex sex-woman"></i>
+			</div>
+			<em class="teacheeInfo-sc studentInfo-attention" data-bind='click:Fav,css:collectionStatus'>关注</em>
+			<div class="studentInfo-name" data-bind='text:userInfo().DisplayName'>赵本山</div>
+
+			<div class="studentInfo-address"><i class="iconfont">&#xe66b;</i>
+				<!--省市区-->
+				<!--ko text:userInfo().Province-->
+				<!--/ko-->
+				<!--ko text:(common.StrIsNull(userInfo().City)==''?'':'·'+userInfo().City)-->
+				<!--/ko-->
+				<!--ko text:(common.StrIsNull(userInfo().District)==''?'':'·'+userInfo().District)-->
+				<!--/ko-->
+			</div>
+		</div>
+		<div class="mui-content">
+			<li class="mui-table-view-cell mui-collapse info-li" data-bind='click:goUserNews'>
+				<a class="mui-navigate-right info-pic" href="#">
+					<!--ko text:userInfo().DisplayName--><!--/ko-->资讯
+				</a>
+			</li>
+			<div class="pin-blank"></div>
+			<ul class="mui-input-group" data-bind="foreach:{data:works}" id="pullrefresh">
+				<li class="mui-table-view-cell works-list" data-bind="event:{tap:goWorksDetails}">
+					<a href="javascript:void(0);">
+						<div class="works-list-works" data-bind="style: {'background-image': 'url(' + (common.StrIsNull(VideoThumbnail) == '' ? '../../images/video-big-default.png' : common.getThumbnail(VideoThumbnail)) +')'}">
+							<span class="works-list-date-bg"></span>
+							<span class="works-list-date-font" data-bind="text:AddTime.split(' ')[0]">2015-12-17</span>
+						</div>
+						<div class="works-list-right">
+							<div class="works-list-title">
+								<span class="works-list-title-span" data-bind="text:Title">张小杰的作品</span>
+							</div>
+							<div class="works-list-subject" data-bind="text:SubjectName">钢琴</div>
+
+						</div>
+						<div class="works-list-f">
+							<ul class="works-list-f-left">
+								<li class="aline-left">
+									<i class="iconfont">&#xe661;</i>
+									<!--ko text:ReadCount-->
+									<!--/ko-->
+								</li>
+								<li class="aline-right">
+									<i class="iconfont">&#xe663;</i>
+									<!--ko text:LikeCount-->
+									<!--/ko-->
+								</li>
+							</ul>
+
+						</div>
+					</a>
+				</li>
+
+			</ul>
+		</div>
+
+		<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../script/common/common.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../script/common/base.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>
 		<script src="../../script/student/studentInfo.js" type="text/javascript" charset="utf-8"></script>
+	</body>
 
 </html>

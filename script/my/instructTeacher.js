@@ -41,7 +41,7 @@ var viewModel = function() {
 	var lis = ul.getElementsByTagName("li");
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
-			Share.sendShare(this.id, shareTitle, shareContent, shareUrl, shareImg);
+			Share.sendShare(this.id, shareTitle, shareContent, shareUrl, shareImg,common.gShareContentType.recommend);
 			mui('#sharePopover').popover('toggle');
 		};
 	}

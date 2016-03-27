@@ -4,8 +4,8 @@ var viewModel = function() {
 
 	self.activity = ko.observableArray([]);
 	self.Thumbnail = ko.observable('');
-	self.ActStatText=ko.observable('');//活动状态描述
-	self.BuyText=ko.observable('');//是否在售票中的状态
+	self.ActStatText = ko.observable(''); //活动状态描述
+	self.BuyText = ko.observable(''); //是否在售票中的状态
 
 	//分享的参数初始化
 	var shareTitle = "";
@@ -22,39 +22,39 @@ var viewModel = function() {
 				//console.log(responseText.ActContent);
 				self.activity(responseText);
 				//console.log(JSON.stringify(self.activity()));
-				CustomPrice=JSON.parse(self.activity().CustomPrice);
-				if(common.StrIsNull(self.activity().ActStat)!=''){
-					self.ActStatText(common.getTextByValue(common.gActivityStatus,self.activity().ActStat));
+				CustomPrice = JSON.parse(self.activity().CustomPrice);
+				if (common.StrIsNull(self.activity().ActStat) != '') {
+					self.ActStatText(common.getTextByValue(common.gActivityStatus, self.activity().ActStat));
 					//console.log(self.ActStatText());
 				}
-				if(self.activity().NeedBuyTicket){
+				if (self.activity().NeedBuyTicket) {
 					self.BuyText('售票中');
-					if(self.activity().ActStat == common.gActivityStatus[0].value)	//准备中
+					if (self.activity().ActStat == common.gActivityStatus[0].value) //准备中
 					{
 						self.ActStatText('');
 					}
 				}
-				
+
 				//console.log(self.activity().ActContent);
 				self.Thumbnail(self.activity().Thumbnail);
 				//console.log(common.getPhotoUrl2(self.activity().Thumbnail));
 				self.sharevalue();
 				var ah = 0;
 				if (common.isIOS()) ah = 15;
-				if(  window.screen.width == 768 ) ah = -15;
+				if (window.screen.width == 768) ah = -15;
 				var h = (document.body.clientWidth * 32.2 / 100 * 300 / 226 + 70) + ah + 'px';
 				//console.log(document.body.clientWidth+'height:--'+h);
 				document.getElementById("blurFar").style.height = h;
 				document.getElementById("blurBack").style.height = h;
-				
+
 				common.showCurrentWebview();
-				
+
 				//分享
 				var ul = document.getElementById("sharePopover");
 				var lis = ul.getElementsByTagName("li");
 				for (var i = 0; i < lis.length; i++) {
 					lis[i].addEventListener('click', function() {
-						Share.sendShare(this.id, shareTitle, shareContent, shareUrl + self.activity().ID , shareImg);
+						Share.sendShare(this.id, shareTitle, shareContent, shareUrl + self.activity().ID, shareImg,common.gShareContentType.activity);
 						mui('#sharePopover').popover('toggle');
 					});
 				}
@@ -112,26 +112,26 @@ var viewModel = function() {
 			aid: data.ID
 		});
 	}
-	
-	self.gotoSaleTicket=function(){
-		common.transfer('saleTicket.html',true,{
-			ActivityID:self.activity().ID,
-			CustomPrice:self.activity().CustomPrice,
+
+	self.gotoSaleTicket = function() {
+		common.transfer('saleTicket.html', true, {
+			ActivityID: self.activity().ID,
+			CustomPrice: self.activity().CustomPrice,
 			TicketUrl: self.activity().SeatsPreviewUrl
 		});
 	}
 
 	self.gotoSignUp = function() {
 		//console.log(self.activity().ActStat);
-		if(self.activity().ActStat==common.gActivityStatus[0].value){
+		if (self.activity().ActStat == common.gActivityStatus[0].value) {
 			mui.toast("还没到报名时间~");
-			return ;
+			return;
 		}
-		if(self.activity().ActStat!=common.gActivityStatus[1].value){
+		if (self.activity().ActStat != common.gActivityStatus[1].value) {
 			mui.toast("活动报名时间已结束");
 			return;
 		}
-		
+
 		/*if (getLocalItem('UserType') == common.gDictUserType.teacher) {
 			mui.toast('活动只允许学生报名！');
 			return;
@@ -146,7 +146,6 @@ var viewModel = function() {
 		setLocalItem('tmp.activityWorkID', self.activity().ID);
 		common.transfer("../works/worksListAllHeader.html", false, {}, false, false);
 	}
-
 
 	mui.back = function() {
 		common.showIndexWebview(1);
@@ -163,7 +162,7 @@ var viewModel = function() {
 	});
 
 	var oldStyle = document.getElementById("hHead").style.cssText;
-	window.addEventListener('refreshActivityInfo',function(){
+	window.addEventListener('refreshActivityInfo', function() {
 		self.getActivity();
 	})
 

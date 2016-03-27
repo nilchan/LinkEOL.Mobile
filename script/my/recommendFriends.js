@@ -7,7 +7,7 @@ var ul = document.getElementById("recommendArray");
 var lis = ul.getElementsByTagName("li");
 for (var i = 0; i < lis.length; i++) {
 	lis[i].onclick = function() {
-		Share.sendShare(this.id, shareTitle, shareContent, shareUrl, shareImg);
+		Share.sendShare(this.id, shareTitle, shareContent, shareUrl, shareImg.common.gShareContentType.recommend);
 	};
 }
 mui.plusReady(function() {

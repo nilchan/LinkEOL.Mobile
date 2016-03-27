@@ -1,21 +1,18 @@
 var informationList = function() {
 	var self = this;
-	var useid;
-	var useUrl='?userid=';
-	var ajaxUrl = common.gServerUrl + 'API/News/GetAPPNewsList';
-	var pageID = 1;
-	self.newsList = ko.observableArray([]); //列表数组
 	
-	self.IsAuthor = ko.computed(function() {
-	})
+	
+	var url = common.gServerUrl + 'API/News/GetAPPNewsList';
+	var pageID = 1;
+	
+	self.newsList = ko.observableArray([]); //列表数组
 	
 	//获取资讯列表
 	self.getNewsList = function() {
-		mui.ajax(ajaxUrl, {
+		mui.ajax(url, {
 			type: 'GET',
 			success: function(responsText) {
 				self.newsList(JSON.parse(responsText));
-				common.showCurrentWebview();
 				self.clampText();
 			}
 		});
@@ -31,7 +28,20 @@ var informationList = function() {
 		}
 	}
 	
-	
+	mui.init({
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: {
+				contentrefresh: common.gContentRefreshDown,
+				callback: pulldownRefresh
+			},
+			up: {
+				contentrefresh: common.gContentRefreshUp,
+				contentnomore: common.gContentNomoreUp,
+				callback: pullupRefresh
+			}
+		}
+	});
 	
 	//下拉刷新
 	function pulldownRefresh() {
@@ -105,30 +115,7 @@ var informationList = function() {
 		}
 	}
 	
-	mui.init({
-		pullRefresh: {
-			container: '#pullrefresh',
-			down: {
-				contentrefresh: common.gContentRefreshDown,
-				callback: pulldownRefresh
-			},
-			up: {
-				contentrefresh: common.gContentRefreshUp,
-				contentnomore: common.gContentNomoreUp,
-				callback: pullupRefresh
-			}
-		}
-	});
-	
-	mui.plusReady(function(){
-		var thisWeb=plus.webview.currentWebview();
-		if(typeof thisWeb.userid !='undefined'){
-			userid=thisWeb.userid;
-			ajaxUrl+=useUrl+userid;
-		}
-		self.getNewsList();
-	})
-	
+	self.getNewsList();
 };
 
 ko.applyBindings(informationList);
