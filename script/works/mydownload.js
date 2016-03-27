@@ -81,7 +81,8 @@ var mydownload = function() {
 			}
 			
 			var top = 44 * 2;
-			var width = document.body.clientWidth;
+			//plus.runtime.wi
+			var width = 720; //document.body.clientWidth;
 			var height = width * 9 / 16;
 			
 			document.getElementById('videoCtrl').style.top = top+'px';
@@ -90,15 +91,15 @@ var mydownload = function() {
 			self.viewDetail(true);
 			
 			//设置视频位置
-			var ret = plus.VideoUtility.InitPlayer([
+			var ret = plus.VideoUtility.InitPlayer(data.workVidPolyv(), common.gJsonVideoLevel.SD, [
 				0, top, width, height
-			]);
-			if (ret && ret.status) {
+			],"");
+			/*if (ret && ret.status) {
 				var ret = plus.VideoUtility.PlayVideo(data.workVidPolyv(), common.gJsonVideoLevel.SD);
 				if (ret && !ret.status) {
 					mui.toast('视频加载失败');
 				}
-			}
+			}*/
 			
 			plus.nativeUI.closeWaiting();
 		}

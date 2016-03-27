@@ -80,7 +80,7 @@ videoPicker.SelectVideo = function(multiple, callback) {
 	//if (plus.os.vendor == 'Apple') //只有在iOS才可以在录像前设置分辨率
 		myRes = getResolution(cmr.supportedVideoResolutions);
 	
-	alert(JSON.stringify(myRes));
+	//alert(JSON.stringify(myRes));
 	var counter = 0;
 	if (myRes.length > 0) {
 		myRes.forEach(function(res) {
@@ -195,7 +195,7 @@ videoPicker.SelectVideo = function(multiple, callback) {
 		}
 		else { //拍摄
 			if (plus.os.vendor == 'Apple'){
-				alert('ios');
+				//alert('ios');
 				var res = myRes.length > 0 ? myRes[items[0].value] : '';
 				var fmt = 'mp4';
 				var cmr = plus.camera.getCamera();
@@ -219,11 +219,19 @@ videoPicker.SelectVideo = function(multiple, callback) {
 				});
 			}
 			else{
-				alert('android');
-				plus.VideoUtility.recordVideo(640, 480, 500*1024, function(arg){
+				//alert('android');
+				var res = myRes.length > 0 ? myRes[items[0].value] : '';
+				var w = 640, h = 480;
+				if(res != ''){
+					var arr = res.split("*");
+					w = parseInt(arr[0]);
+					h = parseInt(arr[1]);
+				}
+				
+				plus.VideoUtility.recordVideo(w, h, 1024*1024, function(arg){
 					alert(arg);
-					if(arg && arg.status == true){
-						var videoVM = new self.returnVideoVM(arg.value, generateTempFilePath());
+					if(arg){
+						var videoVM = new self.returnVideoVM(arg, generateTempFilePath());
 						_returnVideos.push(videoVM);
 		
 						if (_callback) {
@@ -231,7 +239,7 @@ videoPicker.SelectVideo = function(multiple, callback) {
 						}
 					}
 				}, function(error){
-					mui.toast('拍摄出错');
+					mui.toast('拍摄出现错误');
 				})
 			}
 		}

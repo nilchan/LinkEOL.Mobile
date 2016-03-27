@@ -35,8 +35,8 @@ document.addEventListener("plusready", function() {
 		 * @param {Object} position 播放器的位置，json数组对象[x, y, width, height]，如[0, 0, 360, 240]，单位为像素
 		 * @return {String} json格式字符串
 		 */
-		InitPlayer: function(position) {
-			return _BRIDGE.execSync(_VIDEOPLUGIN, "InitPlayer", [position]);
+		InitPlayer: function(vid, level, position, title) {
+			return _BRIDGE.execSync(_VIDEOPLUGIN, "InitPlayer", [vid, level, position, title]);
 		},
 
 		/**
