@@ -92,7 +92,7 @@ var worksDetails = function() {
 		lis[i].onclick = function() {
 			//mui.toast("敬请期待");
 			Share.sendShare(this.id, shareTitle, shareContent, shareUrl + self.Works().WorkID(), shareImg,common.gShareContentType.video);
-			mui('#sharePopover').popover('toggle');
+			mui('#middlePopover').popover('toggle');
 		}
 	}
 
@@ -607,7 +607,7 @@ var worksDetails = function() {
 		mui.ajax(common.gServerUrl + 'Common/Work/' + workId, {
 			type: 'GET',
 			success: function(responseText) {
-				console.log(responseText);
+				//console.log(responseText);
 				var result = JSON.parse(responseText);
 				workobj = result;
 				obj = new self.initWorksValue(result);

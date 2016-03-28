@@ -97,10 +97,12 @@
 						<label>科目</label>
 						<button class="mui-btn mui-btn-block th-mui-btn-block th-font" type='button' data-bind="text:SubjectName,event:{click:getSubject}"></button>
 					</div>
-					<!--<div class="mui-input-row reg-mui-input-row">
-						<label>确认密码</label>
-						<input id='password_confirm' type="password" class="mui-input-clear mui-input reg-mui-input" placeholder="请确认密码" autocomplete="off" data-bind="value:ConPassword">
-					</div>-->
+						<div class="mui-input-row reg-mui-input-row">
+						<label>邀请码</label>
+						<input type="text" data-bind="event:{input:getTeacher,propertychange:getTeacher},attr:{placeholder:placeholderText}" id='inviteCode'/>
+					</div>
+					<!--输入错误样式reg-code-error-->
+					<p class="reg-code" data-bind='visible:isFalseGetTeacher,css:inviteCodeStyle,text:inviteCodeText'>请输入正确的邀请码</p>
 					<div class="reg-protocol">
 						<div class="mui-checkbox mui-left">
 							<input name="chkAgree" value="true" type="checkbox" data-bind='checked: Agreed'>
