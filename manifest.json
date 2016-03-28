@@ -2898,8 +2898,30 @@
 					"images/my-default.png"
 				],
 				"refer": [
-					"modules/news/newsDetail.html"
+					"modules/news/newsDetail.html",
+					"modules/account/login.html",
+					"modules/news/addNews.html"
 				],
+				"priority": 0
+			},
+			"modules/news/addNews.html": {
+				"resources": [
+					"script/common/common.js",
+					"script/common/base.js",
+					"script/mui/mui.js",
+					"script/mui/mui.picker.min.js",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"script/common/picture.js",
+					"content/common/global.css",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/mui/mui.css",
+					"content/fonts/iconfont.css",
+					"script/news/addNews.js",
+					"content/fonts/iconfont.woff",
+					"content/common/Tf_global.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

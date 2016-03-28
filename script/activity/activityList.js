@@ -25,7 +25,7 @@ var viewModel = function() {
 	mui.plusReady(function() {
 		//循环初始化所有下拉刷新，上拉加载。
 		mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
-			index ++;
+			index++;
 			mui(pullRefreshEl).pullToRefresh({
 				down: {
 					callback: function() {
@@ -80,7 +80,7 @@ var viewModel = function() {
 			}
 		});
 	};
-	
+
 	//获取活动列表首页
 	self.getActivityIndex = function() {
 		mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
@@ -91,34 +91,38 @@ var viewModel = function() {
 			dataType: 'json',
 			type: "GET",
 			success: function(responseText) {
-				responseText.forEach(function(item){
-					switch(item.ActProperty) {
-						case 1: {
-							self.activitys[1].push(item);
-							break;
-						}
-						case 2: {
-							self.activitys[2].push(item);
-							break;
-						}
-						case 3: {
-							self.activitys[3].push(item);
-							break;
-						}
-						case 4: {
-							self.activitys[4].push(item);
-							break;
-						}
+				responseText.forEach(function(item) {
+					switch (item.ActProperty) {
+						case 1:
+							{
+								self.activitys[1].push(item);
+								break;
+							}
+						case 2:
+							{
+								self.activitys[2].push(item);
+								break;
+							}
+						case 3:
+							{
+								self.activitys[3].push(item);
+								break;
+							}
+						case 4:
+							{
+								self.activitys[4].push(item);
+								break;
+							}
 					}
 				});
 			}
 		});
 	}
-	
+
 	//选择地点
 	self.selectPlace = function(data) {
 		currentPlace = data;
-		setLocalItem('currentPlace',currentPlace);
+		setLocalItem('currentPlace', currentPlace);
 		self.cPlace(currentPlace);
 		for (var i = 1; i < 5; i++) {
 			self.activitys[i]([]);
@@ -127,26 +131,26 @@ var viewModel = function() {
 		self.getActivityIndex();
 		mui('#topPopover').popover('toggle');
 	}
-	
+
 	//跳到活动详情
 	self.gotoInfo = function(data) {
 		common.transfer('activityInfo.html', false, {
 			aid: data.ID
-		},false,false);
+		}, false, false);
 	}
-	
+
 	//覆写返回
 	mui.back = function() {
 		common.confirmQuit();
 	}
-	
+
 	//页面初始化
 	mui.plusReady(function() {
-		var defaultPlace=getLocalItem('currentPlace');
-		if(typeof defaultPlace !='undefined' && common.StrIsNull(defaultPlace) !=''){
+		var defaultPlace = getLocalItem('currentPlace');
+		if (typeof defaultPlace != 'undefined' && common.StrIsNull(defaultPlace) != '') {
 			self.cPlace(defaultPlace);
 		}
-	 	
+
 		self.getActivityIndex();
 	});
 };

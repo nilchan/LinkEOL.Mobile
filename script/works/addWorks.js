@@ -35,12 +35,18 @@ var addWorks = function() {
 			subjectID = localSubjectID;
 			self.subjectText(localSubjectText);
 		}
+		
+		
 
 		if (self.userType() == common.gDictUserType.student) {
 			self.workTypeID(common.gJsonWorkTypeStudent[0].value);
 			self.workTypeText(common.gJsonWorkTypeStudent[0].text);
 		} else {
 			//初始化类型选择
+			var teacherSubjectID=getLocalItem("SubjectID");
+			if(teacherSubjectID){
+				subjectID =teacherSubjectID;
+			}
 			var localWorkTypeID = getLocalItem("localWorkTypeID");
 			var localWorkTypeText = getLocalItem("localWorkTypeText");
 			if (localWorkTypeID && localWorkTypeText) {

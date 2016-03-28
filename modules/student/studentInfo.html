@@ -14,8 +14,18 @@
 				height: auto;
 				overflow: hidden;
 				width: 100%;
+				position: relative;
 			}
-			
+			.studentInfo-header-bg i{
+				color: #666;
+				font-size: 20px;
+				position: absolute;
+				left: 15px;
+				top: 15px;
+			}
+			.studentInfo-header-bg img{
+				display: block;
+			}
 			.studentInfo-header-bgColor {
 				background: #f0f0f0;
 				height: 114px;
@@ -37,18 +47,22 @@
 				bottom: 10px;
 			}
 			
-			.studentInfo-sex {
+			.studentInfo-sex,.studentInfo-man{
 				height: 24px;
 				width: 24px;
-				border-radius: 50%;
-				background: #ff8ba4;
+				border-radius: 50%;	
 				display: inline-block;
 				position: relative;
 				right: -98%;
 				top: 8px;
 				vertical-align: middle;
 			}
-			
+			.studentInfo-sex{
+				background: #ff8ba4;
+			}
+			.studentInfo-man{
+				background: #337cc7;
+			}
 			@media screen and (min-width: 321px) and (max-width: 375px) {
 				.studentInfo-header-bgColor {
 					background: #f0f0f0;
@@ -79,17 +93,22 @@
 					border-bottom: 1px solid #e1e1e1;
 					position: relative;
 				}
-				.studentInfo-sex {
-					height: 24px;
-					width: 24px;
-					border-radius: 50%;
-					background: #ff8ba4;
-					display: inline-block;
-					position: relative;
-					right: -85%;
-					top: 8px;
-					vertical-align: middle;
-				}
+						.studentInfo-sex,.studentInfo-man{
+				height: 24px;
+				width: 24px;
+				border-radius: 50%;	
+				display: inline-block;
+				position: relative;
+				right: -98%;
+				top: 8px;
+				vertical-align: middle;
+			}
+			.studentInfo-sex{
+				background: #ff8ba4;
+			}
+			.studentInfo-man{
+				background: #337cc7;
+			}
 			}
 			
 			.studentInfo-photo {
@@ -126,7 +145,7 @@
 			}
 			
 			.sex-woman:after {
-				content: '\e6ac';
+				content: '\e6ad';
 				color: #fff;
 				font-size: 26px;
 				position: absolute;
@@ -135,7 +154,7 @@
 			}
 			
 			.sex-man:after {
-				content: '\e6ad';
+				content: '\e6ac';
 				color: #fff;
 				font-size: 26px;
 				position: absolute;
@@ -189,13 +208,15 @@
 	<body>
 		<div class="studentInfo-header-bg">
 			<img src="../../images/studentInfo-header-bg.jpg" />
+			<i class="iconfont mui-action-back specialHeader">&#xe683;</i>
 		</div>
 		<div class="studentInfo-header-bgColor">
 			<div class="studentInfo-photo">
-				<img data-bind="attr:{src:userInfo().Photo}" onerror="this.src='../../images/my-default.png';" />
+				<img data-bind="attr:{src:common.getPhotoUrl(userInfo().Photo)}" onerror="this.src='../../images/my-default.png';" />
 				<!--添加sex-man为男-->
 				<!--data-bind="css:userInfo().Gender==common.gDictGenderType.male?'sex-man':'sex-woman'"-->
-				<i class="iconfont studentInfo-sex sex-woman"></i>
+				<i class="iconfont studentInfo-sex sex-woman" data-bind="visible: userInfo().Gender!=common.gDictGenderType.male"></i>
+				<i class="iconfont studentInfo-man sex-man" data-bind="visible: userInfo().Gender==common.gDictGenderType.male"></i>
 			</div>
 			<em class="teacheeInfo-sc studentInfo-attention" data-bind='click:Fav,css:collectionStatus'>关注</em>
 			<div class="studentInfo-name" data-bind='text:userInfo().DisplayName'>赵本山</div>
