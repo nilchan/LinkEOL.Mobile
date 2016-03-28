@@ -1,6 +1,5 @@
 var myUpload = function() {
 	var self = this;
-	var arrUploadTask = [];
 	self.uploadList = ko.observableArray([]);
 
 	mui.init({
@@ -36,7 +35,7 @@ var myUpload = function() {
 				retJson = JSON.stringify(tmp.data);
 			}
 		}
-		alert(retJson);
+		//alert(retJson);
 		var url = common.gServerUrl + "API/PolyvCloud/SetUploadFinish";
 		mui.ajax(url, {
 			type: 'PUT',
@@ -49,11 +48,13 @@ var myUpload = function() {
 				var result = JSON.parse(responseText);
 				if (result) {
 					item.IsFinish(true);
-					//更换缩略图
-					item.videoThumbnail('');
-					if(common.StrIsNull(result.ThumbnailPolyv)){
-						item.videoThumbnail(result.ThumbnailPolyv);		//上传完成并未有缩略图，编码完成会有
+					//更换缩略图（加上延时）
+					if(common.StrIsNull(result.ThumbnailPolyv) != ''){
+						setTimeout(function(){
+							item.videoThumbnail(result.ThumbnailPolyv);		//上传完成并未有缩略图，编码完成会有
+						}, 1000);
 					}
+					
 					item.works.VidPolyv = result.VidPolyv;
 
 					//从本地缓存中删除
@@ -100,7 +101,8 @@ var myUpload = function() {
 							if (item.WorkID() == item2.SourceID) {
 								item.IsFinish(item2.IsFinish);
 								item.ConvertResult(item2.ConvertResult);
-								item.videoThumbnail(item2.ThumbnailPolyv); //从附件中获取，该字段为缩略图
+								if(common.StrIsNull(item2.ThumbnailPolyv) != '')
+									item.videoThumbnail(item2.ThumbnailPolyv); //从附件中获取，该字段为缩略图
 								break;
 							}
 						}
@@ -143,7 +145,7 @@ var myUpload = function() {
 	//根据状态对上传任务进行重新梳理
 	self.filterTasks = function() {
 		var tmp = plus.storage.getItem(common.gVarLocalUploadTask);
-		alert('gVarLocalUploadTask: ' + tmp);
+		//alert('gVarLocalUploadTask: ' + tmp);
 		var tasks = JSON.parse(tmp);
 		if(!tasks) {
 			for (var i = 0; i < self.uploadList().length; i++) {
@@ -171,6 +173,7 @@ var myUpload = function() {
 					}
 				}
 			}
+
 			self.uploadList()[i].FoundInLocal(found);
 
 			if (!found && self.uploadList()[i].works.IsFinish) { //服务器端并无保存该上传任务
@@ -190,7 +193,7 @@ var myUpload = function() {
 			plus.storage.setItem(common.gVarLocalUploadTask, JSON.stringify(tasks));
 			
 		if (tasks && tasks.length > 0) {
-			arrUploadTask = upload.initTasks(refreshUploadState);
+			upload.initTasks(refreshUploadState);
 		}
 	}
 
@@ -228,10 +231,8 @@ var myUpload = function() {
 		self.works = worksObj;
 		self.WorkID = ko.observable(worksObj.ID); //作品编码
 		self.workTitle = ko.observable(worksObj.Title); //作品标题
-		self.videoThumbnail = ko.observable('');
-		if (common.StrIsNull(worksObj.VideoThumbnail) == '') {
-			self.videoThumbnail('../../images/video-big-default.png');
-		} else {
+		self.videoThumbnail = ko.observable('../../images/video-big-default.png');
+		if (common.StrIsNull(worksObj.VideoThumbnail) != '') {
 			self.videoThumbnail(worksObj.VideoThumbnail); //缩略图
 		}
 		self.videopath = ko.observable(worksObj.videopath); //视频路径
@@ -275,16 +276,6 @@ var myUpload = function() {
 				} else {
 					return '上传已失效';
 				}
-			}
-		});
-		self.videoHtml = ko.computed(function() {
-			if (self.IsFinish()) {
-				//console.log('<div class="video-js-box" style="margin:18px auto"><video controls width="' + 320 + 'px" height="' + 240 + 'px" class="video-js" data-setup="{}"><source src="' + plus.io.convertLocalFileSystemURL(self.localpath()) + '" type="video/mp4" /></video></div>');
-				return '<div class="video-js-box" ><video controls width="' + 100 + '" height="' + 90 + '" class="video-js" poster="' + worksObj.workimgUrl + '" data-setup="{}"><source src="' + plus.io.convertLocalFileSystemURL(self.localpath()) + '" type="video/mp4" /></video></div>';
-				//return plus.io.convertLocalFileSystemURL(self.localpath()); //转换为绝对路径方可显示
-			} else {
-				return '<div class="video-js-box" ><video controls width="' + 100 + '" height="' + 90 + '" class="video-js" poster="' + worksObj.workimgUrl + '" data-setup="{}"><source src="' + common.gVideoServerUrl + self.videopath() + '" type="video/mp4" /></video></div>';
-				//return common.gVideoServerUrl + self.videopath();
 			}
 		});
 

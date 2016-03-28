@@ -315,7 +315,7 @@ var compatible = supportHTML5Upload();
  * @param {Function} callback 状态改变时的回调函数
  */
 upload.uploadVideo = function(localItem, callback) {
-    alert(localItem.uploadInfoJson);
+    //alert(localItem.uploadInfoJson);
 	if (localItem.videoServerType != 3) { //非保利威视云视频，暂不支持
 		return null;
 	}
@@ -333,7 +333,7 @@ upload.uploadVideo = function(localItem, callback) {
 			hash: uploadInfo.hash,
 			callback: callback
 		});
-
+		
 		pUpload.startUpload();
 
 		task = { //上传任务
@@ -350,20 +350,22 @@ upload.uploadVideo = function(localItem, callback) {
 /**
  * 初始化上传任务
  * @param {Function} callback 状态改变时的回调函数
- * @return {Array} 上传任务数组
  */
 upload.initTasks = function(callback) {
 	var tmp = plus.storage.getItem(common.gVarLocalUploadTask);
-	var arrRet = [];
 	var tasks = JSON.parse(tmp);
 	if (tasks && tasks.length > 0) {
 		tasks.forEach(function(item) {
-			var ret = upload.uploadVideo(item, callback);
-			arrRet.push(ret);
+			/* ==标记已开始上传。再次进入无需再上传，而是自动上传== */
+			if(item.uploading != true){
+				item.uploading = true;
+				plus.storage.setItem(common.gVarLocalUploadTask, JSON.stringify(tasks));
+				
+				upload.uploadVideo(item, callback);
+			}
+			/* ================================================= */
 		})
 	}
-	//alert('initTasks:' + JSON.stringify(arrRet));
-	return arrRet;
 }
 
 /**
@@ -373,6 +375,7 @@ upload.initTasks = function(callback) {
 upload.deleteTask = function(workId) {
 	//从本地缓存中删除
 	var tmp = plus.storage.getItem(common.gVarLocalUploadTask);
+	//alert('deleteTask-oldTasks: ' + tmp);
 	var tasks = JSON.parse(tmp);
 	if (tasks && tasks.length > 0) {
 		for (var j = 0; j < tasks.length; j++) {

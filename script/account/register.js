@@ -60,9 +60,9 @@ var register = function() {
 			self.UserTypeText(items[0].text);
 			self.UserType(items[0].value);
 			if(self.UserType()==common.gDictUserType.teacher){
-			self.placeholderValue("请输入你的真实姓名");
-			self.placeholderText('请输入邀请码(可不填)');
-		}
+				self.placeholderValue("请输入你的真实姓名");
+				self.placeholderText('请输入邀请码(可不填)');
+			}
 		});
 		
 	}
@@ -171,7 +171,11 @@ var register = function() {
 			mui.toast('姓名不能为空');
 			return;
 		}
-
+		if(self.UserType()==common.gDictUserType.teacher && self.SubjectID() <= 0){
+			mui.toast('科目不能为空');
+			return;
+		}
+		
 		if (self.Agreed() == false) {
 			mui.toast('请阅读并同意服务协议');
 			return;

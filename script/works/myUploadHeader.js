@@ -16,6 +16,6 @@ mui.plusReady(function() {
 	});
 });
 
-/*mui.back = function() {
-	common.showIndexWebview(4);
-};*/
+mui.back = function() {
+	common.transfer('worksListMyHeader.html', true, {}, false, false);
+};

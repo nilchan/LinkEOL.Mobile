@@ -74,7 +74,7 @@ var viewModel = function() {
 				mui('#pullrefresh').pullRefresh().scrollTo(0, 0, 100);
 				plus.nativeUI.closeWaiting();
 				if (self.isHomeWork() && self.teacherList().length == 0) {
-					alert('你还没有添加授课老师！');
+					mui.toast('你还没有添加授课老师！');
 					mui.back();
 				}
 				//common.showCurrentWebview();

@@ -2800,9 +2800,12 @@
 					"script/libs/knockout/knockout-3.3.0.js",
 					"content/fonts/iconfont.css",
 					"content/mui/mui.min.css",
-					"content/fonts/iconfont.ttf"
+					"content/fonts/iconfont.ttf",
+					"content/fonts/mui.ttf"
 				],
-				"refer": [],
+				"refer": [
+					"modules/works/worksListMyHeader.html"
+				],
 				"priority": 0
 			},
 			"modules/works/myUpload.html": {

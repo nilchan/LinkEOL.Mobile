@@ -58,7 +58,7 @@ var viewModel = function() {
 	}
 
 	//取消选择
-	self.cacelSelect = function() {
+	self.cancelSelect = function() {
 		self.displayCheck(false);
 		self.givingCheck(false);
 		for (i in self.instructedArray()) {
@@ -96,7 +96,7 @@ var viewModel = function() {
 			data: JSON.stringify(sID),
 			success: function(responsText) {
 				mui.toast('操作成功');
-				self.cacelSelect();
+				self.cancelSelect();
 				plus.nativeUI.closeWaiting();
 			}
 		});
@@ -122,7 +122,7 @@ var viewModel = function() {
 			data: JSON.stringify(sID),
 			success: function(responsText) {
 				mui.toast('操作成功');
-				self.cacelSelect();
+				self.cancelSelect();
 				self.getIntructList();
 				
 			}
@@ -202,24 +202,38 @@ var viewModel = function() {
 
 	//同意授课
 	self.agreeStudent = function(data) {
+		var evt = event;
+		if (!common.setDisabled()) return;
+		
 		var url = common.gServerUrl + '/API/TeacherToStudent/TeacherIsStudent?TeacherToStudentID=' + data.info.TeacherToStudentID + '&IsConfirm=true';
 		mui.ajax(url, {
 			type: 'PUT',
 			success: function(responsText) {
 				mui.toast('操作成功');
+				common.setEnabled(evt);
 				self.getIntructList();
+			},
+			error: function(){
+				common.setEnabled(evt);
 			}
 		});
 	}
 
 	//拒绝授课
 	self.refuseStudent = function(data) {
+		var evt = event;
+		if (!common.setDisabled()) return;
+		
 		var url = common.gServerUrl + '/API/TeacherToStudent/TeacherIsStudent?TeacherToStudentID=' + data.info.TeacherToStudentID + '&IsConfirm=false';
 		mui.ajax(url, {
 			type: 'PUT',
 			success: function(responsText) {
 				mui.toast('操作成功');
+				common.setEnabled(evt);
 				self.getIntructList();
+			},
+			error: function(){
+				common.setEnabled(evt);
 			}
 		});
 	}

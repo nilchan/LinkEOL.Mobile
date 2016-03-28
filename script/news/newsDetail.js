@@ -34,7 +34,7 @@ var newsDetail=function(){
 			success:function(responseText){
 				if( responseText == "" ) {
 					plus.nativeUI.closeWaiting();
-					alert('资讯已被删除，请返回列表刷新~');
+					mui.toast('资讯已被删除，请返回列表刷新~');
 					mui.back();
 					return ;
 				}

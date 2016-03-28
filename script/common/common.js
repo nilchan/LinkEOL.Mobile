@@ -793,7 +793,7 @@
 	 * @param {String} photo 图片名
 	 */
 	getThumbnail: function(photo) {
-		if (typeof photo != 'undefined') {
+		if (typeof photo != 'undefined' && common.StrIsNull(photo) != '') {
 			if (photo.toLowerCase().indexOf('http://') >= 0)
 				return photo;
 			else
