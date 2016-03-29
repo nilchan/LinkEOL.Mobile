@@ -236,7 +236,6 @@ li {
 /*-------informationList分享与发布页面---------*/
 .informationList-box{
 	height: 150px;
-	border-bottom: 0.5px solid #C8C7CC;
 	width: 100%;
 	padding: 15px 0px;
 	position: relative;
@@ -329,8 +328,19 @@ li {
 	width: 40%;
 	float: right;
 	display: block;
+	transform:scale(1);
+	-ms-transform:scale(1);/* IE 9 */
+	-moz-transform:scale(1);	/* Firefox */
+	-webkit-transform:scale(1);/* Safari 和 Chrome */
+	-o-transform:scale(1);
 }
-
+.add-information-icon img:active{
+	transform:scale(1.2);
+	-ms-transform:scale(1.2);/* IE 9 */
+	-moz-transform:scale(1.2);	/* Firefox */
+	-webkit-transform:scale(1.2);/* Safari 和 Chrome */
+	-o-transform:scale(1.2);
+}
 /*-----login登录页面开始-----*/
 
 .mui-table-view-cell>.mui-badge,
