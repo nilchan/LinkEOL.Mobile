@@ -24,7 +24,7 @@ var worksDetails = function() {
 
 	var videoUrl; //视频地址
 	self.initWorksValue = function(works) {
-		console.log(JSON.stringify(works))
+		//console.log(JSON.stringify(works))
 		var self = this;
 		self.WorkID = ko.observable(works.ID); //作品编码
 		self.AuthorID = ko.observable(works.AuthorID); //作品作者UserID
@@ -137,7 +137,6 @@ var worksDetails = function() {
 	//获取下载价格
 	self.getDownloadPrice = function() {
 		var url = common.gServerUrl + 'API/Download/GetDownloadPrice?userId=' + self.Works().AuthorID();
-
 		mui.ajax(url, {
 			type: 'GET',
 			success: function(responseText) {
@@ -149,9 +148,8 @@ var worksDetails = function() {
 	//获取评论
 	self.getComment = function() {
 		mui.ajax(common.gServerUrl + "Common/Comment/GetCommentsByWork?WorkID=" + self.Works().WorkID(), {
-			type: 'Get',
+			type: 'GET',
 			success: function(responseText) {
-				//console.log(responseText);
 				var result = eval("(" + responseText + ")");
 				result.forEach(function(item, i, array) {
 					self.teacherComment.push(Comment(item));
@@ -163,9 +161,8 @@ var worksDetails = function() {
 	//当为同学关系时的点评内容
 	self.getComentClassmate = function() {
 		mui.ajax(common.gServerUrl + "Common/Comment/GetCommentToClassMateList?workId=" + self.Works().WorkID() + "&userId=" + self.UserID, {
-			type: 'Get',
+			type: 'GET',
 			success: function(responseText) {
-				//console.log(responseText);
 				var result = eval("(" + responseText + ")");
 				result.forEach(function(item, i, array) {
 					self.teacherComment.push(Comment(item));
@@ -576,7 +573,7 @@ var worksDetails = function() {
 			type: 'GET',
 			success: function(responseText) {
 				result = responseText; //是否是同学关系
-				if (result) { //当为同学关系时
+				if (result=='true') { //当为同学关系时
 					self.getComentClassmate()
 				} else { //当不为同学时
 					self.getComment();
@@ -584,7 +581,6 @@ var worksDetails = function() {
 				self.isshowComment(self.Works().IsPublic() && result);
 			}
 		});
-
 	}
 
 	//根据作品id获取作品详情  

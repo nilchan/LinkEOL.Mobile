@@ -102,6 +102,10 @@ var favUser = function() {
 			}
 		})
 	}
+	
+	self.goInfo=function(){
+		
+	}
 
 	mui.init({
 		beforeback: function() {

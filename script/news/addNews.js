@@ -1,11 +1,11 @@
-var addNews=function(){
-	var self=this;
-	
-	self.newsTitle=ko.observable(''); //标题
-	self.newsContent=ko.observable(''); //咨询内容
-	
+var addNews = function() {
+	var self = this;
+
+	self.newsTitle = ko.observable(''); //标题
+	self.newsContent = ko.observable('内容...'); //咨询内容
+
 	//添加图片
-	self.addPhoto=function(){
+	self.addPhoto = function() {
 		var imgBase, tmpImg;
 		picture.SelectPicture(false, false, function(retValue) {
 			imgBase = retValue[0].Base64;
@@ -14,14 +14,14 @@ var addNews=function(){
 			editor.innerHTML += tmpImg;
 		});
 	}
-	
+
 	//发布
 	self.submitNews = function() {
-		if( self.newsTitle() == "" ) {
+		if (self.newsTitle() == "") {
 			mui.toast('请输入标题!');
 			return;
 		}
-		if( $A.gI('edit').innerHTML == "" ) {
+		if ($A.gI('edit').innerHTML == "") {
 			mui.toast('请输入内容!');
 			return;
 		}
@@ -31,20 +31,23 @@ var addNews=function(){
 			PublisherUserID: getLocalItem('UserID'),
 			HtmlContent: $A.gI('edit').innerHTML
 		};
-		mui.ajax(url,{
-				type:'POST',
-				data:data,
-				success:function(responseText){
-					mui.toast('发布成功！');
-					mui.back();
-				}
-			})
+		mui.ajax(url, {
+			type: 'POST',
+			data: data,
+			success: function(responseText) {
+				mui.toast('发布成功！');
+				mui.back();
+			}
+		})
 	}
-	
-	//添加表情
-//	self.addEmoij=function(){
-//		
-//	}
-	
+
+	mui.init({
+		beforeback: function() {
+			var parent = plus.webview.currentWebview().opener();
+			mui.fire(parent, 'refreshNews', {});
+			return true;
+		}
+	});
+
 }
 ko.applyBindings(addNews);

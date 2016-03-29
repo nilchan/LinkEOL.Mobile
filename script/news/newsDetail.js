@@ -97,11 +97,14 @@ var newsDetail=function(){
 			})
 			self.editStat(false);
 			$A.gI('edit').contentEditable = "false";
+			$A.gI('edit').style.maxHeight = "330px";
 			self.editText('编辑');
 		}else{//点击编辑事件
 			self.editStat(true);
 			self.editText('完成');
 			$A.gI('edit').contentEditable = "true";
+			$A.gI('edit').style.maxHeight = "220px";
+			mui.toast('编辑模式开启~');
 		}
 		
 	}

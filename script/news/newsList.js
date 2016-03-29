@@ -115,6 +115,10 @@ var informationList = function() {
 		}
 	}
 	
+	window.addEventListener("refreshNews", function(event) {
+		self.getNewsList();
+	});
+	
 	self.getNewsList();
 };
 

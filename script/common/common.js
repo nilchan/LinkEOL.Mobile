@@ -911,7 +911,7 @@
 	gDictOrderStatus: {
 		NotPay: 1, //未支付
 		Payed: 2, //已支付
-		Refunded: 3 //已退款
+		Refunded: 4 //已退款
 	},
 
 	//订单货品类型

@@ -38,7 +38,7 @@
 		</header>
 		<div class="mui-content">
 			<div data-bind="visible:valid()==false">
-				<div class="card-row favUser-card">
+				<div class="card-row favUser-card" data-bind='click:goInfo'>
 					<div class="card-right card-width">
 						<img data-bind="attr:{'src':common.getPhotoUrl(userInfo().Photo)}" onerror="this.src='../../images/my-default.png';" />
 						<div class="card-row-right">

@@ -136,6 +136,13 @@ var informationList = function() {
 		self.judgeAuthor();
 	});
 	
+	mui.init({
+		beforeback: function() {
+			var parent = plus.webview.currentWebview().opener();
+			mui.fire(parent, 'refreshNews', {});
+			return true;
+		}
+	});
 };
 
 ko.applyBindings(informationList);

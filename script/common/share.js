@@ -238,7 +238,6 @@ Share.shareMessage = function(s, ex) {
 
 	}, function(e) {
 		console.log("分享到\"" + s.description + "\"失败！ " + e.code + " - " + e.message);
-		successShare=false;
 	});
 	
 	

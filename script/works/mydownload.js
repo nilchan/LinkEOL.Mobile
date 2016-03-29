@@ -162,10 +162,12 @@ var mydownload = function() {
 		var oldTasks = plus.storage.getItem(common.gVarLocalDownloadTask);
 		//alert('oldTasks: ' + oldTasks);
 		var result = eval("(" + oldTasks + ")");
+		console.log(result)
 		if (result) {
 			for (var i = result.length - 1; i >= 0; i--) {
 				var obj = new worksItem(result[i]);
 				self.downloadList.push(obj);
+				console.log(JSON.stringify(self.downloadList()))
 			}
 			arrDownloaderTask = download.initTasks(refreshDownloadState);
 		}

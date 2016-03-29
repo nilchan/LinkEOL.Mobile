@@ -17,9 +17,7 @@
 		"url": "http://www.linkeol.com"
 	},
 	"permissions": {
-		"Accelerometer": {
-			"description": "访问加速度感应器"
-		},
+		
 		"Audio": {
 			"description": "访问麦克风"
 		},
@@ -53,12 +51,8 @@
 			"description": "使用Native.js能力"
 		},
 
-		"Orientation": {
-			"description": "访问方向感应器"
-		},
-		"Proximity": {
-			"description": "访问距离感应器"
-		},
+		
+		
 		"Storage": {
 			"description": "管理应用本地数据"
 		},
@@ -95,7 +89,7 @@
 		},
 		"VideoUtility": {"description": "视频插件"},
 		"Zip": {},
-		"Payment": {},"Push":{},"Statistic":{}
+		"Payment": {},"Push":{},"Statistic":{},"Proximity":{},"Orientation":{},"Accelerometer":{}
 	},
 	"plus": {
 		"splashscreen": {
@@ -1517,7 +1511,11 @@
 					"script/mui/mui.min.js",
 					"content/common/global.css",
 					"content/fonts/iconfont.css",
-					"content/fonts/iconfont.woff"
+					"content/fonts/iconfont.woff",
+					"images/studentInfo-header-bg.jpg",
+					"images/video-big-default.png",
+					"script/libs/knockout/knockout-3.3.0.min.js",
+					"images/my-default.png"
 				],
 				"refer": [
 					"modules/works/WorksDetails.html"
