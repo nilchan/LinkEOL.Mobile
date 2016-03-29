@@ -281,13 +281,12 @@ var compatible = supportHTML5Upload();
 		var processStatusText; //处理状态文字
 
 		self.uploadFile = function() {
-			var tmpPath = opts.filePath;
+			//var tmpPath = opts.filePath;
+			var tmpPath = plus.io.convertLocalFileSystemURL(opts.filePath);
 			if(tmpPath.indexOf("file://") >= 0){
 				tmpPath = tmpPath.replace("file://", "");
 			}
-			//alert(tmpPath);
 			plus.VideoUtility.UploadVideo(tmpPath, opts.workId.toString(), '', function(arg) {
-				//alert(JSON.stringify(arg));
 				var retObj = {
 					uploadTask: arg,
 					workId: opts.workId
@@ -295,7 +294,6 @@ var compatible = supportHTML5Upload();
 				
 				opts.callback(retObj);
 			}, function(error) {
-				alert(error);
 				opts.callback({}, '上传失败，请重试');
 			});
 		}

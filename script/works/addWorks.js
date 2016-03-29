@@ -96,6 +96,7 @@ var addWorks = function() {
 				self.filePath(value[0].srcPath);
 				self.fileName(value[0].fileName);
 				self.videoSelected(true);
+				alert('after pick:' + value[0].srcPath);
 				
 				var videoPos = document.getElementById('videoPos');
 				videoPos.innerHTML = '<div class="video-js-box"><video controls width="168px" height="105px" class="video-js" data-setup="{}"><source src="' + value[0].srcPath + '" /></video></div>';

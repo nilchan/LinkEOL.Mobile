@@ -202,9 +202,9 @@ videoPicker.SelectVideo = function(multiple, callback) {
 				console.log(cmr);
 	
 				cmr.startVideoCapture(function(path) {
-					console.log(path);
 					_returnVideos = [];
 					plus.gallery.save(path);
+					
 					var videoVM = new self.returnVideoVM(path, generateTempFilePath());
 					_returnVideos.push(videoVM);
 	
