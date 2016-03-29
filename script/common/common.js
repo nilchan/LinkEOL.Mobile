@@ -431,6 +431,20 @@
 
 		return ret;
 	},
+	
+	//删除动作
+	deleteAction:function(actionType, targetType, targetID,userId) {
+		var ret = false;
+		var ajaxUrl = common.gServerUrl + 'API/Action?actionType='+actionType+'&targetType='+targetType+'&userId='+userId+'&targetId='+targetID;
+		mui.ajax(ajaxUrl, {
+			type: 'DELETE',
+			async: false,
+			success: function(responseText) {
+				ret = true;
+			}
+		})
+		return ret;
+	},
 
 	/**
 	 * 获取当前用户对被收藏者的所有动作（收藏、赞）

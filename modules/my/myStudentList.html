@@ -201,7 +201,7 @@
 			<em class="iconfont mui-bar-nav-em" data-bind="click:qrcodeEvent">&#xe656;</em>
 		</header>
 		<div class="mui-content">
-			<div class="mui-scroll-wrapper" id="pullrefresh" style="top:44px;">
+			<div class="mui-scroll-wrapper" id="pullrefresh" style="top:59px;">
 				<div class="mui-scroll">
 					<!--学生显示页-->
 					<ul class="mui-input-group myStudentList-ul">
@@ -269,7 +269,7 @@
 			</div>
 		</div>
 			
-			<nav class="mui-bar mui-bar-tab" data-bind="visible: displayCheck() == false">
+			<nav class="mui-bar mui-bar-tab" data-bind="visible: displayCheck() == false && instructLength() > 0">
 				<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" data-bind="click: selectStudent">
 					<i class="iconfont" style="font-size: 20px;">&#xe6a3;</i>
 					<span class="mui-tab-label">提醒交作业</span>
@@ -280,7 +280,7 @@
 				</a>
 			</nav>
 			<nav class="mui-bar mui-bar-tab" data-bind="visible: displayCheck">
-				<a class="ah-mui-tab-item mui-active works-list-mui-tab-label" data-bind="click: cacelSelect">
+				<a class="ah-mui-tab-item mui-active works-list-mui-tab-label" data-bind="click: cancelSelect">
 					<span class="mui-tab-label ">取消</span>
 				</a>
 

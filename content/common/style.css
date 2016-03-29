@@ -4437,7 +4437,6 @@ li {
 .myAttention-bg-color {
 	height: 60px;
 	width: 100%;
-	background: #F1F1F1;
 }
 .span-u {
 	text-decoration: none;
@@ -6412,7 +6411,7 @@ li {
 	position: absolute;
 	left: 38%;
 	font-size: 12px;
-	bottom: 6%;
+	bottom: 7%;
 	line-height: 16px;
 	text-align: center;
 	display: inline-block;
@@ -6428,7 +6427,7 @@ li {
 	width: 48px;
 	position: absolute;
 	left: 52%;
-	bottom: 6%;
+	bottom: 7%;
 	line-height: 16px;
 	text-align: center;
 	display: inline-block;
@@ -6443,7 +6442,7 @@ li {
 	width: 48px;
 	position: absolute;
 	left: 55%;
-	bottom: 9%;
+	bottom: 7%;
 	line-height: 16px;
 	text-align: center;
 	display: inline-block;
