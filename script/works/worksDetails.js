@@ -107,28 +107,13 @@ var worksDetails = function() {
 		var width = document.body.clientWidth;
 		var height = width * 9 / 16;
 		_bought = work.IsBought;
-		//document.getElementById('pay-box').style.height = height+'px';
+		alert(work.IsBought + ' ' + work.VidPolyvPreview);
 		if (work.IsBought) {
-//			if(plus.VideoUtility){
-//				//设置位置
-//				var ret = plus.VideoUtility.InitPlayer([
-//					0, top, width, height
-//				]);
-//				if (ret && ret.status) {
-//					var ret = plus.VideoUtility.PlayVideo(work.VidPolyv, common.gJsonVideoLevel.SD);
-//					if (ret && !ret.status) {
-//						mui.toast('视频加载失败');
-//					}
-//				}
-//			}
-//			else{
-				
-				var player = polyvObject('#videoPos').videoPlayer({
-					'width': '100%',
-					'height': height,
-					'vid': work.VidPolyv
-				});
-//			}
+			var player = polyvObject('#videoPos').videoPlayer({
+				'width': '100%',
+				'height': height,
+				'vid': work.VidPolyv
+			});
 		} else {
 			var player = polyvObject('#videoPos').previewPlayer({
 				'width': '100%',

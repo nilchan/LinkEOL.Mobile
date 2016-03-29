@@ -71,7 +71,6 @@ var mydownload = function() {
 		}
 		else{	//已完成下载，可跳转浏览
 			plus.nativeUI.showWaiting();
-			
 			//触发Header页面的事件
 			var workParent = plus.webview.currentWebview().opener();
 			if (workParent != null) {
@@ -85,15 +84,17 @@ var mydownload = function() {
 			var width = 720; //document.body.clientWidth;
 			var height = width * 9 / 16;
 			
+			self.viewDetail(true);
 			document.getElementById('videoCtrl').style.top = top+'px';
 			document.getElementById('videoCtrl').style.height = height+'px';
 			self.workContentText(data.workContentText());
-			self.viewDetail(true);
 			
+			//alert(document.getElementById('videoCtrl').style.height);
 			//设置视频位置
 			var ret = plus.VideoUtility.InitPlayer(data.workVidPolyv(), common.gJsonVideoLevel.SD, [
 				0, top, width, height
 			],"");
+			
 			/*if (ret && ret.status) {
 				var ret = plus.VideoUtility.PlayVideo(data.workVidPolyv(), common.gJsonVideoLevel.SD);
 				if (ret && !ret.status) {

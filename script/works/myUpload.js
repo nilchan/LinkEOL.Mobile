@@ -48,6 +48,7 @@ var myUpload = function() {
 				var result = JSON.parse(responseText);
 				if (result) {
 					item.IsFinish(true);
+					alert(result.ThumbnailPolyv);
 					//更换缩略图（加上延时）
 					if(common.StrIsNull(result.ThumbnailPolyv) != ''){
 						setTimeout(function(){
@@ -101,6 +102,7 @@ var myUpload = function() {
 							if (item.WorkID() == item2.SourceID) {
 								item.IsFinish(item2.IsFinish);
 								item.ConvertResult(item2.ConvertResult);
+								alert(item2.ThumbnailPolyv);
 								if(common.StrIsNull(item2.ThumbnailPolyv) != '')
 									item.videoThumbnail(item2.ThumbnailPolyv); //从附件中获取，该字段为缩略图
 								break;
