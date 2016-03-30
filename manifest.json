@@ -988,7 +988,8 @@
 					"modules/my/myAlbum.html",
 					"modules/works/WorksDetails.html",
 					"modules/my/classmateListHeader.html",
-					"modules/works/classmateWorksHeader.html"
+					"modules/works/classmateWorksHeader.html",
+					"modules/news/myNewsList.html"
 				]
 			},
 			"modules/student/submitComment.html": {
@@ -2918,6 +2919,26 @@
 					"script/news/addNews.js",
 					"content/fonts/iconfont.woff",
 					"content/common/Tf_global.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/news/myNewsList.html": {
+				"resources": [
+					"script/libs/clamp/clamp.min.js",
+					"script/mui/mui.js",
+					"images/linkPhoto.png",
+					"script/news/myNewsList.js",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"script/common/qrcode.js",
+					"content/mui/mui.css",
+					"content/common/Tf_global.css",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/common/style.css",
+					"content/common/global.css",
+					"content/fonts/iconfont.css",
+					"content/fonts/iconfont.woff"
 				],
 				"refer": [],
 				"priority": 0

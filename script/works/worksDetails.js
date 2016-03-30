@@ -1,7 +1,7 @@
 var _bought = false;
 
 function s2j_onPlayOver() {
-	if(!_bought){
+	if (!_bought) {
 		document.getElementById("videoBuy").style.display = "block";
 		document.getElementById("videoPos").style.display = "none";
 	}
@@ -91,7 +91,7 @@ var worksDetails = function() {
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
 			//mui.toast("敬请期待");
-			Share.sendShare(this.id, shareTitle, shareContent, shareUrl + self.Works().WorkID(), shareImg,common.gShareContentType.video);
+			Share.sendShare(this.id, shareTitle, shareContent, shareUrl + self.Works().WorkID(), shareImg, common.gShareContentType.video);
 			mui('#middlePopover').popover('toggle');
 		}
 	}
@@ -103,6 +103,7 @@ var worksDetails = function() {
 
 	//获取视频
 	self.getVideo = function(work) {
+		console.log(JSON.stringify(work))
 		var top = 80;
 		var width = document.body.clientWidth;
 		var height = width * 9 / 16;
@@ -250,7 +251,7 @@ var worksDetails = function() {
 			})
 			if (!downloaded)
 				arr.push(data);
-			
+
 			//alert('worksDetails setItem before: ' + JSON.stringify(arr));
 			plus.storage.setItem(common.gVarLocalDownloadTask, JSON.stringify(arr));
 			common.transfer("mydownloadHeader.html", true, {}, false, true);
@@ -433,7 +434,6 @@ var worksDetails = function() {
 		})
 	}
 
-
 	self.closePopover = function() {
 		mui('#bottomPopover').popover("hide");
 	}
@@ -540,7 +540,6 @@ var worksDetails = function() {
 	 */
 	self.getDataForOrder = function(downloadID) {
 		self.ViewOrder(true); //标记由我的订单跳转而来
-
 		var ajaxUrl = common.gServerUrl + '/API/Work/GetWorksByDownloadID?downloadID=' + downloadID;
 		mui.ajax(ajaxUrl, {
 			type: 'GET',
@@ -567,20 +566,24 @@ var worksDetails = function() {
 
 	//是否能够查看点评
 	self.isGetComment = function() {
-		var result;
-		var isClassmateUrl = common.gServerUrl + 'API/TeacherToStudent/IsClassMate?MyUserID=' + self.UserID + '&UserID=' + self.Works().AuthorID();
-		mui.ajax(isClassmateUrl, {
-			type: 'GET',
-			success: function(responseText) {
-				result = responseText; //是否是同学关系
-				if (result=='true') { //当为同学关系时
-					self.getComentClassmate()
-				} else { //当不为同学时
-					self.getComment();
+		if (common.StrIsNull(self.UserID) == '') {
+			self.getComment();
+		} else {
+			var result;
+			var isClassmateUrl = common.gServerUrl + 'API/TeacherToStudent/IsClassMate?MyUserID=' + self.UserID + '&UserID=' + self.Works().AuthorID();
+			mui.ajax(isClassmateUrl, {
+				type: 'GET',
+				success: function(responseText) {
+					result = responseText; //是否是同学关系
+					if (result == 'true') { //当为同学关系时
+						self.getComentClassmate()
+					} else { //当不为同学时
+						self.getComment();
+					}
+					self.isshowComment(self.Works().IsPublic() && result);
 				}
-				self.isshowComment(self.Works().IsPublic() && result);
-			}
-		});
+			});
+		}
 	}
 
 	//根据作品id获取作品详情  
@@ -678,7 +681,7 @@ var worksDetails = function() {
 					})
 				}
 			}
-			
+
 			return true;
 		}
 	});

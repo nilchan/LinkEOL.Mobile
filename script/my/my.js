@@ -22,6 +22,7 @@ var my = function() {
 	self.UserFavCount = ko.observable(0); //我的关注
 	self.IDAuth = ko.observable(false); //身份认证
 	self.inviteCode = ko.observable(''); //邀请码
+	self.isFamous=ko.observable(false);
 
 	self.goIntructStudentList = function() { //授课学生
 		common.transfer('myStudentList.html', true, {
@@ -135,6 +136,8 @@ var my = function() {
 					self.IDAuth(responseText.IDAuth);
 				if (responseText.MyInviteCode)
 					self.inviteCode(responseText.MyInviteCode);
+				if (responseText.isFamous)
+					self.isFamous(responseText.isFamous);	
 			}
 		})
 	}

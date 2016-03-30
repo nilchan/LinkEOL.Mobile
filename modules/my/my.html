@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
@@ -54,6 +53,12 @@
 				color: #8B0000;
 				font-size: 16px;
 			}
+			.teacherList-professional .my-professional{
+				margin-left: 20px;
+			}
+			.teacherList-professional .my-professional-padding{
+				padding: 1px 5px;
+			}
 		</style>
 	</head>
 
@@ -75,7 +80,13 @@
 						</span>
 						<em class="myName-point" data-bind='visible:UserType() == common.gDictUserType.teacher && IDAuth()==false'></em>
 					</div>
-					<i class="teacher-list-star myInfoTeacher-star" data-bind="visible:UserType() == common.gDictUserType.teacher,css:'star'+starCount()"></i>
+					<!--<i class="teacher-list-star myInfoTeacher-star" data-bind="visible:UserType() == common.gDictUserType.teacher,css:'star'+starCount()"></i>-->
+						<div class="teacherList-professional" style="margin-top: 42px;">
+							<em class="identity my-professional" data-bind='visible:IsFamous==false && IDAuth'><i class="iconfont">&#xe69e;</i></em>
+							<em class="professional my-professional-padding" data-bind='visible:IsFamous && ProTitleAuth'><i class="iconfont">&#xe696;</i></em>
+							<em class="education" data-bind='visible:IsFamous==false && EduAuth'><i class="iconfont">&#xe69b;</i></em>
+							
+						</div>
 					<span class="myInfoTeacher-address" data-bind="visible:isAllInfo">
 					<i class="iconfont">&#xe66b;</i>
 					<!--ko text:Province--><!--/ko--><!--ko text:(common.StrIsNull(City())==''?'':' · '+City())--><!--/ko--><!--ko text:(common.StrIsNull(District())==''?'':' · '+District())--><!--/ko-->

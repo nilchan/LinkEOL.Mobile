@@ -190,18 +190,18 @@
 				</div>
 			</div>
 
-			
-			<div data-bind="visible: teacherComment().length > 0 && (isshowComment()=='true'||IsAuthor()),template:{name:'commentTemplate',foreach:teacherComment}">
+			<!-- visible: teacherComment().length > 0 ,&& (isshowComment()=='true'||IsAuthor()) -->
+			<div data-bind="template:{name:'commentTemplate',foreach:teacherComment}">
 			</div>
 			<!--老师点评模板-->
 			<script type="text/html" id="commentTemplate">
 				<div class="worksDetails-bottom" >
 					<li class="mui-table-view-cell mui-collapse">
-						<a class="mui-navigate-right" href="#">
+						<a  href="#" data-bind='css:{mui-navigate-right:(isshowComment()=='true'||IsAuthor())}'>
 							<i class="iconfont">&#xe62d;</i> [
 							<!--ko text:CommenterName-->
-							<!--/ko-->]老师评语   <span data-bind='visible:IsRecommend'>【推荐】</span></a> 
-						<div class="mui-collapse-content">
+							<!--/ko-->]老师评语   <span data-bind="text:'【'+(IsRecommend?'推荐':'点评')+'】'">【推荐】</span></a> 
+						<div class="mui-collapse-content" data-bind="visible:isshowComment()=='true'||IsAuthor()">
 							<div class="works-content-dow">
 								<div data-bind="template:{name:'commentToRulseTemplate',foreach:CommentToRules}"></div>
 								<span class="totil">总评语</span>
