@@ -33,7 +33,7 @@ var worksHeader = function() {
 	
 	self.goUploads = function() { //我的上传
 		//common.transfer('../works/myUploadHeader.html', true);
-		common.transferToMyDownload();
+		common.transferToMyUpload();
 	}
 
 	//返回按钮

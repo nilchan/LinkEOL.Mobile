@@ -17,7 +17,7 @@ download.downloadVideo = function(downtask, callback) {
 		callback(retObj);
 	}, function(error) {
 		//alert(error);
-		callback({}, '上传失败，请重试');
+		callback({}, '下载失败，请重试');
 	});
 }
 
@@ -49,9 +49,14 @@ download.initTasks = function(callback) {
 	var tasks = JSON.parse(tmp);
 	if (tasks.length > 0) {
 		tasks.forEach(function(item) {
-			if(!item.IsFinish){
+			/* ==标记已开始上传。再次进入无需再上传，而是自动上传== */
+			if(item.isFinish == false && item.downloading != true){
+				item.downloading = true;
+				plus.storage.setItem(common.gVarLocalDownloadTask, JSON.stringify(tasks));
+				
 				download.downloadVideo(item, callback);
 			}
+			/* ================================================= */
 		})
 	}
 }

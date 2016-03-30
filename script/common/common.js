@@ -224,7 +224,7 @@
 	},
 
 	//打开我的上传页面（独特处理，因为除首次打开外不再关闭）
-	transferToMyDownload: function() {
+	transferToMyUpload: function() {
 		var tmpUrlSub = '../../modules/works/myUpload.html';
 		var idSub = 'myUpload';
 		var pageSub = plus.webview.getWebviewById(idSub);
@@ -275,8 +275,60 @@
 		else{
 			mui.fire(pageSub,'triggerUpload',{});
 		}
-		//mui.fire(page,'triggerUploadHeader',{});
-		//mui.fire(pageSub,'triggerUpload',{});
+	},
+
+	//打开我的下载页面（独特处理，因为除首次打开外不再关闭）
+	transferToMyDownload: function() {
+		var tmpUrlSub = '../../modules/works/mydownload.html';
+		var idSub = 'mydownload';
+		var pageSub = plus.webview.getWebviewById(idSub);
+		var isFirst = false;
+		
+		if(!pageSub){
+			var topPx = '48px';
+			if (plus.os.vendor == 'Apple') {
+				topPx = '63px';
+			}
+			
+			var pageSub = mui.preload({
+			    url: tmpUrlSub,
+			    id: idSub,
+			    styles: {
+					top: topPx,
+					bottom: '0px',
+				},
+			    extras:{}
+			});
+			
+			isFirst = true;
+		}
+		
+		var tmpUrl = '../../modules/works/mydownloadHeader.html';
+		var id = 'mydownloadHeader';
+		var page = plus.webview.getWebviewById(id);
+		
+		if(!page){
+			var page = mui.preload({
+			    url: tmpUrl,
+			    id: id,
+			    styles:{},
+			    extras:{}
+			});
+		}
+		
+		if(pageSub.parent() == null)
+			page.append(pageSub);
+		
+		page.show();
+		
+		if(isFirst){
+			pageSub.addEventListener('loaded',function () {
+			    mui.fire(pageSub,'triggerDownload',{});
+			})
+		}
+		else{
+			mui.fire(pageSub,'triggerDownload',{});
+		}
 	},
 
 	/**

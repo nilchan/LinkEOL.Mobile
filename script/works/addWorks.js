@@ -165,7 +165,7 @@ var addWorks = function() {
 					plus.storage.setItem(common.gVarLocalUploadTask, JSON.stringify(arr));
 					console.log(JSON.stringify(arr));
 					//common.transfer("myUploadHeader.html", true, {}, false, false);
-					common.transferToMyDownload();
+					common.transferToMyUpload();
 				}
 			},
 			error: function() {

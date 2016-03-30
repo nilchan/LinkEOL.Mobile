@@ -414,8 +414,7 @@ var worksDetails = function() {
 
 		//alert('worksDetails setItem before: ' + JSON.stringify(arr));
 		plus.storage.setItem(common.gVarLocalDownloadTask, JSON.stringify(arr));
-		common.transfer("mydownloadHeader.html", true, {}, false, true);
-
+		common.transferToMyDownload();
 	}
 
 	//是否需要付费
@@ -424,27 +423,18 @@ var worksDetails = function() {
 			mui.toast("登录后才能下载~")
 			return;
 		}
-		var data={
-			ID:self.Works().WorkID(),
-			workAuthorId: self.Works().AuthorID(),
-		}
-		self.isPayWork = function() {
-			var ajaxUrl = common.gServerUrl + '/API/Download/GetNotFinishDownload?workid=' + self.Works().WorkID() + '&userid=' + self.UserID;
-			mui.ajax(ajaxUrl, {
-				type: 'GET',
-				data:data,
-				success: function(responseText) {
-					var result=responseText;
-					if (result) { //不用付费,直接下载
-						self.downWork();
-					} else {
-						mui('#bottomPopover').popover('toggle');
-					}
+		
+		var ajaxUrl = common.gServerUrl + '/API/Download/CheckWorkIsBought?workId=' + self.Works().WorkID();
+		mui.ajax(ajaxUrl, {
+			type: 'GET',
+			success: function(responseText) {
+				if (responseText.toLowerCase() == "true") { //不用付费,直接下载
+					self.downWork();
+				} else {
+					mui('#bottomPopover').popover('toggle');
 				}
-			})
-
-		}
-
+			}
+		})
 	}
 
 	/*download end*/

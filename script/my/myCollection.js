@@ -27,7 +27,7 @@ var myUserAttented = function() {
 	}
 	
 	self.goMyDownloads = function() { //下载
-		common.transfer('../works/mydownloadHeader.html', true);
+		common.transferToMyDownload();
 	}
 
 	//跳转至所有作品
@@ -35,10 +35,6 @@ var myUserAttented = function() {
 		common.transfer("../works/worksListAllHeader.html");
 	};
 	
-	self.goDownload=function(){
-		common.transfer('../works/mydownloadHeader.html');
-	}
-
 	mui.plusReady(function() {
 		self.workCollection();
 	})

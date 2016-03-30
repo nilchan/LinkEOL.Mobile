@@ -24,6 +24,7 @@ var myUpload = function() {
 		}
 		else{
 			var tmp = JSON.parse(returnJson);
+			alert(returnJson);
 			if(tmp.error != 0){		//发生错误
 				item.IsFinish(true);
 				upload.deleteTask(item.works.ID);

@@ -53,6 +53,7 @@ var mydownload = function() {
 	
 	//删除下载
 	self.deleteTask = function(data){
+		//alert(JSON.stringify(data));
 		var btnArray = ['是', '否'];
 		mui.confirm('确认删除本下载吗', '您点击了删除', btnArray, function(e) {
 			if (e.index == 0) {
@@ -158,20 +159,34 @@ var mydownload = function() {
 
 	//获取下载列表
 	self.getDownloadWorks = function() {
-		self.downloadList.removeAll();
+		//alert('getDownloadWorks');
 		var oldTasks = plus.storage.getItem(common.gVarLocalDownloadTask);
-		//alert('oldTasks: ' + oldTasks);
+		
+		//alert(oldTasks);
 		var result = eval("(" + oldTasks + ")");
-		console.log(result)
-		if (result) {
-			for (var i = result.length - 1; i >= 0; i--) {
-				var obj = new worksItem(result[i]);
-				self.downloadList.push(obj);
-				console.log(JSON.stringify(self.downloadList()))
-			}
-			arrDownloaderTask = download.initTasks(refreshDownloadState);
+		if (result && result.length > 0) {
+			result.forEach(function(item) {
+				var exists = false;
+				for (var j = self.downloadList().length - 1; j >= 0; j--) {
+					var item2 = self.downloadList()[j];
+					if(item.workId == item2.works.workId){
+						exists = true;
+						break;
+					}
+				}
+				
+				if(exists == false){
+					var obj = new worksItem(item);
+					self.downloadList.unshift(obj);
+				}
+			})
+
+			download.initTasks(refreshDownloadState);
+
+			common.showCurrentWebview();
+		} else {
+			common.showCurrentWebview();
 		}
-		common.showCurrentWebview();
 	};
 
 	//下拉刷新
@@ -190,8 +205,13 @@ var mydownload = function() {
 		});
 	}
 
-	mui.plusReady(function() {
+	//开始下载
+	window.addEventListener('triggerDownload',function(){
 		self.getDownloadWorks();
+	});
+
+	mui.plusReady(function() {
+		//self.getDownloadWorks();
 	});
 }
 ko.applyBindings(mydownload);

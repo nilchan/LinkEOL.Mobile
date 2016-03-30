@@ -1,22 +1,3 @@
-var subpageId = 'mydownload.html';
-
-mui.plusReady(function() {
-	var topPx = '48px';
-	if (plus.os.vendor == 'Apple') {
-		topPx = '63px';
-	}
-
-	mui.init({
-		subpages: [{
-			url: "mydownload.html",
-			id: subpageId,
-			styles: {
-				top: topPx,
-				bottom: '0px',
-			}
-		}]
-	});
-});
 
 var viewDetail = false;
 //查看下载作品详情
@@ -31,16 +12,16 @@ mui.back = function() {
 		document.getElementsByClassName('mui-title')[0].innerText = '我的下载';
 		
 		//触发Content页面的事件
-		var sub = plus.webview.getWebviewById(subpageId);
-		if (sub != null) {
-			mui.fire(sub, 'changeContentViewState', {});
+		var children = plus.webview.currentWebview().children();
+		if (children.length > 0) {
+			mui.fire(children[0], 'changeContentViewState', {});
 		}
 	}
 	else{
 		//触发Content页面的事件
-		var sub = plus.webview.getWebviewById(subpageId);
-		if (sub != null) {
-			mui.fire(sub, 'changeContentViewState', {});
+		var children = plus.webview.currentWebview().children();
+		if (children.length > 0) {
+			mui.fire(children[0], 'changeContentViewState', {});
 		}
 		
 		common.showIndexWebview(4);

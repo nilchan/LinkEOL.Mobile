@@ -616,7 +616,8 @@
 					"modules/teacher/teacherInfo.html",
 					"modules/student/studentInfo.html",
 					"modules/teacher/teacherList.html",
-					"modules/teacher/teacherHomeWorkHeader.html"
+					"modules/teacher/teacherHomeWorkHeader.html",
+					"modules/works/mydownload.html"
 				],
 				"priority": 0
 			},
@@ -2054,7 +2055,8 @@
 				"refer": [
 					"modules/works/worksListAllHeader.html",
 					"modules/works/WorksDetails.html",
-					"modules/works/mydownloadHeader.html"
+					"modules/works/mydownloadHeader.html",
+					"modules/works/mydownload.html"
 				],
 				"priority": 0
 			},
