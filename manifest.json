@@ -2044,7 +2044,8 @@
 					"script/libs/knockout/knockout-3.3.0.min.js",
 					"content/fonts/iconfont.woff",
 					"images/Famous-teacher.png",
-					"images/Famous-comment.png"
+					"images/Famous-comment.png",
+					"images/video-big-default.png"
 				],
 				"refer": [
 					"modules/works/worksListAllHeader.html",

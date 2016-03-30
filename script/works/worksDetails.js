@@ -10,6 +10,7 @@ function s2j_onPlayOver() {
 var worksDetails = function() {
 	var self = this;
 	var workIsDel = false;
+	var videoUrl; //视频地址
 	self.collectionStatus = ko.observable('worksDetails-after');
 	self.LikeStatus = ko.observable("star-before");
 	self.isPay = ko.observable(false); //作品是否付费
@@ -21,8 +22,10 @@ var worksDetails = function() {
 	self.worksClock = ko.observable('');
 	self.isshowComment = ko.observable(false); //是否显示点评
 	self.balance = ko.observable(0); //余额
+	//评论的相关元素绑定
+	self.teacherComment = ko.observableArray([]); //各个老师评论数组
 
-	var videoUrl; //视频地址
+	//初始化作品
 	self.initWorksValue = function(works) {
 		//console.log(JSON.stringify(works))
 		var self = this;
@@ -41,10 +44,9 @@ var worksDetails = function() {
 		self.AddTime = ko.observable(works.AddTime.split(' ')[0]); //添加时间
 		self.ReadCount = ko.observable(works.ReadCount + (works.WorkType == common.gJsonWorkTypeTeacher[0].value || works.WorkType == common.gJsonWorkTypeTeacher[1].value ? '人正在学习' : (works.WorkType == common.gJsonWorkTypeTeacher[2].value ? '人已观赏' : '人已浏览'))); //浏览次数
 		self.IsPublic = ko.observable(works.IsPublic); //作品是否公开
-
 		self.IsPublicText = ko.computed(function() {
 			return common.getTextByValue(common.gJsonWorkPublicType, self.IsPublic());
-		}); //作品是否公开的文字143135
+		}); //作品是否公开的文字
 		self.IsPublicOppositeText = ko.computed(function() {
 			return '设置为' + common.getTextByValue(common.gJsonWorkPublicType, !self.IsPublic());
 		}); //作品是否公开的相反文字
@@ -60,13 +62,13 @@ var worksDetails = function() {
 			self.imgUrl = common.getThumbnail(works.VideoThumbnail);
 		else
 			self.imgUrl = '';
-		//works.FamousName = '艾豪';
-		//works.IsFamous = true;
 		self.FamousName = ko.observable('【' + works.FamousName + '】');
 		self.IsFamous = ko.observable(works.IsFamous);
 		self.ConvertResult = ko.observable(works.ConvertResult);
+		self.IsBought = ko.observable(works.IsBought);
 	}
 
+	//是否为作者
 	self.IsAuthor = ko.computed(function() {
 		if (typeof self.Works().AuthorID == "undefined")
 			return false;
@@ -77,14 +79,13 @@ var worksDetails = function() {
 			return false;
 	})
 
-	//评论的相关元素绑定
-	self.teacherComment = ko.observableArray([]); //各个老师评论数组
+	/*share begin*/
+
 	//分享的参数
 	var shareTitle = "";
 	var shareContent = "你看了没";
 	var shareUrl = common.gWebsiteUrl + "modules/works/workInfo.html?id=";
 	var shareImg = "";
-
 	//分享功能
 	var ull = document.getElementById("recommendArray");
 	var lis = ull.getElementsByTagName("li");
@@ -95,55 +96,35 @@ var worksDetails = function() {
 			mui('#middlePopover').popover('toggle');
 		}
 	}
-
 	//关闭分享窗口
 	self.closeShare = function() {
 		mui('#middlePopover').popover('toggle');
 	}
 
-	//获取视频
-	self.getVideo = function(work) {
-		console.log(JSON.stringify(work))
-		var top = 80;
-		var width = document.body.clientWidth;
-		var height = width * 9 / 16;
-		_bought = work.IsBought;
-		alert(work.IsBought + ' ' + work.VidPolyvPreview);
-		if (work.IsBought) {
-			var player = polyvObject('#videoPos').videoPlayer({
-				'width': '100%',
-				'height': height,
-				'vid': work.VidPolyv
-			});
+	/*share end*/
+
+	/*comment begin*/
+
+	//是否能够查看点评
+	self.isGetComment = function() {
+		if (common.StrIsNull(self.UserID) == '') {
+			self.getComment();
 		} else {
-			var player = polyvObject('#videoPos').previewPlayer({
-				'width': '100%',
-				'height': height,
-				'vid': work.VidPolyvPreview
+			var result;
+			var isClassmateUrl = common.gServerUrl + 'API/TeacherToStudent/IsClassMate?MyUserID=' + self.UserID + '&UserID=' + self.Works().AuthorID();
+			mui.ajax(isClassmateUrl, {
+				type: 'GET',
+				success: function(responseText) {
+					result = responseText; //是否是同学关系
+					if (result == 'true') { //当为同学关系时
+						self.getComentClassmate()
+					} else { //当不为同学时
+						self.getComment();
+					}
+					self.isshowComment(self.Works().IsPublic() && result);
+				}
 			});
 		}
-	}
-
-	//获取余额
-	self.getBalance = function() {
-		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + getLocalItem('UserID');
-		mui.ajax(url, {
-			type: 'GET',
-			success: function(responseText) {
-				self.balance(JSON.parse(responseText).Amount);
-			}
-		});
-	}
-
-	//获取下载价格
-	self.getDownloadPrice = function() {
-		var url = common.gServerUrl + 'API/Download/GetDownloadPrice?userId=' + self.Works().AuthorID();
-		mui.ajax(url, {
-			type: 'GET',
-			success: function(responseText) {
-				self.DownloadAmount(responseText);
-			}
-		});
 	}
 
 	//获取评论
@@ -172,105 +153,6 @@ var worksDetails = function() {
 		});
 	}
 
-	//跳转用户详情页面
-	self.gotoAuthor = function() {
-		var url = '../student/studentInfo1.html';
-		var arg = {
-			studentID: self.Works().AuthorID()
-		};
-		if (self.Works().UserType() == common.gDictUserType.teacher) {
-			url = '../teacher/teacherInfo.html';
-			arg = {
-				teacherID: self.Works().AuthorID()
-			};
-		}
-		common.transfer(url, false, arg, false, false);
-	}
-
-	//跳转活动详情页面
-	self.gotoActivity = function() {
-		common.transfer("../activity/activityInfo.html", false, {
-			aid: self.Works().WorkSrcID()
-		});
-	}
-
-	//删除作品
-	self.worksDelete = function() {
-		var btnArray = ['是', '否'];
-		mui.confirm('确认删除吗', '您点击了删除', btnArray, function(e) {
-			if (e.index == 0) {
-				mui.ajax(common.gServerUrl + "Common/Work/" + self.Works().WorkID(), {
-					type: 'DELETE',
-					success: function(responseText) {
-						workIsDel = true;
-						mui.toast("删除成功");
-						mui.back();
-					}
-				});
-			}
-		});
-	}
-
-	//修改作品
-	self.worksSet = function() {
-
-	}
-
-	//作品下载
-	self.downWork = function() {
-		if (getLocalItem("UserID") <= 0) {
-			mui.toast("登录后才能下载~")
-			return;
-		}
-
-		if (self.isPay() || (self.Works().AuthorID() == self.UserID) || self.DownloadAmount() == 0) {
-			//作品已支付或者 为作者本人 或者费用为0 ，直接下载
-			var oldTasks = plus.storage.getItem(common.gVarLocalDownloadTask);
-			if (common.StrIsNull(oldTasks) == '') oldTasks = '[]';
-
-			var arr = JSON.parse(oldTasks) || [];
-			var data = {
-				workId: self.Works().WorkID(),
-				workTitle: self.Works().Title(),
-				workAuthorId: self.Works().AuthorID(),
-				workAuthorName: self.Works().AuthorName(),
-				workimgUrl: self.Works().imgUrl,
-				workVidPolyv: self.Works().VidPolyv,
-				workSubjectName: self.Works().SubjectName(),
-				workContentText: self.Works().ContentText(),
-				isFinish: false,
-				videopath: videoUrl, //远程路径
-				localpath: '' //本地路径
-			}
-			var downloaded = false;
-			arr.forEach(function(item) {
-				if (item.workId == data.workId) {
-					downloaded = true;
-					return;
-				}
-			})
-			if (!downloaded)
-				arr.push(data);
-
-			//alert('worksDetails setItem before: ' + JSON.stringify(arr));
-			plus.storage.setItem(common.gVarLocalDownloadTask, JSON.stringify(arr));
-			common.transfer("mydownloadHeader.html", true, {}, false, true);
-		} else {
-			//弹出支付框
-			mui('#bottomPopover').popover('toggle');
-		}
-	}
-
-	//作品支付
-	self.payWork = function() {
-		if (UserID <= 0) {
-			common.transfer("../account/login.html");
-		} else {
-			//弹出支付框
-			mui('#bottomPopover').popover('toggle');
-		}
-	}
-
 	//点评的模型
 	function Comment(model) {
 		var obj = {};
@@ -294,18 +176,12 @@ var worksDetails = function() {
 			feedbacks = arr;
 		}
 		obj.CommentFeedbacks = ko.observableArray(feedbacks);
-
 		return obj;
 	}
 
 	//添加咨询
 	self.addfeedbacks = function() {
-		/*var oldComment = this;
-		var theComment = {};
-		for (var p in oldComment)
-			theComment[p] = oldComment[p];*/
 		var theComment = this;
-
 		//e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
 		var btnArray = ['确定', '取消'];
 		mui.prompt('请输入咨询内容：', '', '咨询', btnArray, function(e) {
@@ -339,103 +215,28 @@ var worksDetails = function() {
 		})
 	}
 
-	//找老师点评
-	self.goTeacherComment = function() {
-		if (self.Works().ConvertResult() != "1") {
-			mui.toast('视频尚未审核，请稍后再试~');
-			return;
-		}
-		common.transfer('../../modules/teacher/teacherHomeWorkHeader.html', true, {
-			works: workobj,
-			displayCheck: true
-		});
-	}
+	/*comment end*/
 
-	//交作业
-	self.goHomeWork = function() {
-		if (self.Works().ConvertResult() != "1") {
-			mui.toast('视频尚未审核，请稍后再试~');
-			return;
-		}
-		common.transfer('../../modules/teacher/teacherHomeWorkHeader.html', true, {
-			works: workobj,
-			displayCheck: true,
-			homeWork: true
-		});
-	}
-
-	//设置作品是否公开
-	self.setPublic = function() {
-		var ispublic = self.Works().IsPublic();
-		mui.ajax(common.gServerUrl + "Common/Work/" + self.Works().WorkID(), {
-			type: "PUT",
-			data: {
-				AuthorID: self.Works().AuthorID(),
-				IsPublic: !ispublic
-			},
+	/*pay begin*/
+	//获取余额
+	self.getBalance = function() {
+		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + getLocalItem('UserID');
+		mui.ajax(url, {
+			type: 'GET',
 			success: function(responseText) {
-				self.Works().IsPublic(!ispublic);
-				if (self.self.Works().IsPublic()) {
-					self.worksClock('worksDetails-open');
-				} else {
-					self.worksClock('worksDetails-private');
-				}
-				mui.toast("成功设置为" + self.Works().IsPublicText());
+				self.balance(JSON.parse(responseText).Amount);
 			}
-		})
+		});
 	}
 
-	//赞
-	self.Like = function() {
-		if (getLocalItem("UserID") <= 0) {
-			mui.toast("登录后才能点赞~")
-			return;
+	//作品支付
+	self.payWork = function() {
+		if (UserID <= 0) {
+			common.transfer("../account/login.html");
+		} else {
+			//弹出支付框
+			mui('#bottomPopover').popover('toggle');
 		}
-		if (self.IsAuthor()) { //作者本人不允许赞
-			mui.toast('自己的作品不需要点赞了吧~');
-			return;
-		}
-
-		var ret = common.postAction(common.gDictActionType.Like, common.gDictActionTargetType.Works, self.Works().WorkID());
-		if (ret) {
-			self.Works().LikeCount(self.Works().LikeCount() + 1);
-			self.LikeStatus("star-after");
-			mui.toast('感谢您的赞许');
-		}
-	}
-
-	//收藏
-	self.Fav = function() {
-		if (getLocalItem("UserID") <= 0) {
-			mui.toast("登录后才能收藏~")
-			return;
-		}
-		if (self.IsAuthor()) return; //作者本人不允许收藏
-		var ret = common.postAction(common.gDictActionType.Favorite, common.gDictActionTargetType.Works, self.Works().WorkID());
-		if (ret) {
-			self.Works().FavCount(self.Works().FavCount() + 1);
-			self.collectionStatus('worksDetails-before');
-			mui.toast('收藏成功');
-		}
-	}
-
-	//设置作品为名师推荐
-	self.setWorkRecommendation = function(data) {
-		var setWorkUrl = common.gServerUrl;
-		mui.confirm('是否设置作品为名师推荐', '设置作品', ['确定', '取消'], function(e) {
-			if (e.index == 0) {
-				mui.ajax(setWorkUrl, {
-					type: '',
-					success: function() {
-						mui.toast('成功设置为名师推荐');
-					}
-				})
-			}
-		})
-	}
-
-	self.closePopover = function() {
-		mui('#bottomPopover').popover("hide");
 	}
 
 	//支付方式，默认为微信支付
@@ -449,7 +250,6 @@ var worksDetails = function() {
 	self.OrderNO = ko.observable(''); //请求后返回的订单号
 	//支付的生成订单
 	self.gotoPay = function() {
-
 		var ajaxUrl;
 		var comment;
 
@@ -499,24 +299,28 @@ var worksDetails = function() {
 			data: self.ViewOrder() ? self.Order() : download,
 			success: function(responseText) { //responseText为微信支付所需的json
 				var ret = JSON.parse(responseText);
-				//console.log(ret);
 				var orderID = ret.orderID;
 				if (ret.requestJson == '') { //无需网上支付，下载成功
 					mui.toast("已成功提交");
 					//重新获取视频
-					self.getVideo(self.Works());
+					workobj.IsBought = true;
+					self.isPay(true);
+					self.getVideo(workobj);
+					mui('#bottomPopover').popover("hide");
 					plus.nativeUI.closeWaiting();
 				} else {
 					var requestJson = JSON.stringify(ret.requestJson);
-
 					//根据支付方式、订单信息，调用支付操作
 					Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数
 						var aurl = common.gServerUrl + 'API/Order/SetOrderSuccess?id=' + orderID + '&otherOrderNO=' + tradeno;
 						mui.ajax(aurl, {
 							type: 'PUT',
 							success: function(respText) {
+								console.log(respText);
 								//重新获取视频
-								self.getVideo(self.Works());
+								//self.getVideo(self.Works());
+								workobj.IsBought = true;
+								self.getVideo(workobj);
 								plus.nativeUI.closeWaiting();
 								mui('#bottomPopover').popover("toggle");
 							}
@@ -564,27 +368,88 @@ var worksDetails = function() {
 		});
 	}
 
-	//是否能够查看点评
-	self.isGetComment = function() {
-		if (common.StrIsNull(self.UserID) == '') {
-			self.getComment();
-		} else {
-			var result;
-			var isClassmateUrl = common.gServerUrl + 'API/TeacherToStudent/IsClassMate?MyUserID=' + self.UserID + '&UserID=' + self.Works().AuthorID();
-			mui.ajax(isClassmateUrl, {
-				type: 'GET',
-				success: function(responseText) {
-					result = responseText; //是否是同学关系
-					if (result == 'true') { //当为同学关系时
-						self.getComentClassmate()
-					} else { //当不为同学时
-						self.getComment();
-					}
-					self.isshowComment(self.Works().IsPublic() && result);
-				}
-			});
-		}
+	/*pay end*/
+
+	/*download begin*/
+	//获取下载价格
+	self.getDownloadPrice = function() {
+		var url = common.gServerUrl + 'API/Download/GetDownloadPrice?userId=' + self.Works().AuthorID();
+		mui.ajax(url, {
+			type: 'GET',
+			success: function(responseText) {
+				self.DownloadAmount(responseText);
+			}
+		});
 	}
+
+	//作品下载
+	self.downWork = function() {
+		//作品已支付或者 为作者本人 或者费用为0  或者已下载，直接下载
+		var oldTasks = plus.storage.getItem(common.gVarLocalDownloadTask);
+		if (common.StrIsNull(oldTasks) == '') oldTasks = '[]';
+
+		var arr = JSON.parse(oldTasks) || [];
+		var data = {
+			workId: self.Works().WorkID(),
+			workTitle: self.Works().Title(),
+			workAuthorId: self.Works().AuthorID(),
+			workAuthorName: self.Works().AuthorName(),
+			workimgUrl: self.Works().imgUrl,
+			workVidPolyv: self.Works().VidPolyv,
+			workSubjectName: self.Works().SubjectName(),
+			workContentText: self.Works().ContentText(),
+			isFinish: false,
+			videopath: videoUrl, //远程路径
+			localpath: '' //本地路径
+		}
+		var downloaded = false;
+		arr.forEach(function(item) {
+			if (item.workId == data.workId) {
+				downloaded = true;
+				return;
+			}
+		})
+		if (!downloaded)
+			arr.push(data);
+
+		//alert('worksDetails setItem before: ' + JSON.stringify(arr));
+		plus.storage.setItem(common.gVarLocalDownloadTask, JSON.stringify(arr));
+		common.transfer("mydownloadHeader.html", true, {}, false, true);
+
+	}
+
+	//是否需要付费
+	self.bIsPay = function() {
+		if (getLocalItem("UserID") <= 0) {
+			mui.toast("登录后才能下载~")
+			return;
+		}
+		var data={
+			ID:self.Works().WorkID(),
+			workAuthorId: self.Works().AuthorID(),
+		}
+		self.isPayWork = function() {
+			var ajaxUrl = common.gServerUrl + '/API/Download/GetNotFinishDownload?workid=' + self.Works().WorkID() + '&userid=' + self.UserID;
+			mui.ajax(ajaxUrl, {
+				type: 'GET',
+				data:data,
+				success: function(responseText) {
+					var result=responseText;
+					if (result) { //不用付费,直接下载
+						self.downWork();
+					} else {
+						mui('#bottomPopover').popover('toggle');
+					}
+				}
+			})
+
+		}
+
+	}
+
+	/*download end*/
+
+	/*work begin*/
 
 	//根据作品id获取作品详情  
 	self.getWorkDetail = function(workId) {
@@ -596,6 +461,7 @@ var worksDetails = function() {
 				workobj = result;
 				obj = new self.initWorksValue(result);
 				self.Works(obj);
+
 				if (self.Works().IsPublic()) {
 					self.worksClock('worksDetails-open');
 				} else {
@@ -607,7 +473,7 @@ var worksDetails = function() {
 				}
 				self.isGetComment();
 				shareTitle = "我在乐评家上分享了" + self.Works().Title() + "的视频";
-
+				console.log(self.Works().WorkType());
 				//获取动作的状态
 				common.getActions(0, common.gDictActionTargetType.Works, self.Works().WorkID(), function(result) {
 					if (common.StrIsNull(result) != '') {
@@ -635,7 +501,173 @@ var worksDetails = function() {
 		})
 	}
 
-	//获取上级页面的数据
+	//删除作品
+	self.worksDelete = function() {
+		var btnArray = ['是', '否'];
+		mui.confirm('确认删除吗', '您点击了删除', btnArray, function(e) {
+			if (e.index == 0) {
+				mui.ajax(common.gServerUrl + "Common/Work/" + self.Works().WorkID(), {
+					type: 'DELETE',
+					success: function(responseText) {
+						workIsDel = true;
+						mui.toast("删除成功");
+						mui.back();
+					}
+				});
+			}
+		});
+	}
+
+	//设置作品为名师推荐
+	self.setWorkRecommendation = function(data) {
+		var setWorkUrl = common.gServerUrl;
+		mui.confirm('是否设置作品为名师推荐', '设置作品', ['确定', '取消'], function(e) {
+			if (e.index == 0) {
+				mui.ajax(setWorkUrl, {
+					type: '',
+					success: function() {
+						mui.toast('成功设置为名师推荐');
+					}
+				})
+			}
+		})
+	}
+
+	//收藏
+	self.Fav = function() {
+		if (getLocalItem("UserID") <= 0) {
+			mui.toast("登录后才能收藏~")
+			return;
+		}
+		if (self.IsAuthor()) return; //作者本人不允许收藏
+		var ret = common.postAction(common.gDictActionType.Favorite, common.gDictActionTargetType.Works, self.Works().WorkID());
+		if (ret) {
+			self.Works().FavCount(self.Works().FavCount() + 1);
+			self.collectionStatus('worksDetails-before');
+			mui.toast('收藏成功');
+		}
+	}
+
+	//赞
+	self.Like = function() {
+		if (getLocalItem("UserID") <= 0) {
+			mui.toast("登录后才能点赞~")
+			return;
+		}
+		if (self.IsAuthor()) { //作者本人不允许赞
+			mui.toast('自己的作品不需要点赞了吧~');
+			return;
+		}
+
+		var ret = common.postAction(common.gDictActionType.Like, common.gDictActionTargetType.Works, self.Works().WorkID());
+		if (ret) {
+			self.Works().LikeCount(self.Works().LikeCount() + 1);
+			self.LikeStatus("star-after");
+			mui.toast('感谢您的赞许');
+		}
+	}
+
+	//设置作品是否公开
+	self.setPublic = function() {
+		var ispublic = self.Works().IsPublic();
+		mui.ajax(common.gServerUrl + "Common/Work/" + self.Works().WorkID(), {
+			type: "PUT",
+			data: {
+				AuthorID: self.Works().AuthorID(),
+				IsPublic: !ispublic
+			},
+			success: function(responseText) {
+				self.Works().IsPublic(!ispublic);
+				if (self.self.Works().IsPublic()) {
+					self.worksClock('worksDetails-open');
+				} else {
+					self.worksClock('worksDetails-private');
+				}
+				mui.toast("成功设置为" + self.Works().IsPublicText());
+			}
+		})
+	}
+
+	//获取视频
+	self.getVideo = function(work) {
+		var top = 80;
+		var width = document.body.clientWidth;
+		var height = width * 9 / 16;
+		_bought = work.IsBought;
+		console.log(work.IsBought + ' ' + work.VidPolyv);
+		if (work.IsBought) {
+			var player = polyvObject('#videoPos').videoPlayer({
+				'width': '100%',
+				'height': height,
+				'vid': work.VidPolyv
+			});
+		} else {
+			var player = polyvObject('#videoPos').previewPlayer({
+				'width': '100%',
+				'height': height,
+				'vid': work.VidPolyvPreview
+			});
+		}
+	}
+
+	/*work end*/
+
+	/*other begin*/
+
+	//交作业
+	self.goHomeWork = function() {
+		if (self.Works().ConvertResult() != "1") {
+			mui.toast('视频尚未审核，请稍后再试~');
+			return;
+		}
+		common.transfer('../../modules/teacher/teacherHomeWorkHeader.html', true, {
+			works: workobj,
+			displayCheck: true,
+			homeWork: true
+		});
+	}
+
+	//找老师点评
+	self.goTeacherComment = function() {
+		if (self.Works().ConvertResult() != "1") {
+			mui.toast('视频尚未审核，请稍后再试~');
+			return;
+		}
+		common.transfer('../../modules/teacher/teacherHomeWorkHeader.html', true, {
+			works: workobj,
+			displayCheck: true
+		});
+	}
+
+	//跳转用户详情页面
+	self.gotoAuthor = function() {
+		var url = '../student/studentInfo1.html';
+		var arg = {
+			studentID: self.Works().AuthorID()
+		};
+		if (self.Works().UserType() == common.gDictUserType.teacher) {
+			url = '../teacher/teacherInfo.html';
+			arg = {
+				teacherID: self.Works().AuthorID()
+			};
+		}
+		common.transfer(url, false, arg, false, false);
+	}
+
+	//跳转活动详情页面
+	self.gotoActivity = function() {
+		common.transfer("../activity/activityInfo.html", false, {
+			aid: self.Works().WorkSrcID()
+		});
+	}
+
+	self.closePopover = function() {
+		mui('#bottomPopover').popover("hide");
+	}
+
+	/*other end*/
+
+	//页面预加载事件
 	var workobj, workVaule;
 	mui.plusReady(function() {
 		Share.updateSerivces(); //初始化分享
@@ -658,6 +690,7 @@ var worksDetails = function() {
 		}
 	});
 
+	//页面初始化
 	mui.init({
 		beforeback: function() {
 			var workParent = workVaule.opener();
