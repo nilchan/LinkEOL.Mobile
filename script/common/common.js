@@ -228,6 +228,7 @@
 		var tmpUrlSub = '../../modules/works/myUpload.html';
 		var idSub = 'myUpload';
 		var pageSub = plus.webview.getWebviewById(idSub);
+		var isFirst = false;
 		
 		if(!pageSub){
 			var topPx = '48px';
@@ -244,6 +245,8 @@
 				},
 			    extras:{}
 			});
+			
+			isFirst = true;
 		}
 		
 		var tmpUrl = '../../modules/works/myUploadHeader.html';
@@ -263,8 +266,17 @@
 			page.append(pageSub);
 		
 		page.show();
+		
+		if(isFirst){
+			pageSub.addEventListener('loaded',function () {
+			    mui.fire(pageSub,'triggerUpload',{});
+			})
+		}
+		else{
+			mui.fire(pageSub,'triggerUpload',{});
+		}
 		//mui.fire(page,'triggerUploadHeader',{});
-		mui.fire(pageSub,'triggerUpload',{});
+		//mui.fire(pageSub,'triggerUpload',{});
 	},
 
 	/**

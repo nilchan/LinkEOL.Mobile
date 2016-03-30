@@ -355,7 +355,6 @@ var myUpload = function() {
 		self.getUnfinishedWorks();
 	});
 
-
 	mui.plusReady(function() {
 		//self.getUnfinishedWorks();
 		//videoModule='<div class="video-js-box" style="margin:18px auto"><video controls width="' + 320 + 'px" height="' + 240 + 'px" class="video-js" poster="' + self.uploadList().workimgUrl + '" data-setup="{}"><source src="' + common.gVideoServerUrl + self.uploadList().videopath + '" type="video/mp4" /></video></div>';
