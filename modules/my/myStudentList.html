@@ -215,7 +215,7 @@
 									<em class="teacher-list-check myStudent-check" data-bind="visible: displayCheck">
 										<img data-bind="attr:{src: '../../images/radio-check'+(selected() ? '-active' : '')+'.png'}" />
 									</em>
-									<div class="teacher-head" data-bind='click:goStudentDeteil'>
+									<div class="teacher-head" data-bind='event:{tap:goStudentDeteil}'>
 										<img data-bind="attr:{src: common.getPhotoUrl(info.Photo)}" onerror="this.src='../../images/my-default.png';" />
 									</div>
 									<div class="teacher-list-con">

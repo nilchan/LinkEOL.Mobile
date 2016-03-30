@@ -100,7 +100,7 @@ var studentInfo = function() {
 
 	//跳转至咨询
 	self.goUserNews = function() {
-		common.transfer('../news/newsListHeader.html', false, {
+		common.transfer('../news/myNewsList.html', false, {
 			userid: sUserID,
 			useName:self.userInfo().DisplayName
 		}, false, false);

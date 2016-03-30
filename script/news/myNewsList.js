@@ -34,7 +34,7 @@ var informationList = function() {
 						self.newsList.push(obj);
 				});
 				self.clampText();
-				plus.nativeUI.closeWaiting();
+				common.showCurrentWebview();
 			}
 		});
 	};

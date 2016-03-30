@@ -144,7 +144,7 @@ var my = function() {
 					self.ProTitleAuth(responseText.ProTitleAuth);
 				if (responseText.EduAuth)
 					self.EduAuth(responseText.EduAuth);
-				console.log('f:'+self.IsFamous() + '~A:' + self.IDAuth() +'~P:' +self.ProTitleAuth() + '~E:' + self.EduAuth());
+//				console.log('f:'+self.IsFamous() + '~A:' + self.IDAuth() +'~P:' +self.ProTitleAuth() + '~E:' + self.EduAuth());
 
 			}
 		})
