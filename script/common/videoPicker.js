@@ -80,7 +80,7 @@ videoPicker.SelectVideo = function(multiple, callback) {
 	//if (plus.os.vendor == 'Apple') //只有在iOS才可以在录像前设置分辨率
 		myRes = getResolution(cmr.supportedVideoResolutions);
 	
-	//alert(JSON.stringify(myRes));
+	console.log(JSON.stringify(myRes));
 	var counter = 0;
 	if (myRes.length > 0) {
 		myRes.forEach(function(res) {
@@ -199,7 +199,6 @@ videoPicker.SelectVideo = function(multiple, callback) {
 				var res = myRes.length > 0 ? myRes[items[0].value] : '';
 				var fmt = 'mp4';
 				var cmr = plus.camera.getCamera();
-				console.log(cmr);
 	
 				cmr.startVideoCapture(function(path) {
 					_returnVideos = [];

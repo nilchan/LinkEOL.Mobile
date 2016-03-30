@@ -1075,7 +1075,8 @@
 					"content/fonts/iconfont.woff"
 				],
 				"refer": [
-					"modules/works/myUploadHeader.html"
+					"modules/works/myUploadHeader.html",
+					"modules/works/myUpload.html"
 				]
 			},
 			"modules/works/addWorks.html": {
@@ -1109,7 +1110,8 @@
 				"refer": [
 					"modules/works/worksListMyHeader.html",
 					"modules/activity/activityEnrollSuccess.html",
-					"modules/works/myUploadHeader.html"
+					"modules/works/myUploadHeader.html",
+					"modules/works/myUpload.html"
 				]
 			},
 			"modules/my/messageListSub.html": {
