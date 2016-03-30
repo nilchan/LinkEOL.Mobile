@@ -53,11 +53,50 @@
 				color: #8B0000;
 				font-size: 16px;
 			}
-			.teacherList-professional .my-professional{
-				margin-left: 20px;
+			.my-identity{
+				border: 1px solid #3dc1d1;
+			    height: 20px;
+			    width: 20px;
+			    line-height: 14px;
+			    display: inline-block;
+			    color: #3dc1d1;
+			    padding-left: 1px;
+			    border-radius: 50%;
+			    box-sizing: border-box;
 			}
-			.teacherList-professional .my-professional-padding{
-				padding: 1px 5px;
+			.my-professional{
+				border: 1px solid #dfc268;
+			    height: 20px;
+			    width: 20px;
+			    line-height: 14px;
+			    display: inline-block;
+			    color: #dfc268;
+			    padding-left: 3px;
+			    border-radius: 50%;
+			    box-sizing: border-box;
+			}
+			.my-professional i{
+				font-size: 11px!important;
+			}
+			.my-education{
+				border: 1px solid #f89e61;
+			    height: 20px;
+			    width: 20px;
+			    line-height: 14px;
+			    display: inline-block;
+			    color: #f89e61;
+			    padding-left: 1px;
+			    border-radius: 50%;
+			    box-sizing: border-box;
+			}
+			
+			.my-qualifications{
+				margin-top:11.2%; box-sizing: border-box; width: 100%; padding-left:23.5%;
+				}
+			@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.my-qualifications{
+				margin-top:10.5%; box-sizing: border-box; width: 100%; padding-left:23.5%;
+				}
 			}
 		</style>
 	</head>
@@ -75,17 +114,16 @@
 				</div>
 				<span class="login-fong" data-bind="visible:UserID()<=0">请登录</span>
 				<div data-bind="visible:UserID() > 0">
-					<div style="position: absolute; left: 23.5%; top: 16%;">
+					<div style="position: absolute; left: 23.5%; top: 16%; width: 81%;">
 						<span class="myInfoTeacher-name" data-bind="text:DisplayName">	
 						</span>
 						<em class="myName-point" data-bind='visible:UserType() == common.gDictUserType.teacher && IDAuth()==false'></em>
 					</div>
 					<!--<i class="teacher-list-star myInfoTeacher-star" data-bind="visible:UserType() == common.gDictUserType.teacher,css:'star'+starCount()"></i>-->
-						<div class="teacherList-professional" style="margin-top: 42px;">
-							<em class="identity my-professional" data-bind='visible:IsFamous()==false && IDAuth() == true'><i class="iconfont">&#xe69e;</i></em>
-							<em class="professional my-professional-padding" data-bind='visible:IsFamous()==true && ProTitleAuth()==true'><i class="iconfont">&#xe696;</i></em>
-							<em class="education" data-bind='visible:IsFamous()==false && EduAuth()==true'><i class="iconfont">&#xe69b;</i></em>
-							
+						<div class="my-qualifications">
+							<em class="my-identity" data-bind='visible:IsFamous()==false && IDAuth() == true'><i class="iconfont">&#xe69e;</i></em>
+							<em class="my-professional" data-bind='visible:IsFamous()==true && ProTitleAuth()==true'><i class="iconfont">&#xe696;</i></em>
+							<em class="my-education" data-bind='visible:IsFamous()==false && EduAuth()==true'><i class="iconfont">&#xe69b;</i></em>
 						</div>
 					<span class="myInfoTeacher-address" data-bind="visible:isAllInfo">
 					<i class="iconfont">&#xe66b;</i>
