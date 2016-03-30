@@ -5,6 +5,7 @@ var worksIndex = function() {
 	self.taskType = ko.observable("我的作业"); //tasks作业的意思
 	self.worksBannerImg=ko.observable("../../images/workIndex1.jpg");
 	self.myComment=ko.observable("上传作业");
+	self.bannerImg=ko.observable('../../images/worksIndex-banner-S.jpg')
 	
 	//跳转到上传作品页面
 	self.goUpworks = function() {
@@ -70,6 +71,7 @@ var worksIndex = function() {
 				self.taskType("学生作业");
 				self.myComment("我的点评");
 				self.isTeacher(true);
+				self.bannerImg('../../images/worksIndex-banner-T.jpg');
 			}
 		}
 

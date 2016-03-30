@@ -307,7 +307,8 @@
 					"images/worksIndex2.png",
 					"images/worksIndex1.png",
 					"images/workIndex-2.jpg",
-					"images/workIndex-3.jpg"
+					"images/workIndex-3.jpg",
+					"images/worksIndex-banner-S.jpg"
 				],
 				"refer": [
 					"modules/works/worksListAllHeader.html",
@@ -573,7 +574,8 @@
 					"content/fonts/iconfont.woff",
 					"content/fonts/iconfont.ttf",
 					"content/fonts/mui.ttf",
-					null
+					null,
+					"script/libs/jquery.min.js"
 				],
 				"refer": [],
 				"priority": 0
