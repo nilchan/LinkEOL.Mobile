@@ -229,7 +229,6 @@ videoPicker.SelectVideo = function(multiple, callback) {
 				}
 				
 				plus.VideoUtility.recordVideo(w, h, 1024*1024, function(arg){
-					alert(arg);
 					if(arg){
 						var videoVM = new self.returnVideoVM(arg, generateTempFilePath());
 						_returnVideos.push(videoVM);

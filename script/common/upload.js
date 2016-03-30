@@ -286,6 +286,7 @@ var compatible = supportHTML5Upload();
 			if(tmpPath.indexOf("file://") >= 0){
 				tmpPath = tmpPath.replace("file://", "");
 			}
+			//alert(tmpPath);
 			plus.VideoUtility.UploadVideo(tmpPath, opts.workId.toString(), '', function(arg) {
 				var retObj = {
 					uploadTask: arg,

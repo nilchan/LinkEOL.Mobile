@@ -32,7 +32,8 @@ var worksHeader = function() {
 	});
 	
 	self.goUploads = function() { //我的上传
-		common.transfer('../works/myUploadHeader.html', true);
+		//common.transfer('../works/myUploadHeader.html', true);
+		common.transferToMyDownload();
 	}
 
 	//返回按钮

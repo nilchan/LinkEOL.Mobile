@@ -223,6 +223,50 @@
 		});
 	},
 
+	//打开我的上传页面（独特处理，因为除首次打开外不再关闭）
+	transferToMyDownload: function() {
+		var tmpUrlSub = '../../modules/works/myUpload.html';
+		var idSub = 'myUpload';
+		var pageSub = plus.webview.getWebviewById(idSub);
+		
+		if(!pageSub){
+			var topPx = '48px';
+			if (plus.os.vendor == 'Apple') {
+				topPx = '63px';
+			}
+			
+			var pageSub = mui.preload({
+			    url: tmpUrlSub,
+			    id: idSub,
+			    styles: {
+					top: topPx,
+					bottom: '0px',
+				},
+			    extras:{}
+			});
+		}
+		
+		var tmpUrl = '../../modules/works/myUploadHeader.html';
+		var id = 'myUploadHeader';
+		var page = plus.webview.getWebviewById(id);
+		
+		if(!page){
+			var page = mui.preload({
+			    url: tmpUrl,
+			    id: id,
+			    styles:{},
+			    extras:{}
+			});
+		}
+		
+		if(pageSub.parent() == null)
+			page.append(pageSub);
+		
+		page.show();
+		//mui.fire(page,'triggerUploadHeader',{});
+		mui.fire(pageSub,'triggerUpload',{});
+	},
+
 	/**
 	 * 判断是否首页的子页面
 	 * @param {String} webviewId 页面的ID

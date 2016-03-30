@@ -48,13 +48,12 @@ var myUpload = function() {
 				var result = JSON.parse(responseText);
 				if (result) {
 					item.IsFinish(true);
-					alert(result.ThumbnailPolyv);
-					//更换缩略图（加上延时）
-					if(common.StrIsNull(result.ThumbnailPolyv) != ''){
+					//更换缩略图（加上延时，无效，暂取消）
+					/*if(common.StrIsNull(result.ThumbnailPolyv) != ''){
 						setTimeout(function(){
 							item.videoThumbnail(result.ThumbnailPolyv);		//上传完成并未有缩略图，编码完成会有
 						}, 1000);
-					}
+					}*/
 					
 					item.works.VidPolyv = result.VidPolyv;
 
@@ -102,9 +101,10 @@ var myUpload = function() {
 							if (item.WorkID() == item2.SourceID) {
 								item.IsFinish(item2.IsFinish);
 								item.ConvertResult(item2.ConvertResult);
-								alert(item2.ThumbnailPolyv);
-								if(common.StrIsNull(item2.ThumbnailPolyv) != '')
+								//alert(item2.ThumbnailPolyv);
+								if(common.StrIsNull(item2.ThumbnailPolyv) != '' && item2.IsFinish)
 									item.videoThumbnail(item2.ThumbnailPolyv); //从附件中获取，该字段为缩略图
+								
 								break;
 							}
 						}
@@ -148,8 +148,10 @@ var myUpload = function() {
 	self.filterTasks = function() {
 		var tmp = plus.storage.getItem(common.gVarLocalUploadTask);
 		//alert('gVarLocalUploadTask: ' + tmp);
+		
+		//======初始化=======
 		var tasks = JSON.parse(tmp);
-		if(!tasks) {
+		if(!tasks) {	//初始化为本地端并未存在
 			for (var i = 0; i < self.uploadList().length; i++) {
 				self.uploadList()[i].FoundInLocal(false);
 			}
@@ -159,6 +161,7 @@ var myUpload = function() {
 		for (var j = tasks.length - 1; j >= 0; j--) {	//初始化为服务器端并未保存
 			tasks[j].Found = false;
 		}
+		//==================
 		
 		for (var i = 0; i < self.uploadList().length; i++) {
 			var found = false;
@@ -193,7 +196,10 @@ var myUpload = function() {
 			plus.storage.setItem(common.gVarLocalUploadTask, '[]');
 		else
 			plus.storage.setItem(common.gVarLocalUploadTask, JSON.stringify(tasks));
-			
+		
+		//alert('local task:' + JSON.stringify(tasks));
+		//alert('server task:' + JSON.stringify(self.uploadList()));
+		
 		if (tasks && tasks.length > 0) {
 			upload.initTasks(refreshUploadState);
 		}
@@ -291,18 +297,30 @@ var myUpload = function() {
 
 	//获取未完成的上传列表
 	self.getUnfinishedWorks = function() {
+		//alert('getting unfinish works');
 		mui.ajax(common.gServerUrl + 'Common/Work/GetUnfinishedWorks?userID=' + getLocalItem('UserID'), {
 			type: 'GET',
 			success: function(responseText) {
 				var result = eval("(" + responseText + ")");
-				self.uploadList.removeAll(); //先移除所有
 				if (result && result.length > 0) {
 					result.forEach(function(item) {
-						var obj = new worksItem(item);
-						self.uploadList.push(obj);
-						//console.log(obj.VideoThumbnail());
+						var exists = false;
+						for (var j = self.uploadList().length - 1; j >= 0; j--) {
+							var item2 = self.uploadList()[j];
+							if(item.ID == item2.works.ID){
+								exists = true;
+								break;
+							}
+						}
+						
+						if(exists == false){
+							var obj = new worksItem(item);
+							self.uploadList.unshift(obj);
+						}
 					})
+		
 					mui('#pullrefreshdown').pullRefresh().refresh(true); //重置上拉加载
+					//alert('before filter uploadList:' + JSON.stringify(self.uploadList()));
 					self.filterTasks();
 
 					common.showCurrentWebview();
@@ -331,9 +349,15 @@ var myUpload = function() {
 			}
 		});
 	}
+	
+	//开始上传
+	window.addEventListener('triggerUpload',function(){
+		self.getUnfinishedWorks();
+	});
+
 
 	mui.plusReady(function() {
-		self.getUnfinishedWorks();
+		//self.getUnfinishedWorks();
 		//videoModule='<div class="video-js-box" style="margin:18px auto"><video controls width="' + 320 + 'px" height="' + 240 + 'px" class="video-js" poster="' + self.uploadList().workimgUrl + '" data-setup="{}"><source src="' + common.gVideoServerUrl + self.uploadList().videopath + '" type="video/mp4" /></video></div>';
 	});
 }
