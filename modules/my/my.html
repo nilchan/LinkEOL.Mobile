@@ -82,9 +82,9 @@
 					</div>
 					<!--<i class="teacher-list-star myInfoTeacher-star" data-bind="visible:UserType() == common.gDictUserType.teacher,css:'star'+starCount()"></i>-->
 						<div class="teacherList-professional" style="margin-top: 42px;">
-							<em class="identity my-professional" data-bind='visible:IsFamous==false && IDAuth'><i class="iconfont">&#xe69e;</i></em>
-							<em class="professional my-professional-padding" data-bind='visible:IsFamous && ProTitleAuth'><i class="iconfont">&#xe696;</i></em>
-							<em class="education" data-bind='visible:IsFamous==false && EduAuth'><i class="iconfont">&#xe69b;</i></em>
+							<em class="identity my-professional" data-bind='visible:IsFamous()==false && IDAuth() == true'><i class="iconfont">&#xe69e;</i></em>
+							<em class="professional my-professional-padding" data-bind='visible:IsFamous()==true && ProTitleAuth()==true'><i class="iconfont">&#xe696;</i></em>
+							<em class="education" data-bind='visible:IsFamous()==false && EduAuth()==true'><i class="iconfont">&#xe69b;</i></em>
 							
 						</div>
 					<span class="myInfoTeacher-address" data-bind="visible:isAllInfo">

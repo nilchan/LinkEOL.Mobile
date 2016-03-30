@@ -25,7 +25,7 @@ var worksHeader = function() {
 				}
 			}
 
-		}else{
+		} else {
 			self.allWorksTitle('所有作品');
 		}
 		var topPx = '46px';
@@ -59,26 +59,13 @@ var worksHeader = function() {
 		}
 
 		//common.showCurrentWebview();
-	})
+	});
+
+
 
 	// 所有作品页面选择类
 	var currentWebview = null;
-	document.querySelector("#seachEvent").addEventListener('tap', function() {
-		if (self.isSeach() == true) {
-			self.isSeach(false);
-			var seachInput=document.getElementById("seachInput");
-				seachInput.focus();	
-		} else if (self.isSeach() == false && common.StrIsNull(self.seachValue()) != '') {
-			plus.nativeUI.showWaiting();
-			currentWebview = plus.webview.currentWebview().children()[0];
-			mui.fire(currentWebview, 'seachworks', {
-				seachValue: self.seachValue()
-			});
-		} else if(self.isSeach() == false && common.StrIsNull(self.seachValue()) == ''){
-			self.isSeach(true);
-		}
-	});
-	
+
 	//筛选弹出框
 	document.querySelector('#filtrate-icon').addEventListener('tap', function() {
 		self.isSeach(true);
@@ -87,16 +74,67 @@ var worksHeader = function() {
 		}
 		currentWebview.evalJS("mui('#pull-down-nav').popover('toggle')");
 	});
-
 	
-	self.seachValueEvent = function() {
-		plus.nativeUI.showWaiting();
-		currentWebview = plus.webview.currentWebview().children()[0];
-		mui.fire(currentWebview, 'seachworks', {
-			seachValue: self.seachValue()
+	//--搜索功能--
+	var t;
+	$('#seachInput').bind('input propertychange', function() {
+		clearTimeout(t);
+		t = setTimeout(function() {
+			seachValueEvent();
+		}, 1000);
+		
+	});
+
+	$('#seachBtn').click(function() {
+		$('#input-search').toggleClass('list-search-show');
+		$('#input-search').toggleClass('list-search-hide');
+		$('.myAttention-bg-color').toggle();
+		$('#seachBtn').hide();
+		$('#seachBtnHide').show();
+		if ($('#input-search').hasClass('list-search-show')) {
+			$('#seachInput').focus();
+		}
+	});
+	
+	$('#seachBtnHide').click(function(){
+		$('#seachInput').blur();
+	});
+
+	$(document).on('tap', '.mui-icon-clear', function() {
+		seachValueEvent();
+	});
+
+	$('#seachInput').blur(function() {
+		$('#input-search').removeClass('list-search-show');
+		$('#input-search').addClass('list-search-hide');
+		$('.myAttention-bg-color').show();
+		$('#seachBtn').show();
+		$('#seachBtnHide').hide();
+	});
+	
+	function hiddenSeacher() {
+		$('#seachInput').blur();
+		$('#seachInput').val("");
+		seachValueEvent();
+	}
+
+	function seachValueEvent() {
+		var contentWebview = null;
+		var seachValue = document.getElementById("seachInput").value;
+		if (contentWebview == null) {
+			contentWebview = plus.webview.currentWebview().children()[0];
+		}
+		mui.fire(contentWebview, 'seachworks', {
+			seachValue: seachValue
 		});
 	}
-	
+
+	var old_back = mui.back;
+	mui.back = function() {
+		old_back();
+		hiddenSeacher();
+	}
+	//--搜索功能--
 
 }
 ko.applyBindings(worksHeader);

@@ -38,7 +38,7 @@
 				position: fixed;
 				top: 0px;
 				left: 0px;
-				background: #f0eded;
+				background: #e6e5e5;
 				min-height: 250px;
 				z-index: 999;
 				display: none;
@@ -47,7 +47,7 @@
 			
 			#down-nav1 {
 				width: 100%;
-				background: #eeeeee;
+				background: #f1f1f1;
 				height: 100%;
 				overflow: hidden;
 				float: left;
@@ -66,13 +66,13 @@
 				line-height: 32px;
 				box-sizing: border-box;
 				font-size: 14px;
-				border-bottom: 1px solid #ccc;
+				border-bottom: 0.5px solid #cbcbcb;
 			}
 			
 			#down-nav2 {
 				width: 70%;
 				height: 250px;
-				background: #CCCCCC;
+				background: #e5e5e5;
 				float: left;
 				position: absolute;
 				overflow-y: scroll;
@@ -92,13 +92,13 @@
 				line-height: 32px;
 				box-sizing: border-box;
 				font-size: 14px;
-				border-bottom: 1px solid #c4c2c2;
+				border-bottom: 0.5px solid #cbcbcb;
 			}
 			
 			#down-nav3 {
 				width: 40%;
 				height: 250px;
-				background: #C0C0C0;
+				background: #dedede;
 				float: left;
 				left: 60%;
 				position: absolute;
@@ -119,20 +119,21 @@
 				line-height: 32px;
 				box-sizing: border-box;
 				font-size: 14px;
-				border-bottom: 1px solid #ccc;
+				border-bottom: 0.5px solid #cbcbcb;
 			}
 			
 			#down-nav1 ul li:active {
-				background: #eee;
+				background: #e5e5e5;
 			}
 			
 			#down-nav2 ul li:active {
-				background: #c5c4c4;
+				background: #dedede;
 			}
 			
 			#down-nav3 ul li:active {
-				background: #b4b3b3;
+				background: #d6d6d6;
 			}
+			
 			#subject-nav-list {
 				display: none;
 			}
@@ -141,8 +142,14 @@
 				display: none;
 			}
 			
-			#type-nav-list {
-				display: none;
+			.select-current-1 {
+				background: #e5e5e5;
+			}
+			.select-current-2 {
+				background: #dedede;
+			}
+			.select-current-3 {
+				background: #d6d6d6;
 			}
 		</style>
 	</head>
@@ -160,18 +167,18 @@
 					</div>
 					<div id="down-nav2">
 						<ul id="subject-nav-list" data-bind="foreach: {data: tmplSubjectClasses, as: 'class1'}">
-							<li data-bind="text: class1.subjectClassName, event: {'tap': setClasses}, css:{'select-current': (class1.subjectClass == currentSubjectClasses().subjectClass)}">西洋乐器</li>
+							<li data-bind="text: class1.subjectClassName, event: {'tap': setClasses}, css:{'select-current-2': (class1.subjectClass == currentSubjectClasses().subjectClass)}">西洋乐器</li>
 						</ul>
 						<ul id="sort-nav-list" data-bind="foreach:{data: common.gJsonWorkSort}">
-							<li data-bind="text: text,event: {'tap': sortWorks},css:{'select-current': (value == currentSort())}">西洋乐器2</li>
+							<li data-bind="text: text,event: {'tap': sortWorks},css:{'select-current-2': (value == currentSort())}">西洋乐器2</li>
 						</ul>
 						<ul id="type-nav-list" data-bind="foreach:{data: common.gJsonWorkTypeTeacher}">
-							<li data-bind="text: text,event: {'tap': selectWorksType},css:{'select-current': (value == currentWorkTypes())}">西洋乐器2</li>
+							<li data-bind="text: text,event: {'tap': selectWorksType},css:{'select-current-2': (value == currentWorkTypes())}">西洋乐器2</li>
 						</ul>
 					</div>
 					<div id="down-nav3">
 						<ul data-bind="foreach: {data: subjectSelect, as: 'subject'}">
-							<li data-bind="text: subject.subjectName, event: {'tap': selectSubject}, css:{'select-current': (subject.id == currentSubject().id)}">西洋乐器</li>
+							<li data-bind="text: subject.subjectName, event: {'tap': selectSubject}, css:{'select-current-3': (subject.id == currentSubject().id)}">西洋乐器</li>
 						</ul>
 					</div>
 				</div>

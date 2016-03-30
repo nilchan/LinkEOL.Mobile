@@ -22,7 +22,9 @@ var my = function() {
 	self.UserFavCount = ko.observable(0); //我的关注
 	self.IDAuth = ko.observable(false); //身份认证
 	self.inviteCode = ko.observable(''); //邀请码
-	self.isFamous=ko.observable(false);
+	self.IsFamous = ko.observable(false);
+	self.ProTitleAuth = ko.observable(false);
+	self.EduAuth = ko.observable(false);
 
 	self.goIntructStudentList = function() { //授课学生
 		common.transfer('myStudentList.html', true, {
@@ -111,7 +113,7 @@ var my = function() {
 			dataType: 'json',
 			type: 'GET',
 			success: function(responseText) {
-				//console.log(JSON.stringify(responseText));
+//				console.log(JSON.stringify(responseText));
 				self.ID(responseText.ID);
 				self.DisplayName(responseText.DisplayName);
 				self.Province(setStr('Province', responseText, ''));
@@ -136,8 +138,14 @@ var my = function() {
 					self.IDAuth(responseText.IDAuth);
 				if (responseText.MyInviteCode)
 					self.inviteCode(responseText.MyInviteCode);
-				if (responseText.isFamous)
-					self.isFamous(responseText.isFamous);	
+				if (responseText.IsFamous)
+					self.IsFamous(responseText.IsFamous);
+				if (responseText.ProTitleAuth)
+					self.ProTitleAuth(responseText.ProTitleAuth);
+				if (responseText.EduAuth)
+					self.EduAuth(responseText.EduAuth);
+				console.log('f:'+self.IsFamous() + '~A:' + self.IDAuth() +'~P:' +self.ProTitleAuth() + '~E:' + self.EduAuth());
+
 			}
 		})
 	}

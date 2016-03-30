@@ -306,9 +306,9 @@ var workListAll = function() {
 			$('#sort-nav-list').hide();
 			$('#type-nav-list').hide();
 			$('#subject-nav-list').show();
-			$(this).addClass('select-current');
-			$('#sort-nav').removeClass('select-current');
-			$('#type-nav').removeClass('select-current');
+			$(this).addClass('select-current-1');
+			$('#sort-nav').removeClass('select-current-1');
+			$('#type-nav').removeClass('select-current-1');
 			if (currentClasses != -1) {
 				$('#down-nav3').show();
 			}
@@ -318,18 +318,18 @@ var workListAll = function() {
 			$('#type-nav-list').hide();
 			$('#sort-nav-list').show();
 			$('#down-nav3').hide();
-			$(this).addClass('select-current');
-			$('#subject-nav').removeClass('select-current');
-			$('#type-nav').removeClass('select-current');
+			$(this).addClass('select-current-1');
+			$('#subject-nav').removeClass('select-current-1');
+			$('#type-nav').removeClass('select-current-1');
 		});
 		$('#type-nav').click(function(event) {
 			$('#subject-nav-list').hide();
 			$('#sort-nav-list').hide();
 			$('#type-nav-list').show();
 			$('#down-nav3').hide();
-			$(this).addClass('select-current');
-			$('#sort-nav').removeClass('select-current');
-			$('#subject-nav').removeClass('select-current');
+			$(this).addClass('select-current-1');
+			$('#sort-nav').removeClass('select-current-1');
+			$('#subject-nav').removeClass('select-current-1');
 		});
 		$('#subject-nav-list').click(function(event) {
 			$('#down-nav3').hide();
