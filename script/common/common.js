@@ -936,18 +936,10 @@
 	},
 	
 	//地址处理
-	dealAddress:function(province,city,District){
-		var result;
-		if(province!=''){
-			result+=province;
-		}
-		if(city!=''){
-			result+=city;
-		}
-		if(District!=''){
-			result+=District;
-		}
-		return result
+	dealAddress:function(province,city,district){
+		console.log(province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district)
+		return province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district;
+		console.log(province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district)
 	},
 
 	gContentRefreshDown: '刷新中...', //下拉时显示的文字
