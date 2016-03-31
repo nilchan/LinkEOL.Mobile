@@ -65,6 +65,10 @@ var accountDetail = function() {
 				contentnomore: common.gContentNomoreUp,
 				callback: pullupRefresh
 			}
+		},
+		beforeback: function() {
+			common.refreshMyValue({'valueType': 'balance'});
+			return true;
 		}
 	});
 

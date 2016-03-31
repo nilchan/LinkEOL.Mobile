@@ -190,6 +190,9 @@ var viewModel = function() {
 							type: 'PUT',
 							success: function(respText) {
 								var comment = JSON.parse(respText);
+								common.refreshMyValue({
+									valueType: 'balance',
+								})
 								//common.showIndexWebview(3, true);
 								common.transfer('../works/worksListMyHeader.html',true,{},false,false);
 								

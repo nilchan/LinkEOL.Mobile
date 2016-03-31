@@ -214,6 +214,9 @@ var saleTicket = function() {
 				if (ret.requestJson == '') { //无需网上支付，预约点评成功
 					mui.toast("已成功售票");
 					//跳转至点评（暂时未打开）
+					common.refreshMyValue({
+						valueType: 'balance'
+					})
 					plus.nativeUI.closeWaiting();
 					mui.back();
 				} else {
@@ -227,6 +230,9 @@ var saleTicket = function() {
 							success: function(respText) {
 								//var ticket = JSON.parse(respText);
 								plus.nativeUI.closeWaiting();
+								common.refreshMyValue({
+									valueType: 'balance',
+								})
 								mui.back();
 							},
 							error: function() {

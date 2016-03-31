@@ -28,16 +28,16 @@
 			
 			<!--银行卡模板-->
 			<script type="text/html" id="bankcardTemplate">
-				<div class="myCard-add" data-bind="event:{longtap:setDefault}">
+				<div class="myCard-add" data-bind="event:{longtap:setDefault, tap: deleteCard}">
 					<i class="iconfont card-logo">&#xe659;</i>
 					<span class="bank-name" data-bind="text:DepositBank.split(',')[0].split('-')[0]"></span>
-					<span class="card-class" data-bind="text:DepositBank.split(',')[1]"></span>
+					<span class="card-class" data-bind="text:DepositBank.split(',')[0].split('-')[1]"></span>
 					<i class="iconfont defeaut-right" data-bind="visible:IsDefault">&#xe657;</i>
 					<span class="card-number" data-bind="text:common.getbankcardNum(CardNumber)"></span>
 				</div>
 			</script>
 			<div class="defeaut-font" data-bind="visible:bankcardArray().length>0">
-				长按设为默认银行卡
+				点击删除，长按设为默认
 			</div>
 			<div class="add-card" data-bind="click:addBankcard">
 				<i class="iconfont">&#xe621;</i>

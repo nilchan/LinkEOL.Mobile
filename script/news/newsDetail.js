@@ -126,7 +126,7 @@ var newsDetail=function(){
 	}
 	
 	//分享的参数
-	var shareTitle = "";
+	var shareTitle = '我分享的咨询';
 	var shareContent = "你看了没";
 	var shareUrl = common.gWebsiteUrl + "modules/news/newsInfo.html?id=";
 	var shareImg = "";
@@ -139,6 +139,10 @@ var newsDetail=function(){
 			Share.sendShare(this.id, shareTitle, shareContent, shareUrl+newsID , shareImg, common.gShareContentType.news);
 			mui('#sharePopover').popover('toggle');
 		}
+	}
+	
+	self.closeShare=function(){
+		mui('#sharePopover').popover('toggle');
 	}
 
 	mui.plusReady(function(){

@@ -306,8 +306,9 @@ var worksDetails = function() {
 
 					//重新获取视频
 					self.getWorkDetail(self.Works().WorkID());
-					/*self.Works().IsBought(true);
-					self.getVideo(workobj);*/
+					common.refreshMyValue({
+						valueType: 'balance'
+					})
 
 					mui('#bottomPopover').popover("hide");
 					plus.nativeUI.closeWaiting();
@@ -322,7 +323,9 @@ var worksDetails = function() {
 								console.log(respText);
 								//重新获取视频
 								self.getWorkDetail(self.Works().WorkID());
-
+								common.refreshMyValue({
+									valueType: 'balance'
+								})
 								plus.nativeUI.closeWaiting();
 								mui('#bottomPopover').popover("toggle");
 							}

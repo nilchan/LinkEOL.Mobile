@@ -937,11 +937,11 @@
 	
 	//地址处理
 	dealAddress:function(province,city,district){
-//		console.log(province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district)
+		console.log(province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district)
 		return province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district;
-//		console.log(province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district)
+		console.log(province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district)
 	},
-	
+
 	/**
 	 * 刷新个人中心的数字数值（关注数、相册数、账户余额）
 	 * @param {Object} valueJsonObj 
@@ -951,9 +951,8 @@
 	refreshMyValue:function(valueJsonObj){
 		var myPage = common.getIndexChild(4);	//个人中心页面
 		mui.fire(myPage,'refreshMyValue', valueJsonObj);
-		
 	},
-
+	
 	gContentRefreshDown: '刷新中...', //下拉时显示的文字
 	gContentRefreshUp: '努力加载中...', //上拉时显示的文字
 	gContentNomoreUp: '没有更多数据了', //上拉无数据时显示的文字

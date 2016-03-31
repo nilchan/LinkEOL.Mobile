@@ -1177,7 +1177,9 @@
 					"content/fonts/iconfont.ttf",
 					"content/mui/mui.min.css",
 					"content/fonts/iconfont.woff",
-					"images/seal.png"
+					"images/seal.png",
+					"images/Famous-teacher.png",
+					"images/Famous-comment.png"
 				],
 				"refer": [
 					"modules/student/submitComment.html",
@@ -1587,7 +1589,8 @@
 					"content/mui/mui.picker.min.css",
 					"content/common/global.css",
 					"script/common/bankList.js",
-					"content/fonts/iconfont.woff"
+					"content/fonts/iconfont.woff",
+					"content/fonts/iconfont.ttf"
 				],
 				"refer": [
 					"modules/my/messageList.html",
@@ -1609,7 +1612,8 @@
 					"content/common/style.css",
 					"content/common/global.css",
 					"content/fonts/iconfont.css",
-					"content/fonts/iconfont.woff"
+					"content/fonts/iconfont.woff",
+					"content/fonts/iconfont.ttf"
 				],
 				"refer": [
 					"modules/my/addCard.html"
@@ -2619,7 +2623,8 @@
 					"content/fonts/iconfont.css",
 					"content/fonts/iconfont.woff",
 					"content/mui/mui.min.css",
-					"content/fonts/mui.ttf"
+					"content/fonts/mui.ttf",
+					"content/fonts/iconfont.ttf"
 				],
 				"refer": [],
 				"priority": 0
@@ -2883,7 +2888,11 @@
 					"script/common/common.js",
 					"script/common/base.js",
 					"content/fonts/iconfont.woff",
-					"script/libs/knockout/knockout-3.3.0.min.js"
+					"script/libs/knockout/knockout-3.3.0.min.js",
+					"script/mui/mui.picker.min.js",
+					"content/mui/mui.picker.min.css",
+					"script/common/picture.js",
+					"images/my-default.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -2951,7 +2960,9 @@
 					"content/fonts/iconfont.css",
 					"content/fonts/iconfont.woff"
 				],
-				"refer": [],
+				"refer": [
+					"modules/news/newsDetail.html"
+				],
 				"priority": 0
 			}
 		},

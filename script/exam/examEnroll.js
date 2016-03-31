@@ -201,7 +201,7 @@ var examEnroll = function() {
 					mui.toast("已成功报名");
 					plus.nativeUI.closeWaiting();
 					mui('#middlePopover').popover("toggle");
-								mui.back();
+					mui.back();
 				} else {
 					var requestJson = JSON.stringify(ret.requestJson);
 
@@ -212,6 +212,9 @@ var examEnroll = function() {
 							type: 'PUT',
 							success: function(respText) {
 								plus.nativeUI.closeWaiting();
+								common.refreshMyValue({
+									valueType: 'balance',
+								})
 								mui('#middlePopover').popover("toggle");
 								mui.back();
 							},

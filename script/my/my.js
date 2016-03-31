@@ -265,6 +265,7 @@ var my = function() {
 	//刷新我的账户余额
 	window.addEventListener('refreshMyValue', function(event) {
 		var valueJsonObj = event.detail;
+		console.log(JSON.stringify(valueJsonObj))
 		switch(valueJsonObj.valueType){
 			case "fav":
 				if(valueJsonObj.changeValue != 0){	//若存在变化数，则在原基础上修改，否则直接更新为总数
@@ -281,6 +282,7 @@ var my = function() {
 				mui.ajax(common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + self.UserID(), {
 					type: 'GET',
 					success: function(responseText) {
+						console.log(responseText);
 						var result = JSON.parse(responseText);
 						self.AccountBalance('￥' + (result.Amount).toFixed(2));
 					}

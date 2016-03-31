@@ -20,6 +20,27 @@ var myCard = function() {
 			}
 		})
 	}
+	self.deleteCard = function() {
+		var thisCard = this;
+		if (thisCard.IsDefault) {
+			mui.toast("不可删除默认银行卡");
+			return;
+		}
+		
+		var btnArray = ['是', '否'];
+		mui.confirm('确认删除吗？', '点击了删除', btnArray, function(e) {
+			if (e.index == 0) {
+				var ajaxurl = common.gServerUrl + "API/UserCard/"+thisCard.ID;
+				mui.ajax(ajaxurl, {
+					type: "DELETE",
+					success: function(responseText) {
+						mui.toast('成功删除银行卡');
+						self.bankcardArray.remove(thisCard);
+					}
+				})
+			}
+		});
+	}
 	self.setDefault = function() {
 		var thisCard = this;
 		if (thisCard.IsDefault) {

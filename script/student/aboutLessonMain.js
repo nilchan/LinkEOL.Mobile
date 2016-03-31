@@ -93,6 +93,9 @@ var gotoPay = function() {
 					type: 'PUT',
 					success:function(respText){
 						var lessons = JSON.parse(respText);
+						common.refreshMyValue({
+									valueType: 'balance',
+								})
 						if(lessons.length > 0){
 							//跳转至约课的课时（打开第一个）
 							common.transfer("../../modules/course/myCourse.html", true, {
