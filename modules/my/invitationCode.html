@@ -28,6 +28,15 @@
 				text-align: center;
 				padding-top: 10px;
 			}
+			.invitationCode-num input{
+				width: 100%;
+				height: 100%;
+				text-align: center;
+				color: #149da6;
+				font-size: 26px;
+				text-align: center;
+				border: none;
+			}
 			.explain-font{
 				width: 74%;
 				margin: 25px auto;
@@ -106,7 +115,9 @@
 			<div class="invitationCode-font">
 				<h5 id="h5">我的邀请码</h5>
 			</div>
-			<div class="invitationCode-num" data-bind='text:inviteCode'>pHFkrTpS</div>
+			<div class="invitationCode-num">
+				<input data-bind='text:inviteCode'>pHFkrTpS</input>
+			</div>
 			<!--<input type="text" class="invitationCode-num" data-bind='value:inviteCode'/>-->
 			<div class="explain-font">分享此邀请码给授课学生，让他们更便捷将您设为授课老师并找您点评作业。</div>
 			<div class="invitationCode-btn">

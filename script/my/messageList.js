@@ -12,7 +12,7 @@ var message_notification = function () {
             dataType: 'json',
             type: 'GET',
             success: function (responseText) {
-                console.log(JSON.stringify(responseText));
+                //console.log(JSON.stringify(responseText));
                 self.messages(responseText);
                 self.messageLength(self.messages().length);
                 //console.log("15:"+self.messages().length);

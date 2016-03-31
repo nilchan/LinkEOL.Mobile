@@ -29,6 +29,7 @@ var newsDetail=function(){
 	//获取详情
 	self.getNewsDetail=function(){
 		var ajaxUrl=common.gServerUrl+'Common/News/GetNewsByNewsID?id='+newsID;
+		console.log(ajaxUrl);
 		mui.ajax(ajaxUrl,{
 			type:'GET',
 			success:function(responseText){

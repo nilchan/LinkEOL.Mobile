@@ -195,9 +195,9 @@
 			</div>
 			<!--老师点评模板-->
 			<script type="text/html" id="commentTemplate">
-				<div class="worksDetails-bottom" >
+				<div data-bind="css:{'worksDetails-bottom':(isshowComment()=='true'||IsAuthor())}">
 					<li class="mui-table-view-cell mui-collapse">
-						<a  href="#" data-bind='css:{mui-navigate-right:(isshowComment()=='true'||IsAuthor())}'>
+						<a  href="#" data-bind="css:{'mui-navigate-right':(isshowComment()=='true'||IsAuthor())}">
 							<i class="iconfont">&#xe62d;</i> [
 							<!--ko text:CommenterName-->
 							<!--/ko-->]老师评语   <span data-bind="text:'【'+(IsRecommend?'推荐':'点评')+'】'">【推荐】</span></a> 

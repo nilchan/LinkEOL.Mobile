@@ -79,6 +79,10 @@
 				top: 100%!important;
 				margin-top: -178px!important;
 			}
+			.myTeacherList-sc{
+				right: 28px;
+				top: 5px;
+			}
 			
 			@media only screen and (min-width: 415px) and (max-width: 1025px) {
 				.teacher-list-con {
@@ -88,7 +92,8 @@
 					width: 82%;
 					box-sizing: border-box;
 					position: relative;
-				}
+					}
+				
 				.share-height {
 					position: fixed!important;
 				}
@@ -101,7 +106,7 @@
 				.margin-top{
 					margin-top: 10px;
 				}	
-				
+				}
 		</style>
 	</head>
 
@@ -119,7 +124,7 @@
 						<div data-bind="foreach:{data:instructedArray}">
 							<div class="p-teacher-list mui-table-view-cell">
 								<a href="javascript:void(0);" data-bind="event:{tap:goTeacherInfo}">
-									<span class="teacher-list-sc" data-bind="visible: IsConfirm==false">未通过</span>
+									<span class="teacher-list-sc myTeacherList-sc" data-bind="visible: IsConfirm==false">未通过</span>
 									<em class="teacher-list-check"></em>
 									<div class="teacher-head">
 										<img data-bind="attr:{src: common.getPhotoUrl(Photo)}" onerror="this.src='../../images/my-default.png';" />
@@ -184,7 +189,7 @@
 		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../script/my/instructTeacher.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../../script/my/instructTeacher.js" type="text/javascript" charset="utf-8"></script>-->
 	</body>
 
 </html>

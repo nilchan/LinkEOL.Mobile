@@ -45,9 +45,9 @@ var informationList = function() {
 	}
 	
 	//跳转详情
-	self.gotoInformationDetail = function(data) {
+	self.gotoInformationDetail = function(id) {
 		common.transfer('newsDetail.html',false,{
-			newsId:data.ID
+			newsId:id
 		},false,false);
 	}
 	
@@ -76,10 +76,11 @@ var informationList = function() {
 	
 	//点击列表
 	self.clickOne = function(data) {
+		var id = data.info.ID;
 		if( self.displayCheck() ) {
 			self.selectOne(data);
 		} else {
-			self.gotoInformationDetail(data);
+			self.gotoInformationDetail(id);
 		}
 	}
 	
