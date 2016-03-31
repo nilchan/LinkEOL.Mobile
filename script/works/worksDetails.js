@@ -706,6 +706,7 @@ var worksDetails = function() {
 		beforeback: function() {
 			var workParent = workVaule.opener();
 			var webObj = plus.webview.getWebviewById('myCollection.html');
+			console.log(JSON.stringify(webObj))
 			mui.fire(webObj, 'refreshCollection', {
 				worksId: self.Works().WorkID(),
 				favStatus: workIsFav

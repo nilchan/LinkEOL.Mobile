@@ -36,6 +36,7 @@ var myUserAttented = function() {
 	window.addEventListener('refreshCollection',function(event){
 		if(typeof event.detail.worksId != 'undefined'){
 			for (var i=0;i<self.worksCollectionList().length;i++) {
+				console.log(JSON.stringify(self.worksCollectionList()[i]));
 				if(self.worksCollectionList()[i].ID==event.detail.worksId){
 					//该作品已收藏
 					if(event.detail.favStatus==false){
@@ -44,7 +45,6 @@ var myUserAttented = function() {
 					}
 				}else{
 					if(event.detail.favStatus){
-						console.log('fav')
 						//收藏
 						self.worksCollectionList.push(worksCollectionList[i]);
 					}
