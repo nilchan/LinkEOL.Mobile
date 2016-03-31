@@ -10,6 +10,7 @@
 		<link href="../../content/common/global.css" rel="stylesheet" />
 		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
 		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
 		<style>
 			.mui-bar-tab .ah-mui-tab-item {
 				display: table-cell;
@@ -106,7 +107,6 @@
 			}
 			#edit {
 				min-height: 220px;
-				max-height: 330px;
 				overflow-y: scroll;
 				background: #FAFAFA;
 			}
@@ -145,7 +145,7 @@
 			</div>
 		</div>
 
-		<nav class="mui-bar mui-bar-tab">
+		<nav class="mui-bar mui-bar-tab" data-bind="visible: editStat() == false">
 			<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" data-bind='click:addLikeCount'>
 				<i class="iconfont" style="font-size: 20px;" >&#xe663;</i>
 				<span class="mui-tab-label"><!--ko text:newsDetail().LikeCount-->20<!--/ko-->人点赞</span>
@@ -155,6 +155,14 @@
 				<span class="mui-tab-label ">分享</span>
 			</a>
 		</nav>
+		
+		<div class="requestInformation-nav" data-bind="visible: editStat() == true">
+				<ul>
+					<li data-bind='click:addPhoto'>
+						<a href="#"><i class="iconfont requestInformation-nav-i">&#xe695;</i></a>
+					</li>
+				</ul>
+			</div>
 
 		<div id="sharePopover" class="mui-popover share-height">
 			<div class="mui-scroll-wrapper">
@@ -186,6 +194,8 @@
 		<script src="../../script/common/common.js " type="text/javascript " charset="utf-8 "></script>
 		<script src="../../script/common/base.js " type="text/javascript " charset="utf-8 "></script>
 		<script src="../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>
+				<script src="../../script/mui/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/picture.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/news/newsDetail.js" type="text/javascript" charset="utf-8"></script>
 	</body>

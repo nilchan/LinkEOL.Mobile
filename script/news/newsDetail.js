@@ -29,7 +29,6 @@ var newsDetail=function(){
 	//获取详情
 	self.getNewsDetail=function(){
 		var ajaxUrl=common.gServerUrl+'Common/News/GetNewsByNewsID?id='+newsID;
-		console.log(ajaxUrl);
 		mui.ajax(ajaxUrl,{
 			type:'GET',
 			success:function(responseText){
@@ -108,6 +107,17 @@ var newsDetail=function(){
 			mui.toast('编辑模式开启~');
 		}
 		
+	}
+	
+	//添加图片
+	self.addPhoto = function() {
+		var imgBase, tmpImg;
+		picture.SelectPicture(false, false, function(retValue) {
+			imgBase = retValue[0].Base64;
+			tmpImg = "<img src='" + imgBase + "'/>&emsp;";
+			var editor = $A.gI('edit');
+			editor.innerHTML += tmpImg;
+		});
 	}
 	
 	//关闭分享
