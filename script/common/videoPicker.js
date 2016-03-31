@@ -29,7 +29,8 @@ getResolution = function(arrRes) {
 	if (arrRes && arrRes.length > 0) {
 		var ret = [];
 		arrRes.forEach(function(res) {
-			if (res == '1280*720' || res == '640*480') {
+			//if (res == '1280*720' || res == '640*480') {
+			if (res == '640*480') {
 				ret.push(res);
 			}
 		})
@@ -84,7 +85,7 @@ videoPicker.SelectVideo = function(multiple, callback) {
 	var counter = 0;
 	if (myRes.length > 0) {
 		myRes.forEach(function(res) {
-			var p = res.split('*')[1];
+			/*var p = res.split('*')[1];
 			if (p == '480') {
 				p = '(高清' + p + 'p)'
 			} else {
@@ -93,6 +94,11 @@ videoPicker.SelectVideo = function(multiple, callback) {
 			var obj = {
 				value: counter,
 				text: '拍摄' + p
+			}*/
+			
+			var obj = {
+				value: counter,
+				text: '拍摄'
 			}
 			counter++;
 			videoData.push(obj);
