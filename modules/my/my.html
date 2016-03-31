@@ -86,16 +86,21 @@
 			    display: inline-block;
 			    color: #f89e61;
 			    padding-left: 1px;
+			    margin-right: 1px;
 			    border-radius: 50%;
 			    box-sizing: border-box;
 			}
-			
+			.myInfoTeacher-star:after {
+				font-size: 14px!important;
+				position: absolute;
+				top: 43%;
+			}
 			.my-qualifications{
-				margin-top:11.2%; box-sizing: border-box; width: 100%; padding-left:23.5%;
+				margin-top:11.2%; box-sizing: border-box; width: 50%; padding-left:23.5%;
 				}
 			@media only screen and (min-width: 376px) and (max-width: 414px) {
 				.my-qualifications{
-				margin-top:10.5%; box-sizing: border-box; width: 100%; padding-left:23.5%;
+				margin-top:10.5%; box-sizing: border-box; width: 50%; padding-left:23.5%;
 				}
 			}
 		</style>
@@ -119,12 +124,14 @@
 						</span>
 						<em class="myName-point" data-bind='visible:UserType() == common.gDictUserType.teacher && IDAuth()==false'></em>
 					</div>
-					<!--<i class="teacher-list-star myInfoTeacher-star" data-bind="visible:UserType() == common.gDictUserType.teacher,css:'star'+starCount()"></i>-->
+					<!--<i class="teacher-list-star myInfoTeacher-star" data-bind="visible:UserType() == common.gDictUserType.teacher && IsFamous()==false,css:'star'+starCount()"></i>-->
 						<div class="my-qualifications">
 							<em class="my-identity" data-bind='visible:IsFamous()==false && IDAuth() == true'><i class="iconfont">&#xe69e;</i></em>
 							<em class="my-professional" data-bind='visible:IsFamous()==true && ProTitleAuth()==true'><i class="iconfont">&#xe696;</i></em>
 							<em class="my-education" data-bind='visible:IsFamous()==false && EduAuth()==true'><i class="iconfont">&#xe69b;</i></em>
+							<i class="teacher-list-star myInfoTeacher-star" data-bind="visible:UserType() == common.gDictUserType.teacher && IsFamous()==false,css:'star'+starCount()"></i>
 						</div>
+						
 					<span class="myInfoTeacher-address" data-bind="visible:isAllInfo">
 					<i class="iconfont">&#xe66b;</i>
 					<!--ko text:Province--><!--/ko--><!--ko text:(common.StrIsNull(City())==''?'':' · '+City())--><!--/ko--><!--ko text:(common.StrIsNull(District())==''?'':' · '+District())--><!--/ko-->

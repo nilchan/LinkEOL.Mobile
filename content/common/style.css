@@ -7366,8 +7366,9 @@ li {
 .myInfoTeacher-star:after {
 	font-size: 14px!important;
 	position: absolute;
-	left: 23.5%;
+	/*left: 23.5%;*/
 	top: 43%;
+	margin-left: 5px;
 }
 .myInfoTeacher-wem {
 	font-size: 30px;

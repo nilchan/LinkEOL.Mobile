@@ -191,7 +191,7 @@
 			</div>
 
 			<!-- visible: teacherComment().length > 0 ,&& (isshowComment()=='true'||IsAuthor()) -->
-			<div data-bind="template:{name:'commentTemplate',foreach:teacherComment}">
+			<div data-bind="visible: teacherComment().length > 0,template:{name:'commentTemplate',foreach:teacherComment}">
 			</div>
 			<!--老师点评模板-->
 			<script type="text/html" id="commentTemplate">

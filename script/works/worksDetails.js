@@ -13,7 +13,6 @@ var worksDetails = function() {
 	var videoUrl; //视频地址
 	self.collectionStatus = ko.observable('worksDetails-after');
 	self.LikeStatus = ko.observable("star-before");
-	self.isPay = ko.observable(false); //作品是否付费
 	self.UserID = getLocalItem("UserID"); //当前用户UserID
 	self.DownloadAmount = ko.observable(0); //下载价格
 	//作品的元素绑定
@@ -302,11 +301,13 @@ var worksDetails = function() {
 				var ret = JSON.parse(responseText);
 				var orderID = ret.orderID;
 				if (ret.requestJson == '') { //无需网上支付，下载成功
-					mui.toast("已成功提交");
+					mui.toast("购买成功");
+					
 					//重新获取视频
-					workobj.IsBought = true;
-					self.isPay(true);
-					self.getVideo(workobj);
+					self.getWorkDetail(self.Works().WorkID());
+					/*self.Works().IsBought(true);
+					self.getVideo(workobj);*/
+					
 					mui('#bottomPopover').popover("hide");
 					plus.nativeUI.closeWaiting();
 				} else {
@@ -602,6 +603,7 @@ var worksDetails = function() {
 		var height = width * 9 / 16;
 		_bought = work.IsBought;
 		console.log(work.IsBought + ' ' + work.VidPolyv);
+		document.getElementById('videoPos').innerHTML = '';
 		if (work.IsBought) {
 			var player = polyvObject('#videoPos').videoPlayer({
 				'width': '100%',

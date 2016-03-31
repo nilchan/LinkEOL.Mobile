@@ -102,7 +102,7 @@ var message_notification = function () {
 				})
 			}
 		} else if (message.ModuleID == common.gMessageModule.workDownloadModule) { //2
-			common.transfer("../works/mydownloadHeader.html")
+			//common.transfer("../works/mydownloadHeader.html")
 		} else if (message.ModuleID == common.gMessageModule.courseModule) { //3
 			//common.showIndexWebview(2, false);
 			common.transfer("../course/myCourse.html", true, {}, false, false);
