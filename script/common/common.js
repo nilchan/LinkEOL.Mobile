@@ -934,6 +934,21 @@
 		var c = b.slice(b.length - 1, b.length).toString(String).split(".");
 		return c.slice(0, 1);
 	},
+	
+	//地址处理
+	dealAddress:function(province,city,District){
+		var result;
+		if(province!=''){
+			result+=province;
+		}
+		if(city!=''){
+			result+=city;
+		}
+		if(District!=''){
+			result+=District;
+		}
+		return result
+	},
 
 	gContentRefreshDown: '刷新中...', //下拉时显示的文字
 	gContentRefreshUp: '努力加载中...', //上拉时显示的文字

@@ -24,6 +24,7 @@ var worksDetails = function() {
 	self.balance = ko.observable(0); //余额
 	//评论的相关元素绑定
 	self.teacherComment = ko.observableArray([]); //各个老师评论数组
+	self.isFav = ko.observable(false); //是否已收藏，默认否
 
 	//初始化作品
 	self.initWorksValue = function(works) {
@@ -423,7 +424,7 @@ var worksDetails = function() {
 			mui.toast("登录后才能下载~")
 			return;
 		}
-		
+
 		var ajaxUrl = common.gServerUrl + '/API/Download/CheckWorkIsBought?workId=' + self.Works().WorkID();
 		mui.ajax(ajaxUrl, {
 			type: 'GET',
@@ -463,7 +464,6 @@ var worksDetails = function() {
 				}
 				self.isGetComment();
 				shareTitle = "我在乐评家上分享了" + self.Works().Title() + "的视频";
-				console.log(self.Works().WorkType());
 				//获取动作的状态
 				common.getActions(0, common.gDictActionTargetType.Works, self.Works().WorkID(), function(result) {
 					if (common.StrIsNull(result) != '') {
@@ -477,6 +477,7 @@ var worksDetails = function() {
 							}
 							if (item.ActionType.toString() == common.gDictActionType.Favorite) {
 								self.collectionStatus('worksDetails-before');
+								self.isFav(true);
 							}
 							if (item.ActionType.toString() == common.gDictActionType.Like) {
 								self.LikeStatus("star-after");
@@ -530,12 +531,24 @@ var worksDetails = function() {
 			return;
 		}
 		if (self.IsAuthor()) return; //作者本人不允许收藏
-		var ret = common.postAction(common.gDictActionType.Favorite, common.gDictActionTargetType.Works, self.Works().WorkID());
-		if (ret) {
-			self.Works().FavCount(self.Works().FavCount() + 1);
-			self.collectionStatus('worksDetails-before');
-			mui.toast('收藏成功');
+		if (self.isFav()) {
+			var ret = common.deleteAction(common.gDictActionType.Favorite, common.gDictActionTargetType.Works, self.Works().WorkID(), self.UserID);
+			if (ret) {
+				self.Works().FavCount(self.Works().FavCount() - 1);
+				self.collectionStatus('worksDetails-after');
+				mui.toast('取消收藏成功');
+				self.isFav(false);
+			}
+		} else {
+			var ret = common.postAction(common.gDictActionType.Favorite, common.gDictActionTargetType.Works, self.Works().WorkID());
+			if (ret) {
+				self.Works().FavCount(self.Works().FavCount() + 1);
+				self.collectionStatus('worksDetails-before');
+				mui.toast('收藏成功');
+				self.isFav(true);
+			}
 		}
+
 	}
 
 	//赞

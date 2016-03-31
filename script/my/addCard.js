@@ -19,7 +19,7 @@ var addCard = function() {
 			success: function(responseText) {
 				var bankcard = eval("(" + responseText + ")");
 				self.bankcardArray(bankcard);
-				console.log(JSON.stringify(self.bankcardArray()));
+				//console.log(JSON.stringify(self.bankcardArray()));
 			}
 		})
 	}
@@ -30,7 +30,7 @@ var addCard = function() {
 		} else if (!/^(\d{16}|\d{19})$/.test(self.CardNumnber())) {
 			mui.toast("请输入16位或19位银行卡号");
 		}else{
-			self.bankcardArray.forEach(function(item){
+			self.bankcardArray().forEach(function(item){
 				if(item.CardNumber==self.CardNumber()){
 					mui.toast('该卡号已存在');
 					bExistcard=true;
@@ -52,13 +52,13 @@ var addCard = function() {
 			mui.toast("请输入16位或19位银行卡号");
 			return;
 		} else{
-			self.bankcardArray.forEach(function(item){
+			self.bankcardArray().forEach(function(item){
 				if(item.CardNumber==self.CardNumber()){
 					mui.toast('该卡号已存在');
 					bExistcard=true;
 					return ;
 				}
-			})
+			});
 		}
 		if (common.StrIsNull(self.OwnerName()) == "") {
 			mui.toast("请输入持卡人姓名");

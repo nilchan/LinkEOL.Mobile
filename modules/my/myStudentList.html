@@ -221,7 +221,7 @@
 									<div class="teacher-list-con">
 										<div data-bind='click:goStudentDeteil'>
 											<span class="teacher-list-teacherName" data-bind="text:info.DisplayName">张三</span>
-											<p class="teacher-list-p1" data-bind="text:info.Province+info.City+info.District">地址</p>
+											<p class="teacher-list-p1" data-bind="text:common.deatAddress(info.Province,info.City,info.District)">地址</p>
 											<p class="teacher-list-p1 teacher-list-p2" data-bind="text: info.HomeWorkStatus">2天前交过作业</p>
 												
 										</div>

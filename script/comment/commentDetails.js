@@ -114,6 +114,8 @@ var viewModel = function() {
 					self.Comment().CommentToRules = JSON.stringify(arr);
 					self.Comment().IsFinish = true;
 					mui.toast("保存成功");
+					var myWebview=plus.webview.getWebviewById('modules/my/my.html');
+					mui.fire(myWebview,'refreshAccount');
 					mui.back();
 				}
 			});
