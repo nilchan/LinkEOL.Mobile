@@ -73,7 +73,7 @@ var mydownload = function() {
 		else{	//已完成下载，可跳转浏览
 			plus.nativeUI.showWaiting();
 			//触发Header页面的事件
-			var workParent = plus.webview.currentWebview().opener();
+			var workParent = plus.webview.currentWebview().parent();
 			if (workParent != null) {
 				mui.fire(workParent, 'changeHeaderViewState', {
 					workTitle: data.workTitle()
@@ -81,20 +81,18 @@ var mydownload = function() {
 			}
 			
 			var top = 44 * 2;
-			//plus.runtime.wi
 			var width = screen.width; //document.body.clientWidth;
 			var height = width * 9 / 16;
 			
 			self.viewDetail(true);
-			document.getElementById('videoCtrl').style.top = top+'px';
-			document.getElementById('videoCtrl').style.height = height+'px';
+			/*document.getElementById('videoCtrl').style.top = top+'px';
+			document.getElementById('videoCtrl').style.height = height+'px';*/
 			self.workContentText(data.workContentText());
 			
-			//alert(document.getElementById('videoCtrl').style.height);
 			//设置视频位置
 			var ret = plus.VideoUtility.InitPlayer(data.workVidPolyv(), common.gJsonVideoLevel.SD, [
 				0, top, width, height
-			],"");
+			], data.workTitle());
 			
 			/*if (ret && ret.status) {
 				var ret = plus.VideoUtility.PlayVideo(data.workVidPolyv(), common.gJsonVideoLevel.SD);

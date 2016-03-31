@@ -6,7 +6,9 @@ window.addEventListener('changeHeaderViewState',function(event) {
 	document.getElementsByClassName('mui-title')[0].innerText = event.detail.workTitle;
 });
 
+var oldBack = mui.back;
 mui.back = function() {
+	//alert(viewDetail);
 	if(viewDetail){
 		viewDetail = false;
 		document.getElementsByClassName('mui-title')[0].innerText = '我的下载';
@@ -24,7 +26,8 @@ mui.back = function() {
 			mui.fire(children[0], 'changeContentViewState', {});
 		}
 		
-		common.showIndexWebview(4);
+		//common.showIndexWebview(4);
+		oldBack();
 	}
 };
 

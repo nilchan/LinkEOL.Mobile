@@ -1150,7 +1150,8 @@
 					"modules/home/messageWeb.html",
 					"modules/my/myStudentList.html",
 					"modules/my/myTeacherList.html",
-					"modules/my/myAccount.html"
+					"modules/my/myAccount.html",
+					"modules/course/myCourse.html"
 				],
 				"priority": 2
 			},

@@ -105,7 +105,7 @@ var message_notification = function () {
 			common.transfer("../works/mydownloadHeader.html")
 		} else if (message.ModuleID == common.gMessageModule.courseModule) { //3
 			//common.showIndexWebview(2, false);
-			common.transfer("../course/myCourse.hrml", true, {}, false, false);
+			common.transfer("../course/myCourse.html", true, {}, false, false);
 		} else if (message.ModuleID == common.gMessageModule.homeworkModule) { //4
 			if (getLocalItem('UserType') == common.gDictUserType.teacher) {
 				setLocalItem('comment.workType', common.gJsonWorkTypeStudent[1].value); //学生作业
