@@ -2346,7 +2346,7 @@ li {
 	font-size: 17px!important;
 }
 .addWorks-textarea-div {
-	min-height: 94px;
+	min-height: 100px;
 	box-sizing: border-box;
 	padding: 10px 0px;
 /*	border-bottom: 1px solid #C8C7CC;*/
@@ -2363,13 +2363,14 @@ li {
 	line-height: 1.6!important;
 	width: 71%;
 	float: right;
-	min-height: 94px;
+	overflow: scroll;
+	min-height: 86px;
 	font-family: "微软雅黑";
 }
 .addWorks-add {
 	min-height: 106px;
 	overflow: hidden;
-	padding: 0px 15px 22px 15px;
+	padding: 10px 15px 22px 15px;
 	width: 100%;
 	box-sizing: border-box;
 	/*border-bottom: 0.5px solid #c8c7cc;*/

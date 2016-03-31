@@ -109,7 +109,7 @@
 								<!--<u class="u-font-right" data-bind='text: UserType == common.gDictUserType.teacher ? TeachAge + " 年教龄 " : TheAge'></u>-->
 							</div>
 							<div class="card-row-right card-row-dow">
-								<u data-bind="text:Province + (common.StrIsNull(City) == ''?'':City) + (common.StrIsNull(District) == ''?'':District)"></u>
+								<u data-bind="text:((common.StrIsNull(Province)==''?'':Province)+(common.StrIsNull(City)==''?'':City)+(common.StrIsNull(District)==''?'':District))"></u>
 							</div>
 						</div>
 					</div>

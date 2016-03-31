@@ -308,7 +308,8 @@
 					"images/worksIndex1.png",
 					"images/workIndex-2.jpg",
 					"images/workIndex-3.jpg",
-					"images/worksIndex-banner-S.jpg"
+					"images/worksIndex-banner-S.jpg",
+					"images/worksIndex-banner-T.jpg"
 				],
 				"refer": [
 					"modules/works/worksListAllHeader.html",
@@ -1474,7 +1475,8 @@
 					"content/common/global.css",
 					"content/fonts/iconfont.css",
 					"content/mui/mui.min.css",
-					"content/fonts/mui.ttf"
+					"content/fonts/mui.ttf",
+					"content/fonts/iconfont.woff"
 				],
 				"refer": [
 					"modules/my/moreInfo.html"
