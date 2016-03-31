@@ -1373,6 +1373,7 @@
 		exam:4,		//考级
 		news:5,		//咨询
 		recommend:6,//推荐好友
+		UserGuide:7 //用户指南
 	},
 	
 	

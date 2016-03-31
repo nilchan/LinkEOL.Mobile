@@ -226,12 +226,12 @@ Share.shareMessage = function(s, ex) {
 	msg.pictures = share_img;
 	s.send(msg, function() {
 		console.log("分享到\"" + s.description + "\"成功，返回应用 "); // 分享给qq好友，微信好友如果不返回应用，无法监听到分享成功回调
-		if (share_Content_type != '') {
+		if (share_Content_type == common.gShareContentType.UserGuide) {
 			var thisUrl = common.gServerUrl + 'API/LogShare/LogShareAdd?PageType=' + share_Content_type + '&ShareType=' + share_type + '&Remark=' + share_href;
 			mui.ajax(thisUrl, {
 				type: 'POST',
 				success: function(reponseText) {
-
+					
 				}
 			})
 		}

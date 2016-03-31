@@ -14,6 +14,9 @@
 			.mui-content {
 				background: #F1F1F1!important;
 			}
+			.add-card-border{
+				border: none;
+			}
 		</style>
 	</head>
 
@@ -25,14 +28,14 @@
 		<div class="mui-content">
 			<div class="add-card-form">
 				<div class="add-card-input">
-					<label>卡   号</label>
+					<label>卡　号</label>
 					<input type="text" placeholder="请输入卡号" onfocus="this.type='number'" onblur="this.type='text'" data-bind="value:CardNumnber,event:{blur:checkBanknunmber}" />
 				</div>
 				<div class="get-bankName" data-bind="visible:common.StrIsNull(self.bankDes())!='' &&  isExistBank()==false ">
 					<i class="iconfont">&#xe659;</i>
 					<span class="add-card-name" data-bind="text:bankDes"></span>
 				</div>
-				<div class="add-card-input" data-bind="visible:isExistBank">
+				<div class="add-card-input add-card-border" data-bind="visible:isExistBank">
 					<label>银行名称</label>
 					<input type="text" placeholder="请输入银行名称"  data-bind="value:bankName" />
 				</div>

@@ -128,7 +128,7 @@ var newsDetail=function(){
 	//分享的参数
 	var shareTitle = "";
 	var shareContent = "你看了没";
-	var shareUrl = common.gWebsiteUrl + "modules/works/workInfo.html?id=";
+	var shareUrl = common.gWebsiteUrl + "modules/news/newsInfo.html?id=";
 	var shareImg = "";
 
 	//分享功能

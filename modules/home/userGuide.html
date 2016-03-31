@@ -20,22 +20,29 @@
 		<div class="mui-content">
 		</div>
 		<script src="../../script/mui/mui.js"></script>
+		
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.plusReady(function() {
-				var identity;
+				var identity, webUrl;
 				if( getLocalItem("UserType") == common.gDictUserType.teacher ) {
 					identity = "teacher";
 				}
 				if (identity == "teacher") {
-					webUrl = common.gWebsiteUrl + 'mobile/modules/home/userGuideT.html;
+					webUrl = common.gWebsiteUrl + 'mobile/modules/home/userGuideT.html';
 				} else {
-					webUrl = common.gWebsiteUrl + 'mobile/modules/home/userGuideS.html;
+					webUrl = common.gWebsiteUrl + 'mobile/modules/home/userGuideS.html';
+				}
+				var topPx = '45px';
+				if (plus.os.vendor == 'Apple') {
+					topPx = '60px';
 				}
 				mui.init({
 					subpages: [{
 						url: webUrl,
 						styles: {
-							top: '60px',
+							top: topPx,
 							bottom: '0px'
 						}
 					}]

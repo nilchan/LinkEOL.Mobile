@@ -180,7 +180,6 @@ var viewModel = function() {
 					mui.fire(myWebview,'refreshAccount');
 					common.transfer('../works/worksListMyHeader.html',true,{},false,false);
 				} else {
-					console.log(11)
 					var requestJson = JSON.stringify(ret.requestJson);
 					//console.log(requestJson);
 					//根据支付方式、订单信息，调用支付操作

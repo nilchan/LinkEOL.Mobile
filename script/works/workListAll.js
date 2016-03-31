@@ -302,6 +302,9 @@ var workListAll = function() {
 
 
 	$(function() {
+		$('#sort-nav-list').hide();
+			$('#type-nav-list').hide();
+			$('#subject-nav-list').show();
 		$('#subject-nav').click(function(event) {
 			$('#sort-nav-list').hide();
 			$('#type-nav-list').hide();

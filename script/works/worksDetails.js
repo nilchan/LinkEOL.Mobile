@@ -108,7 +108,7 @@ var worksDetails = function() {
 
 	//是否能够查看点评
 	self.isGetComment = function() {
-		if (common.StrIsNull(self.UserID) == '') {
+		if (common.StrIsNull(self.UserID) == '' || self.IsAuthor()) {
 			self.getComment();
 		} else {
 			var result;

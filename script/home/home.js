@@ -49,13 +49,6 @@ var home = function() {
 	
 	self.goHelp=function(){
 		common.transfer('userGuide.html', false);
-		var ajaxUrl=common.gServerUrl+'API/LogShare/LogActionAdd?ControllerName=UserGuide&ActionName=UserGuide &ActionInfo=UserGuide';
-		mui.ajax(ajaxUrl,{
-			type:'POST',
-			success:function(){
-				
-			}
-		})
 	}
 
 	//跳转至老师详情

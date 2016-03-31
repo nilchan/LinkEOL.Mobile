@@ -13,31 +13,50 @@
 			.mui-content-padded {
 				margin: 0!important;
 			}
-			.mui-bar-nav ~ .mui-content{
+			
+			.mui-bar-nav ~ .mui-content {
 				padding-top: 25px;
 			}
+			
 			.mui-btn-block {
 				width: 30%!important;
 				float: right;
 				margin-right: 15px;
 				font-size: 14px!important;
 			}
+			
 			.mui-bar .mui-btn {
 				top: 10px;
 				padding: 6px 18px;
 			}
-			.details-ul{
+			
+			.details-ul {
 				width: 100%;
-				display:inline;
+				display: inline;
 			}
-			.details-ul li{
+			
+			.details-ul li {
 				/*float: left;
 				width: 20%;*/
 				display: table-cell;
-				
 			}
-			.details-ul .details-date{
+			
+			.details-ul .details-date {
 				width: 35%;
+			}
+			
+			.worksDetails-photo-photo {
+				width: 100%;
+				height: auto;
+				overflow: hidden;
+				padding: 10px 10px 7px 10px;
+				box-sizing: border-box;
+				float: left;
+			}
+			
+			.worksDetails-photo-photo img {
+				border-radius: 0;
+				width: 100%;
 			}
 		</style>
 	</head>
@@ -76,10 +95,10 @@
 	                <i class="iconfont">&#xe62d;</i>
 	                <em data-bind="text:'[' + teacher().DisplayName + ']', visible: !isCommenter()"></em>老师评语
 	            </span>
-	            <div class="no-comment" data-bind="visible: hasCommented() == false && isCommenter() ==  false">
-            		老师未点评
-	            </div>
-	            <div data-bind="visible: hasCommented() == true && isCommenter() == false || isCommenter() == true">
+				<div class="no-comment" data-bind="visible: hasCommented() == false && isCommenter() ==  false">
+					老师未点评
+				</div>
+				<div data-bind="visible: hasCommented() == true && isCommenter() == false || isCommenter() == true">
 					<!--ko foreach: {data: commentToRules}-->
 					<span data-bind="text: RuleName"></span>
 					<p data-bind="text:Comment, visible: isCommenter() == false"></p>
@@ -88,7 +107,7 @@
 					<span class="t-comment">总评语</span>
 					<p data-bind="text:totalComment, visible: isCommenter() == false"></p>
 					<textarea data-bind="value: totalComment, visible: isCommenter() == true, attr:{'placeholder': '请输入评语'}"></textarea>
-	
+
 					<div class="works-consult-title" data-bind="click:addfeedback">
 						<span><i class="iconfont">&#xe609;</i>咨询 </span>
 						<em class="iconfont" data-bind="visible: isCommenter() == false">&#xe621;</em>
