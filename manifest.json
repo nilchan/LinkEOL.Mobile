@@ -1897,7 +1897,8 @@
 					"content/mui/mui.picker.min.css",
 					"content/common/global.css",
 					"modules/comment/commentList.html",
-					"content/fonts/iconfont.woff"
+					"content/fonts/iconfont.woff",
+					"content/fonts/iconfont.ttf"
 				],
 				"refer": [
 					"modules/works/worksList.html",

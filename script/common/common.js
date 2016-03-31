@@ -937,9 +937,21 @@
 	
 	//地址处理
 	dealAddress:function(province,city,district){
-		console.log(province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district)
+//		console.log(province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district)
 		return province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district;
-		console.log(province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district)
+//		console.log(province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district)
+	},
+	
+	/**
+	 * 刷新个人中心的数字数值（关注数、相册数、账户余额）
+	 * @param {Object} valueJsonObj 
+	 * 		举例：{'valueType': '', 'count': 0, 'changeValue': 0}
+	 * 		valueType取值：关注数-fav；相册数-album；账户余额-balance；银行卡-bankcard
+	 */
+	refreshMyValue:function(valueJsonObj){
+		var myPage = common.getIndexChild(4);	//个人中心页面
+		mui.fire(myPage,'refreshMyValue', valueJsonObj);
+		
 	},
 
 	gContentRefreshDown: '刷新中...', //下拉时显示的文字

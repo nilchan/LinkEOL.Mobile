@@ -10,6 +10,7 @@ function s2j_onPlayOver() {
 var worksDetails = function() {
 	var self = this;
 	var workIsDel = false;
+	var workIsFav = false; //是否收藏
 	var videoUrl; //视频地址
 	self.collectionStatus = ko.observable('worksDetails-after');
 	self.LikeStatus = ko.observable("star-before");
@@ -302,12 +303,12 @@ var worksDetails = function() {
 				var orderID = ret.orderID;
 				if (ret.requestJson == '') { //无需网上支付，下载成功
 					mui.toast("购买成功");
-					
+
 					//重新获取视频
 					self.getWorkDetail(self.Works().WorkID());
 					/*self.Works().IsBought(true);
 					self.getVideo(workobj);*/
-					
+
 					mui('#bottomPopover').popover("hide");
 					plus.nativeUI.closeWaiting();
 				} else {
@@ -320,9 +321,8 @@ var worksDetails = function() {
 							success: function(respText) {
 								console.log(respText);
 								//重新获取视频
-								//self.getVideo(self.Works());
-								workobj.IsBought = true;
-								self.getVideo(workobj);
+								self.getWorkDetail(self.Works().WorkID());
+
 								plus.nativeUI.closeWaiting();
 								mui('#bottomPopover').popover("toggle");
 							}
@@ -366,7 +366,7 @@ var worksDetails = function() {
 			},
 			error: function(responseText) {
 				console.log('getDataForOrder')
-				//console.log(JSON.stringify(responseText));
+					//console.log(JSON.stringify(responseText));
 			}
 		});
 	}
@@ -437,7 +437,7 @@ var worksDetails = function() {
 				} else {
 					mui('#bottomPopover').popover('toggle');
 				}
-				
+
 				plus.nativeUI.closeWaiting();
 			}
 		})
@@ -543,6 +543,7 @@ var worksDetails = function() {
 				self.collectionStatus('worksDetails-after');
 				mui.toast('取消收藏成功');
 				self.isFav(false);
+				workIsFav = false;
 			}
 		} else {
 			var ret = common.postAction(common.gDictActionType.Favorite, common.gDictActionTargetType.Works, self.Works().WorkID());
@@ -551,6 +552,7 @@ var worksDetails = function() {
 				self.collectionStatus('worksDetails-before');
 				mui.toast('收藏成功');
 				self.isFav(true);
+				workIsFav = true;
 			}
 		}
 
@@ -687,7 +689,7 @@ var worksDetails = function() {
 				self.Order(workVaule.order);
 				self.DownloadAmount(self.Order().Amount);
 				getDataForOrder(self.Order().TargetID);
-				
+
 				self.getBalance();
 				//self.getDownloadPrice();
 				common.showCurrentWebview();
@@ -703,6 +705,12 @@ var worksDetails = function() {
 	mui.init({
 		beforeback: function() {
 			var workParent = workVaule.opener();
+			var webObj = plus.webview.getWebviewById('myCollection.html');
+			mui.fire(webObj, 'refreshCollection', {
+				worksId: self.Works().WorkID(),
+				favStatus: workIsFav
+			})
+			
 			if (workParent != null) {
 				if (workParent.id == 'worksListAllWorks.html' || workParent.id == 'classmateWorks.html') {
 					if (workIsDel) { //删除作品
@@ -721,7 +729,7 @@ var worksDetails = function() {
 						worksId: self.Works().WorkID(),
 						worksStatus: workIsDel
 					})
-				}
+				} 
 			}
 
 			return true;

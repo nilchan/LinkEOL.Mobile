@@ -62,10 +62,11 @@ var myAttention = function() {
 
 	mui.init({
 		beforeback: function() {
-			var pp = plus.webview.getWebviewById('modules/my/my.html');
-			mui.fire(pp, 'refreshAttention', {
-				UserFavCount: self.FavUsers().length
-			});
+			common.refreshMyValue({
+				valueType: 'fav',
+				changeValue: 0,
+				count: self.FavUsers().length
+			})
 			return true;
 		}
 	})

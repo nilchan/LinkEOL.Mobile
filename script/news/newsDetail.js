@@ -136,7 +136,7 @@ var newsDetail=function(){
 	var lis = ull.getElementsByTagName("li");
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
-			Share.sendShare(this.id, shareTitle, shareContent, shareUrl+newsID , shareImg,common.gShareContentType.news);
+			Share.sendShare(this.id, shareTitle, shareContent, shareUrl+newsID , shareImg, common.gShareContentType.news);
 			mui('#sharePopover').popover('toggle');
 		}
 	}

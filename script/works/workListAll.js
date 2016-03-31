@@ -151,6 +151,8 @@ var workListAll = function() {
 		mui.plusReady(function() {
 			if (plus.os.vendor == 'Apple') {
 				mui('.mui-scroll-wrapper').scroll();
+				mui('#down-nav2').scroll();
+				mui('#down-nav3').scroll();
 			}
 		});
 	}

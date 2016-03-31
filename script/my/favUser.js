@@ -69,6 +69,12 @@ var favUser = function() {
 		if (ret) {
 			mui.toast('关注成功');
 			isAttentionUser = true;
+			
+			common.refreshMyValue({
+				valueType: 'fav',
+				changeValue: 1,
+				count: 0
+			})
 		}
 		plus.webview.close(qrcodeWeb.opener());
 		//common.transfer('myAttention.html');

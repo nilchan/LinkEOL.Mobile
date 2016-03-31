@@ -189,8 +189,11 @@
 				self.isFav(false);
 				self.collectionStatus('');
 				mui.toast('成功取消关注');
-				var myWebview = plus.webview.getWebviewById('modules/my/my.html');
-				mui.fire(myWebview, 'getAttention');
+				common.refreshMyValue({
+					valueType: 'fav',
+					changeValue: -1,
+					count: 0
+				})
 			}
 		}else{
 			var ret = common.postAction(common.gDictActionType.Favorite, common.gDictActionTargetType.User, TUserID);
@@ -199,8 +202,11 @@
 				self.isFav(true);
 				self.collectionStatus('teacheeInfo-sc-after');
 				mui.toast('关注成功');
-				var myWebview = plus.webview.getWebviewById('modules/my/my.html');
-				mui.fire(myWebview, 'getAttention');
+				common.refreshMyValue({
+					valueType: 'fav',
+					changeValue: 1,
+					count: 0
+				})
 			}
 		}
 

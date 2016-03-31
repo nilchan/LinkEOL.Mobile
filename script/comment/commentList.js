@@ -82,6 +82,7 @@ var commentList = function() {
 		mui.ajax(self.getAjaxUrl(), {
 			type: 'GET',
 			success: function(responseText) {
+				console.log(responseText);
 				var result = eval("(" + responseText + ")");
 				self.comments(result);
 				self.workLen(self.comments().length);

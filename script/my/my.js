@@ -262,41 +262,34 @@ var my = function() {
 		}
 	})*/
 
-	//关注列表返回刷新我的关注数量  不做请求,优化性能
-	window.addEventListener('refreshAttention', function(event) {
-		if (common.StrIsNull(event.detail.UserFavCount) != '') {
-			self.UserFavCount(event.detail.UserFavCount);
-		}
-	})
-
-	//其他页面关注刷新，做请求
-	window.addEventListener('getAttention', function(event) {
-		//if (common.StrIsNull(event.detail.isGetNew) != '' && event.detail.isGetNew ) {
-		//self.UserFavCount(event.detail.UserFavCount);
-		var ajaxUrl = common.gServerUrl + 'API/Action?userid=' + self.UserID() + '&targetType=' + common.gDictActionTargetType.User + '&pageSize=9999';
-		mui.ajax(ajaxUrl, {
-				type: 'GET',
-				success: function(responseText) {
-					var favUsers = JSON.parse(responseText);
-					self.UserFavCount(favUsers.length);
-					//console.log(self.UserFavCount());
-				}
-			})
-			//}
-	})
-
 	//刷新我的账户余额
-	window.addEventListener('refreshAccount', function(event) {
-		if (common.StrIsNull(event.detail.bankCardNum) != '') { //从我的账户页面跳转回来，刷新银行卡
-			self.BankCardNum(event.detail.bankCardNum);
+	window.addEventListener('refreshMyValue', function(event) {
+		var valueJsonObj = event.detail;
+		switch(valueJsonObj.valueType){
+			case "fav":
+				if(valueJsonObj.changeValue != 0){	//若存在变化数，则在原基础上修改，否则直接更新为总数
+					self.UserFavCount(self.UserFavCount() + valueJsonObj.changeValue);
+				}
+				else{
+					self.UserFavCount(valueJsonObj.count);
+				}
+				break;
+			case "album":
+				self.PhotoCount(valueJsonObj.count);
+				break;
+			case "balance":
+				mui.ajax(common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + self.UserID(), {
+					type: 'GET',
+					success: function(responseText) {
+						var result = JSON.parse(responseText);
+						self.AccountBalance('￥' + (result.Amount).toFixed(2));
+					}
+				})
+				break;
+			case "bankcard":	//从我的账户页面跳转回来，刷新银行卡
+				self.BankCardNum(valueJsonObj.count);
+				break;
 		}
-		mui.ajax(common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + self.UserID(), {
-			type: 'GET',
-			success: function(responseText) {
-				var result = JSON.parse(responseText);
-				self.AccountBalance('￥' + (result.Amount).toFixed(2));
-			}
-		})
 	})
 
 	mui.back = function() {
