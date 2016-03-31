@@ -82,7 +82,7 @@ var mydownload = function() {
 			
 			var top = 44 * 2;
 			//plus.runtime.wi
-			var width = document.body.clientWidth;
+			var width = screen.width; //document.body.clientWidth;
 			var height = width * 9 / 16;
 			
 			self.viewDetail(true);
