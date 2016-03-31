@@ -2,7 +2,6 @@ var informationList = function() {
 	var self = this;
 	
 	var userID = getLocalItem('UserID');
-	
 	self.newsList = ko.observableArray([]); //列表数组
 	self.userName = ko.observable('我');
 	self.displayCheck = ko.observable(false);
@@ -53,14 +52,14 @@ var informationList = function() {
 	
 	//跳转个人信息
 	self.gotoInfo = function() {
-		var user = this;
+		var user = this.info;
 		if (user.UserType == common.gDictUserType.teacher) {
 			common.transfer('../../modules/teacher/teacherInfo.html', false, {
-				teacherID: user.ID
+				teacherID: user.PublisherUserID
 			}, false, false);
 		} else if (user.UserType == common.gDictUserType.student) {
 			common.transfer('../../modules/student/studentInfo.html', false, {
-				studentID: user.ID
+				studentID: user.PublisherUserID
 			}, false, false);
 		}
 	}

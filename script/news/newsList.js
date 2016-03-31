@@ -14,6 +14,7 @@ var informationList = function() {
 			success: function(responsText) {
 				self.newsList(JSON.parse(responsText));
 				self.clampText();
+				common.showCurrentWebview();
 			}
 		});
 	};

@@ -1035,7 +1035,8 @@
 		CourseToUser: 2, //约课
 		Download: 3, //下载
 		Exam: 4, //考级报名
-		Ticket: 5 //活动售票
+		Ticket: 5, //活动售票
+		Homework:6 //作业付费
 	},
 
 	//课程类型

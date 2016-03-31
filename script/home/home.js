@@ -30,7 +30,7 @@ var home = function() {
 	
 	//跳转新闻列表
 	self.gotoNewsList = function() {
-		common.transfer('../news/newsListHeader.html', false);
+		common.transfer('../news/newsListHeader.html', false, {}, false, false);
 	}
 
 	self.clampDes = function() {

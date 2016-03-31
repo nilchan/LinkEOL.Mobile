@@ -6731,15 +6731,14 @@ li {
 	position: relative;
 }
 .worksDetails-photo-photo {
-	width: 15.4%;
+	width: 100%;
 	height: auto;
 	overflow: hidden;
-	padding: 10px 0 7px 10px;
+	padding: 10px 10px 7px 10px;
 	box-sizing: border-box;
 	float: left;
 }
 .worksDetails-photo-photo img {
-	border-radius: 50%;
 	width: 100%;
 }
 .worksDetails-photo-name {

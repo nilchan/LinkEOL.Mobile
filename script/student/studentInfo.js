@@ -102,7 +102,7 @@ var studentInfo = function() {
 	self.goUserNews = function() {
 		common.transfer('../news/myNewsList.html', false, {
 			userid: sUserID,
-			useName:self.userInfo().DisplayName
+			userName:self.userInfo().DisplayName
 		}, false, false);
 	}
 

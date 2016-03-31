@@ -99,7 +99,7 @@ var myOrders = function() {
 	}
 
 	self.goDetail = function(order) {
-		//console.log(JSON.stringify(order));
+		console.log(JSON.stringify(order));
 		var url = '';
 		switch (order.TargetType) {
 			case common.gDictOrderTargetType.Comment:
@@ -115,6 +115,9 @@ var myOrders = function() {
 			case common.gDictOrderTargetType.Ticket:
 				url = '../../modules/activity/saleTicket.html';
 				break;
+			case common.gDictOrderTargetType.Homework:
+				url = '../../modules/student/submitComment.html';
+				break;	
 			default:
 				return;
 		}

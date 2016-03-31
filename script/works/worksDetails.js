@@ -364,6 +364,7 @@ var worksDetails = function() {
 				}
 			},
 			error: function(responseText) {
+				console.log('getDataForOrder')
 				//console.log(JSON.stringify(responseText));
 			}
 		});
@@ -425,6 +426,7 @@ var worksDetails = function() {
 			return;
 		}
 
+		plus.nativeUI.showWaiting();
 		var ajaxUrl = common.gServerUrl + '/API/Download/CheckWorkIsBought?workId=' + self.Works().WorkID();
 		mui.ajax(ajaxUrl, {
 			type: 'GET',
@@ -434,6 +436,8 @@ var worksDetails = function() {
 				} else {
 					mui('#bottomPopover').popover('toggle');
 				}
+				
+				plus.nativeUI.closeWaiting();
 			}
 		})
 	}
@@ -681,9 +685,9 @@ var worksDetails = function() {
 				self.Order(workVaule.order);
 				self.DownloadAmount(self.Order().Amount);
 				getDataForOrder(self.Order().TargetID);
-
+				
 				self.getBalance();
-				self.getDownloadPrice();
+				//self.getDownloadPrice();
 				common.showCurrentWebview();
 			} else {
 				//console.log(workVaule.works.ID);
