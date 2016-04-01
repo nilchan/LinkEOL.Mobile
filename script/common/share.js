@@ -215,6 +215,7 @@ Share.shareAction = function(id, ex) {
  */
 Share.shareMessage = function(s, ex) {
 	plus.nativeUI.closeWaiting();
+    alert('shareMessage')
 	var msg = {
 		extra: {
 			scene: ex
@@ -225,6 +226,7 @@ Share.shareMessage = function(s, ex) {
 	msg.title = share_title;
 	msg.thumbs = share_thumb_img;
 	msg.pictures = share_img;
+    alert(JSON.stringify(msg))
 	s.send(msg, function() {
 		console.log("分享到\"" + s.description + "\"成功，返回应用 "); // 分享给qq好友，微信好友如果不返回应用，无法监听到分享成功回调
 		if (share_Content_type == common.gShareContentType.UserGuide) {
@@ -238,6 +240,7 @@ Share.shareMessage = function(s, ex) {
 		}
 
 	}, function(e) {
+           alert("分享到\"" + s.description + "\"失败！ " + e.code + " - " + e.message)
 		console.log("分享到\"" + s.description + "\"失败！ " + e.code + " - " + e.message);
 	});
 	

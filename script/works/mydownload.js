@@ -98,9 +98,9 @@ var mydownload = function() {
 				var ret = plus.VideoUtility.PlayVideo(data.workVidPolyv(), common.gJsonVideoLevel.SD);
 				if (ret && !ret.status) {
 					mui.toast('视频加载失败');
+					
 				}
 			}*/
-			
 			plus.nativeUI.closeWaiting();
 		}
 	}

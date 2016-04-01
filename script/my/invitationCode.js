@@ -20,7 +20,8 @@ var invitationCode=function(){
 	var lis = ul.getElementsByTagName("li");
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
-			Share.sendShare(this.id, shareTitle, shareContent, shareUrl+self.inviteCode()+nameUrl+disPlayName, shareImg);
+            //alert(this.id)
+			Share.sendShare(this.id, shareTitle, shareContent, encodeURI(shareUrl+self.inviteCode()+nameUrl+disPlayName), shareImg);
 			mui('#sharePopover').popover('toggle');
 		};
 	}
