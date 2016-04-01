@@ -14,7 +14,6 @@
 			.mui-content > .mui-table-view:first-child {
 				margin-top: 0px;
 			}
-			
 			/*.mui-table-view:after,
 			.mui-table-view-cell:after {
 				height: 0px;
@@ -23,6 +22,7 @@
 			.mui-table-view-cell.mui-active {
 				background: #eee!important;
 			}
+			
 			.mui-bar-tab .ah-mui-tab-item {
 				display: table-cell;
 				overflow: hidden;
@@ -61,21 +61,23 @@
 				color: #E64578!important;
 				background: #fff;
 			}
+			
 			@media only screen and (min-width: 320px) and (max-width: 374px) {
-				.informationList-box{
-				height: 155px;
-				width: 100%;
-				padding: 15px 0px;
-				position: relative;
+				.informationList-box {
+					height: 155px;
+					width: 100%;
+					padding: 15px 0px;
+					position: relative;
+				}
 			}
-			}
-				@media only screen and (min-width: 320px) and (max-width: 374px) {
-				.informationList-box{
-				height: 140px;
-				width: 100%;
-				padding: 15px 0px;
-				position: relative;
-			}
+			
+			@media only screen and (min-width: 320px) and (max-width: 374px) {
+				.informationList-box {
+					height: 140px;
+					width: 100%;
+					padding: 15px 0px;
+					position: relative;
+				}
 			}
 		</style>
 	</head>
@@ -87,9 +89,9 @@
 			<em class="iconfont mui-bar-nav-em" data-bind="event:{tap: deleteNews}, visible: isAuthor">&#xe61b;</em>
 		</header>
 		<div class="mui-content">
-			<ul class="mui-table-view" data-bind="foreach: newsList">
+			<ul class="mui-table-view" data-bind="foreach: newsList" data-bind="visible:newsList().lengt>0 ">
 				<li class="informationList-box mui-table-view-cell">
-					
+
 					<div class="informationList-left" data-bind="event:{tap: gotoInfo}">
 						<em class="informationList-photo">
 								<img data-bind="attr: {'src': common.getPhotoUrl(info.Photo)}, visible: !info.IsAuthority" onerror="this.src='../../images/my-default.png';" />
@@ -121,6 +123,14 @@
 					</div>
 				</li>
 			</ul>
+			
+			<div class="openedCourses-ys" data-bind="visible:newsList().length<=0 ">
+				<i>
+				<img src="../../images/logo-pic.png" />
+			</i>
+				<span data-bind="visible:newsList().length<=0 && !judgeAuthor()">还没发表过资讯呢~</span>
+			</div>
+			
 			<nav class="mui-bar mui-bar-tab" data-bind="visible: displayCheck">
 				<a class="ah-mui-tab-item mui-active works-list-mui-tab-label" data-bind="event:{tap: cacelSelect}">
 					<span class="mui-tab-label ">取消</span>
@@ -130,6 +140,7 @@
 					<span class="mui-tab-label works-list-mui-btn">确认</span>
 				</a>
 			</nav>
+
 			<!--<ul class="mui-table-view">
 					<li class="informationList-box mui-table-view-cell teacher-list-check-bgColor">
 						<em class="teacher-list-check myStudent-check">

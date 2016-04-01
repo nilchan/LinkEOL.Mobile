@@ -40,7 +40,14 @@ var addNews = function() {
 			}
 		})
 	}
-
+	
+	mui.plusReady(function(){
+		if (mui.os.ios) {
+			var h = window.screen.height - 175;
+			$A.gI('edit').style.maxHeight = h + 'px';
+		}
+	});
+	
 	mui.init({
 		beforeback: function() {
 			var parent = plus.webview.currentWebview().opener();

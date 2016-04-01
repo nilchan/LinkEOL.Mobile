@@ -6,7 +6,7 @@ var invitationCode=function(){
 	//分享的参数
 	var shareTitle = "我正在用这款应用点评作业，这是我分享给你的邀请码";
 	var shareContent = "诚邀您来体验作业点评的乐趣";
-	var shareUrl = common.gWebsiteUrl + "modules/my/inviteShare.html?inviteCode=";
+	var shareUrl = common.gWebsiteUrl + "mobile/modules/my/inviteShare.html?inviteCode=";
 	var shareImg = "";
 	var nameUrl='&disPlayName=';
 	
@@ -21,7 +21,7 @@ var invitationCode=function(){
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
 			plus.nativeUI.showWaiting();
-			Share.sendShare(this.id, shareTitle, shareContent, shareUrl+self.inviteCode()+nameUrl+disPlayName, shareImg);
+			Share.sendShare(this.id, shareTitle, shareContent,encodeURI(shareUrl+self.inviteCode()+nameUrl+disPlayName), shareImg);
 			mui('#sharePopover').popover('toggle');
 		};
 	}

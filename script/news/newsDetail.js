@@ -7,7 +7,7 @@ var newsDetail=function(){
 	self.editText=ko.observable('编辑');//编辑按钮名字
 	self.editStat=ko.observable(false);//是否启动编辑状态
 	self.isLink = ko.observable(true);
-	self.LikeCount=ko.observable(0);
+	self.isLike=ko.observable(false);
 	//新闻资讯实例化
 	self.initNews=function(newsDetail){
 		var self=this;
@@ -17,7 +17,7 @@ var newsDetail=function(){
 		self.PublisherUserID=ko.observable(newsDetail.PublisherUserID);//新闻资讯作者id
 		self.HtmlContent=ko.observable(newsDetail.HtmlContent);//新闻资讯内容html
 		self.DisplayName=ko.observable(newsDetail.DisplayName);//新闻资讯作者名字
-		/*self.LikeCount=ko.observable(newsDetail.LikeCount);//新闻点赞数*/
+		self.LikeCount=ko.observable(newsDetail.LikeCount);//新闻点赞数*/
 		self.ShareCount=ko.observable(newsDetail.ShareCount);//新闻分享次数
 		self.IsTop=ko.observable(newsDetail.IsTop);//新闻是否置顶
 		self.IsElite=ko.observable(newsDetail.IsElite);//新闻是否精华
@@ -41,12 +41,31 @@ var newsDetail=function(){
 				}
 				var result=JSON.parse(responseText);
 				//console.log(JSON.stringify(result))
-				self.LikeCount(result.LikeCount);
+				//self.LikeCount(result.LikeCount);
 				var obj = new self.initNews(result);
 				self.newsDetail(obj);
 				self.isLink(newsDetail().IsAuthority());
 				shareTitle = self.newsDetail().Title();
 				common.showCurrentWebview();
+				
+				//获取动作的状态
+				common.getActions(2, common.gDictActionTargetType.News, self.newsDetail().newsID(), function(result) {
+					if (common.StrIsNull(result) != '') {
+						var arr = JSON.parse(result);
+						for (var i = 0; i < arr.length; i++) {
+							var item = arr[i];
+							if (item.UserID.toString() != getLocalItem("UserID") ||
+								item.TargetType.toString() != common.gDictActionTargetType.News ||
+								item.TargetID.toString() != self.newsDetail().newsID()) {
+								continue;
+							}
+							if (item.ActionType.toString() == common.gDictActionType.Like) {
+								//self.LikeStatus("star-after");
+								self.isLike(true);
+							}
+						}
+					}
+				});
 			}
 		})
 	}
@@ -76,8 +95,9 @@ var newsDetail=function(){
 
 		var ret = common.postAction(common.gDictActionType.Like, common.gDictActionTargetType.News, self.newsDetail().newsID());
 		if (ret) {
-			self.LikeCount(self.LikeCount() + 1);
-			self.LikeStatus("star-after");
+			self.isLike(true);
+			self.newsDetail().LikeCount(self.newsDetail().LikeCount() + 1);
+			//self.LikeStatus("star-after");
 			mui.toast('感谢您的赞许');
 		}
 	}
@@ -101,14 +121,12 @@ var newsDetail=function(){
 			})
 			self.editStat(false);
 			$A.gI('edit').contentEditable = "false";
-			$A.gI('edit').style.maxHeight = "330px";
 			self.editText('编辑');
 			document.getElementById('title').readOnly = true;
 		}else{//点击编辑事件
 			self.editStat(true);
 			self.editText('完成');
 			$A.gI('edit').contentEditable = "true";
-			$A.gI('edit').style.maxHeight = "220px";
 			mui.toast('编辑模式开启~');
 			document.getElementById('title').readOnly = false;
 		}
@@ -158,6 +176,10 @@ var newsDetail=function(){
 		var thisWeb=plus.webview.currentWebview();
 		if(typeof thisWeb.newsId !='undefined'){
 			newsID=thisWeb.newsId;
+		}
+		if (mui.os.ios) {
+			var h = window.screen.height - 225;
+			$A.gI('edit').style.maxHeight = h + 'px';
 		}
 		self.getNewsDetail();
 	});

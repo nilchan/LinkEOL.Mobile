@@ -156,13 +156,13 @@
 		</div>
 
 		<nav class="mui-bar mui-bar-tab" data-bind="visible: editStat() == false">
-			<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" data-bind="click:addLikeCount,visible:LikeCount()==0">
+			<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" data-bind="click:addLikeCount,visible:isLike()==false">
 				<i class="iconfont" style="font-size: 20px;" >&#xe663;</i>
-				<span class="mui-tab-label">点赞</span>
+				<span class="mui-tab-label"><!--ko text:newsDetail().LikeCount-->20<!--/ko-->人点赞</span>
 			</a>
-			<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" style="color: #e64578;" data-bind='click:addLikeCount,visible:LikeCount()>0'>
+			<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" style="color: #e64578;" data-bind='click:addLikeCount,visible:isLike'>
 				<i class="iconfont" style="font-size: 20px;" >&#xe68a;</i>
-				<span class="mui-tab-label"><!--ko text:LikeCount-->20<!--/ko-->人点赞</span>
+				<span class="mui-tab-label"><!--ko text:newsDetail().LikeCount-->20<!--/ko-->人点赞</span>
 			</a>
 			<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui newsInfo-nav" href="#sharePopover">
 				<i class="iconfont" style="font-size: 20px;">&#xe670;</i>
