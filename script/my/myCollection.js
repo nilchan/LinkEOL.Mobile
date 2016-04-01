@@ -30,7 +30,7 @@ var myUserAttented = function() {
 
 	//跳转至所有作品
 	self.gotoAllWorks = function() {
-		common.transfer("../works/worksListAllHeader.html");
+		common.transfer("../works/worksListAllHeader.html", true, {}, false, false);
 	};
 	
 	window.addEventListener('refreshCollection',function(event){

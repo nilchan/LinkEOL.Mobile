@@ -81,19 +81,24 @@ var gotoPay = function() {
 		//新增则保存约课及课时信息；修改则保存新的支付方式。均返回订单信息
 		mui.ajax(ajaxUrl, {
 				type: 'POST',
-				data: self.ViewOrder() ? self.Order() : courseToUser,
+				data: self.ViewOrder() ? null : courseToUser,
 				success: function(responseText) { //responseText为微信支付所需的json
 					var ret = JSON.parse(responseText);
 					var orderID = ret.orderID;
-					//console.log(JSON.stringify(ret.requestJson))
+					
+					//订单已生成，此时相当于浏览订单
+					self.Order().ID = ret.orderID;
+					self.ViewOrder(true);
+					
 					if (ret.requestJson == '') { //无需网上支付，下载成功
 						mui.toast("购买成功");
 						//重新获取视频
 						self.getWorkDetail(self.Works().WorkID());
 						common.refreshMyValue({
 							valueType: 'balance'
-						})
+						});
 						mui('#popPay').popover('hide');
+						common.refreshOrder();//刷新订单
 						plus.nativeUI.closeWaiting();
 					} else {
 						var requestJson = JSON.stringify(ret.requestJson);
@@ -106,7 +111,8 @@ var gotoPay = function() {
 									var lessons = JSON.parse(respText);
 									common.refreshMyValue({
 										valueType: 'balance',
-									})
+									});
+									common.refreshOrder();//刷新订单
 									if (lessons.length > 0) {
 										//跳转至约课的课时（打开第一个）
 										common.transfer("../../modules/course/myCourse.html", true, {

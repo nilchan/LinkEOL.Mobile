@@ -379,7 +379,8 @@
 					"modules/exam/examList.html",
 					"modules/my/help.html",
 					"modules/home/userGuide.html",
-					"modules/news/newsList.html"
+					"modules/news/newsList.html",
+					"modules/news/newsListHeader.html"
 				],
 				"priority": 0
 			},
@@ -2164,7 +2165,8 @@
 					"content/fonts/iconfont.ttf",
 					"content/fonts/mui.ttf",
 					"images/submitClass-wx.png",
-					"script/common/pay.js"
+					"script/common/pay.js",
+					"images/ye.png"
 				],
 				"refer": [
 					"modules/exam/examEnrollList.html"
@@ -2346,7 +2348,8 @@
 					"content/mui/mui.min.css",
 					"script/libs/knockout/knockout-3.3.0.min.js",
 					"content/fonts/iconfont.ttf",
-					"script/common/pay.js"
+					"script/common/pay.js",
+					"images/ye.png"
 				],
 				"refer": [
 					"modules/activity/showSet.html"
@@ -2512,7 +2515,8 @@
 					"images/share-py.png",
 					"script/common/share.js",
 					"content/fonts/mui.ttf",
-					"images/radio-check-active.png"
+					"images/radio-check-active.png",
+					"content/fonts/iconfont.ttf"
 				],
 				"refer": [
 					"modules/my/qrcodeEvent.html",
@@ -2919,7 +2923,9 @@
 				"refer": [
 					"modules/news/newsDetail.html",
 					"modules/account/login.html",
-					"modules/news/addNews.html"
+					"modules/news/addNews.html",
+					"modules/student/studentInfo.html",
+					"modules/teacher/teacherInfo.html"
 				],
 				"priority": 0
 			},
@@ -2963,6 +2969,23 @@
 				"refer": [
 					"modules/news/newsDetail.html"
 				],
+				"priority": 0
+			},
+			"modules/news/newsListHeader.html": {
+				"resources": [
+					"script/common/common.js",
+					"script/common/base.js",
+					"script/mui/mui.js",
+					"content/common/style.css",
+					"content/common/global.css",
+					"content/mui/mui.css",
+					"content/fonts/iconfont.css",
+					"content/fonts/iconfont.woff",
+					"content/common/Tf_global.css",
+					"modules/news/newsList.html",
+					"content/fonts/mui.ttf"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

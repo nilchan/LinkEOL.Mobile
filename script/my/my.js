@@ -113,7 +113,6 @@ var my = function() {
 			dataType: 'json',
 			type: 'GET',
 			success: function(responseText) {
-				//console.log(responseText.IsFamous);
 				self.ID(responseText.ID);
 				self.DisplayName(responseText.DisplayName);
 				self.Province(setStr('Province', responseText, ''));

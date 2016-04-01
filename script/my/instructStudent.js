@@ -211,6 +211,7 @@ var viewModel = function() {
 			success: function(responsText) {
 				mui.toast('操作成功');
 				common.setEnabled(evt);
+				pageID = 1;
 				self.getIntructList();
 			},
 			error: function(){
@@ -230,6 +231,7 @@ var viewModel = function() {
 			success: function(responsText) {
 				mui.toast('操作成功');
 				common.setEnabled(evt);
+				pageID = 1;
 				self.getIntructList();
 			},
 			error: function(){

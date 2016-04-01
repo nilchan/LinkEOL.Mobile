@@ -7,6 +7,7 @@ var examEnrollList = function() {
 	self.ExamCardNum=ko.observable('');
 	self.examInfo=ko.observableArray([]);//考评信息内容
 	self.enrollList = ko.observableArray([]);//报名列表内容
+	self.isCanRegister=ko.observable(true);//是否能够报名
 	
 	//获取报名列表
 	self.getExamList = function() {
@@ -73,6 +74,7 @@ var examEnrollList = function() {
 		var thisWebview=plus.webview.currentWebview();
 		if(typeof(thisWebview.examid)!="undefined"){
 			self.examid(thisWebview.examid);
+			self.isCanRegister(thisWebview.IsCanRegister);
 			self.getExamList();
 			self.getExamInfo();
 		}

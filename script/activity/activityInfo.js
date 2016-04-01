@@ -54,8 +54,10 @@ var viewModel = function() {
 				var lis = ul.getElementsByTagName("li");
 				for (var i = 0; i < lis.length; i++) {
 					lis[i].addEventListener('click', function() {
-						Share.sendShare(this.id, shareTitle, shareContent, shareUrl + self.activity().ID, shareImg,common.gShareContentType.activity);
 						mui('#sharePopover').popover('toggle');
+						plus.nativeUI.showWaiting();
+						Share.sendShare(this.id, shareTitle, shareContent, shareUrl + self.activity().ID, shareImg,common.gShareContentType.activity);
+						
 					});
 				}
 			}

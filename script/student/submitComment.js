@@ -172,12 +172,18 @@ var viewModel = function() {
 			success: function(responseText) { //responseText为微信支付所需的json
 				var ret = JSON.parse(responseText);
 				var orderID = ret.orderID; //订单跳转回来并无orderID,requestJson
+				
+				//订单已生成，此时相当于浏览订单
+				self.Order().ID = ret.orderID;
+				self.ViewOrder(true);
+				
 				if (ret.requestJson == '') { //无需网上支付，预约点评成功
 					mui.toast("已成功提交");
 					plus.nativeUI.closeWaiting();
 					common.refreshMyValue({
 						valueType: 'balance',
-					})
+					});
+					common.refreshOrder();//刷新订单
 					common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
 				} else {
 					var requestJson = JSON.stringify(ret.requestJson);
@@ -191,8 +197,8 @@ var viewModel = function() {
 								var comment = JSON.parse(respText);
 								common.refreshMyValue({
 										valueType: 'balance',
-									})
-									//common.showIndexWebview(3, true);
+								});
+								common.refreshOrder();//刷新订单
 								common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
 								plus.nativeUI.closeWaiting();
 							},

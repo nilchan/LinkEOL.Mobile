@@ -16,6 +16,7 @@ var viewModel = function() {
 	var lis = ul.getElementsByTagName("li");
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
+			plus.nativeUI.showWaiting();
 			Share.sendShare(this.id, shareTitle, shareContent, shareUrl, shareImg,common.gShareContentType.recommend);
 		};
 	}
@@ -29,6 +30,20 @@ var viewModel = function() {
 		}
 	}
 
+	//跳转个人信息
+	self.gotoInfo = function() {
+		var user = this;
+		if (user.UserType == common.gDictUserType.teacher) {
+			common.transfer('../../modules/teacher/teacherInfo.html', false, {
+				teacherID: user.PublisherUserID
+			}, false, false);
+		} else if (user.UserType == common.gDictUserType.student) {
+			common.transfer('../../modules/student/studentInfo.html', false, {
+				studentID: user.PublisherUserID
+			}, false, false);
+		}
+	}
+	
 	//获取同学列表
 	self.getClasamateList = function() {
 		mui.ajax(self.getAjaxUrl(), {

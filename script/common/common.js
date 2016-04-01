@@ -935,13 +935,6 @@
 		return c.slice(0, 1);
 	},
 	
-	//地址处理
-	dealAddress:function(province,city,district){
-		console.log(province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district)
-		return province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district;
-		console.log(province+common.StrIsNull(city)==''?'':+city+common.StrIsNull(district)==''?'':district)
-	},
-
 	/**
 	 * 刷新个人中心的数字数值（关注数、相册数、账户余额）
 	 * @param {Object} valueJsonObj 
@@ -951,6 +944,12 @@
 	refreshMyValue:function(valueJsonObj){
 		var myPage = common.getIndexChild(4);	//个人中心页面
 		mui.fire(myPage,'refreshMyValue', valueJsonObj);
+	},
+	
+	//刷新我的订单
+	refreshOrder:function(){
+		var orderWeb=plus.webview.getWebviewById('myOrders.html');
+		mui.fire(orderWeb,'refreshOrderInfo');
 	},
 	
 	gContentRefreshDown: '刷新中...', //下拉时显示的文字

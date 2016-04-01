@@ -189,8 +189,8 @@ var examEnroll = function() {
 
 		plus.nativeUI.showWaiting();
 		var ajaxUrl = common.gServerUrl + "API/ExamToUser/ExamToUserPay?examToUserId=" + self.enrollId() + "&payType=" + paytype
-			//console.log(ajaxUrl);
-			//新增则保存下载信息；修改则保存新的支付方式。均返回订单信息
+		//console.log(ajaxUrl);
+		//新增则保存下载信息；修改则保存新的支付方式。均返回订单信息
 		mui.ajax(ajaxUrl, {
 			type: 'POST',
 			success: function(responseText) { //responseText为微信支付所需的json
@@ -204,6 +204,7 @@ var examEnroll = function() {
 						valueType: 'balance',
 					})
 					mui('#middlePopover').popover("toggle");
+					common.refreshOrder();//刷新订单
 					mui.back();
 				} else {
 					var requestJson = JSON.stringify(ret.requestJson);

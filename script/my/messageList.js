@@ -12,7 +12,7 @@ var message_notification = function () {
             dataType: 'json',
             type: 'GET',
             success: function (responseText) {
-                //console.log(JSON.stringify(responseText));
+                console.log(JSON.stringify(responseText));
                 self.messages(responseText);
                 self.messageLength(self.messages().length);
                 //console.log("15:"+self.messages().length);
@@ -76,8 +76,35 @@ var message_notification = function () {
                 url: message.MsgUrl
             });
         } else*/
-		if (message.ModuleID == common.gMessageModule.commentModule) { //1
-			if (getLocalItem('UserType') == common.gDictUserType.teacher) {
+		if (message.ModuleID == common.gMessageModule.commentModule || message.ModuleID == common.gMessageModule.homeworkModule) { //1 or 4
+			var ajaxurl = common.gServerUrl + "API/Comment/" + message.SourceID;
+			mui.ajax(ajaxurl, {
+				type: "GET",
+				success: function(responseText) {
+					console.log(responseText);
+					var cmt = eval("(" + responseText + ")");
+					if(cmt.CommenterID == getLocalItem('UserID')){			//点评者
+						common.transfer("../comment/commentDetails.html", false, {
+							teacherComment: cmt
+						}, false, false);
+					}
+					
+					if(cmt.AuthorID == getLocalItem('UserID')){			//被点评者
+						var ajaxurl = common.gServerUrl + "API/Work/GetWorksByCommentID?commentID=" + message.SourceID;
+						mui.ajax(ajaxurl, {
+							type: "GET",
+							success: function(responseText) {
+								var worksContent = eval("(" + responseText + ")");
+								common.transfer("../works/WorksDetails.html", false, {
+									works: worksContent
+								}, false, false);
+							}
+						})
+					}
+				}
+			})
+			
+			/*if (getLocalItem('UserType') == common.gDictUserType.teacher) {
 				var ajaxurl = common.gServerUrl + "API/Comment/" + message.SourceID;
 				mui.ajax(ajaxurl, {
 					type: "GET",
@@ -100,21 +127,20 @@ var message_notification = function () {
 						}, false, false);
 					}
 				})
-			}
+			}*/
 		} else if (message.ModuleID == common.gMessageModule.workDownloadModule) { //2
 			//common.transfer("../works/mydownloadHeader.html")
 		} else if (message.ModuleID == common.gMessageModule.courseModule) { //3
 			//common.showIndexWebview(2, false);
 			common.transfer("../course/myCourse.html", true, {}, false, false);
-		} else if (message.ModuleID == common.gMessageModule.homeworkModule) { //4
+		/*} else if (message.ModuleID == common.gMessageModule.homeworkModule) { //4
 			if (getLocalItem('UserType') == common.gDictUserType.teacher) {
-				setLocalItem('comment.workType', common.gJsonWorkTypeStudent[1].value); //学生作业
 				common.transfer("../comment/commentListHeader.html", true, {
 					MessageType: message.MessageType
 				}, false, false);
 			} else {
 				common.transfer("../works/worksListMyHeader.html", true, common.extrasUp(1), false, false); //1为我的作业下标
-			}
+			}*/
 		} else if (message.ModuleID == common.gMessageModule.teacherAuthModule) { //5
 			common.transfer('../my/teacherAuth.html', true, {}, false, false);
 		} else if (message.ModuleID == common.gMessageModule.examModule) { //6

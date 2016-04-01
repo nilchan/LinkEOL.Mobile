@@ -165,7 +165,7 @@
 
 					</ul>
 					<script type="text/html" id="regTemplate">
-						<div class="mui-input-row mui-checkbox mui-left card-row">
+						<div class="mui-input-row mui-checkbox mui-left card-row" data-bind="event:{tap: gotoInfo}">
 							<div class="card-right">
 								<img data-bind="attr:{'src':common.getPhotoUrl(Photo)}" onerror="this.src='../../images/my-default.png';" />
 								<div class="card-row-right">
@@ -173,7 +173,7 @@
 									<!--<u class="u-font-right" data-bind="text:TheAge"></u>-->
 								</div>
 								<div class="card-row-right card-row-dow">
-									<u data-bind="text:((common.StrIsNull(Province)==''?'':Province)+(common.StrIsNull(City)==''?'':City)+(common.StrIsNull(District)==''?'':District))"></u>
+									<u data-bind="text:((common.StrIsNull(Province)==''?'':Province)+(common.StrIsNull(City)==''?'':' · '+City)+(common.StrIsNull(District)==''?'':' · '+District))"></u>
 								</div>
 							</div>
 						</div>

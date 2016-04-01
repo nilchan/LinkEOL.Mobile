@@ -22,7 +22,6 @@ var newsDetail=function(){
 		self.IsElite=ko.observable(newsDetail.IsElite);//新闻是否精华
 		self.FavCount=ko.observable(newsDetail.FavCount);//新闻收藏次数
 		self.Photo = ko.observable(common.getPhotoUrl(newsDetail.Photo));//头像
-
 		self.IsAuthority = ko.observable(newsDetail.IsAuthority);//是否官方
 	}
 	
@@ -39,10 +38,11 @@ var newsDetail=function(){
 					return ;
 				}
 				var result=JSON.parse(responseText);
+				//console.log(JSON.stringify(result))
 				var obj = new self.initNews(result);
 				self.newsDetail(obj);
-				console.log(JSON.stringify(self.newsDetail()));
 				self.isLink(newsDetail().IsAuthority());
+				shareTitle = self.newsDetail().Title();
 				common.showCurrentWebview();
 			}
 		})
@@ -129,8 +129,8 @@ var newsDetail=function(){
 	}
 	
 	//分享的参数
-	var shareTitle = '我分享的资讯';
-	var shareContent = "你看了没";
+	var shareTitle = '';
+	var shareContent = '想跟你说的事';
 	var shareUrl = common.gWebsiteUrl + "modules/news/newsInfo.html?id=";
 	var shareImg = "";
 
@@ -139,8 +139,10 @@ var newsDetail=function(){
 	var lis = ull.getElementsByTagName("li");
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
-			Share.sendShare(this.id, shareTitle, shareContent, shareUrl+newsID , shareImg, common.gShareContentType.news);
 			mui('#sharePopover').popover('toggle');
+			plus.nativeUI.showWaiting();
+			Share.sendShare(this.id, shareTitle, shareContent, shareUrl+newsID , shareImg, common.gShareContentType.news);
+			
 		}
 	}
 	

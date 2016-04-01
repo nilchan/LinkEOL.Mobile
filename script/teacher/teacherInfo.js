@@ -280,8 +280,10 @@
 	var lis = ul.getElementsByTagName("li");
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
-			Share.sendShare(this.id, shareTitle, shareContent, shareUrl + TUserID, shareImg,common.gShareContentType.teacher);
 			mui('#sharePopover').popover('toggle');
+			plus.nativeUI.showWaiting();
+			Share.sendShare(this.id, shareTitle, shareContent, shareUrl + TUserID, shareImg,common.gShareContentType.teacher);
+			
 		};
 	}
 

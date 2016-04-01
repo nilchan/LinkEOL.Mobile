@@ -235,7 +235,6 @@ var home = function() {
 		self.getActivity();*/
 		self.getHomeData();
 		//teacherList=plus.webview.create('../../modules/teacher/teacherListHeader.html')
-
 	});
 
 	mui.back = function() {

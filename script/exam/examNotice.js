@@ -85,6 +85,7 @@ var examNotice = function() {
 		if (self.examInfo().IsGrade) {
 			common.transfer("examScore.html", true, {
 				examid: self.examInfo().ID
+				
 			})
 		} else {
 			mui.toast("尚未到查询时间，请耐心等待...");
@@ -96,7 +97,8 @@ var examNotice = function() {
 	self.goexamEnrollList = function() {
 		if (self.IsUserStatNew()) {
 			common.transfer("examEnrollList.html", true, {
-				examid: self.examInfo().ID
+				examid: self.examInfo().ID,
+				IsCanRegister:self.IsCanRegister()
 			})
 		} else {
 			mui.toast("尚未报名，请先报名...");
@@ -127,9 +129,10 @@ var examNotice = function() {
 	var lis = ul.getElementsByTagName("li");
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
-			//console.log('123');
-			Share.sendShare(this.id, shareTitle, shareContent, shareUrl, shareImg,common.gShareContentType.exam);
 			mui('#sharePopover').popover('toggle');
+			plus.nativeUI.showWaiting();
+			Share.sendShare(this.id, shareTitle, shareContent, shareUrl, shareImg,common.gShareContentType.exam);
+			
 		};
 	}
 

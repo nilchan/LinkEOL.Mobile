@@ -93,8 +93,10 @@ var worksDetails = function() {
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
 			//mui.toast("敬请期待");
-			Share.sendShare(this.id, shareTitle, shareContent, shareUrl + self.Works().WorkID(), shareImg, common.gShareContentType.video);
 			mui('#middlePopover').popover('toggle');
+			plus.nativeUI.showWaiting();
+			Share.sendShare(this.id, shareTitle, shareContent, shareUrl + self.Works().WorkID(), shareImg, common.gShareContentType.video);
+			
 		}
 	}
 	//关闭分享窗口
@@ -297,10 +299,16 @@ var worksDetails = function() {
 		//新增则保存下载信息；修改则保存新的支付方式。均返回订单信息
 		mui.ajax(ajaxUrl, {
 			type: 'POST',
-			data: self.ViewOrder() ? self.Order() : download,
+			//data: self.ViewOrder() ? self.Order() : download,
+			data: self.ViewOrder() ? null : download,
 			success: function(responseText) { //responseText为微信支付所需的json
 				var ret = JSON.parse(responseText);
 				var orderID = ret.orderID;
+				
+				//订单已生成，此时相当于浏览订单
+				self.Order().ID = ret.orderID;
+				self.ViewOrder(true);
+				
 				//console.log(JSON.stringify(ret.requestJson))
 				if (ret.requestJson == '') { //无需网上支付，下载成功
 					mui.toast("购买成功");
@@ -309,7 +317,8 @@ var worksDetails = function() {
 					self.getWorkDetail(self.Works().WorkID());
 					common.refreshMyValue({
 						valueType: 'balance'
-					})
+					});
+					common.refreshOrder();//刷新订单
 
 					mui('#bottomPopover').popover("hide");
 					plus.nativeUI.closeWaiting();
@@ -326,7 +335,8 @@ var worksDetails = function() {
 								self.getWorkDetail(self.Works().WorkID());
 								common.refreshMyValue({
 									valueType: 'balance'
-								})
+								});
+								common.refreshOrder();//刷新订单
 								plus.nativeUI.closeWaiting();
 								mui('#bottomPopover').popover("toggle");
 							}

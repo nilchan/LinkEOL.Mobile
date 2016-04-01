@@ -197,7 +197,7 @@ var saleTicket = function() {
 		//新增则保存点评信息；修改则保存新的支付方式。均返回订单信息
 		mui.ajax(ajaxUrl, {
 			type: 'POST',
-			data: (self.ViewOrder() || self.OrderID() > 0) ? self.Order() : ticket,
+			data: (self.ViewOrder() || self.OrderID() > 0) ? null : ticket,
 			success: function(responseText) { //responseText为微信支付所需的json
 				var ret = JSON.parse(responseText);
 				if (ret.orderID && ret.orderID > 0) {
@@ -209,6 +209,9 @@ var saleTicket = function() {
 						UserID: getLocalItem('UserID'),
 						TargetType: common.gDictOrderTargetType.Ticket
 					});
+					
+					//订单已生成，此时相当于浏览订单
+					self.ViewOrder(true);
 				}
 
 				if (ret.requestJson == '') { //无需网上支付，预约点评成功
@@ -218,6 +221,7 @@ var saleTicket = function() {
 						valueType: 'balance'
 					})
 					plus.nativeUI.closeWaiting();
+					common.refreshOrder();//刷新订单
 					mui.back();
 				} else {
 					var requestJson = JSON.stringify(ret.requestJson);
@@ -233,6 +237,7 @@ var saleTicket = function() {
 								common.refreshMyValue({
 									valueType: 'balance',
 								})
+								common.refreshOrder();//刷新订单
 								mui.back();
 							},
 							error: function() {

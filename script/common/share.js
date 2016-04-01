@@ -214,6 +214,7 @@ Share.shareAction = function(id, ex) {
  * 
  */
 Share.shareMessage = function(s, ex) {
+	plus.nativeUI.closeWaiting();
 	var msg = {
 		extra: {
 			scene: ex
