@@ -277,7 +277,7 @@ var myUpload = function() {
 				} else if (self.ConvertResult() == common.gDictAttachmentConvertResult.Failed) { //转换失败
 					return '审核未通过';
 				} else {
-					return '待审核';
+					return '待审核，约几分钟';
 				}
 			} else {
 				if (self.FoundInLocal()) {

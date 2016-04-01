@@ -190,7 +190,7 @@ var viewModel = function() {
 					//console.log(requestJson);
 					//根据支付方式、订单信息，调用支付操作
 					Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数
-						var aurl = common.gServerUrl + 'API/Order/ ?id=' + orderID + '&otherOrderNO=' + tradeno;
+						var aurl = common.gServerUrl + 'API/Order/?id=' + orderID + '&otherOrderNO=' + tradeno;
 						mui.ajax(aurl, {
 							type: 'PUT',
 							success: function(respText) {
