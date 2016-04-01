@@ -101,6 +101,7 @@
 				top: 100%!important;
 				margin-top: -178px!important;
 			}
+			.newsInfo-content input,
 			.newsInfo-p,
 			.newsInfo-p * {
 				-webkit-user-select: auto;
@@ -128,7 +129,7 @@
 		<div class="mui-content">
 			<!--查看区-->
 			<div class="newsInfo-content">
-				<h3 data-bind='text:newsDetail().Title'>【开学礼】蹲下来，同孩子一起看世界</h3>
+				<input id="title" data-bind='value:newsDetail().Title' readonly="readonly"></input>
 				<div class="newsInfo-second">
 					<div class="second-left">
 						<div class="newsInfo-photo">

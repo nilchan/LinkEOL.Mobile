@@ -104,7 +104,7 @@ var studentInfo = function() {
 
 	}
 
-	//跳转至咨询
+	//跳转至资讯
 	self.goUserNews = function() {
 		common.transfer('../news/myNewsList.html', false, {
 			userid: sUserID,

@@ -86,14 +86,14 @@
 			    display: inline-block;
 			    color: #f89e61;
 			    padding-left: 1px;
-			    margin-right: 1px;
+			    margin-right: 5px;
 			    border-radius: 50%;
 			    box-sizing: border-box;
 			}
-			.myInfoTeacher-star:after {
+			.myInfo-star:after {
 				font-size: 14px!important;
 				position: absolute;
-				top: 43%;
+				top: 43%;				
 			}
 			.my-qualifications{
 				margin-top:11.2%; box-sizing: border-box; width: 50%; padding-left:23.5%;
@@ -129,7 +129,7 @@
 							<em class="my-identity" data-bind='visible:IsFamous()==false && IDAuth() == true'><i class="iconfont">&#xe69e;</i></em>
 							<em class="my-professional" data-bind='visible:IsFamous()==true && ProTitleAuth()==true'><i class="iconfont">&#xe696;</i></em>
 							<em class="my-education" data-bind='visible:IsFamous()==false && EduAuth()==true'><i class="iconfont">&#xe69b;</i></em>
-							<i class="teacher-list-star myInfoTeacher-star" data-bind="visible:UserType() == common.gDictUserType.teacher && IsFamous()==false,css:'star'+starCount()"></i>
+							<i class="teacher-list-star myInfo-star" data-bind="visible:UserType() == common.gDictUserType.teacher && IsFamous()==false,css:'star'+starCount()"></i>
 						</div>
 						
 					<span class="myInfoTeacher-address" data-bind="visible:isAllInfo">

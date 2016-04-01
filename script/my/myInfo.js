@@ -84,7 +84,6 @@ var myInfo = function() {
 				self.Province(cityValueMon.split(" ")[0]);
 				self.City(cityValueMon.split(" ")[1]);
 				self.District(cityValueMon.split(" ")[2]);
-				console.log(self.District());
 			});
 		})
 	}
@@ -168,10 +167,10 @@ var myInfo = function() {
 	}
 
 	self.goAuth = function() { //资料认证
-		var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID'); //取消“我”红点
-		if (!self.hasNewMessage() && UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed == IDAuthApproved()) {
-			mui.fire(index, 'refreshMessageStatusFalse', {});
-		}
+//		var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID'); //取消“我”红点
+//		if (!self.hasNewMessage() && UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed == IDAuthApproved()) {
+//			mui.fire(index, 'refreshMessageStatusFalse', {});
+//		}
 		common.transfer('teacherAuth.html', true, {
 			authMessage: self.auths()
 		}, false, false);
@@ -192,14 +191,15 @@ var myInfo = function() {
 								break;
 						}
 					});
-					if (UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed != self.IDAuthApproved()) {
-						var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID');
-						mui.fire(index, 'refreshMessageStatus', {});
-					}
-				} else {
-					var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID');
-					mui.fire(index, 'refreshMessageStatus', {});
-				}
+//					if (UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed != self.IDAuthApproved()) {
+//						var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID');
+//						mui.fire(index, 'refreshMessageStatus', {});
+//					}
+				} 
+//				else {
+//					var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID');
+//					mui.fire(index, 'refreshMessageStatus', {});
+//				}
 			}
 		})
 	}

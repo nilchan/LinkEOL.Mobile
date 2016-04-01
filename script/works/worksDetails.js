@@ -301,6 +301,7 @@ var worksDetails = function() {
 			success: function(responseText) { //responseText为微信支付所需的json
 				var ret = JSON.parse(responseText);
 				var orderID = ret.orderID;
+				//console.log(JSON.stringify(ret.requestJson))
 				if (ret.requestJson == '') { //无需网上支付，下载成功
 					mui.toast("购买成功");
 
@@ -607,7 +608,7 @@ var worksDetails = function() {
 		var width = document.body.clientWidth;
 		var height = width * 9 / 16;
 		_bought = work.IsBought;
-		console.log(work.IsBought + ' ' + work.VidPolyv);
+		//console.log(work.IsBought + ' ' + work.VidPolyv);
 		document.getElementById('videoPos').innerHTML = '';
 		if (work.IsBought) {
 			var player = polyvObject('#videoPos').videoPlayer({
@@ -709,7 +710,6 @@ var worksDetails = function() {
 		beforeback: function() {
 			var workParent = workVaule.opener();
 			var webObj = plus.webview.getWebviewById('myCollection.html');
-			console.log(JSON.stringify(webObj))
 			mui.fire(webObj, 'refreshCollection', {
 				worksId: self.Works().WorkID(),
 				favStatus: workIsFav

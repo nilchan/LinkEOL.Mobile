@@ -23,7 +23,7 @@ var examEnroll = function() {
 	self.fromList = ko.observable(false); //从报名记录跳转而来
 	self.enrollList = ko.observableArray([]); //考级信息数组
 	self.balance = ko.observable(0); //余额
-	
+
 	//考级订单信息
 	//self.examAmount=ko.observable(0);//考评价格
 	self.PayType = ko.observable('wxpay'); //默认为微信支付
@@ -153,11 +153,11 @@ var examEnroll = function() {
 		mui('#middlePopover').popover("hide");
 		common.setEnabled(event);
 	}
-	
-	window.addEventListener('disableReset',function(){
+
+	window.addEventListener('disableReset', function() {
 		mui.toast('不可以修改信息~~');
 	})
-	
+
 	//获取余额
 	self.getBalance = function() {
 		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + getLocalItem('UserID');
@@ -168,7 +168,7 @@ var examEnroll = function() {
 			}
 		});
 	}
-	
+
 	//支付
 	self.gotoPay = function() {
 
@@ -178,7 +178,7 @@ var examEnroll = function() {
 			paytype = 1;
 		} else if (self.PayType() == 'alipay') {
 			paytype = 2;
-		} else if (self.PayType() == 'balance'){
+		} else if (self.PayType() == 'balance') {
 			paytype = 4;
 		} else {
 			paytype = 3;
@@ -200,6 +200,9 @@ var examEnroll = function() {
 				if (ret.requestJson == '') { //无需网上支付，报名成功
 					mui.toast("已成功报名");
 					plus.nativeUI.closeWaiting();
+					common.refreshMyValue({
+						valueType: 'balance',
+					})
 					mui('#middlePopover').popover("toggle");
 					mui.back();
 				} else {
@@ -426,7 +429,6 @@ var examEnroll = function() {
 		//console.log(JSON.stringify(plus.webview.currentWebview().opener()));
 	}
 
-
 	mui.init({
 		beforeback: function() {
 			var pp = plus.webview.currentWebview().opener();
@@ -438,7 +440,7 @@ var examEnroll = function() {
 			} else {
 				mui.fire(pp, 'refreshEnroll', {
 					IsUserStat: true,
-					enrollId:self.enrollId()
+					enrollId: self.enrollId()
 				});
 
 			}

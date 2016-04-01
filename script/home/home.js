@@ -138,7 +138,7 @@ var home = function() {
 		});
 	};
 	
-	//首页新闻咨询轮播
+	//首页新闻资讯轮播
 	self.getHeadlineNewsList=function(){
 		var ajaxUrl=common.gServerUrl+'Common/News/GetHeadlineNewsList';
 		mui.ajax(ajaxUrl,{

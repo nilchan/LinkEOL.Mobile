@@ -6,7 +6,7 @@ var viewModel = function() {
 	self.paid = ko.observable(false); //是否已支付
 	self.balance = ko.observable(0); //余额
 	self.isHomeWork = ko.observable(false); //交作业
-	
+
 	//支付方式，默认为微信支付
 	self.PayType = ko.observable('wxpay');
 	self.checkPayType = function() {
@@ -38,7 +38,7 @@ var viewModel = function() {
 
 	self.getAmount = function() {
 		var ajaxUrl = common.gServerUrl + 'API/Comment/GetCommentPrice?userId=' + self.teacher().UserID;
-		if( self.isHomeWork() ) {
+		if (self.isHomeWork()) {
 			var ajaxUrl = common.gServerUrl + 'API/Comment/GetHomeWorkPrice';
 		}
 		mui.ajax(ajaxUrl, {
@@ -48,7 +48,7 @@ var viewModel = function() {
 			}
 		});
 	}
-	
+
 	//获取余额
 	self.getBalance = function() {
 		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + getLocalItem('UserID');
@@ -87,7 +87,7 @@ var viewModel = function() {
 			}
 			if (typeof(web.teacher) !== "undefined") {
 				self.teacher(web.teacher);
-				console.log(JSON.stringify(self.teacher()));
+				//console.log(JSON.stringify(self.teacher()));
 			}
 			if (typeof(web.homeWork) !== "undefined") {
 				self.isHomeWork(web.homeWork);
@@ -122,7 +122,7 @@ var viewModel = function() {
 			paytype = 1;
 		} else if (self.PayType() == 'alipay') {
 			paytype = 2;
-		} else if (self.PayType() == 'balance'){
+		} else if (self.PayType() == 'balance') {
 			paytype = 4;
 		} else {
 			paytype = 3;
@@ -152,12 +152,13 @@ var viewModel = function() {
 			}
 
 			ajaxUrl = common.gServerUrl + 'API/Comment/AddComment?payType=' + paytype;
-			if( self.isHomeWork() ) {
+			if (self.isHomeWork()) {
 				ajaxUrl = common.gServerUrl + 'Common/Work/AddHomeWork?payType=' + paytype + '&workId=' + self.works().ID + '&TeacherUserID=' + self.teacher().UserID;
-				comment='';
+				comment = '';
 			}
 		} else {
 			ajaxUrl = common.gServerUrl + 'API/Order/ResubmitOrder?id=' + self.Order().ID + '&payType=' + paytype;
+			//console.log(ajaxUrl);
 		}
 
 		var evt = event;
@@ -168,34 +169,31 @@ var viewModel = function() {
 		mui.ajax(ajaxUrl, {
 			type: 'POST',
 			data: self.ViewOrder() ? self.Order() : comment,
-			success: function(responseText) {//responseText为微信支付所需的json
+			success: function(responseText) { //responseText为微信支付所需的json
 				var ret = JSON.parse(responseText);
-				
-				var orderID = ret.orderID;//订单跳转回来并无orderID,requestJson
+				var orderID = ret.orderID; //订单跳转回来并无orderID,requestJson
 				if (ret.requestJson == '') { //无需网上支付，预约点评成功
 					mui.toast("已成功提交");
 					plus.nativeUI.closeWaiting();
-					//common.showIndexWebview(3, true);
-					var myWebview=plus.webview.getWebviewById('modules/my/my.html');
-					mui.fire(myWebview,'refreshAccount');
-					common.transfer('../works/worksListMyHeader.html',true,{},false,false);
+					common.refreshMyValue({
+						valueType: 'balance',
+					})
+					common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
 				} else {
 					var requestJson = JSON.stringify(ret.requestJson);
 					//console.log(requestJson);
 					//根据支付方式、订单信息，调用支付操作
 					Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数
-						
 						var aurl = common.gServerUrl + 'API/Order/ ?id=' + orderID + '&otherOrderNO=' + tradeno;
 						mui.ajax(aurl, {
 							type: 'PUT',
 							success: function(respText) {
 								var comment = JSON.parse(respText);
 								common.refreshMyValue({
-									valueType: 'balance',
-								})
-								//common.showIndexWebview(3, true);
-								common.transfer('../works/worksListMyHeader.html',true,{},false,false);
-								
+										valueType: 'balance',
+									})
+									//common.showIndexWebview(3, true);
+								common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
 								plus.nativeUI.closeWaiting();
 							},
 							error: function() {
@@ -209,6 +207,7 @@ var viewModel = function() {
 				}
 			},
 			error: function() {
+				console.log("order error")
 				common.setEnabled(evt);
 				plus.nativeUI.closeWaiting();
 			}

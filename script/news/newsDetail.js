@@ -1,21 +1,21 @@
 var newsDetail=function(){
 	var self=this;
-	var newsID;//新闻咨询的id
-	self.newsDetail=ko.observable({});//新闻咨询详情
+	var newsID;//新闻资讯的id
+	self.newsDetail=ko.observable({});//新闻资讯详情
 	self.LikeStatus = ko.observable("star-before");//点赞前样式
 	var userId=getLocalItem('UserID');
 	self.editText=ko.observable('编辑');//编辑按钮名字
 	self.editStat=ko.observable(false);//是否启动编辑状态
 	self.isLink = ko.observable(true);
-	//新闻咨询实例化
+	//新闻资讯实例化
 	self.initNews=function(newsDetail){
 		var self=this;
 		self.newsID=ko.observable(newsDetail.ID);//id
-		self.Title=ko.observable(newsDetail.Title);//新闻咨询标题
+		self.Title=ko.observable(newsDetail.Title);//新闻资讯标题
 		self.PostTime=ko.observable(newsDetail.PostTime);//新闻发布时间
-		self.PublisherUserID=ko.observable(newsDetail.PublisherUserID);//新闻咨询作者id
-		self.HtmlContent=ko.observable(newsDetail.HtmlContent);//新闻咨询内容html
-		self.DisplayName=ko.observable(newsDetail.DisplayName);//新闻咨询作者名字
+		self.PublisherUserID=ko.observable(newsDetail.PublisherUserID);//新闻资讯作者id
+		self.HtmlContent=ko.observable(newsDetail.HtmlContent);//新闻资讯内容html
+		self.DisplayName=ko.observable(newsDetail.DisplayName);//新闻资讯作者名字
 		self.LikeCount=ko.observable(newsDetail.LikeCount);//新闻点赞数
 		self.ShareCount=ko.observable(newsDetail.ShareCount);//新闻分享次数
 		self.IsTop=ko.observable(newsDetail.IsTop);//新闻是否置顶
@@ -41,6 +41,7 @@ var newsDetail=function(){
 				var result=JSON.parse(responseText);
 				var obj = new self.initNews(result);
 				self.newsDetail(obj);
+				console.log(JSON.stringify(self.newsDetail()));
 				self.isLink(newsDetail().IsAuthority());
 				common.showCurrentWebview();
 			}
@@ -99,12 +100,14 @@ var newsDetail=function(){
 			$A.gI('edit').contentEditable = "false";
 			$A.gI('edit').style.maxHeight = "330px";
 			self.editText('编辑');
+			document.getElementById('title').readOnly = true;
 		}else{//点击编辑事件
 			self.editStat(true);
 			self.editText('完成');
 			$A.gI('edit').contentEditable = "true";
 			$A.gI('edit').style.maxHeight = "220px";
 			mui.toast('编辑模式开启~');
+			document.getElementById('title').readOnly = false;
 		}
 		
 	}
@@ -126,7 +129,7 @@ var newsDetail=function(){
 	}
 	
 	//分享的参数
-	var shareTitle = '我分享的咨询';
+	var shareTitle = '我分享的资讯';
 	var shareContent = "你看了没";
 	var shareUrl = common.gWebsiteUrl + "modules/news/newsInfo.html?id=";
 	var shareImg = "";

@@ -52,16 +52,16 @@ var my = function() {
 		}, false, true);
 	}
 	self.goMessageList = function() {
-		var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID'); //取消“我”红点
-		if (UserType() == common.gDictUserType.student) {
-			mui.fire(index, 'refreshMessageStatusFalse', {});
-		}
-		if (UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed == IDAuthApproved()) {
-			mui.fire(index, 'refreshMessageStatusFalse', {});
-		}
-		if (UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed != IDAuthApproved()) {
-			mui.fire(index, 'refreshMessageStatus', {});
-		}
+//		var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID'); //取消“我”红点
+//		if (UserType() == common.gDictUserType.student) {
+//			mui.fire(index, 'refreshMessageStatusFalse', {});
+//		}
+//		if (UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed == IDAuthApproved()) {
+//			mui.fire(index, 'refreshMessageStatusFalse', {});
+//		}
+//		if (UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed != IDAuthApproved()) {
+//			mui.fire(index, 'refreshMessageStatus', {});
+//		}
 		self.hasNewMessage(false); //取消消息列表红点
 		var page1 = common.getIndexChild(0); //取消铃铛红点
 		if (page1) {
@@ -113,7 +113,7 @@ var my = function() {
 			dataType: 'json',
 			type: 'GET',
 			success: function(responseText) {
-				//console.log(JSON.stringify(responseText));
+				//console.log(responseText.IsFamous);
 				self.ID(responseText.ID);
 				self.DisplayName(responseText.DisplayName);
 				self.Province(setStr('Province', responseText, ''));
@@ -245,13 +245,13 @@ var my = function() {
 	});
 	window.addEventListener("refreshMessageStatusFalse", function(event) {
 		self.refreshMessageNotice(false);
-		var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID'); //取消“我”红点
-		if (UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed == IDAuthApproved()) {
-			mui.fire(index, 'refreshMessageStatusFalse', {});
-		}
-		if (UserType() == common.gDictUserType.student) {
-			mui.fire(index, 'refreshMessageStatusFalse', {});
-		}
+//		var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID'); //取消“我”红点
+//		if (UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed == IDAuthApproved()) {
+//			mui.fire(index, 'refreshMessageStatusFalse', {});
+//		}
+//		if (UserType() == common.gDictUserType.student) {
+//			mui.fire(index, 'refreshMessageStatusFalse', {});
+//		}
 	});
 
 	//刷新银行卡数量
@@ -265,7 +265,7 @@ var my = function() {
 	//刷新我的账户余额
 	window.addEventListener('refreshMyValue', function(event) {
 		var valueJsonObj = event.detail;
-		console.log(JSON.stringify(valueJsonObj))
+		//console.log(JSON.stringify(valueJsonObj))
 		switch(valueJsonObj.valueType){
 			case "fav":
 				if(valueJsonObj.changeValue != 0){	//若存在变化数，则在原基础上修改，否则直接更新为总数
@@ -282,7 +282,7 @@ var my = function() {
 				mui.ajax(common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + self.UserID(), {
 					type: 'GET',
 					success: function(responseText) {
-						console.log(responseText);
+						//console.log(responseText);
 						var result = JSON.parse(responseText);
 						self.AccountBalance('￥' + (result.Amount).toFixed(2));
 					}

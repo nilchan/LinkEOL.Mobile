@@ -35,6 +35,9 @@
 					webUrl = common.gWebsiteUrl + 'mobile/modules/home/userGuideS.html';
 				}
 				var topPx = '0px';
+				if (plus.os.vendor == 'Apple') {
+					topPx = '15px';
+				}
 				mui.init({
 					subpages: [{
 						url: webUrl,

@@ -99,7 +99,7 @@ var myOrders = function() {
 	}
 
 	self.goDetail = function(order) {
-		console.log(JSON.stringify(order));
+		//console.log(JSON.stringify(order));
 		var url = '';
 		switch (order.TargetType) {
 			case common.gDictOrderTargetType.Comment:

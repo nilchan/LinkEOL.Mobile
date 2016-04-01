@@ -39,7 +39,7 @@ var addCard = function() {
 
 		var bankDes = common.getMateBank(self.CardNumber());
 		self.bankDes(bankDes);
-		if(common.StrIsNull(bankDes)!=''){
+		if(self.CardNumber() == '' || common.StrIsNull(bankDes)!=''){
 			self.isExistBank(true);
 		}
 		else{
