@@ -34,12 +34,12 @@ var viewModel = function() {
 	self.gotoInfo = function() {
 		var user = this;
 		if (user.UserType == common.gDictUserType.teacher) {
-			common.transfer('../../modules/teacher/teacherInfo.html', false, {
-				teacherID: user.PublisherUserID
+			common.transfer('../teacher/teacherInfo.html', false, {
+				teacherID: user.UserID
 			}, false, false);
 		} else if (user.UserType == common.gDictUserType.student) {
-			common.transfer('../../modules/student/studentInfo.html', false, {
-				studentID: user.PublisherUserID
+			common.transfer('../student/studentInfo.html', false, {
+				studentID: user.UserID
 			}, false, false);
 		}
 	}

@@ -975,7 +975,8 @@
 		systemMessageModule: 8, //系统通知
 		activityModule: 9, //活动购票
 		instructModule: 10, //授课关系通知
-		accountModule: 11 //账户通知
+		accountModule: 11, //账户通知
+		submitHomeworkModule: 12 //交作业提醒
 	},
 
 	//性别类型枚举

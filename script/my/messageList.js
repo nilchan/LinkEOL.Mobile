@@ -162,6 +162,8 @@ var message_notification = function () {
 			}
 		} else if (message.ModuleID == common.gMessageModule.accountModule) { //11
 			common.transfer('../my/myAccount.html', true);
+		} else if (message.ModuleID == common.gMessageModule.submitHomeworkModule) { //12
+			common.transfer("../works/worksListMyHeader.html", true, {}, false, false);
 		} else if (message.MsgUrl != null) {
 			message.MsgUrl = message.MsgUrl.indexOf("https://") >= 0 ? message.MsgUrl : "https://" + message.MsgUrl;
 			common.transfer("../home/messageWeb.html", false, {

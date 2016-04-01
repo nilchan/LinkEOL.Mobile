@@ -7,6 +7,7 @@ var newsDetail=function(){
 	self.editText=ko.observable('编辑');//编辑按钮名字
 	self.editStat=ko.observable(false);//是否启动编辑状态
 	self.isLink = ko.observable(true);
+	self.LikeCount=ko.observable(0);
 	//新闻资讯实例化
 	self.initNews=function(newsDetail){
 		var self=this;
@@ -16,7 +17,7 @@ var newsDetail=function(){
 		self.PublisherUserID=ko.observable(newsDetail.PublisherUserID);//新闻资讯作者id
 		self.HtmlContent=ko.observable(newsDetail.HtmlContent);//新闻资讯内容html
 		self.DisplayName=ko.observable(newsDetail.DisplayName);//新闻资讯作者名字
-		self.LikeCount=ko.observable(newsDetail.LikeCount);//新闻点赞数
+		/*self.LikeCount=ko.observable(newsDetail.LikeCount);//新闻点赞数*/
 		self.ShareCount=ko.observable(newsDetail.ShareCount);//新闻分享次数
 		self.IsTop=ko.observable(newsDetail.IsTop);//新闻是否置顶
 		self.IsElite=ko.observable(newsDetail.IsElite);//新闻是否精华
@@ -31,6 +32,7 @@ var newsDetail=function(){
 		mui.ajax(ajaxUrl,{
 			type:'GET',
 			success:function(responseText){
+				//console.log(responseText);
 				if( responseText == "" ) {
 					plus.nativeUI.closeWaiting();
 					mui.toast('资讯已被删除，请返回列表刷新~');
@@ -39,6 +41,7 @@ var newsDetail=function(){
 				}
 				var result=JSON.parse(responseText);
 				//console.log(JSON.stringify(result))
+				self.LikeCount(result.LikeCount);
 				var obj = new self.initNews(result);
 				self.newsDetail(obj);
 				self.isLink(newsDetail().IsAuthority());
@@ -73,7 +76,7 @@ var newsDetail=function(){
 
 		var ret = common.postAction(common.gDictActionType.Like, common.gDictActionTargetType.News, self.newsDetail().newsID());
 		if (ret) {
-			self.newsDetail().LikeCount(self.newsDetail().LikeCount() + 1);
+			self.LikeCount(self.LikeCount() + 1);
 			self.LikeStatus("star-after");
 			mui.toast('感谢您的赞许');
 		}
@@ -117,7 +120,7 @@ var newsDetail=function(){
 		var imgBase, tmpImg;
 		picture.SelectPicture(false, false, function(retValue) {
 			imgBase = retValue[0].Base64;
-			tmpImg = "<img src='" + imgBase + "'/>&emsp;";
+			tmpImg = "<img src='" + imgBase + "'/>&emsp;<div> </div>";
 			var editor = $A.gI('edit');
 			editor.innerHTML += tmpImg;
 		});

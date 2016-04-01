@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link rel="stylesheet" type="text/css" href="../../content/mui/mui.min.css" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../content/common/style.css" />
+
+	</head>
+
+	<body>
+		<script src="../../script/mui/mui.js"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				var webUrl, topPx;
+				var web = plus.webview.currentWebview();
+				webUrl = web.url;
+				
+				topPx = '0px';
+				if (plus.os.vendor == 'Apple') {
+					topPx = '15px';
+				}
+				mui.init({
+					subpages: [{
+						url: webUrl,
+						styles: {
+							top: topPx,
+							bottom: '0px'
+						}
+					}]
+				});
+			});
+		</script>
+	</body>
+
+</html>

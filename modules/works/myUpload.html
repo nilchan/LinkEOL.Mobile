@@ -94,7 +94,7 @@
 			</i>
 			<span data-bind="visible:getLocalItem('UserID')>0 && uploadList().length<=0">没有在上传的任务呢！</span>
 		</div>
-		<div id="pullrefreshdown" class="mui-content myUpLoad-content" data-bind="visible:uploadList().length>0">
+		<div id="pullrefreshdown" class="myUpLoad-content" data-bind="visible:uploadList().length>0">
 			<div class="mui-scroll">
 				<!--数据列表-->
 				<ul class="mui-input-group" data-bind="foreach:{data:uploadList}">

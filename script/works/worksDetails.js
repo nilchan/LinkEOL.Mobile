@@ -497,6 +497,7 @@ var worksDetails = function() {
 							if (item.ActionType.toString() == common.gDictActionType.Favorite) {
 								self.collectionStatus('worksDetails-before');
 								self.isFav(true);
+								workIsFav=true;
 							}
 							if (item.ActionType.toString() == common.gDictActionType.Like) {
 								self.LikeStatus("star-after");
@@ -666,7 +667,7 @@ var worksDetails = function() {
 
 	//跳转用户详情页面
 	self.gotoAuthor = function() {
-		var url = '../student/studentInfo1.html';
+		var url = '../student/studentInfo.html';
 		var arg = {
 			studentID: self.Works().AuthorID()
 		};

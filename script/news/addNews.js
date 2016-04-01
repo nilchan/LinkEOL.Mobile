@@ -9,7 +9,7 @@ var addNews = function() {
 		var imgBase, tmpImg;
 		picture.SelectPicture(false, false, function(retValue) {
 			imgBase = retValue[0].Base64;
-			tmpImg = "<img src='" + imgBase + "'/>&emsp;";
+			tmpImg = "<img src='" + imgBase + "'/>&emsp;<div> </div>";
 			var editor = $A.gI('edit');
 			editor.innerHTML += tmpImg;
 		});

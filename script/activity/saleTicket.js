@@ -295,7 +295,9 @@ var saleTicket = function() {
 
 	//gotoShowset
 	self.gotoShowset = function() {
-		common.transfer(self.ticketUrl(), false);
+		common.transfer("../home/webModer.html", true, {
+			url: self.ticketUrl()
+		});
 	}
 
 	//

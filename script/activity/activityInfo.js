@@ -6,7 +6,9 @@ var viewModel = function() {
 	self.Thumbnail = ko.observable('');
 	self.ActStatText = ko.observable(''); //活动状态描述
 	self.BuyText = ko.observable(''); //是否在售票中的状态
-
+	self.CanRegGame = ko.observable(false);
+	self.RegGameURL = ko.observable('');
+	
 	//分享的参数初始化
 	var shareTitle = "";
 	var shareContent = "";
@@ -19,9 +21,12 @@ var viewModel = function() {
 			dataType: 'json',
 			type: "GET",
 			success: function(responseText) {
+				//console.log(JSON.stringify(responseText));
+				self.CanRegGame(responseText.CanRegGame);
+				self.RegGameURL(responseText.RegGameUrl);
 				//console.log(responseText.ActContent);
 				self.activity(responseText);
-				//console.log(JSON.stringify(self.activity()));
+				
 				CustomPrice = JSON.parse(self.activity().CustomPrice);
 				if (common.StrIsNull(self.activity().ActStat) != '') {
 					self.ActStatText(common.getTextByValue(common.gActivityStatus, self.activity().ActStat));
@@ -138,9 +143,15 @@ var viewModel = function() {
 			mui.toast('活动只允许学生报名！');
 			return;
 		}*/
-		common.transfer('activityEnroll.html', true, {
-			aid: ID
-		});
+		if( self.CanRegGame() ) {
+			common.transfer("../home/webModer.html", true, {
+				url: self.RegGameURL()
+			});
+		}else {
+			common.transfer('activityEnroll.html', true, {
+				aid: ID
+			});
+		}
 	}
 
 	//跳转到所有作品页面

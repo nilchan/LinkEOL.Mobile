@@ -2728,7 +2728,9 @@
 					"images/share-py.png",
 					"script/common/share.js"
 				],
-				"refer": [],
+				"refer": [
+					"modules/student/studentInfo.html"
+				],
 				"priority": 0
 			},
 			"modules/home/userGuide.html": {
@@ -2918,7 +2920,8 @@
 					"script/libs/clamp/clamp.min.js",
 					"script/common/base.js",
 					"content/fonts/iconfont.woff",
-					"images/my-default.png"
+					"images/my-default.png",
+					"content/fonts/mui.ttf"
 				],
 				"refer": [
 					"modules/news/newsDetail.html",

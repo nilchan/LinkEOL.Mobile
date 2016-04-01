@@ -20,6 +20,7 @@ var invitationCode=function(){
 	var lis = ul.getElementsByTagName("li");
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
+			plus.nativeUI.showWaiting();
 			Share.sendShare(this.id, shareTitle, shareContent, shareUrl+self.inviteCode()+nameUrl+disPlayName, shareImg);
 			mui('#sharePopover').popover('toggle');
 		};
