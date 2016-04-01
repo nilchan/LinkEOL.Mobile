@@ -119,6 +119,7 @@ var myOrders = function() {
 					type:'DELETE',
 					success:function(responseText){
 						self.OrdersNotPay.remove(order);
+						self.Sum(common.getArraySum(self.OrdersNotPay(), 'Amount'));
 					}
 				})
 			}

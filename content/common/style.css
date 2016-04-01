@@ -1,6 +1,9 @@
 ﻿/*-----输入框-----*/
 .mui-bar-tab {
 	z-index: 999;
+	/*top: 44px;
+	bottom: 44px;
+	position: fixed;*/
 }
 .mui-bar-nav .iconfont:active {
 	color: #efa900!important;
@@ -6403,6 +6406,9 @@ li {
 .activity-subhead{
 		color: #666;
 		font-size: 14px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 			}
 .activityInfo-subhead{
 		color: #fff;
