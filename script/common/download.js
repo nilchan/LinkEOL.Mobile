@@ -8,16 +8,20 @@ var download = download || {};
  */
 download.downloadVideo = function(downtask, callback) {
 	//alert(downtask.workVidPolyv);
-	plus.VideoUtility.DownloadVideo(downtask.workVidPolyv, common.gJsonVideoLevel.SD, function(arg) {
-		//alert(JSON.stringify(arg));
-		var retObj = {
-			downloadTask: arg,
-			workId: downtask.workId
-		}
-		callback(retObj);
-	}, function(error) {
-		//alert(error);
-		callback({}, '下载失败，请重试');
+	console.log('plus: '+plus);
+	console.log('plus.VideoUtility: '+plus.VideoUtility);
+	mui.plusReady(function() {
+		plus.VideoUtility.DownloadVideo(downtask.workVidPolyv, common.gJsonVideoLevel.SD, function(arg) {
+			//alert(JSON.stringify(arg));
+			var retObj = {
+				downloadTask: arg,
+				workId: downtask.workId
+			}
+			callback(retObj);
+		}, function(error) {
+			//alert(error);
+			callback({}, '下载失败，请重试');
+		});
 	});
 }
 
@@ -35,6 +39,7 @@ download.deleteTask = function(workId){
 			break;
 		}
 	}
+	//console.log('deleteTask: ' + JSON.stringify(tasks));
 	plus.storage.setItem(common.gVarLocalDownloadTask, JSON.stringify(tasks));
 }
 
@@ -45,10 +50,11 @@ download.deleteTask = function(workId){
 download.initTasks = function(callback) {
 	var tmp = plus.storage.getItem(common.gVarLocalDownloadTask);
 	if (common.StrIsNull(tmp) == '') return;
-
+	//console.log('initTasks: '+tmp);
 	var tasks = JSON.parse(tmp);
 	if (tasks.length > 0) {
 		tasks.forEach(function(item) {
+			//console.log('before upload item: '+JSON.stringify(item));
 			/* ==标记已开始上传。再次进入无需再上传，而是自动上传== */
 			if(item.isFinish == false && item.downloading != true){
 				item.downloading = true;

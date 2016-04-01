@@ -178,6 +178,7 @@ var mydownload = function() {
 					self.downloadList.unshift(obj);
 				}
 			})
+			console.log('downloadList: '+JSON.stringify(self.downloadList()));
 
 			download.initTasks(refreshDownloadState);
 
