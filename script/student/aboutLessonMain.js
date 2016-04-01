@@ -104,6 +104,15 @@ var gotoPay = function() {
 						var requestJson = JSON.stringify(ret.requestJson);
 						//根据支付方式、订单信息，调用支付操作
 						Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数
+							//plus的pay有可能在微信支付成功的同步返回时，并未返回tradeno
+							if(tradeno == '' || typeof tradeno == 'undefined'){
+								plus.nativeUI.closeWaiting();
+								common.transfer("../../modules/course/myCourse.html", true, {
+									lessonID: lessons[0].ID
+								});
+								return;
+							}
+						
 							var aurl = common.gServerUrl + 'API/Order/SetOrderSuccess?id=' + orderID + '&otherOrderNO=' + tradeno;
 							mui.ajax(aurl, {
 								type: 'PUT',

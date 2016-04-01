@@ -43,9 +43,10 @@ var pays = {};
 		plus.payment.request(pays[payid], order, function(result) {
 			mui.toast("支付成功");
 			var tradeno = result.tradeno;
-			if(tradeno === 'undefined'){
+			if(typeof tradeno === 'undefined'){
 				tradeno = '';
 			}
+			
 			successCB(tradeno);
 		}, function(e) {
 			mui.toast("支付失败");	// + e.code);
