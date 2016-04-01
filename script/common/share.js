@@ -215,7 +215,7 @@ Share.shareAction = function(id, ex) {
  */
 Share.shareMessage = function(s, ex) {
 	plus.nativeUI.closeWaiting();
-    alert('shareMessage')
+    //alert('shareMessage')
 	var msg = {
 		extra: {
 			scene: ex
@@ -240,7 +240,7 @@ Share.shareMessage = function(s, ex) {
 		}
 
 	}, function(e) {
-           alert("分享到\"" + s.description + "\"失败！ " + e.code + " - " + e.message)
+          // alert("分享到\"" + s.description + "\"失败！ " + e.code + " - " + e.message)
 		console.log("分享到\"" + s.description + "\"失败！ " + e.code + " - " + e.message);
 	});
 	
