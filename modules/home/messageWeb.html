@@ -91,11 +91,15 @@
 		<script type="text/javascript">
 			mui.plusReady(function() {
 				var web = plus.webview.currentWebview();
+				var topPx = '45px';
+				if (plus.os.vendor == 'Apple') {
+					topPx = '60px';
+				}
 				mui.init({
 					subpages: [{
 						url: web.url,
 						styles: {
-							top: '60px'
+							top: topPx
 						}
 					}]
 				});

@@ -23,11 +23,30 @@
 			}
 			#edit {
 				width: 100%;
-				min-height: 220px;
-				max-height: 220px;
+				min-height: 330px;
+				max-height: 330px;
 				overflow-y: scroll;
 				overflow-x: hidden;
 				background: #FAFAFA;
+			}
+			.Complete{
+				color: #666;
+				font-size: 15px;
+				position: absolute;
+				height: 30px;
+				width:60px;
+				color: #fff;
+				text-align: center;
+				line-height: 30px;
+				border-radius: 5px;
+				background: #E64578;
+				display: inline-block;
+				right: 15px;
+				top: 8px;
+				
+			}
+			.Complete:active{
+				color:#efa900!important;
 			}
 		</style>
 	</head>
@@ -36,7 +55,7 @@
 		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe602;</i>
 			<h1 class="mui-title">发布资讯</h1>
-			<em class="mui-bar-nav-em" style="font-size: 16px;" data-bind="event:{tap: submitNews}">发布</em>
+			<button class="Complete" data-bind="event:{tap: submitNews}">发布</button>
 		</header>
 		<div class="mui-content">
 

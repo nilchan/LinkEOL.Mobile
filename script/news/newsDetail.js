@@ -34,7 +34,7 @@ var newsDetail=function(){
 			success:function(responseText){
 				//console.log(responseText);
 				if( responseText == "" ) {
-					plus.nativeUI.closeWaiting();
+					//plus.nativeUI.closeWaiting();
 					mui.toast('资讯已被删除，请返回列表刷新~');
 					mui.back();
 					return ;
@@ -107,7 +107,7 @@ var newsDetail=function(){
 		if(self.editStat()){//点击完成事件
 			var ajaxUrl=common.gServerUrl+'API/News/APPNewsUpdate?id='+newsID;
 			var data={
-				Title:self.newsDetail().Title(),
+				Title:$A.gI('title').innerText,
 				HtmlContent:$A.gI('edit').innerHTML
 			};
 			
@@ -121,14 +121,23 @@ var newsDetail=function(){
 			})
 			self.editStat(false);
 			$A.gI('edit').contentEditable = "false";
+			$A.gI('title').contentEditable = "false";
 			self.editText('编辑');
-			document.getElementById('title').readOnly = true;
+			
+			$A.gI('edit').style.maxHeight = 'none';
 		}else{//点击编辑事件
 			self.editStat(true);
 			self.editText('完成');
 			$A.gI('edit').contentEditable = "true";
+			$A.gI('title').contentEditable = "true";
 			mui.toast('编辑模式开启~');
-			document.getElementById('title').readOnly = false;
+			
+			if (mui.os.ios) {
+				var h = window.screen.height - 245;
+				$A.gI('edit').style.maxHeight = h + 'px';
+			} else {
+				$A.gI('edit').style.maxHeight = '330px';
+			}
 		}
 		
 	}
@@ -170,17 +179,14 @@ var newsDetail=function(){
 	self.closeShare=function(){
 		mui('#sharePopover').popover('toggle');
 	}
-
+	
 	mui.plusReady(function(){
 		Share.updateSerivces(); //初始化分享
 		var thisWeb=plus.webview.currentWebview();
 		if(typeof thisWeb.newsId !='undefined'){
 			newsID=thisWeb.newsId;
 		}
-		if (mui.os.ios) {
-			var h = window.screen.height - 225;
-			$A.gI('edit').style.maxHeight = h + 'px';
-		}
+		
 		self.getNewsDetail();
 	});
 }

@@ -144,8 +144,15 @@ var viewModel = function() {
 			return;
 		}*/
 		if( self.CanRegGame() ) {
+			var tmpUrl = self.RegGameURL();
+			if(tmpUrl.indexOf('?') >= 0){
+				tmpUrl = tmpUrl + '&uname=' + getLocalItem('UserName');
+			}
+			else{
+				tmpUrl = tmpUrl + '?uname=' + getLocalItem('UserName');
+			}
 			common.transfer("../home/webModer.html", true, {
-				url: self.RegGameURL()
+				url: tmpUrl
 			});
 		}else {
 			common.transfer('activityEnroll.html', true, {

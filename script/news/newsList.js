@@ -12,6 +12,7 @@ var informationList = function() {
 		mui.ajax(url, {
 			type: 'GET',
 			success: function(responsText) {
+				console.log(responsText);
 				self.newsList(JSON.parse(responsText));
 				self.clampText();
 				common.showCurrentWebview();

@@ -50,7 +50,7 @@ var viewModelIndex = function() {
 					break;
 			}
 
-			//common.gotoMessage();
+			common.gotoMessage();
 			var page1 = common.getIndexChild(0);
 			if (page1) {
 				mui.fire(page1, 'refreshMessageStatus', {});

@@ -101,13 +101,14 @@
 				top: 100%!important;
 				margin-top: -178px!important;
 			}
+			#title,
 			.newsInfo-content input,
 			.newsInfo-p,
 			.newsInfo-p * {
 				-webkit-user-select: auto;
 			}
 			#edit {
-				min-height: 220px;
+				min-height: 330px;
 				overflow-y: scroll;
 				overflow-x: hidden;
 				background: #FAFAFA;
@@ -119,6 +120,13 @@
 			    color: #fff;
 			    border: 1px solid #e64578;
 			    background-color: #e64578;
+			}
+			
+			#title {
+				width: 100%;
+				display:block;
+				word-wrap: break-word;
+				font-weight: bold ;
 			}
 		</style>
 	</head>
@@ -132,7 +140,7 @@
 		<div class="mui-content">
 			<!--查看区-->
 			<div class="newsInfo-content">
-				<input id="title" data-bind='value:newsDetail().Title' readonly="readonly"></input>
+				<div id="title" data-bind='text:newsDetail().Title' contentEditable="false">5555555555555555555555555555555555555555555555555555555555555555555555</div>
 				<div class="newsInfo-second">
 					<div class="second-left">
 						<div class="newsInfo-photo">
