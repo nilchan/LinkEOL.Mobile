@@ -1,10 +1,14 @@
 {
-	"@platforms": ["android", "iPhone", "iPad"],
+	"@platforms": [
+		"android",
+		"iPhone",
+		"iPad"
+	],
 	"id": "H506D8436",
 	"name": "乐评家",
 	"version": {
-		"name": "2.5.0",
-		"code": "1109"
+		"name": "2.0.1",
+		"code": "2001"
 	},
 	"description": "",
 	"icons": {
@@ -17,7 +21,7 @@
 		"url": "http://www.linkeol.com"
 	},
 	"permissions": {
-		
+
 		"Audio": {
 			"description": "访问麦克风"
 		},
@@ -46,13 +50,13 @@
 		"Gallery": {
 			"description": "访问系统相册"
 		},
-		
+
 		"Invocation": {
 			"description": "使用Native.js能力"
 		},
 
-		
-		
+
+
 		"Storage": {
 			"description": "管理应用本地数据"
 		},
@@ -81,15 +85,21 @@
 		"Navigator": {
 			"description": "浏览器信息"
 		},
-		"NativeObj": {
-			"description": "原生对象"
-		},
+
 		"Share": {
 			"description": "管理社交分享插件"
 		},
-		"VideoUtility": {"description": "视频插件"},
+		"VideoUtility": {
+			"description": "视频插件"
+		},
 		"Zip": {},
-		"Payment": {},"Push":{},"Statistic":{},"Proximity":{},"Orientation":{},"Accelerometer":{}
+		"Payment": {},
+		"Push": {},
+		"Statistic": {},
+		"Proximity": {},
+		"Orientation": {},
+		"Accelerometer": {},
+		"NativeObj": {}
 	},
 	"plus": {
 		"splashscreen": {
@@ -100,13 +110,38 @@
 		"runmode": "liberate",
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",
 		"distribute": {
-			"plugins": {"statics":{"umeng":{"appkey_ios":"56ab233fe0f55a394700328d","channelid_ios":"appstore","appkey_android":"56ab21cbe0f55ad0bb0013cd","channelid_android":"unknown"}},"push":{"igexin":{"appid":"1Pr9L0qEjW7Okk0YYqdI03","appkey":"gGCspILMRm5fIMRoJDHxX8","appsecret":"Wz9LARf0Fn8uB8aAIjD3G3"}},"payment":{"weixin":{"description":"微信支付","appid":"wx142ee69041c3765a"}},
+			"plugins": {
+				"statics": {
+					"umeng": {
+						"appkey_ios": "56ab233fe0f55a394700328d",
+						"channelid_ios": "appstore",
+						"appkey_android": "56ab21cbe0f55ad0bb0013cd",
+						"channelid_android": "unknown"
+					}
+				},
+				"push": {
+					"igexin": {
+						"appid": "1Pr9L0qEjW7Okk0YYqdI03",
+						"appkey": "gGCspILMRm5fIMRoJDHxX8",
+						"appsecret": "Wz9LARf0Fn8uB8aAIjD3G3"
+					}
+				},
+				"payment": {
+					"weixin": {
+						"description": "微信支付",
+						"appid": "wx142ee69041c3765a"
+					}
+				},
 				"share": {
 					"weixin": {
 						"appid": "wx142ee69041c3765a",
 						"appsecret": "1ccf661d050bea7a05ff4d5abbc3a865",
 						"description": "微信分享"
-					},"qq":{"appid":"1104932809","description":"QQ分享"}
+					},
+					"qq": {
+						"appid": "1104932809",
+						"description": "QQ分享"
+					}
 				}
 			},
 			"apple": {
@@ -123,9 +158,34 @@
 				"keystore": "",
 				"password": "",
 				"aliasname": "",
-				"permissions": ["<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.GET_TASKS\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
+				"permissions": [
+					"<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+					"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+					"<uses-permission android:name=\"android.permission.GET_TASKS\"/>",
+					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+					"<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+					"<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+					"<uses-feature android:name=\"android.hardware.camera\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
+					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.CAMERA\"/>"
+				]
 			},
-			"orientation": ["portrait-primary"],
+			"orientation": [
+				"portrait-primary"
+			],
 			"icons": {
 				"ios": {
 					"prerendered": true,
@@ -195,46 +255,46 @@
 		}
 	},
 	"fullscreen": false,
-	"unpackage":[
-	  "content/cropperjs/cropper.min.css",
-	  "content/fonts/iconfont.eot",
-	  "images/1px.png",
-	  "images/5.jpg",
-	  "images/addWorkspPlan.png",
-	  "images/ewm.png",
-	  "images/index-1.png",
-	  "images/my-photo.png",
-	  "images/poster-default.png",
-	  "images/register-pic.png",
-	  "images/subject_40.png",
-	  "images/submitClass-zf.png",
-	  "images/video-big-default2.png",
-	  "images/video-default2.png",
-	  "images/watermark.png",
-	  "images/worksList.jpg",
-	  "images/worksbanner.png",
-	  "modules/activity/activityInfoEnroll.html",
-	  "modules/my/messageNotification.html",
-	  "modules/student/chooseTime.html",
-	  "modules/teacher/findTeacher.html",
-	  "modules/works/test.html",
-	  "modules/works/worksUploading.html",
-	  "script/common/device.js",
-	  "script/common/device.min.js",
-	  "script/common/downloader.js",
-	  "script/common/my.js",
-	  "script/common/public.js",
-	  "script/libs/clamp/clamp.js",
-	  "script/libs/cropperjs/cropper.min.js",
-	  "script/mui/lrz.mobile.min.js",
-	  "script/student/aboutLessonBaseInfo.js",
-	  "script/student/aboutLessonChosenTimes.js",
-	  "script/student/aboutLessonMain.js",
-	  "script/teacher/findTeacher.js",
-	  "script/works/worksUploading.js",
-	  "Web.config",
-	  "favicon.ico",
-	  "Readme.txt"
+	"unpackage": [
+		"content/cropperjs/cropper.min.css",
+		"content/fonts/iconfont.eot",
+		"images/1px.png",
+		"images/5.jpg",
+		"images/addWorkspPlan.png",
+		"images/ewm.png",
+		"images/index-1.png",
+		"images/my-photo.png",
+		"images/poster-default.png",
+		"images/register-pic.png",
+		"images/subject_40.png",
+		"images/submitClass-zf.png",
+		"images/video-big-default2.png",
+		"images/video-default2.png",
+		"images/watermark.png",
+		"images/worksList.jpg",
+		"images/worksbanner.png",
+		"modules/activity/activityInfoEnroll.html",
+		"modules/my/messageNotification.html",
+		"modules/student/chooseTime.html",
+		"modules/teacher/findTeacher.html",
+		"modules/works/test.html",
+		"modules/works/worksUploading.html",
+		"script/common/device.js",
+		"script/common/device.min.js",
+		"script/common/downloader.js",
+		"script/common/my.js",
+		"script/common/public.js",
+		"script/libs/clamp/clamp.js",
+		"script/libs/cropperjs/cropper.min.js",
+		"script/mui/lrz.mobile.min.js",
+		"script/student/aboutLessonBaseInfo.js",
+		"script/student/aboutLessonChosenTimes.js",
+		"script/student/aboutLessonMain.js",
+		"script/teacher/findTeacher.js",
+		"script/works/worksUploading.js",
+		"Web.config",
+		"favicon.ico",
+		"Readme.txt"
 	],
 	"dependencies": {
 		"pages": {
@@ -1989,8 +2049,7 @@
 					"modules/works/worksListAllHeader.html",
 					"modules/activity/activityEnroll.html",
 					"modules/account/login.html",
-					"modules/activity/saleTicket.html",
-					"modules/home/webModer.html"
+					"modules/activity/saleTicket.html"
 				],
 				"priority": 0
 			},
@@ -2989,13 +3048,6 @@
 					"content/common/Tf_global.css",
 					"modules/news/newsList.html",
 					"content/fonts/mui.ttf"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"modules/home/webModer.html": {
-				"resources": [
-					"script/mui/mui.js"
 				],
 				"refer": [],
 				"priority": 0
