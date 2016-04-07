@@ -160,7 +160,7 @@ var saleTicket = function() {
 			}
 
 
-			SeatPrice = null;	//清空原有的票信息
+			SeatPrice = [];	//清空原有的票信息
 			self.custormPriceList().forEach(function(item) {
 				SeatPrice.push({
 					"Id": item.Id,
