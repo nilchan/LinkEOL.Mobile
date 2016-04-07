@@ -187,8 +187,8 @@ var newsDetail=function(){
 		mui('#sharePopover').popover('toggle');
 	}
 	
-	newsID = 149;
-	self.getNewsDetail();
+//	newsID = 149;
+//	self.getNewsDetail();
 	
 	mui.plusReady(function(){
 		Share.updateSerivces(); //初始化分享
