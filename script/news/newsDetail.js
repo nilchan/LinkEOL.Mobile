@@ -66,6 +66,13 @@ var newsDetail=function(){
 						}
 					}
 				});
+				
+				var iframes = document.getElementsByTagName('iframe');
+				var w = document.body.clientWidth - 20;
+				for(var i = 0; i < iframes.length; i ++) {
+					iframes[i].style.width = w + 'px';
+					iframes[i].style.height = w * 0.74 + 'px';
+				}
 			}
 		})
 	}
@@ -179,6 +186,9 @@ var newsDetail=function(){
 	self.closeShare=function(){
 		mui('#sharePopover').popover('toggle');
 	}
+	
+	newsID = 149;
+	self.getNewsDetail();
 	
 	mui.plusReady(function(){
 		Share.updateSerivces(); //初始化分享
