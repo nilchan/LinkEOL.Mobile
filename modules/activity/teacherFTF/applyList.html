@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../../content/common/global.css" rel="stylesheet" />
+		<link href="../../../content/common/style.css" rel="stylesheet" />
+		<link href="../../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../../content/cropperjs/cropper.css" />
+		<style>
+			html,
+			body,
+			.mui-content {
+				background: #eee!important;
+			}
+			
+			.activityEnrollSuccess-con-bg {
+				height: auto;
+				padding-bottom: 14px;
+				width: 94%;
+				margin: 10px auto;
+				border-radius: 10px;
+				overflow: hidden;
+				background-color: rgb(255, 255, 255);
+				box-shadow: 2.5px 4.33px 4.75px 0.25px rgba(0, 0, 0, 0.02);
+			}
+			
+			.success-title:after {
+				height: 0px;
+			}
+			
+			.info-pic {
+				height: 30px!important;
+			}
+			
+			.mui-table-view-cell.mui-collapse.mui-active >.info-pic {
+				background: #fff!important;
+			}
+			
+			.mui-table-view-cell.mui-collapse.mui-active >.info-pic:after {
+				color: #6e6e6e!important;
+				font-size: 20px!important;
+				right: 52%!important;
+				content: "\e635"!important;
+				top: 15px;
+			}
+			
+			.mui-table-view-cell.mui-collapse >.info-pic:after {
+				color: #6e6e6e!important;
+				font-size: 20px!important;
+				right: 52%!important;
+				content: "\e66c"!important;
+				top: 15px;
+			}
+			
+			.mui-table-view-cell.mui-collapse .mui-table-view {
+				margin-left: 0px!important;
+			}
+			.teacherList-mui:active {
+				background: #eee;
+			}
+			.teacherList-mui-bar-tab-1{
+				background: #e64578!important;
+				width: 100%!important;
+				display: inline-block;
+				height: 50px!important;
+				text-align: center;
+			}
+			.activityInfo-nav{
+				width: 100%!important;
+				line-height: 50px!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">报名查询</h1>
+		</header>-->
+		<div class="mui-content">
+			<div class="success-title">
+				<h3 id="examScore-h3">我的报名记录</h3>
+			</div>
+			<div data-bind="foreach:{data: scores}">
+				<div class="activityEnrollSuccess-con-bg">
+					<ul class="examScore-ul">
+						<li>
+						<span class="examScore-left">状态</span>
+						<span class="examScore-right examScore-btn-succsee"><!--ko text:common.gExamOrderStatus[Stat].text--><!--/ko--> <a class="examScore-btn-play" data-bind="visible:Stat==0,click:gotoPay">立即支付</a>  </span>						
+						
+					</li>
+						<li>
+							<span class="examScore-left">注册手机号</span>
+							<span class="examScore-right" data-bind="text:UserPhone"></span>
+						</li>
+						<li>
+							<span class="examScore-left">姓名</span>
+							<span class="examScore-right" data-bind="text:UserName"></span>
+						</li>
+
+						<li>
+							<span class="examScore-left">报名曲目</span>
+							<span class="examScore-right" data-bind="text:ChapterOption"></span>
+						</li>
+
+					</ul>
+					<li class="mui-table-view-cell mui-collapse info-li">
+						<a class="mui-navigate-right info-pic" href="#">
+						</a>
+						<ul class="mui-table-view mui-table-view-chevron examScore-ul">
+							<li>
+								<span class="examScore-left">性别</span>
+								<span class="examScore-right" data-bind="text:Gender == 0 ? '男':'女'"></span>
+							</li>
+							<li>
+								<span class="examScore-left">出生年月</span>
+								<span class="examScore-right" data-bind="text:Birthday"></span>
+							</li>
+							<li>
+								<span class="examScore-left">所在地区</span>
+								<span class="examScore-right" data-bind="text:CommentName"></span>
+							</li>
+							<!--<li style="height: auto;">
+								<span class="examScore-left">个人艺术简历</span>
+								<span class="examScore-right" data-bind="text:common.gJsonGenderType[Gender].text">个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个
+									个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历人艺术简历个人艺术简历个人艺术简历</span>
+							</li>-->
+							<div style="width: 100%; height: auto; line-height: 24px; color: #666;">
+								<span style="width: 100%; color: #333; display: inline-block; height: 40px; line-height: 40px; font-size: 16px; text-align: center;">个人艺术简历</span>
+								<p data-bind="text:Resume"></p>
+							</div>
+
+						</ul>
+					</li>
+				</div>
+
+			</div>
+			<nav class="mui-bar mui-bar-tab p-btn-color">
+					<a class="ah-mui-tab-item teacherList-mui-bar-tab" >
+					<span class="mui-tab-label activityInfo-nav">新增报名</span>
+				</a>
+			</nav>
+		</div>
+
+		<script src="../../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../../script/mui/mui.zoom.js"></script>
+		<script src="../../../script/mui/mui.previewimage.js"></script>
+		<script src="../../../script/common/common.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../../script/common/base.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="js/applyList.js"></script>
+	</body>
+
+</html>

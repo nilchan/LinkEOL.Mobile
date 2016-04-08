@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../../content/common/global.css" rel="stylesheet" />
+		<link href="../../../content/common/style.css" rel="stylesheet" />
+		<link href="../../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../../content/cropperjs/cropper.css" />
+		<style>
+			.mui-input-group .mui-input-row:after {
+				background: #C8C7CC!important;
+			}
+			.mui-input-row .mui-btn {
+				line-height: 2.8!important;
+				font-size: 16px!important;
+			}
+			.reg-mui-input-row label ~ input,
+			.th-mui-btn-block {
+				line-height: 1.1!important;
+				font-size: 16px;
+			}
+			.mui-checkbox.mui-left input[type=checkbox] {
+				left: -34px;
+			}
+			.reg-mui-input-row input[type=text],
+			input[type=password] {
+				line-height: 18px!important;
+				height: 44px!important;
+			}
+			.hideDiv {
+				display: none;
+			}
+			.reg-mui-input-row label,
+			.mui-input-row label,
+			.th-mui-btn-block,
+			.pic-mui-input-row label ~ input,
+			.mui-input-row label ~ select,
+			.mui-input-row label ~ textarea {
+				font-size: 16px;
+			}
+			.reg-mui-input-row label ~ input,
+			.th-mui-btn-block {
+				color: #999;
+			}
+			.mui-btn-blue, .mui-btn-primary, input[type=submit]{
+				    border: 1px solid #e64578;
+    				background-color: #e64578;
+			}
+			.apply-h4{
+				color: #777;
+				font-size: 16px;
+				text-align: center;
+				margin-top: 20px;
+				margin-bottom:20px;
+				line-height: 26px;
+				padding:0px 20px;
+			}
+			.apply-tabel{
+				padding:10px 20px;
+				color: #555;
+				font-size: 26px;
+				text-align: center;
+				letter-spacing: 5px;
+				font-weight: 600;
+
+			}
+			.reg-mui-input-group label{
+				width: 40%!important;
+			}
+			.reg-mui-input-row label ~ input, .th-mui-btn-block{
+				width: 60%!important;
+			}
+			@media only screen and (min-width: 320px) and (max-width: 374px) {
+				.reg-mui-input-group label{
+				width: 46%!important;
+			}
+			.reg-mui-input-row label ~ input, .th-mui-btn-block{
+				width: 54%!important;
+			}
+			}
+			.th-textarea-div label{
+				color: #666!important;
+			}
+			.Complete{
+				color: #666;				
+				font-size: 15px;
+				position: absolute;
+				height: 30px;
+				width:60px;
+				color: #fff;
+				text-align: center;
+				line-height: 30px;
+				border-radius: 5px;
+				background: #E64578;
+				display: inline-block;
+				right: 15px;
+				top: 8px;				
+			}
+			.Complete:active{
+				color:#efa900!important;
+			}
+			.pi-tx-bg i img{
+				border-radius: 0px;
+			}
+			.th-textarea-div{
+				height: auto;
+				overflow: hidden;
+				border-bottom: 1px solid #C8C7CC;
+			}
+			#selectUserPicker{
+				 white-space: normal;
+			}
+			#mui-input-row{
+				height: auto!important;
+							}
+			.mui-btn-block{
+				margin-bottom: 0px!important;
+			}
+			@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.th-mui-f {
+					margin-top: 140px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">古筝研修班报名表</h1>
+			<span class="Complete" data-bind='click:addRegLectures'>完成</span>
+		</header>
+		<div class="mui-content">
+			<h4 class="apply-h4">古筝"名师面对面"报名表</h4>	
+			<form class="mui-input-group reg-mui-input-group">
+				<!--<div class="pi-tx-bg pi-tx-border-top">
+					<span>头像</span>
+					<i data-bind="click:selectPic"><img data-bind="attr: {'src': Path}" onerror="this.src='../../images/my-default.png';" /></i>
+				</div>-->
+				<div class="mui-input-row reg-mui-input-row">					
+					<label>报名手机号码</label>
+					<input type="tel" id="tbPhone" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入联系电话" data-bind="value:UserPhone"/>
+				</div>
+				<div class="mui-input-row reg-mui-input-row">					
+					<label>姓名</label>
+					<input type="text" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入姓名" data-bind='value:UserName'/>
+				</div>
+				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
+					<label>性别</label>
+					<button class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind='text:GenderText,click:setGender'></button>
+				</div>
+				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
+					<label>出生年月</label>
+					<button id='selectUserPicker' class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind='text:Birthday,click:setBirthday'></button>
+				</div>
+				<!--<div class="mui-input-row reg-mui-input-row">					
+					<label>籍贯：</label>
+					<input type="text"  class="mui-input-clear mui-input reg-mui-input" placeholder="请输入籍贯" data-bind='value:Native'/>
+				</div>
+				<div class="mui-input-row reg-mui-input-row">					
+					<label>民族：</label>
+					<input type="text" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入民族" data-bind="value:Nation"/>
+				</div>-->
+				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
+					<label>报名地区</label>
+					<button id='selectUserPicker' class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind='text:CommentName,click:setCommentName'></button>
+				</div>
+				<div class="mui-input-row reg-mui-input-row">					
+					<label>指导老师</label>
+                    <input type="text" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入指导老师" data-bind="value:teacher" />
+				</div>
+				<div class="mui-input-row reg-mui-input-row">					
+					<label>指导老师电话</label>
+                    <input type="tel" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入指导老师电话" data-bind="value:teacherPhone" />
+				</div>
+				<!--<div class="mui-input-row reg-mui-input-row">					
+					<label>身份证号码：</label>
+					<input type="text" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入身份证号码" data-bind="value:IDCard"/>
+				</div>
+				<div class="mui-input-row reg-mui-input-row">					
+					<label>联系地址：</label>
+					<input type="text" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入联系地址" data-bind="value:Address,click:setAddress"/>
+				</div>
+				-->
+				<!--<div class="mui-input-row reg-mui-input-row">					
+					<label>E-mail：</label>
+					<input type="email" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入E-mail" data-bind="value:Email"/>
+				</div>
+				<div class="mui-input-row reg-mui-input-row">					
+					<label>微信号：</label>
+					<input type="text" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入微信号" data-bind="value:WeiXin"/>
+				</div>-->
+				<!--<div class="th-textarea-div th-textarea">
+					<label>教育经历：</label>
+					<textarea placeholder="请输入教育经历" data-bind="value:Education"></textarea>
+				</div>-->
+				<div class="mui-input-row reg-mui-input-row th-mui-input-row" id="mui-input-row">
+					<label>选择曲目</label>
+					<button id='selectUserPicker' class="mui-btn mui-btn-block th-mui-btn-block"  type='button' data-bind='text:ChapterOption,click:setChapterOption' style="line-height: 2!important; margin-top: 7px;"></button>
+				</div>
+				<div class="th-textarea-div th-textarea">
+					<label>个人艺术简历</label>
+					<textarea placeholder="请输入个人艺术简历" data-bind="value:Resume"></textarea>
+				</div>
+				
+			</form>
+			
+		</div>
+		<script src="../../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../script/mui/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../script/common/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../script/common/dtPicker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/apply.js"></script>
+	</body>
+</html>

@@ -2049,7 +2049,8 @@
 					"modules/works/worksListAllHeader.html",
 					"modules/activity/activityEnroll.html",
 					"modules/account/login.html",
-					"modules/activity/saleTicket.html"
+					"modules/activity/saleTicket.html",
+					"modules/activity/XSBRegister/apply.html"
 				],
 				"priority": 0
 			},
@@ -3047,6 +3048,17 @@
 					"content/fonts/iconfont.woff",
 					"content/common/Tf_global.css",
 					"modules/news/newsList.html",
+					"content/fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/activity/XSBRegister/apply.html": {
+				"resources": [
+					"script/mui/mui.picker.min.js",
+					"content/cropperjs/cropper.css",
+					"modules/activity/XSBRegister/js/apply.js",
+					"script/libs/knockout/knockout-3.3.0.min.js",
 					"content/fonts/mui.ttf"
 				],
 				"refer": [],

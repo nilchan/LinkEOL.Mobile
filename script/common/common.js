@@ -1,10 +1,11 @@
 ﻿var common = {
 	//Web API地址
-	gServerUrl: "http://cloud.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
+	//gServerUrl: "http://cloud.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
 	//gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
 	//gServerUrl: "http://192.168.1.88:8090/",gVideoServerUrl: "http://192.168.1.88:8099/",gWebsiteUrl: "http://192.168.1.88:8081/",
 	//gServerUrl: "http://192.168.1.66:8090/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
-	//gServerUrl: "http://nilchan.f3322.net:8090/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
+	gServerUrl: "http://nilchan.f3322.net:8090/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
+	
 	//判断字符串是否为空，空则返回""
 	StrIsNull: function(str) {
 		if (str != null)
@@ -494,17 +495,13 @@
 
 	//根据QueryString参数名称获取值
 	getQueryStringByName: function(name, url) {
-		if (url == 'undefined') {
-			if (typeof url == 'undefined') {
-				url = location.search;
-			}
-		}
+		url = url || window.location.search;
 		var result = url.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));
-	
+
 		if (result == null || result.length < 1) {
 			return "";
 		}
-	
+
 		return result[1];
 	},
 
@@ -1119,6 +1116,36 @@
 		orchestraRecruit: 4 //青少年乐团团员招募
 
 	},
+	
+	//赛事报名-参赛形式
+	gActivityGameStyle: [{
+        value: 1,
+        text: '个人节目'
+    }, {
+        value: 2,
+        text: '重奏节目'
+    }],
+	
+	//赛事报名-参赛组别
+	gActivityGameGroup: [{
+        value: 1,
+        text: '少儿A组（6-9）'
+    }, {
+        value: 2,
+        text: '少儿B组（10-13）'
+    }, {
+        value: 3,
+        text: '少年组（14-17）'
+    }, {
+        value: 4,
+        text: '青年组（18-24）'
+    }, {
+        value: 5,
+        text: '少年专业组（12-17）'
+    }, {
+        value: 6,
+        text: '青年专业组（18-24）'
+    }],
 
 	//视频码率类型
 	gJsonVideoLevel: {

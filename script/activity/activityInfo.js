@@ -127,6 +127,48 @@ var viewModel = function() {
 			TicketUrl: self.activity().SeatsPreviewUrl
 		});
 	}
+	
+	//判断是否已有报名
+	self.CheckHasSignup = function(){
+		var transferUrl = "";
+		switch (self.activity().ActProperty){
+			case common.gJsonActivityActProperty.orchestraRecruit:	//4 赛事活动
+				transferUrl = 'XSBRegister/';
+				break;
+			case common.gJsonActivityActProperty.teacherLectures:	//2 讲座
+				transferUrl = 'teacherFTF/';
+				break;
+			default:
+				return;
+		}
+		
+		if(getLocalItem('UserID') > 0){
+			mui.ajax(common.gServerUrl + "API/Activity/GetSignupCount?id=" + self.activity().ID, {
+				dataType: 'json',
+				type: "GET",
+				success: function(responseText) {
+					var count = parseInt(responseText);
+					if(transferUrl != ''){
+						if(count > 0){
+							transferUrl += 'applyList.html';
+						}
+						else{
+							transferUrl += 'apply.html';
+						}
+						
+						common.transfer(transferUrl, true, {
+							aid: self.activity().ID
+						});
+					}
+				}
+			})
+		}
+		else{	//使其跳转至登录界面
+			common.transfer(transferUrl + 'apply.html', true, {
+				aid: self.activity().ID
+			});
+		}
+	}
 
 	self.gotoSignUp = function() {
 		//console.log(self.activity().ActStat);
@@ -144,16 +186,7 @@ var viewModel = function() {
 			return;
 		}*/
 		if( self.CanRegGame() ) {
-			var tmpUrl = self.RegGameURL();
-			if(tmpUrl.indexOf('?') >= 0){
-				tmpUrl = tmpUrl + '&uname=' + getLocalItem('UserName');
-			}
-			else{
-				tmpUrl = tmpUrl + '?uname=' + getLocalItem('UserName');
-			}
-			common.transfer("../home/webModer.html", true, {
-				url: tmpUrl
-			});
+			self.CheckHasSignup();
 		}else {
 			common.transfer('activityEnroll.html', true, {
 				aid: ID
