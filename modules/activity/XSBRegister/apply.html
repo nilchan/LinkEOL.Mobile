@@ -117,13 +117,32 @@
 					margin-top: 140px;
 				}
 			}
+			.teacherList-mui-bar-tab-1{
+				background: #e64578!important;
+				width: 100%!important;
+				display: inline-block;
+				height: 50px!important;
+				text-align: center;
+			}
+			.activityInfo-nav{
+				width: 100%!important;
+				line-height: 50px!important;
+			}
+			.Lesson-radio:after{
+				height: 0px!important;
+			}
+				.mui-input-group:after,.mui-input-group:before{
+				height: 0px!important;
+			}
+			
+			
 		</style>
 	</head>
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe683;</i>
 			<h1 class="mui-title">比赛报名</h1>
-			<button id="complete" class="Complete" data-bind="click: submitFrom">完成</button>
+			<button id="complete" class="Complete" data-bind="click: submitFrom, visible: canChange">完成</button>
 		</header>
 		<div class="mui-content">
 			<h4 class="apply-h4" data-bind="text:title"></h4>
@@ -139,11 +158,11 @@
 				<!--</div>-->
 				<div class="mui-input-row reg-mui-input-row">					
 					<label>报名手机号码</label>
-					<input type="tel" id="tbPhone" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入手机号码" data-bind="value:phone"/>
+					<input type="tel" id="tbPhone" class=" mui-input reg-mui-input" placeholder="请输入手机号码" data-bind="value:phone"/>
 				</div>
 				<div class="mui-input-row reg-mui-input-row">
 					<label>姓名</label>
-					<input type="text" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入您的姓名" data-bind="value:userName"/>
+					<input type="text" class=" mui-input reg-mui-input" placeholder="请输入您的姓名" data-bind="value:userName"/>
 				</div>
 				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
 					<label>性别</label>
@@ -151,36 +170,40 @@
 				</div>
 				<div class="mui-input-row reg-mui-input-row">					
 					<label>参赛作品曲目</label>
-					<input type="text"  class="mui-input-clear mui-input reg-mui-input" placeholder="请输入参赛作品" data-bind="value:testWork"/>
+					<input type="text"  class=" mui-input reg-mui-input" placeholder="请输入参赛作品" data-bind="value:testWork"/>
 				</div>
 				<!--<div class="mui-input-row reg-mui-input-row">					-->
 					<!--<label>毕业学校：</label>-->
-					<!--<input type="text" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入毕业学校（选填）" data-bind="value:school"/>-->
+					<!--<input type="text" class=" mui-input reg-mui-input" placeholder="请输入毕业学校（选填）" data-bind="value:school"/>-->
 				<!--</div>-->
 				
 				<!--<div class="mui-input-row reg-mui-input-row">-->
 					<!--<label>家长电话：</label>-->
-					<!--<input type="text" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入家长电话" data-bind="value:parentPhone"/>-->
+					<!--<input type="text" class=" mui-input reg-mui-input" placeholder="请输入家长电话" data-bind="value:parentPhone"/>-->
 				<!--</div>-->
 				<div class="mui-input-row reg-mui-input-row">					
 					<label>指导老师</label>
-                    <input type="text" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入指导老师" data-bind="value:teacher" />
+                    <input type="text" class=" mui-input reg-mui-input" placeholder="请输入指导老师" data-bind="value:teacher" />
 				</div>
 				<div class="mui-input-row reg-mui-input-row">					
 					<label>指导老师电话</label>
-                    <input type="tel" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入指导老师电话" data-bind="value:teacherPhone" />
+                    <input type="tel" class=" mui-input reg-mui-input" placeholder="请输入指导老师电话" data-bind="value:teacherPhone" />
 				</div>
 				<!--<div class="mui-input-row reg-mui-input-row">					-->
 					<!--<label>微信号：</label>-->
-					<!--<input type="text" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入微信号（选填）" data-bind="value:wechat"/>-->
+					<!--<input type="text" class=" mui-input reg-mui-input" placeholder="请输入微信号（选填）" data-bind="value:wechat"/>-->
 				<!--</div>-->
 				<div class="mui-input-row reg-mui-input-row">					
 					<label>培训机构</label>
-                    <input type="text" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入培训机构（选填）" data-bind="value:train" />
+                    <input type="text" class=" mui-input reg-mui-input" placeholder="请输入培训机构（选填）" data-bind="value:train" />
 				</div>
 				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
 					<label>参赛形式</label>
 					<button id='selectUserPicker' class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:testStyleText, click:selectTestStyle"></button>
+				</div>
+				<div class="mui-input-row reg-mui-input-row">					
+					<label>报名价格</label>
+                    <input type="text" class=" mui-input reg-mui-input" readonly="readonly"  data-bind="value: price() + '元'"/>
 				</div>
 				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
 					<label>参赛组别</label>
@@ -188,14 +211,73 @@
 				</div>
 				<div class="th-textarea-div th-textarea">
 					<label>个人艺术简历</label>
-					<textarea placeholder="请输入自我简介" data-bind="value:introduce"></textarea>
+					<textarea id="introduce" placeholder="请输入自我简介" data-bind="value:introduce"></textarea>
 				</div>
 			</form>
+			
+			
+			<nav class="mui-bar mui-bar-tab p-btn-color" data-bind="visible: canChange() == false && isFinish() == false">
+					<a class="ah-mui-tab-item teacherList-mui-bar-tab" href="#middlePopover">
+					<span class="mui-tab-label activityInfo-nav" data-bind='click:gotoPay'>去付款</span>
+				</a>
+			</nav>
+		
+			
+
+			
+			
+			
+			
+			
+			<!--弹出付款对话框-->
+		<div id="middlePopover" class="mui-popover submitComment-top">	
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll submitClass-mui-scroll Lesson-mui" >
+					<div class="mui-scroll-title">
+						<i class="iconfont" data-bind="click:closePopover">&#xe63f;</i>
+						<span>付款详情</span>
+					</div>
+					<ul>
+						<form class="mui-input-group">
+							<div class="mui-input-row mui-radio mui-left Lesson-radio ">
+								<label>
+									<li class="wx-pay">
+										<img src="../../../images/submitClass-wx.png" />
+										<span>微信支付</span>
+										<input name="payType" value="wxpay" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
+									</li>
+			
+								</label>
+							</div>
+							<div class="mui-input-row mui-radio mui-left Lesson-radio">
+								<label>
+									<li class="wx-pay">
+										<img src="../../../images/ye.png" />
+										<span>余额支付
+											<!--ko text: '( ￥' + balance() + ' )'-->
+											<!--/ko-->
+										</span>
+										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
+									</li>
+								</label>
+							</div>
+							<li class="lineHeight">
+								总额：￥
+								<!--ko text: price-->
+								<!--/ko-->
+							</li>
+						</form>
+					</ul>			
+					<button class="p-btn-color" data-bind="click: gotoPay">付款</button>
+				</div>
+			</div>
+		</div>
 			<script src="../../../script/mui/mui.js"></script>
 			<script src="../../../script/mui/mui.picker.min.js"></script>
             <script src="../../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 			<script src="../../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
 			<script src="../../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../../../script/common/pay.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/apply.js"></script>
 		</div>
 	</body>

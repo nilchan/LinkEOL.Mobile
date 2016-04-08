@@ -91,7 +91,7 @@
 					<ul class="examScore-ul">
 						<li>
 						<span class="examScore-left">状态</span>
-						<span class="examScore-right examScore-btn-succsee"><!--ko text:common.gExamOrderStatus[Stat].text--><!--/ko--> <a class="examScore-btn-play" data-bind="visible:Stat==0,click:gotoPay">立即支付</a>  </span>						
+						<span class="examScore-right examScore-btn-succsee"><!--ko text:common.gExamOrderStatus[IsFinish].text--><!--/ko--> <a class="examScore-btn-play" data-bind="visible:IsFinish==0,click:gotoPay">立即支付</a>  </span>						
 						
 					</li>
 						<li>
@@ -125,11 +125,14 @@
 								<span class="examScore-left">所在地区</span>
 								<span class="examScore-right" data-bind="text:CommentName"></span>
 							</li>
-							<!--<li style="height: auto;">
-								<span class="examScore-left">个人艺术简历</span>
-								<span class="examScore-right" data-bind="text:common.gJsonGenderType[Gender].text">个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个
-									个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历个人艺术简历人艺术简历个人艺术简历个人艺术简历</span>
-							</li>-->
+							<li>
+								<span class="examScore-left">指导老师</span>
+								<span class="examScore-right" data-bind="text:TeacherName"></span>
+							</li>
+							<li>
+								<span class="examScore-left">指导老师电话</span>
+								<span class="examScore-right" data-bind="text:TeacherPhone"></span>
+							</li>
 							<div style="width: 100%; height: auto; line-height: 24px; color: #666;">
 								<span style="width: 100%; color: #333; display: inline-block; height: 40px; line-height: 40px; font-size: 16px; text-align: center;">个人艺术简历</span>
 								<p data-bind="text:Resume"></p>
@@ -141,8 +144,8 @@
 
 			</div>
 			<nav class="mui-bar mui-bar-tab p-btn-color">
-					<a class="ah-mui-tab-item teacherList-mui-bar-tab" >
-					<span class="mui-tab-label activityInfo-nav">新增报名</span>
+				<a class="ah-mui-tab-item teacherList-mui-bar-tab" >
+					<span class="mui-tab-label activityInfo-nav" data-bind="click: gotoSignup">新增报名</span>
 				</a>
 			</nav>
 		</div>

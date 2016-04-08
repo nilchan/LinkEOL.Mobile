@@ -846,7 +846,8 @@
 					"modules/account/login.html",
 					"modules/works/WorksDetails.html",
 					"modules/works/worksListMyHeader.html",
-					"modules/activity/saleTicket.html"
+					"modules/activity/saleTicket.html",
+					"modules/activity/XSBRegister/apply.html"
 				],
 				"priority": 0
 			},
@@ -2050,7 +2051,8 @@
 					"modules/activity/activityEnroll.html",
 					"modules/account/login.html",
 					"modules/activity/saleTicket.html",
-					"modules/activity/XSBRegister/apply.html"
+					"modules/activity/XSBRegister/apply.html",
+					"modules/activity/XSBRegister/applyList.html"
 				],
 				"priority": 0
 			},
@@ -3059,9 +3061,33 @@
 					"content/cropperjs/cropper.css",
 					"modules/activity/XSBRegister/js/apply.js",
 					"script/libs/knockout/knockout-3.3.0.min.js",
-					"content/fonts/mui.ttf"
+					"content/fonts/mui.ttf",
+					"script/common/pay.js",
+					"images/ye.png",
+					"images/submitClass-wx.png"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"modules/activity/XSBRegister/applyList.html": {
+				"resources": [
+					"script/mui/mui.zoom.js",
+					"modules/activity/XSBRegister/js/applyList.js",
+					"content/cropperjs/cropper.css",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"script/mui/mui.min.js",
+					"content/common/global.css",
+					"content/fonts/iconfont.css",
+					"content/mui/mui.min.css",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/fonts/iconfont.ttf",
+					"script/libs/knockout/knockout-3.3.0.min.js"
+				],
+				"refer": [
+					"modules/activity/XSBRegister/apply.html"
+				],
 				"priority": 0
 			}
 		},

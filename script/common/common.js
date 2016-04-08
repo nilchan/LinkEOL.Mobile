@@ -747,9 +747,10 @@
 
 	//检测本地版本号
 	getLocalVersion: function() {
-		//console.log(plus.runtime.innerVersion)
+		alert('runtime.version: '+plus.runtime.version)
 		plus.runtime.getProperty(plus.runtime.appid, function(inf) {
 			wgtVer = inf.version;
+			alert('inf.version: '+wgtVer)
 			//wgtVer = common.transformNum(wgtVer);
 			if (common.StrIsNull(wgtVer) != '') {
 				setLocalItem('Version.Local', wgtVer);
@@ -1044,7 +1045,9 @@
 		Download: 3, //下载
 		Exam: 4, //考级报名
 		Ticket: 5, //活动售票
-		Homework:6 //作业付费
+		Homework:6, //作业付费
+		RegGame: 7,	//赛事报名
+		RegLectures: 8	//讲座报名
 	},
 
 	//课程类型

@@ -1,11 +1,13 @@
-var examScore = function() {
+var applyList = function() {
     var self = this;
-    var aid, uid;
-
+    var aid = 0;
+	
     self.scores = ko.observableArray([]);
 
-    self.getExamScore = function() {
-        var url = common.gServerUrl + 'Common/RegLectures/RegLecturesInfo?ActivityID=' + aid +'&UserID=' + uid;
+    self.getList = function() {
+    	if(aid <= 0) return;
+    	
+        var url = common.gServerUrl + 'Common/RegLectures/RegLecturesInfo?ActivityID=' + aid +'&UserID=' + getLocalItem('UserID');
         mui.ajax(url, {
             type: 'GET',
             success: function(result) {
@@ -15,12 +17,27 @@ var examScore = function() {
         });
 
     };
-
-    aid = common.getQueryStringByName('aid');
-    uid = common.getQueryStringByName('uid');
-
-    self.getExamScore();
-
+    
+    //增加报名
+    self.gotoSignup = function(){
+    	common.transfer('apply.html', true, {
+			aid: aid
+		});
+    }
+    
+    //再次付费
+    self.gotoPay=function(){
+    	common.transfer('apply.html',true,{
+    		rid: this.ID
+    	});
+    }
+    
+	
+	mui.plusReady(function() {
+		aid=common.getQueryStringByName('aid');//传递的活动ID
+		self.getList();
+		
+	});
 };
 
-ko.applyBindings(examScore);
+ko.applyBindings(applyList);

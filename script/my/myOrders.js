@@ -146,6 +146,12 @@ var myOrders = function() {
 			case common.gDictOrderTargetType.Homework:
 				url = '../../modules/student/submitComment.html';
 				break;
+			case common.gDictOrderTargetType.RegGame:
+				url = '../../modules/activity/XSBRegister/apply.html';
+				break;
+			case common.gDictOrderTargetType.RegLectures:
+				url = '../../modules/activity/teacherFTF/apply.html';
+				break;
 			default:
 				return;
 		}

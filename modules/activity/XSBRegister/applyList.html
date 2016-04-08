@@ -75,10 +75,10 @@
 	</head>
 
 	<body>
-		<!--<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav">
 	<i class="iconfont mui-action-back">&#xe683;</i>
 	<h1 class="mui-title">报名查询</h1>
-</header>-->
+</header>
 		<div class="mui-content">
 			<div class="success-title">
 				<h3 id="examScore-h3">我的报名记录</h3>
@@ -88,7 +88,7 @@
 					<ul class="examScore-ul">
 						<li>
 						<span class="examScore-left">状态</span>
-						<span class="examScore-right examScore-btn-succsee"><!--ko text:common.gExamOrderStatus[Stat].text--><!--/ko--> <a class="examScore-btn-play" data-bind="visible:Stat==0,click:gotoPay">立即支付</a>  </span>
+						<span class="examScore-right examScore-btn-succsee"><!--ko text:IsFinish ?  common.gExamOrderStatus[1].text : common.gExamOrderStatus[0].text--><!--/ko--> <a class="examScore-btn-play" data-bind="visible:IsFinish == false,click:gotoPay">立即支付</a>  </span>
 						
 						
 					</li>
@@ -145,15 +145,13 @@
 				</div>
 
 			</div>
-			<!--<div class="activityEnrollSuccess-btn">-->
-			<!--<button>返回首页</button>-->
-			<!--</div>-->
-			
 			<nav class="mui-bar mui-bar-tab p-btn-color">
 					<a class="ah-mui-tab-item teacherList-mui-bar-tab">
-					<span class="mui-tab-label activityInfo-nav">新增报名</span>
+					<span class="mui-tab-label activityInfo-nav" data-bind='click:gotoSignup'>新增报名</span>
 				</a>
 			</nav>
+			
+			
 		</div>
 
 		<script src="../../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>

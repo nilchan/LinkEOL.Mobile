@@ -31,6 +31,7 @@ li {
 .reg-mui-input-row input[type=text],
 .reg-mui-input-row input[type=password],
 .reg-mui-input-row input[type=number],
+.reg-mui-input-row input[type=tel],
 .reg-mui-input-row textarea {
 	line-height: 18px!important;
 	height: 44px!important;
@@ -5468,9 +5469,11 @@ li {
 }
 .submitComment-top {
 	width: 100%!important;
-	top: 50%!important;
-	margin-top: -182px;
+	position: fixed!important;
+	top: 100%!important;
+	margin-top: -330px!important;
 	height: 364px!important;
+	left: 0px!important;
 	border-radius: 5px;
 }
 .worksDetails-after:after{
@@ -7047,7 +7050,7 @@ li {
 	background: #fff;
 	/*padding: 8px 10px 24px 154px;*/
 	
-	padding: 0.2rem 0.5rem 0.98rem 7rem;
+	padding: 0.2rem 0.5rem 0.28rem 7rem;
 	box-sizing: border-box;
 	position: relative;
 }

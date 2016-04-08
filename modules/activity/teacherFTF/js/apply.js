@@ -23,8 +23,10 @@ var teacherFTF = function() {
 	self.Province = ko.observable("广东省"); //默认广东省
 	self.City = ko.observable("广州市"); //默认广州市
 	self.District = ko.observable("天河区"); //默认天河区
-	self.Address = ko.observable(self.Province() + ' ' + self.City() + ' ' + self.District())
-
+	self.Address = ko.observable(self.Province() + ' ' + self.City() + ' ' + self.District());
+	self.Chapter = ko.observableArray([]);
+	self.price = ko.observable(0);
+	
 	self.getActivity = function() {
 		var ajaxUrl = common.gServerUrl + "Common/RegGame/RegGameInfoByActivityID?ActivityID=" + activityID;
 		mui.ajax(ajaxUrl, {
@@ -34,11 +36,11 @@ var teacherFTF = function() {
 				var ChapterOptionJSON = JSON.parse(result.ChapterOptionJSON);
 				var CommentNameJSON = JSON.parse(result.CommentNameJSON);
 				var ChapterOption = common.JsonConvert(ChapterOptionJSON, 'Id', 'ChapterOption');
+				self.Chapter(ChapterOptionJSON);
 				var CommentName = common.JsonConvert(CommentNameJSON, 'Id', 'CommentName');
-				mui.ready(function() {
-					self.ChapterOptions.setData(ChapterOption);
-					self.CommentNames.setData(CommentName);
-				})
+				
+				self.ChapterOptions.setData(ChapterOption);
+				self.CommentNames.setData(CommentName);
 
 			}
 		})
@@ -50,7 +52,6 @@ var teacherFTF = function() {
 			self.genders.show(function(items) {
 				self.GenderText(items[0].text);
 				self.Gender(items[0].value);
-				console.log(self.Gender());
 			});
 		});
 	}
@@ -71,6 +72,7 @@ var teacherFTF = function() {
 			self.ChapterOptions.show(function(items) {
 				self.ChapterOption(items[0].text); //赛区
 				self.ChapterOptionId(items[0].value); //赛区id
+				self.price(self.Chapter()[items[0].value-1].Price);
 			});
 		});
 	}
@@ -197,11 +199,12 @@ var teacherFTF = function() {
 		self.places.setData(cityData3);
 		
 		activityID = common.getQueryStringByName('aid');
-        uphone = common.getQueryStringByName('uname');
-        if(common.StrIsNull(uphone) != ''){
-        	self.UserPhone(uphone);
-        	document.getElementById('tbPhone').disabled = true;
-        }
+		
+//      uphone = common.getQueryStringByName('uname');
+//      if(common.StrIsNull(uphone) != ''){
+//      	self.UserPhone(uphone);
+//      	document.getElementById('tbPhone').disabled = true;
+//      }
 		
 		self.getActivity();
 		

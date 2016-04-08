@@ -126,6 +126,25 @@
 					margin-top: 140px;
 				}
 			}
+			.teacherList-mui-bar-tab-1{
+				background: #e64578!important;
+				width: 100%!important;
+				display: inline-block;
+				height: 50px!important;
+				text-align: center;
+			}
+			.activityInfo-nav{
+				width: 100%!important;
+				line-height: 50px!important;
+			}
+			.Lesson-radio:after{
+				height: 0px!important;
+			}
+			.mui-input-group:after,.mui-input-group:before{
+				height: 0px!important;
+			}
+			
+			
 		</style>
 	</head>
 	<body>
@@ -202,6 +221,10 @@
 					<label>选择曲目</label>
 					<button id='selectUserPicker' class="mui-btn mui-btn-block th-mui-btn-block"  type='button' data-bind='text:ChapterOption,click:setChapterOption' style="line-height: 2!important; margin-top: 7px;"></button>
 				</div>
+				<div class="mui-input-row reg-mui-input-row">					
+					<label>曲目价格</label>
+                    <input type="text" class="mui-input-clear mui-input reg-mui-input" disabled="disabled" data-bind="value:price() + '元'" />
+				</div>
 				<div class="th-textarea-div th-textarea">
 					<label>个人艺术简历</label>
 					<textarea placeholder="请输入个人艺术简历" data-bind="value:Resume"></textarea>
@@ -209,6 +232,63 @@
 				
 			</form>
 			
+		</div>
+		<nav class="mui-bar mui-bar-tab p-btn-color">
+					<a class="ah-mui-tab-item teacherList-mui-bar-tab" href="#middlePopover">
+					<span class="mui-tab-label activityInfo-nav" data-bind='click:gotoSignup'>去付款</span>
+				</a>
+			</nav>
+		
+			
+
+			
+			
+			
+			
+			
+			<!--弹出付款对话框-->
+		<div id="middlePopover" class="mui-popover submitComment-top">	
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll submitClass-mui-scroll Lesson-mui" >
+					<div class="mui-scroll-title">
+						<i class="iconfont" data-bind="click:closePopover">&#xe63f;</i>
+						<span>付款详情</span>
+					</div>
+					<ul>
+						<form class="mui-input-group">
+							<div class="mui-input-row mui-radio mui-left Lesson-radio ">
+								<label>
+									<li class="wx-pay">
+										<img src="../../../images/submitClass-wx.png" />
+										<span>微信支付</span>
+										<input name="payType" value="wxpay" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
+									</li>
+			
+								</label>
+							</div>
+							<div class="mui-input-row mui-radio mui-left Lesson-radio">
+								<label>
+									<li class="wx-pay">
+										<img src="../../../images/ye.png" />
+										<span>余额支付
+											<!--ko text: '( ￥ ' + balance() + ' )'-->
+											(￥120.00)
+											<!--/ko-->
+										</span>
+										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
+									</li>
+								</label>
+							</div>
+							<li class="lineHeight">
+								总额：￥
+								<!--ko text: Amount-->
+								<!--/ko-->
+							</li>
+						</form>
+					</ul>			
+					<button class="p-btn-color">付款</button>
+				</div>
+			</div>
 		</div>
 		<script src="../../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../script/mui/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
