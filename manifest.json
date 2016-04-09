@@ -3129,7 +3129,8 @@
 			},
 			"modules/activity/teacherFTF/applyList.html": {
 				"resources": [
-					"modules/activity/teacherFTF/js/applyList.js"
+					"modules/activity/teacherFTF/js/applyList.js",
+					"script/libs/knockout/knockout-3.3.0.min.js"
 				],
 				"refer": [
 					"modules/activity/teacherFTF/apply.html"

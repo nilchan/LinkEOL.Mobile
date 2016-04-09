@@ -4946,8 +4946,10 @@ li {
 }
 .examScore-right{
 	width:56%;
-	height: 100%;
-	line-height: 40px;
+	/*height: 100%;*/
+	line-height: 34px;
+	word-wrap: break-word;
+	word-break:break-all;
 	display: inline-block;
 	float: left;
 	text-align: left;
