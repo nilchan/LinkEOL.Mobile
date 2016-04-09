@@ -379,7 +379,8 @@ upload.deleteTask = function(workId) {
 	if (tasks && tasks.length > 0) {
 		for (var j = 0; j < tasks.length; j++) {
 			if (tasks[j].workId == workId) {
-				tasks.pop(tasks[j]);
+				//tasks.pop(tasks[j]);
+				tasks.splice(j, 1);
 				break;
 			}
 		}

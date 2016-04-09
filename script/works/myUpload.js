@@ -172,7 +172,8 @@ var myUpload = function() {
 						found = true;
 						tasks[j].Found = found;
 						if (self.uploadList()[i].works.IsFinish) { //若服务器端认为已完成，则需清除本地该任务
-							tasks.pop(tasks[j]);
+							//tasks.pop(tasks[j]);
+							tasks.splice(j, 1);
 						}
 
 						break;
@@ -190,7 +191,8 @@ var myUpload = function() {
 
 		for (var j = tasks.length - 1; j >= 0; j--) {
 			if (tasks[j].Found == "undefined" || tasks[j].Found == false) {
-				tasks.pop(tasks[j]);
+				//tasks.pop(tasks[j]);
+				tasks.splice(j, 1);
 			}
 		}
 		if(tasks.length <= 0)
