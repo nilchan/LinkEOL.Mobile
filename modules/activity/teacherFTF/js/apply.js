@@ -11,7 +11,7 @@ var teacherFTF = function() {
 	self.Birthday = ko.observable('请选择出生日期'); //生日
 	self.Native = ko.observable(''); //籍贯
 	self.Nation = ko.observable(''); //民族
-	self.CommentName = ko.observable('请选择赛区'); //赛区
+	self.CommentName = ko.observable('请选择地区'); //赛区
 	self.CommentId = ko.observable(); //赛区id
 	self.IDCard = ko.observable(''); //身份证
 	self.Email = ko.observable(''); //邮箱
@@ -408,6 +408,9 @@ var teacherFTF = function() {
 			//console.log(JSON.stringify(activityInfo));
 			if (opener.id.indexOf('applyList.html') >= 0) {
 				mui.fire(opener, 'refreshList');
+			}
+			if (opener.id.indexOf('myOrders.html') >= 0) {
+				common.refreshOrder();//刷新订单
 			}
 
 			//返回true，继续页面关闭逻辑

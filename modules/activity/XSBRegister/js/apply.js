@@ -356,6 +356,9 @@ var applay = function() {
 			if (opener.id.indexOf('applyList.html') >= 0) {
 				mui.fire(opener, 'refreshList');
 			}
+			if (opener.id.indexOf('myOrders.html') >= 0) {
+				common.refreshOrder();//刷新订单
+			}
 
 			//返回true，继续页面关闭逻辑
 			return true;
