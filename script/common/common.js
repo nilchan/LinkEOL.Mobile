@@ -747,10 +747,10 @@
 
 	//检测本地版本号
 	getLocalVersion: function() {
-		alert('runtime.version: '+plus.runtime.version)
+		//alert('runtime.version: '+plus.runtime.version)
 		plus.runtime.getProperty(plus.runtime.appid, function(inf) {
 			wgtVer = inf.version;
-			alert('inf.version: '+wgtVer)
+			//alert('inf.version: '+wgtVer)
 			//wgtVer = common.transformNum(wgtVer);
 			if (common.StrIsNull(wgtVer) != '') {
 				setLocalItem('Version.Local', wgtVer);

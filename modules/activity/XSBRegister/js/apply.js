@@ -132,8 +132,8 @@ var applay = function() {
         if( !validate(self.userName(), '姓名') ) return ;
         if( !validate(self.testWork(), '参赛作品') ) return ;
         if( !validate(self.phone(), '报名手机号码') ) return ;
-        if( !validate(self.teacher(), '指导老师') ) return ;
-        if( !validate(self.teacherPhone(), '指导老师电话') ) return ;
+        /*if( !validate(self.teacher(), '指导老师') ) return ;
+        if( !validate(self.teacherPhone(), '指导老师电话') ) return ;*/
         
         if( !validateS(self.areaID(), '赛区') ) return ;
         if( !validateS(self.sexID(), '性别') ) return ;
