@@ -10,7 +10,6 @@
 		<link href="../../../content/common/global.css" rel="stylesheet" />
 		<link href="../../../content/common/style.css" rel="stylesheet" />
 		<link href="../../../content/mui/mui.picker.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../../../content/cropperjs/cropper.css" />
 		<style>
 			html,
 			body,
@@ -71,19 +70,23 @@
 				width: 100%!important;
 				line-height: 50px!important;
 			}
+			
+			#apply-list {
+				margin-bottom: 60px;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-	<i class="iconfont mui-action-back">&#xe683;</i>
-	<h1 class="mui-title">报名查询</h1>
-</header>
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">报名查询</h1>
+		</header>
 		<div class="mui-content">
 			<div class="success-title">
 				<h3 id="examScore-h3">我的报名记录</h3>
 			</div>
-			<div data-bind="foreach:{data: scores}">
+			<div id="apply-list" data-bind="foreach:{data: scores}">
 				<div class="activityEnrollSuccess-con-bg">
 					<ul class="examScore-ul">
 						<li>
@@ -129,11 +132,11 @@
 							</li>
 							<li>
 								<span class="examScore-left">参赛形式</span>
-								<span class="examScore-right" data-bind="text: common.getTextByValue(common.gActivityGameStyle, GroupType)"></span>
+								<span class="examScore-right" data-bind="text: GroupTypeText"></span>
 							</li>
 							<li>
 								<span class="examScore-left">参赛组别</span>
-								<span class="examScore-right" data-bind="text: common.getTextByValue(common.gActivityGameGroup, GroupDivision)"></span>
+								<span class="examScore-right" data-bind="text: GroupDivisionText"></span>
 							</li>
 							<div style="width: 100%; height: auto; line-height: 24px; color: #666;">
 								<span style="width: 100%; color: #333; display: inline-block; height: 40px; line-height: 40px; font-size: 16px; text-align: center;">个人艺术简历</span>
@@ -150,12 +153,9 @@
 					<span class="mui-tab-label activityInfo-nav" data-bind='click:gotoSignup'>新增报名</span>
 				</a>
 			</nav>
-			
-			
 		</div>
 
 		<script src="../../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
-		<script src="../../../script/mui/mui.zoom.js"></script>
 		<script src="../../../script/common/base.js " type="text/javascript " charset="utf-8 "></script>
 		<script src="../../../script/common/common.js " type="text/javascript " charset="utf-8 "></script>
 		<script src="../../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript "></script>

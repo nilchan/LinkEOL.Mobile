@@ -13,6 +13,10 @@ var applyList = function() {
             success: function(result) {
                 console.log(result);
                 self.scores(JSON.parse(result));
+                common.showCurrentWebview();
+            },
+            error: function(){
+            	common.showCurrentWebview();
             }
         });
 
@@ -22,22 +26,28 @@ var applyList = function() {
     self.gotoSignup = function(){
     	common.transfer('apply.html', true, {
 			aid: aid
-		});
+		}, false, false);
     }
     
     //再次付费
     self.gotoPay=function(){
     	common.transfer('apply.html',true,{
     		rid: this.ID
-    	});
+    	}, false, false);
     }
     
 	
 	mui.plusReady(function() {
-		aid=common.getQueryStringByName('aid');//传递的活动ID
+		var web = plus.webview.currentWebview();
+		if (typeof(web.aid) !== "undefined") {
+			aid = web.aid;
+		}
 		self.getList();
-		
 	});
+
+	window.addEventListener('refreshList', function(event) {
+		self.getList();
+	})
 };
 
 ko.applyBindings(applyList);

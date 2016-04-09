@@ -128,7 +128,7 @@ var myOrders = function() {
 
 	self.goDetail = function(order) {
 		//console.log(JSON.stringify(order));
-		var url = '';
+		var url = '', arg1 = true, arg2 = true;
 		switch (order.TargetType) {
 			case common.gDictOrderTargetType.Comment:
 				url = '../../modules/student/submitComment.html';
@@ -148,16 +148,20 @@ var myOrders = function() {
 				break;
 			case common.gDictOrderTargetType.RegGame:
 				url = '../../modules/activity/XSBRegister/apply.html';
+				arg1 = false;
+				arg2 = false;
 				break;
 			case common.gDictOrderTargetType.RegLectures:
 				url = '../../modules/activity/teacherFTF/apply.html';
+				arg1 = false;
+				arg2 = false;
 				break;
 			default:
 				return;
 		}
 		common.transfer(url, true, {
 			order: order
-		});
+		}, arg1, arg2);
 	}
 
 	window.addEventListener('refreshOrderInfo', function() {

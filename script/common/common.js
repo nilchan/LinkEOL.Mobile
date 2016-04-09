@@ -974,7 +974,8 @@
 		activityModule: 9, //活动购票
 		instructModule: 10, //授课关系通知
 		accountModule: 11, //账户通知
-		submitHomeworkModule: 12 //交作业提醒
+		submitHomeworkModule: 12, //交作业提醒
+		activityRegister: 13	//活动报名
 	},
 
 	//性别类型枚举
@@ -1120,36 +1121,6 @@
 
 	},
 	
-	//赛事报名-参赛形式
-	gActivityGameStyle: [{
-        value: 1,
-        text: '个人节目'
-    }, {
-        value: 2,
-        text: '重奏节目'
-    }],
-	
-	//赛事报名-参赛组别
-	gActivityGameGroup: [{
-        value: 1,
-        text: '少儿A组（6-9）'
-    }, {
-        value: 2,
-        text: '少儿B组（10-13）'
-    }, {
-        value: 3,
-        text: '少年组（14-17）'
-    }, {
-        value: 4,
-        text: '青年组（18-24）'
-    }, {
-        value: 5,
-        text: '少年专业组（12-17）'
-    }, {
-        value: 6,
-        text: '青年专业组（18-24）'
-    }],
-
 	//视频码率类型
 	gJsonVideoLevel: {
 		SD: 1, //流畅（即标清）

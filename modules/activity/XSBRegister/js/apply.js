@@ -64,8 +64,8 @@ var applay = function() {
         });
     };
 
-    //获取
-    self.getTest = function() {
+    //获取JSON
+    self.getJson = function() {
         var url = common.gServerUrl + 'Common/RegGame/RegGameInfoByActivityID?ActivityID=';
         url = url + aid;
         mui.ajax(url,{
@@ -74,10 +74,17 @@ var applay = function() {
             	console.log(result);
                 var obj = JSON.parse(result);
                 self.title(obj.Title);
-                var tmp = obj.CommentNameJSON.replace(/Id/g, 'value').replace(/CommentName/g, 'text');
-                self.area.setData(JSON.parse(tmp));
-                self.Types(JSON.parse(obj.GroupTypeJSON.replace(/Id/g, 'value').replace(/GroupType/g, 'text')));
-                self.testStyle.setData(self.Types());
+                
+				var CommentName = common.JsonConvert(JSON.parse(obj.CommentNameJSON), 'Id', 'CommentName');
+				self.area.setData(CommentName);
+				
+				var groupTypes = common.JsonConvert(JSON.parse(obj.GroupTypeJSON), 'Id', 'GroupType');
+				self.Types(JSON.parse(obj.GroupTypeJSON));
+				console.log(JSON.stringify(self.Types()));
+				self.testStyle.setData(groupTypes);
+				
+				var groupDivisions = common.JsonConvert(JSON.parse(obj.GroupDivisionJSON), 'Id', 'GroupDivision');
+				self.testGroup.setData(groupDivisions);
             }
         });
     };
@@ -106,6 +113,10 @@ var applay = function() {
 			type: 'GET',
 			success: function(responseText) {
 				self.balance(JSON.parse(responseText).Amount);
+				common.showCurrentWebview();
+			},
+			error: function(){
+				common.showCurrentWebview();
 			}
 		});
 	}
@@ -135,10 +146,13 @@ var applay = function() {
 
         var url = common.gServerUrl + 'Common/RegGame/RegGameAdd';
         var data = {
+            CommentID: self.areaID(),
             CommentName: self.areaText(),
             Gender: self.sexID(),
             GroupType: self.testStyleID(),
+            GroupTypeText: self.testStyleText(),
             GroupDivision: self.testGroupID(),
+            GroupDivisionText: self.testGroupText(),
             UserName: self.userName(),
             WorkTitle: self.testWork(),
             UserPhone: self.phone(),
@@ -242,6 +256,7 @@ var applay = function() {
 									valueType: 'balance',
 								})
 								mui('#middlePopover').popover("toggle");
+								common.refreshOrder();//刷新订单
 								mui.back();
 							},
 							error: function() {
@@ -277,6 +292,7 @@ var applay = function() {
 			type: 'GET',
 			success: function(result) {
 				var obj = JSON.parse(result);
+				self.areaID(obj.TbActivityRegGame.CommentID);
 				self.areaText(obj.TbActivityRegGame.CommentName);
 				self.sexText(common.gJsonGenderType[obj.TbActivityRegGame.Gender].text);
 				self.phone(obj.TbActivityRegGame.UserPhone);
@@ -285,8 +301,10 @@ var applay = function() {
 				self.teacher(obj.TbActivityRegGame.TeacherName);
 				self.teacherPhone(obj.TbActivityRegGame.TeacherPhone);
 				self.train(obj.TbActivityRegGame.Training == null ? ' ':obj.TbActivityRegGame.Training);
-				self.testStyleText(common.getTextByValue(common.gActivityGameStyle, obj.TbActivityRegGame.GroupType));
-				self.testGroupText(common.getTextByValue(common.gActivityGameGroup, obj.TbActivityRegGame.GroupDivision));
+				self.testStyleID(obj.TbActivityRegGame.GroupType);
+				self.testStyleText(obj.TbActivityRegGame.GroupTypeText);
+				self.testGroupID(obj.TbActivityRegGame.GroupDivisionID);
+				self.testGroupText(obj.TbActivityRegGame.GroupDivisionText);
 				self.price(obj.TbActivityRegGame.Amount);
 				self.introduce(obj.TbActivityRegGame.Resume == null ? ' ':obj.TbActivityRegGame.Resume);
 				self.isFinish(obj.TbActivityRegGame.IsFinish);
@@ -318,14 +336,16 @@ var applay = function() {
 			rid = web.order.TargetID;
 		}
         
-        self.getBalance();
         if( rid === 0 ) {
-        	self.getTest();
+        	self.getJson();
+        	self.userName(getLocalItem('DisplayName'));
+        	self.phone(getLocalItem('UserName'));
         } else {
         	self.canChange(false);
         	self.setChange();
         	self.getRegInfo();
         }
+        self.getBalance();
     });
     
     

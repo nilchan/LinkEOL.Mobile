@@ -10,7 +10,6 @@
 		<link href="../../../content/common/global.css" rel="stylesheet" />
 		<link href="../../../content/common/style.css" rel="stylesheet" />
 		<link href="../../../content/mui/mui.picker.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../../../content/cropperjs/cropper.css" />
 		<style>
 			html,
 			body,
@@ -74,24 +73,27 @@
 				width: 100%!important;
 				line-height: 50px!important;
 			}
+			#apply-list {
+				margin-bottom: 60px;
+			}
 		</style>
 	</head>
 
 	<body>
-		<!--<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe683;</i>
 			<h1 class="mui-title">报名查询</h1>
-		</header>-->
+		</header>
 		<div class="mui-content">
 			<div class="success-title">
 				<h3 id="examScore-h3">我的报名记录</h3>
 			</div>
-			<div data-bind="foreach:{data: scores}">
+			<div id="apply-list" data-bind="foreach:{data: scores}">
 				<div class="activityEnrollSuccess-con-bg">
 					<ul class="examScore-ul">
 						<li>
 						<span class="examScore-left">状态</span>
-						<span class="examScore-right examScore-btn-succsee"><!--ko text:common.gExamOrderStatus[IsFinish].text--><!--/ko--> <a class="examScore-btn-play" data-bind="visible:IsFinish==0,click:gotoPay">立即支付</a>  </span>						
+						<span class="examScore-right examScore-btn-succsee"><!--ko text:IsFinish ?  common.gExamOrderStatus[1].text : common.gExamOrderStatus[0].text--><!--/ko--> <a class="examScore-btn-play" data-bind="visible:IsFinish == false,click:gotoPay">立即支付</a>  </span>
 						
 					</li>
 						<li>
@@ -105,7 +107,7 @@
 
 						<li>
 							<span class="examScore-left">报名曲目</span>
-							<span class="examScore-right" data-bind="text:ChapterOption"></span>
+							<span class="examScore-right" data-bind="text:ChapterOptionText"></span>
 						</li>
 
 					</ul>
@@ -151,8 +153,6 @@
 		</div>
 
 		<script src="../../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
-		<script src="../../../script/mui/mui.zoom.js"></script>
-		<script src="../../../script/mui/mui.previewimage.js"></script>
 		<script src="../../../script/common/common.js " type="text/javascript " charset="utf-8 "></script>
 		<script src="../../../script/common/base.js " type="text/javascript " charset="utf-8 "></script>
 		<script src="../../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>

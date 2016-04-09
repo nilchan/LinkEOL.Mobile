@@ -169,6 +169,17 @@ var message_notification = function () {
 			common.transfer('../my/myAccount.html', true);
 		} else if (message.ModuleID == common.gMessageModule.submitHomeworkModule) { //12
 			common.transfer("../works/worksListMyHeader.html", true, {}, false, false);
+		} else if (message.ModuleID == common.gMessageModule.activityRegister) {	//13
+			console.log(JSON.stringify(message));
+			if (message.MsgUrl.indexOf('reggame') >= 0) {
+				common.transfer('../activity/XSBRegister/apply.html', true, {
+					rid: message.SourceID
+				}, false, false);
+			} else if (message.MsgUrl.indexOf('reglectures') >= 0) {
+				common.transfer('../activity/teacherFTF/apply.html', true, {
+					rid: message.SourceID
+				}, false, false);
+			}
 		} else if (message.MsgUrl != null) {
 			message.MsgUrl = message.MsgUrl.indexOf("http://") >= 0 ? message.MsgUrl : "http://" + message.MsgUrl;
 			common.transfer("../home/messageWeb.html", false, {

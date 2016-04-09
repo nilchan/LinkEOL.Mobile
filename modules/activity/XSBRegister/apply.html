@@ -10,32 +10,37 @@
 		<link href="../../../content/common/global.css" rel="stylesheet" />
 		<link href="../../../content/common/style.css" rel="stylesheet" />
 		<link href="../../../content/mui/mui.picker.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../../../content/cropperjs/cropper.css" />
 		<style>
 			.mui-input-group .mui-input-row:after {
 				background: #C8C7CC!important;
 			}
+			
 			.mui-input-row .mui-btn {
-                height: 44px;
+				height: 44px;
 				line-height: 44px!important;
 				font-size: 16px!important;
 			}
+			
 			.reg-mui-input-row label ~ input,
 			.th-mui-btn-block {
 				line-height: 1.1!important;
 				font-size: 16px;
 			}
+			
 			.mui-checkbox.mui-left input[type=checkbox] {
 				left: -34px;
 			}
+			
 			.reg-mui-input-row input[type=text],
 			input[type=password] {
 				line-height: 18px!important;
 				height: 44px!important;
 			}
+			
 			.hideDiv {
 				display: none;
 			}
+			
 			.reg-mui-input-row label,
 			.mui-input-row label,
 			.th-mui-btn-block,
@@ -44,58 +49,71 @@
 			.mui-input-row label ~ textarea {
 				font-size: 16px;
 			}
+			
 			.reg-mui-input-row label ~ input,
 			.th-mui-btn-block {
 				color: #999;
 			}
-			.mui-input-group:after,.mui-input-group:before{
+			
+			.mui-input-group:after,
+			.mui-input-group:before {
 				background: #fff;
 			}
-			.mui-btn-blue, .mui-btn-primary, input[type=submit]{
-				    border: 1px solid #e64578;
-    				background-color: #e64578;
+			
+			.mui-btn-blue,
+			.mui-btn-primary,
+			input[type=submit] {
+				border: 1px solid #e64578;
+				background-color: #e64578;
 			}
-			.apply-h4{
+			
+			.apply-h4 {
 				color: #777;
 				font-size: 16px;
 				text-align: center;
 				margin-top: 20px;
 				line-height: 26px;
-				padding:0px 20px;
+				padding: 0px 20px;
 			}
-			.apply-tabel{
-				padding:10px 20px;
+			
+			.apply-tabel {
+				padding: 10px 20px;
 				color: #555;
 				font-size: 26px;
 				text-align: center;
 				letter-spacing: 5px;
 				font-weight: 600;
-
-			}
-			.reg-mui-input-group label{
-				width: 40%!important;
-			}
-			.reg-mui-input-row label ~ input, .th-mui-btn-block{
-				width: 60%!important;
-			}
-			@media only screen and (min-width: 320px) and (max-width: 374px) {
-				.reg-mui-input-group label{
-				width: 46%!important;
-			}
-			.reg-mui-input-row label ~ input, .th-mui-btn-block{
-				width: 54%!important;
-			}
 			}
 			
-			.th-textarea-div label{
+			.reg-mui-input-group label {
+				width: 40%!important;
+			}
+			
+			.reg-mui-input-row label ~ input,
+			.th-mui-btn-block {
+				width: 60%!important;
+			}
+			
+			@media only screen and (min-width: 320px) and (max-width: 374px) {
+				.reg-mui-input-group label {
+					width: 46%!important;
+				}
+				.reg-mui-input-row label ~ input,
+				.th-mui-btn-block {
+					width: 54%!important;
+				}
+			}
+			
+			.th-textarea-div label {
 				color: #666!important;
 			}
-			.Complete{
+			
+			.Complete {
 				color: #666;
 				font-size: 15px;
 				position: absolute;
 				height: 30px;
-				width:60px;
+				width: 60px;
 				color: #fff;
 				text-align: center;
 				line-height: 30px;
@@ -104,106 +122,112 @@
 				display: inline-block;
 				right: 15px;
 				top: 8px;
-				
 			}
-			.Complete:active{
-				color:#efa900!important;
+			
+			.Complete:active {
+				color: #efa900!important;
 			}
-			.pi-tx-bg i img{
+			
+			.pi-tx-bg i img {
 				border-radius: 0px;
 			}
+			
 			@media only screen and (min-width: 376px) and (max-width: 414px) {
 				.th-mui-f {
 					margin-top: 140px;
 				}
 			}
-			.teacherList-mui-bar-tab-1{
+			
+			.teacherList-mui-bar-tab-1 {
 				background: #e64578!important;
 				width: 100%!important;
 				display: inline-block;
 				height: 50px!important;
 				text-align: center;
 			}
-			.activityInfo-nav{
+			
+			.activityInfo-nav {
 				width: 100%!important;
 				line-height: 50px!important;
 			}
-			.Lesson-radio:after{
-				height: 0px!important;
-			}
-				.mui-input-group:after,.mui-input-group:before{
+			
+			.Lesson-radio:after {
 				height: 0px!important;
 			}
 			
-			
+			.mui-input-group:after,
+			.mui-input-group:before {
+				height: 0px!important;
+			}
 		</style>
 	</head>
+
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe683;</i>
 			<h1 class="mui-title">比赛报名</h1>
-			<button id="complete" class="Complete" data-bind="click: submitFrom, visible: canChange">完成</button>
+			<button id="complete" class="Complete specialHeader" data-bind="click: submitFrom, visible: canChange">完成</button>
 		</header>
 		<div class="mui-content">
 			<h4 class="apply-h4" data-bind="text:title"></h4>
-				<p class="apply-tabel">报名表</p>
+			<p class="apply-tabel">报名表</p>
 			<form class="mui-input-group reg-mui-input-group">
 				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
-						<label>赛区</label>
-						<button class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:areaText, click:selectArea"></button>
-					</div>
+					<label>赛区</label>
+					<button class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:areaText, click:selectArea"></button>
+				</div>
 				<!--<div class="pi-tx-bg pi-tx-border-top">-->
-					<!--<span>头像</span>-->
-					<!--<i data-bind="click:selectPic"><img data-bind="attr: {'src': Path}" onerror="this.src='../../images/my-default.png';" /></i>-->
+				<!--<span>头像</span>-->
+				<!--<i data-bind="click:selectPic"><img data-bind="attr: {'src': Path}" onerror="this.src='../../images/my-default.png';" /></i>-->
 				<!--</div>-->
-				<div class="mui-input-row reg-mui-input-row">					
+				<div class="mui-input-row reg-mui-input-row">
 					<label>报名手机号码</label>
-					<input type="tel" id="tbPhone" class=" mui-input reg-mui-input" placeholder="请输入手机号码" data-bind="value:phone"/>
+					<input type="tel" id="tbPhone" class=" mui-input reg-mui-input" placeholder="请输入手机号码" data-bind="value:phone" />
 				</div>
 				<div class="mui-input-row reg-mui-input-row">
 					<label>姓名</label>
-					<input type="text" class=" mui-input reg-mui-input" placeholder="请输入您的姓名" data-bind="value:userName"/>
+					<input type="text" class=" mui-input reg-mui-input" placeholder="请输入您的姓名" data-bind="value:userName" />
 				</div>
 				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
 					<label>性别</label>
-					<button class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:sexText, click:selectSex">234</button>
+					<button class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:sexText, click:selectSex"></button>
 				</div>
-				<div class="mui-input-row reg-mui-input-row">					
+				<div class="mui-input-row reg-mui-input-row">
 					<label>参赛作品曲目</label>
-					<input type="text"  class=" mui-input reg-mui-input" placeholder="请输入参赛作品" data-bind="value:testWork"/>
+					<input type="text" class=" mui-input reg-mui-input" placeholder="请输入参赛作品" data-bind="value:testWork" />
 				</div>
 				<!--<div class="mui-input-row reg-mui-input-row">					-->
-					<!--<label>毕业学校：</label>-->
-					<!--<input type="text" class=" mui-input reg-mui-input" placeholder="请输入毕业学校（选填）" data-bind="value:school"/>-->
+				<!--<label>毕业学校：</label>-->
+				<!--<input type="text" class=" mui-input reg-mui-input" placeholder="请输入毕业学校（选填）" data-bind="value:school"/>-->
 				<!--</div>-->
-				
+
 				<!--<div class="mui-input-row reg-mui-input-row">-->
-					<!--<label>家长电话：</label>-->
-					<!--<input type="text" class=" mui-input reg-mui-input" placeholder="请输入家长电话" data-bind="value:parentPhone"/>-->
+				<!--<label>家长电话：</label>-->
+				<!--<input type="text" class=" mui-input reg-mui-input" placeholder="请输入家长电话" data-bind="value:parentPhone"/>-->
 				<!--</div>-->
-				<div class="mui-input-row reg-mui-input-row">					
+				<div class="mui-input-row reg-mui-input-row">
 					<label>指导老师</label>
-                    <input type="text" class=" mui-input reg-mui-input" placeholder="请输入指导老师" data-bind="value:teacher" />
+					<input type="text" class=" mui-input reg-mui-input" placeholder="请输入指导老师" data-bind="value:teacher" />
 				</div>
-				<div class="mui-input-row reg-mui-input-row">					
+				<div class="mui-input-row reg-mui-input-row">
 					<label>指导老师电话</label>
-                    <input type="tel" class=" mui-input reg-mui-input" placeholder="请输入指导老师电话" data-bind="value:teacherPhone" />
+					<input type="tel" class=" mui-input reg-mui-input" placeholder="请输入指导老师电话" data-bind="value:teacherPhone" />
 				</div>
 				<!--<div class="mui-input-row reg-mui-input-row">					-->
-					<!--<label>微信号：</label>-->
-					<!--<input type="text" class=" mui-input reg-mui-input" placeholder="请输入微信号（选填）" data-bind="value:wechat"/>-->
+				<!--<label>微信号：</label>-->
+				<!--<input type="text" class=" mui-input reg-mui-input" placeholder="请输入微信号（选填）" data-bind="value:wechat"/>-->
 				<!--</div>-->
-				<div class="mui-input-row reg-mui-input-row">					
+				<div class="mui-input-row reg-mui-input-row">
 					<label>培训机构</label>
-                    <input type="text" class=" mui-input reg-mui-input" placeholder="请输入培训机构（选填）" data-bind="value:train" />
+					<input type="text" class=" mui-input reg-mui-input" placeholder="请输入培训机构（选填）" data-bind="value:train" />
 				</div>
 				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
 					<label>参赛形式</label>
 					<button id='selectUserPicker' class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:testStyleText, click:selectTestStyle"></button>
 				</div>
-				<div class="mui-input-row reg-mui-input-row">					
-					<label>报名价格</label>
-                    <input type="text" class=" mui-input reg-mui-input" readonly="readonly"  data-bind="value: price() + '元'"/>
+				<div class="mui-input-row reg-mui-input-row">
+					<label>报名费用</label>
+					<input type="text" class=" mui-input reg-mui-input" readonly="readonly" data-bind="value: price() + ' 元'" />
 				</div>
 				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
 					<label>参赛组别</label>
@@ -211,36 +235,28 @@
 				</div>
 				<div class="th-textarea-div th-textarea">
 					<label>个人艺术简历</label>
-					<textarea id="introduce" placeholder="请输入自我简介" data-bind="value:introduce"></textarea>
+					<textarea id="introduce" placeholder="请输入个人艺术简历" data-bind="value:introduce"></textarea>
 				</div>
 			</form>
-			
-			
+
 			<nav class="mui-bar mui-bar-tab p-btn-color" data-bind="visible: canChange() == false && isFinish() == false">
-					<a class="ah-mui-tab-item teacherList-mui-bar-tab" href="#middlePopover">
+				<a class="ah-mui-tab-item teacherList-mui-bar-tab" href="#middlePopover">
 					<span class="mui-tab-label activityInfo-nav" data-bind='click:gotoPay'>去付款</span>
 				</a>
 			</nav>
-		
-			
 
-			
-			
-			
-			
-			
 			<!--弹出付款对话框-->
-		<div id="middlePopover" class="mui-popover submitComment-top">	
-			<div class="mui-scroll-wrapper">
-				<div class="mui-scroll submitClass-mui-scroll Lesson-mui" >
-					<div class="mui-scroll-title">
-						<i class="iconfont" data-bind="click:closePopover">&#xe63f;</i>
-						<span>付款详情</span>
-					</div>
-					<ul>
-						<form class="mui-input-group">
-							<div class="mui-input-row mui-radio mui-left Lesson-radio ">
-								<label>
+			<div id="middlePopover" class="mui-popover submitComment-top">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll submitClass-mui-scroll Lesson-mui">
+						<div class="mui-scroll-title">
+							<i class="iconfont" data-bind="click:closePopover">&#xe63f;</i>
+							<span>付款详情</span>
+						</div>
+						<ul>
+							<form class="mui-input-group">
+								<div class="mui-input-row mui-radio mui-left Lesson-radio ">
+									<label>
 									<li class="wx-pay">
 										<img src="../../../images/submitClass-wx.png" />
 										<span>微信支付</span>
@@ -248,9 +264,9 @@
 									</li>
 			
 								</label>
-							</div>
-							<div class="mui-input-row mui-radio mui-left Lesson-radio">
-								<label>
+								</div>
+								<div class="mui-input-row mui-radio mui-left Lesson-radio">
+									<label>
 									<li class="wx-pay">
 										<img src="../../../images/ye.png" />
 										<span>余额支付
@@ -260,25 +276,26 @@
 										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
 									</li>
 								</label>
-							</div>
-							<li class="lineHeight">
-								总额：￥
-								<!--ko text: price-->
-								<!--/ko-->
-							</li>
-						</form>
-					</ul>			
-					<button class="p-btn-color" data-bind="click: gotoPay">付款</button>
+								</div>
+								<li class="lineHeight">
+									总额：￥
+									<!--ko text: price-->
+									<!--/ko-->
+								</li>
+							</form>
+						</ul>
+						<button class="p-btn-color" data-bind="click: gotoPay">付款</button>
+					</div>
 				</div>
 			</div>
-		</div>
 			<script src="../../../script/mui/mui.js"></script>
 			<script src="../../../script/mui/mui.picker.min.js"></script>
-            <script src="../../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 			<script src="../../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
 			<script src="../../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
 			<script src="../../../script/common/pay.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/apply.js"></script>
 		</div>
 	</body>
+
 </html>

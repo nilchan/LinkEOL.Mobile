@@ -1214,7 +1214,9 @@
 					"modules/my/myStudentList.html",
 					"modules/my/myTeacherList.html",
 					"modules/my/myAccount.html",
-					"modules/course/myCourse.html"
+					"modules/course/myCourse.html",
+					"modules/activity/teacherFTF/apply.html",
+					"modules/activity/XSBRegister/apply.html"
 				],
 				"priority": 2
 			},
@@ -2052,7 +2054,9 @@
 					"modules/account/login.html",
 					"modules/activity/saleTicket.html",
 					"modules/activity/XSBRegister/apply.html",
-					"modules/activity/XSBRegister/applyList.html"
+					"modules/activity/XSBRegister/applyList.html",
+					"modules/activity/teacherFTF/apply.html",
+					"modules/activity/teacherFTF/applyList.html"
 				],
 				"priority": 0
 			},
@@ -3064,7 +3068,16 @@
 					"content/fonts/mui.ttf",
 					"script/common/pay.js",
 					"images/ye.png",
-					"images/submitClass-wx.png"
+					"images/submitClass-wx.png",
+					"script/mui/mui.js",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"content/common/global.css",
+					"content/fonts/iconfont.css",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/fonts/iconfont.ttf",
+					"content/mui/mui.min.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -3087,6 +3100,39 @@
 				],
 				"refer": [
 					"modules/activity/XSBRegister/apply.html"
+				],
+				"priority": 0
+			},
+			"modules/activity/teacherFTF/apply.html": {
+				"resources": [
+					"images/ye.png",
+					"script/common/city.data-3.js",
+					"script/common/dtPicker.js",
+					"modules/activity/teacherFTF/js/apply.js",
+					"images/submitClass-wx.png",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"script/mui/mui.min.js",
+					"content/common/global.css",
+					"content/fonts/iconfont.css",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/fonts/iconfont.ttf",
+					"script/mui/mui.picker.min.js",
+					"content/mui/mui.min.css",
+					"script/libs/knockout/knockout-3.3.0.min.js",
+					"content/fonts/mui.ttf",
+					"script/common/pay.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/activity/teacherFTF/applyList.html": {
+				"resources": [
+					"modules/activity/teacherFTF/js/applyList.js"
+				],
+				"refer": [
+					"modules/activity/teacherFTF/apply.html"
 				],
 				"priority": 0
 			}
