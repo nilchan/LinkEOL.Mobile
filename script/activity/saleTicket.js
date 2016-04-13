@@ -292,6 +292,12 @@ var saleTicket = function() {
 					var arr = JSON.parse(ticketInfo.SeatPrice);
 					self.custormPriceList([]); //先清除
 					self.custormPriceList(arr);
+					//console.log(JSON.stringify(self.custormPriceList()));
+					self.custormPriceList().forEach(function(item){
+						if(item.BuySeatNum>0){
+							self.isHaveTicket(true);
+						}
+					})
 				} else {
 					mui.toast('订单已失效');
 					mui.back();
