@@ -10,8 +10,13 @@
 		<link href="../../content/common/global.css" rel="stylesheet" />
 		<link href="../../content/common/style.css" rel="stylesheet" />
 		<style>
-			.mui-input-group:before{
+			.mui-input-group:before {
 				background: none;
+			}
+			
+			.saleTicket-btn-default {
+				background:#a9a9a9;
+				color: write;
 			}
 		</style>
 	</head>
@@ -36,15 +41,18 @@
 					<div class="number-div">
 						<div class="mui-numbox number-mui-div" data-numbox-min='1'>
 							<button class="mui-btn mui-numbox-btn-minus" type="button" data-bind="click:sub">-</button>
-							<input class="mui-numbox-input" type="number" data-bind="value:BuySeatNum,event:{blur:checkTicket},enable:ViewOrder()==false"/>
+							<input class="mui-numbox-input" type="number" data-bind="value:BuySeatNum,event:{blur:checkTicket},enable:ViewOrder()==false" />
 							<button class="mui-btn mui-numbox-btn-plus" type="button" data-bind="click:add">+</button>
 						</div>
 					</div>
 				</div>
 			</script>
-			
+
 			<div class="showSet-btn">
-				<div data-bind="visible: ViewOrder()==true && paid()==false">支付剩余时间： <!--ko text: payRemainTime--><!--/ko--></div>
+				<div data-bind="visible: ViewOrder()==true && paid()==false">支付剩余时间：
+					<!--ko text: payRemainTime-->
+					<!--/ko-->
+				</div>
 				<button data-bind="click:gotoShowset">座位示意图</button>
 			</div>
 
@@ -67,7 +75,7 @@
 									</label>
 								</div>
 								<div class="mui-input-row mui-radio mui-left Lesson-radio">
-								<label>
+									<label>
 									<li class="wx-pay">
 										<img src="../../images/ye.png" />
 										<span>余额支付
@@ -78,7 +86,7 @@
 										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
 									</li>
 								</label>
-							</div>
+								</div>
 								<!--<div class="mui-input-row mui-radio mui-left Lesson-radio">
 								<label>
 									<li class="wx-pay">
@@ -101,9 +109,9 @@
 			</div>
 
 			<nav class="mui-bar mui-bar-tab" data-bind="visible:paid()==false">
-				<a class="mui-tab-item works-list-mui-tab-btn" href="#middlePopover" >
-					<span class="mui-tab-label myAccount-mui-tab-label" >
-                		<button class="saleTicket-btn">确认</button>
+				<a class="mui-tab-item works-list-mui-tab-btn"  data-bind="attr:{href:(isHaveTicket() ?'#middlePopover':'')}">
+					<span class="mui-tab-label myAccount-mui-tab-label">
+                		<button class="saleTicket-btn" data-bind="css:isHaveTicket() ? '':'saleTicket-btn-default'">确认</button>
                 	</span>
 				</a>
 			</nav>

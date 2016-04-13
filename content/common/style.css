@@ -1,6 +1,6 @@
 ﻿/*-----输入框-----*/
 .mui-bar-tab {
-	z-index: 999;
+	z-index: 996;
 	/*top: 44px;
 	bottom: 44px;
 	position: fixed;*/
@@ -6551,7 +6551,6 @@ li {
 	background: none;
 }
 .activityInfo-ul-p{
-	text-indent: 2em;
 	color: #555555;
 	font-size: 14px;
 	line-height: 24px;

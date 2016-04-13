@@ -258,7 +258,7 @@ var teacherFTF = function() {
 
 		plus.nativeUI.showWaiting();
 		var ajaxUrl = common.gServerUrl + "/API/RegLectures/RegLecturesAddOrder?regId=" + rid + "&payType=" + paytype
-		console.log(ajaxUrl);
+		//console.log(ajaxUrl);
 		//新增则保存下载信息；修改则保存新的支付方式。均返回订单信息
 		mui.ajax(ajaxUrl, {
 			type: 'POST',
@@ -337,7 +337,7 @@ var teacherFTF = function() {
 				self.UserName(obj.TbActivityRegLectures.UserName); //姓名
 				self.GenderText(common.gJsonGenderType[obj.TbActivityRegLectures.Gender].text); //性别
 				self.Gender(obj.TbActivityRegLectures.Gender); //性别value
-				self.Birthday(obj.TbActivityRegLectures.Birthday); //生日
+				self.Birthday(obj.TbActivityRegLectures.Birthday.split(' ')[0]); //生日
 				self.Native(obj.TbActivityRegLectures.Native); //籍贯
 				self.Nation(obj.TbActivityRegLectures.Nation); //民族
 				self.CommentName(obj.TbActivityRegLectures.CommentName); //赛区
@@ -386,7 +386,7 @@ var teacherFTF = function() {
 		}
 		
 		if (typeof(web.order) != "undefined") { //从订单跳转进来
-			console.log(JSON.stringify(web.order));
+			//console.log(JSON.stringify(web.order));
 			rid = web.order.TargetID;
 		}
         

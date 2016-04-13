@@ -21,7 +21,7 @@ var viewModel = function() {
 			dataType: 'json',
 			type: "GET",
 			success: function(responseText) {
-				console.log(JSON.stringify(responseText));
+				//console.log(JSON.stringify(responseText));
 				self.CanRegGame(responseText.CanRegGame);
 				self.RegGameURL(responseText.RegGameUrl);
 				//console.log(responseText.ActContent);

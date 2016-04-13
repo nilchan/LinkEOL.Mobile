@@ -35,7 +35,7 @@ var classmateWorksHeader = function() {
 	// 所有作品页面选择类
 	var currentWebview = null;
 	document.querySelector("#classmateList").addEventListener('tap', function() {
-		common.transfer('../my/classmateListHeader.html',true);
+		common.transfer('../my/classmateListHeader.html',true,{},false,false);
 	});
 	
 }

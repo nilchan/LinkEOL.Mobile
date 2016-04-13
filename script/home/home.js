@@ -60,17 +60,19 @@ var home = function() {
 
 	//跳转至所有科目
 	self.gotoMore = function() {
+		/*common.transfer('../../modules/account/binding.html');
+		return;*/
 		common.transfer('../../modules/home/allSubject.html');
 	}
 
 	//跳转至消息页面
 	self.goMessageList = function() {
 		self.UnreadCount(0);
+		common.gotoMessage();
 		var page5 = common.getIndexChild(4);
 		if (page5) {
 			mui.fire(page5, 'refreshMessageStatusFalse', {});
 		}
-		common.gotoMessage();
 	}
 
 	//获取未读消息数量

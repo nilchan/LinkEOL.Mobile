@@ -21,10 +21,8 @@ var viewModel = function() {
 		mui.ajax(thisUrl, {
 			type: 'GET',
 			success: function(responseText) {
-				console.log(responseText)
 				var result = JSON.parse(responseText);
 				self.instructedArray(result);
-				//console.log(JSON.stringify(self.instructedArray()));
 				self.clampText();
 				common.showCurrentWebview();
 			}

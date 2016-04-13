@@ -24,12 +24,16 @@ var classmateListHeader = function() {
 				autoShow: false,
 				aniShow: "slide-in-right",
 				duration: "100ms"
+			},
+			waiting:{
+				autoShow:true,
+				title:'正在加载...'
 			}
 
 		});
 		plus.nativeUI.showWaiting();
 		thisWeb.append(pageAll);
-		common.showCurrentWebview();
+		//common.showCurrentWebview();
 		
 	})
 }

@@ -3,6 +3,7 @@ var saleTicket = function() {
 	self.custormPriceList = ko.observableArray([]); //票价信息
 	self.TotalAmount = ko.observable(0); //票价总价
 	self.paid = ko.observable(false); //是否已支付
+	self.isHaveTicket=ko.observable(false);
 
 	self.Order = ko.observable({}); //由我的订单传递过来的订单参数
 	self.ViewOrder = ko.observable(false); //标记是否由我的订单跳转而来，默认为否
@@ -44,8 +45,7 @@ var saleTicket = function() {
 					self.custormPriceList.replace(item, tmp);
 				}
 			})
-			//		self.TotalAmount(self.TotalAmount() - data.SeatPrice);
-			//console.log(self.TotalAmount());
+			
 			calcPrice();
 	}
 
@@ -56,6 +56,7 @@ var saleTicket = function() {
 			return;
 		}
 		data.BuySeatNum = data.BuySeatNum + 1;
+		
 		if (data.BuySeatNum > data.SeatRemain) {
 			data.BuySeatNum = data.SeatRemain;
 			return;
@@ -67,13 +68,6 @@ var saleTicket = function() {
 					self.custormPriceList.replace(item, tmp);
 				}
 			})
-			//		if(data.SeatPrice==0){
-			//			self.TotalAmount(0)
-			//		}else{
-			//			self.TotalAmount(self.TotalAmount() + parseInt(data.SeatPrice) );
-			//		}
-
-		//console.log(self.TotalAmount());
 		calcPrice();
 
 	}
@@ -105,6 +99,14 @@ var saleTicket = function() {
 	//计算
 	var calcPrice = function() {
 		var count = 0;
+		for(var i=0;i<self.custormPriceList().length;i++){
+			if(self.custormPriceList()[i].BuySeatNum<=0){
+				self.isHaveTicket(false);
+			}else{
+				self.isHaveTicket(true);
+				break;
+			}
+		}
 		self.custormPriceList().forEach(function(item) {
 			count += item.SeatPrice * item.BuySeatNum;
 		});

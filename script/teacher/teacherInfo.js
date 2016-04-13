@@ -181,8 +181,8 @@
 			mui.toast("登录后才能关注~")
 			return;
 		}
-		
-		if (self.isFav()==true) {//取消关注
+
+		if (self.isFav() == true) { //取消关注
 			var ret = common.deleteAction(common.gDictActionType.Favorite, common.gDictActionTargetType.User, TUserID, UserId);
 			if (ret) {
 				self.FavCount(self.FavCount() - 1);
@@ -195,7 +195,7 @@
 					count: 0
 				})
 			}
-		}else{
+		} else {
 			var ret = common.postAction(common.gDictActionType.Favorite, common.gDictActionTargetType.User, TUserID);
 			if (ret) {
 				self.FavCount(self.FavCount() + 1);
@@ -282,8 +282,8 @@
 		lis[i].onclick = function() {
 			mui('#sharePopover').popover('toggle');
 			plus.nativeUI.showWaiting();
-			Share.sendShare(this.id, shareTitle, shareContent, shareUrl + TUserID, shareImg,common.gShareContentType.teacher);
-			
+			Share.sendShare(this.id, shareTitle, shareContent, shareUrl + TUserID, shareImg, common.gShareContentType.teacher);
+
 		};
 	}
 
@@ -291,22 +291,26 @@
 	self.closeShare = function() {
 		mui('#sharePopover').popover('toggle');
 	}
-	
+
 	//跳转至资讯
 	self.goUserNews = function() {
 		common.transfer('../news/myNewsList.html', false, {
 			userid: TUserID,
-			userName:self.DisplayName()
-		},false,false);
+			userName: self.DisplayName()
+		}, false, false);
 	}
 
 	mui.init({
 		beforeback: function() {
 			var teacherList = plus.webview.currentWebview().opener();
-			mui.fire(teacherList, 'refreshFav', {
-				IsFavorite: self.isFav(),
-				UserID: self.teacherInfo().UserID
-			});
+			if (teacherList.id == 'myAttention.html') {
+				mui.fire(teacherList, 'refreshAttention');
+			} else {
+				mui.fire(teacherList, 'refreshFav', {
+					IsFavorite: self.isFav(),
+					UserID: self.teacherInfo().UserID
+				});
+			}
 			return true;
 		}
 	});

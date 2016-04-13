@@ -148,6 +148,11 @@ var studentInfo = function() {
 				contentnomore: common.gContentNomoreUp,
 				callback: pullupRefresh
 			}
+		},
+		beforeback: function() {
+			var thisWeb = plus.webview.currentWebview().opener();
+			mui.fire(teacherList, 'refreshAttention');
+			return true;
 		}
 	});
 }

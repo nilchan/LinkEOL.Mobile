@@ -180,8 +180,18 @@ var handleResult = function(result) {
 				var mustUpdate = xhr.getResponseHeader('VersionIsMajor');
 				var VersionUrl=xhr.getResponseHeader('VersionUrl');
 				var localMark = getLocalItem('Version.Confirming');
-				//console.log(localMark);
+				var DownloadVersionUrl = xhr.getResponseHeader('DownloadVersionUrl');
 				
+				if(DownloadVersionUrl != null && getLocalItem('gotoDownloadVersionUrl') !== 'true') {
+					setLocalItem('gotoDownloadVersionUrl', 'true');
+					
+					mui.plusReady(function() {
+						plus.nativeUI.alert("当前版本过低，请下载最新版本~", function() {
+							plus.runtime.openURL(DownloadVersionUrl);
+							removeLocalItem('gotoDownloadVersionUrl');
+						}, "更新提醒", "确定");
+					})
+				}
 				//console.log(hasNew+"-"+mustUpdate+"-"+VersionUrl);
 				if (hasNew == 'true' && (typeof localMark == "undefined" || localMark != 'true')) {
 					setLocalItem('Version.Confirming', 'true');	//标记提示中

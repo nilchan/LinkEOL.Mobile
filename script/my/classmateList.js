@@ -52,10 +52,9 @@ var viewModel = function() {
 				//console.log(responseText);
 				var result = JSON.parse(responseText);
 				self.classmateListArray(result);
-				//console.log(JSON.stringify(self.classmateListArray()));
 				self.classmateListLength(self.classmateListArray().length);
 				self.getInstruct();
-				common.showCurrentWebview();
+				
 			}
 		})
 	};
@@ -67,7 +66,10 @@ var viewModel = function() {
 			type: 'GET',
 			success: function(responseText) {
 				self.isHaveTeacher(responseText);
-				self.classmateText = ko.observable('还没有其他同学呢，现在邀请他们过来吧');
+				if(self.isHaveTeacher()==true){
+					self.classmateText('还没有其他同学呢，现在邀请他们过来吧');
+				}
+				common.showCurrentWebview();
 			}
 		})
 	}

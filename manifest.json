@@ -7,8 +7,8 @@
 	"id": "H506D8436",
 	"name": "乐评家",
 	"version": {
-		"name": "2.0.1",
-		"code": "2001"
+		"name": "2.0.2",
+		"code": "2002"
 	},
 	"description": "",
 	"icons": {
@@ -99,7 +99,7 @@
 		"Proximity": {},
 		"Orientation": {},
 		"Accelerometer": {},
-		"NativeObj": {}
+		"NativeObj": {},"OAuth":{}
 	},
 	"plus": {
 		"splashscreen": {
@@ -110,7 +110,7 @@
 		"runmode": "liberate",
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",
 		"distribute": {
-			"plugins": {
+			"plugins": {"oauth":{"weixin":{"appid":"wx142ee69041c3765a","appsecret":"1ccf661d050bea7a05ff4d5abbc3a865"}},
 				"statics": {
 					"umeng": {
 						"appkey_ios": "56ab233fe0f55a394700328d",
@@ -440,7 +440,8 @@
 					"modules/my/help.html",
 					"modules/home/userGuide.html",
 					"modules/news/newsList.html",
-					"modules/news/newsListHeader.html"
+					"modules/news/newsListHeader.html",
+					"modules/account/binding.html"
 				],
 				"priority": 0
 			},
@@ -3135,6 +3136,17 @@
 				"refer": [
 					"modules/activity/teacherFTF/apply.html"
 				],
+				"priority": 0
+			},
+			"modules/account/binding.html": {
+				"resources": [
+					"script/account/binding.js",
+					"script/common/common.js",
+					"script/common/base.js",
+					"script/mui/mui.min.js",
+					"script/libs/knockout/knockout-3.3.0.min.js"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

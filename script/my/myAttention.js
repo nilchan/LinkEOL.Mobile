@@ -7,7 +7,11 @@ var myAttention = function() {
 	self.Photo = ko.observable('../../images/my-default.png'); //头像路径
 	self.UserID = ko.observable(getLocalItem("UserID"));
 	mui.plusReady(function() {
-		var self = this;
+		self.getAttention();
+	})
+
+	//获取关注相关
+	self.getAttention = function() {
 		//关注我的人
 		var attentedUrl = common.gServerUrl + "API/Action/GetFavoritedUserList?userId=" + self.UserID();
 		mui.ajax(attentedUrl, {
@@ -28,7 +32,7 @@ var myAttention = function() {
 				self.FavUsers(favUsers);
 			}
 		})
-	})
+	}
 
 	self.gotoUserInfo = function() { //用户详情
 		var user = this;
@@ -73,18 +77,7 @@ var myAttention = function() {
 
 	//刷新我的关注
 	window.addEventListener('refreshAttention', function(event) {
-		if (typeof event.detail.userInfo != 'undefined') {
-			var isExist = true;
-			self.FavUsers().forEach(function(item) {
-				if (item.ID == event.detail.userInfo.UserID) {
-					isExist = false;
-				}
-			})
-			if (isExist) {
-				self.FavUsers.push(event.detail.userInfo);
-			}
-
-		}
+		self.getAttention();
 	})
 }
 ko.applyBindings(myAttention);
