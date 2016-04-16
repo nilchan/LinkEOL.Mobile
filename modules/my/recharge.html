@@ -41,7 +41,7 @@
 			<div class="recharge-content">
 				<p class="recharge-p">请选择充值金额</p>
 				<ul data-bind="foreach: {data: payList}">
-					<li data-bind="click: toPay, visible: targetID() == ID">
+					<li data-bind="click: toPay, visible: targetID() === 0 || targetID() !== 0 && targetID() == ID">
 						<div class="recharge-box">
 							<span class="face-value" data-bind="text: Amount + '元'">10元</span>
 							<span class="face-value face-font" data-bind="text: '售价' + AmountInFact + '元'">

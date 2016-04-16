@@ -5,7 +5,7 @@ var recharge = function() {
 	self.payList = ko.observableArray([]);
 	self.balance = ko.observable();
 	self.price = ko.observable();
-	self.targetID = ko.observable();
+	self.targetID = ko.observable(0);
 	
 	self.getPayList = function() {
 		var url = common.gServerUrl + 'Common/TbPay/PayList';
