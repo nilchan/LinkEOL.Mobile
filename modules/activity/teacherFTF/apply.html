@@ -218,7 +218,7 @@
 				</div>
 				<div class="mui-input-row reg-mui-input-row">
 					<label>指导老师电话</label>
-					<input type="tel" class=" mui-input reg-mui-input" placeholder="请输入指导老师电话" data-bind="value:teacherPhone" />
+					<input type="tel" class=" mui-input reg-mui-input" placeholder="请输入指导老师电话" data-bind="value:teacherPhone,event:{input:getTeacher,propertychange:getTeacher}" id='teaPhone'/>
 				</div>
 				<div class="mui-input-row reg-mui-input-row">
 					<label>指导老师</label>

@@ -1046,7 +1046,8 @@
 		Ticket: 5, //活动售票
 		Homework: 6, //作业付费
 		RegGame: 7, //赛事报名
-		RegLectures: 8 //讲座报名
+		RegLectures: 8, //讲座报名
+		TbPay: 9	//充值
 	},
 
 	//课程类型

@@ -1,10 +1,11 @@
 var recharge = function() {
 	var self = this;
-	var ID;
+	var ID, orderID = 0;
 	
 	self.payList = ko.observableArray([]);
 	self.balance = ko.observable();
 	self.price = ko.observable();
+	self.targetID = ko.observable();
 	
 	self.getPayList = function() {
 		var url = common.gServerUrl + 'Common/TbPay/PayList';
@@ -16,7 +17,7 @@ var recharge = function() {
 				self.payList(result);
 			}
 		})
-	}();
+	};
 	
 	self.toPay = function() {
 		ID = this.ID;
@@ -70,7 +71,10 @@ var recharge = function() {
 		if (!common.setDisabled()) return;
 
 		plus.nativeUI.showWaiting();
-		var ajaxUrl = common.gServerUrl + "API/TbPay/UserPayBalance?payId=" + ID + "&payType=" + paytype
+		var ajaxUrl = common.gServerUrl + "API/TbPay/UserPayBalance?payId=" + ID + "&payType=" + paytype;
+		if( orderID !== 0 ) {
+			ajaxUrl = common.gServerUrl + 'API/Order/ResubmitOrder?id=' + orderID + '&payType=' + paytype;
+		}
 		console.log(ajaxUrl);
 		//新增则保存下载信息；修改则保存新的支付方式。均返回订单信息
 		mui.ajax(ajaxUrl, {
@@ -131,7 +135,16 @@ var recharge = function() {
 		})
 	}
 	
-	self.getBalance();
+	 mui.plusReady(function(){
+	 	var web = plus.webview.currentWebview();
+		if (typeof(web.order) !== "undefined") {
+			orderID = web.order.ID;
+			self.targetID(web.order.TargetID);
+		}
+		self.getPayList();
+	 	self.getBalance();
+	 });
+	
 };
 
 ko.applyBindings(recharge);

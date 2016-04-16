@@ -3129,7 +3129,8 @@
 					"content/mui/mui.min.css",
 					"script/libs/knockout/knockout-3.3.0.min.js",
 					"content/fonts/mui.ttf",
-					"script/common/pay.js"
+					"script/common/pay.js",
+					"content/fonts/iconfont.woff"
 				],
 				"refer": [],
 				"priority": 0
@@ -3137,7 +3138,16 @@
 			"modules/activity/teacherFTF/applyList.html": {
 				"resources": [
 					"modules/activity/teacherFTF/js/applyList.js",
-					"script/libs/knockout/knockout-3.3.0.min.js"
+					"script/libs/knockout/knockout-3.3.0.min.js",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"script/mui/mui.min.js",
+					"content/common/global.css",
+					"content/fonts/iconfont.css",
+					"content/fonts/iconfont.woff",
+					"content/mui/mui.min.css"
 				],
 				"refer": [
 					"modules/activity/teacherFTF/apply.html"

@@ -12,6 +12,7 @@ var applyList = function() {
             type: 'GET',
             success: function(result) {
                 self.scores(JSON.parse(result));
+				//console.log(JSON.stringify(self.scores()));                
                 common.showCurrentWebview();
             },
             error: function(){

@@ -156,6 +156,9 @@ var myOrders = function() {
 				arg1 = false;
 				arg2 = false;
 				break;
+			case common.gDictOrderTargetType.TbPay:
+				url = '../../modules/my/recharge.html';
+				break;
 			default:
 				return;
 		}

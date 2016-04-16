@@ -88,6 +88,31 @@ var applay = function() {
             }
         });
     };
+    
+    //获取老师
+    var timeEvent;
+    var teaPhone;
+    self.getTeacher=function(){
+    	//self.teacher = ko.observable('');
+    	//self.teacherPhone = ko.observable('');
+    	clearTimeout(timeEvent);
+		timeEvent = setTimeout(function() {
+			teaPhone = document.getElementById("teaPhone").value;
+			var ajaxUrl = common.gServerUrl + 'API/Account/GetInfoByPhone?phone=' + teaPhone;
+			mui.ajax(ajaxUrl, {
+				type: 'GET',
+				success: function(responseText) {
+					var result = JSON.parse(responseText);
+					if (common.StrIsNull(result) != '') {
+						if (result[0].UserType == common.gDictUserType.teacher) {
+							self.teacher(result[0].DisplayName);
+						}
+					}
+
+				}
+			})
+		}, 500);
+    }
 
     //验证
     var validate = function(val, text) {
@@ -217,12 +242,12 @@ var applay = function() {
 
 		plus.nativeUI.showWaiting();
 		var ajaxUrl = common.gServerUrl + "API/RegGame/RegGameAddOrder?regId=" + rid + "&payType=" + paytype
-		console.log(ajaxUrl);
+		//console.log(ajaxUrl);
 		//新增则保存下载信息；修改则保存新的支付方式。均返回订单信息
 		mui.ajax(ajaxUrl, {
 			type: 'POST',
 			success: function(responseText) { //responseText为微信支付所需的json
-				console.log(responseText);
+				//console.log(responseText);
 				var ret = JSON.parse(responseText);
 				var orderID = ret.orderID;
 				if (ret.requestJson == '') { //无需网上支付，报名成功
