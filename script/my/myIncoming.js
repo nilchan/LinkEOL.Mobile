@@ -58,7 +58,7 @@ var myIncoming = function() {
 			success: function(responseText) {
 				var detailsFinish = JSON.parse(responseText);
 				self.DetailsFinished(detailsFinish);
-				console.log(JSON.stringify(self.DetailsFinished()))
+				//console.log(JSON.stringify(self.DetailsFinished()))
 				self.SumAccount(common.getArraySum(self.DetailsFinished(), 'SettleMoney'));
 			}
 		})

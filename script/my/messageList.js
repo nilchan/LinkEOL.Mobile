@@ -12,7 +12,7 @@ var message_notification = function () {
             dataType: 'json',
             type: 'GET',
             success: function (responseText) {
-                console.log(JSON.stringify(responseText));
+                //console.log(JSON.stringify(responseText));
                 self.messages(responseText);
                 self.messageLength(self.messages().length);
                 //console.log("15:"+self.messages().length);
@@ -166,7 +166,7 @@ var message_notification = function () {
 				common.transfer('../my/myStudentList.html', true, {}, false, false);
 			}
 		} else if (message.ModuleID == common.gMessageModule.accountModule) { //11
-			common.transfer('../my/myAccount.html', true);
+			common.transfer('../my/accountDetailsHeader.html', true);
 		} else if (message.ModuleID == common.gMessageModule.submitHomeworkModule) { //12
 			common.transfer("../works/worksListMyHeader.html", true, {}, false, false);
 		} else if (message.ModuleID == common.gMessageModule.activityRegister) {	//13

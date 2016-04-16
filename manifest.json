@@ -130,7 +130,7 @@
 					"weixin": {
 						"description": "微信支付",
 						"appid": "wx142ee69041c3765a"
-					}
+					},"alipay":{"description":"阿里支付","scheme":""}
 				},
 				"share": {
 					"weixin": {
@@ -1217,7 +1217,9 @@
 					"modules/my/myAccount.html",
 					"modules/course/myCourse.html",
 					"modules/activity/teacherFTF/apply.html",
-					"modules/activity/XSBRegister/apply.html"
+					"modules/activity/XSBRegister/apply.html",
+					"modules/my/accountDetails.html",
+					"modules/my/accountDetailsHeader.html"
 				],
 				"priority": 2
 			},
@@ -2022,7 +2024,9 @@
 					"modules/works/classmateWorksHeader.html",
 					"modules/comment/commentListHeader.html",
 					"modules/account/loginNew.html",
-					"modules/my/invitationCode.html"
+					"modules/my/invitationCode.html",
+					"modules/my/myAccountInfo.html",
+					"modules/my/recharge.html"
 				],
 				"priority": 0
 			},
@@ -3078,7 +3082,8 @@
 					"script/common/common.js",
 					"script/common/base.js",
 					"content/fonts/iconfont.ttf",
-					"content/mui/mui.min.css"
+					"content/mui/mui.min.css",
+					"content/fonts/iconfont.woff"
 				],
 				"refer": [],
 				"priority": 0
@@ -3097,7 +3102,8 @@
 					"script/common/common.js",
 					"script/common/base.js",
 					"content/fonts/iconfont.ttf",
-					"script/libs/knockout/knockout-3.3.0.min.js"
+					"script/libs/knockout/knockout-3.3.0.min.js",
+					"content/fonts/iconfont.woff"
 				],
 				"refer": [
 					"modules/activity/XSBRegister/apply.html"
@@ -3145,6 +3151,64 @@
 					"script/common/base.js",
 					"script/mui/mui.min.js",
 					"script/libs/knockout/knockout-3.3.0.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/my/myAccountInfo.html": {
+				"resources": [
+					"script/common/common.js",
+					"script/common/base.js",
+					"script/mui/mui.js",
+					"content/common/style.css",
+					"content/common/global.css",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/fonts/iconfont.css",
+					"script/my/myAccountInfo.js",
+					"content/fonts/iconfont.woff",
+					"content/mui/mui.min.css"
+				],
+				"refer": [
+					"modules/my/recharge.html",
+					"modules/my/draw.html",
+					"modules/my/myCard.html",
+					"modules/my/myIncoming.html",
+					"modules/my/accountDetailsHeader.html",
+					"modules/my/myOrders.html"
+				],
+				"priority": 0
+			},
+			"modules/my/recharge.html": {
+				"resources": [
+					"script/my/recharge.js",
+					"script/common/common.js",
+					"script/common/base.js",
+					"script/mui/mui.js",
+					"content/common/style.css",
+					"content/common/global.css",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/fonts/iconfont.css",
+					"content/fonts/iconfont.woff",
+					"content/mui/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/my/draw.html": {
+				"resources": [
+					"images/draw2.jpg",
+					"script/my/draw.js",
+					"images/draw3.jpg",
+					"images/draw1.jpg",
+					"script/mui/mui.js",
+					"content/common/style.css",
+					"content/common/global.css",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/fonts/iconfont.css",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/fonts/iconfont.woff",
+					"content/mui/mui.min.css"
 				],
 				"refer": [],
 				"priority": 0

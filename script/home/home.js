@@ -44,8 +44,12 @@ var home = function() {
 	}
 
 	self.gotoActivityWorks = function() {
-		mui.toast('敬请期待~');
+		common.transfer('../activity/activityInfo.html', false, {
+			aid: 147
+		});
 	}
+	
+	
 	
 	self.goHelp=function(){
 		common.transfer('userGuide.html', false);

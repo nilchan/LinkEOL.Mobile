@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+			html,.mui-content{
+				background: #f0f0f0;
+			}
+			.myInfoTeacher-next{
+				margin-top: -2px;
+			}
+			.myAccount-point{
+				left: 102px;
+			}
+		</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe602;</i>
+			<h1 class="mui-title">我的账户</h1>
+		</header>
+		<div class="mui-content">
+			<div class="myAccountInfo-bgColor">
+				<span data-bind="text: AccountBalance">4925.00</span>				
+			</div>
+			<div class="myAccountInfo-content">
+				<ul>
+					<li data-bind="click:goRecharge">
+						<i class="iconfont myAccountInfo-icon myAccountInfo-icon1">&#xe6ae;</i>
+						<span class="myAccountInfo-font">充值</span>
+					</li>
+					<li data-bind='click:goDraw'>
+						<i class="iconfont myAccountInfo-icon myAccountInfo-icon2">&#xe6b5;</i>
+						<span class="myAccountInfo-font">提现</span>
+					</li>
+					<li data-bind="click:goMyOrders">
+						<i class="iconfont myAccountInfo-icon myAccountInfo-icon3">&#xe6b3;</i>
+						<span class="myAccountInfo-font">我的订单</span>
+					</li>
+					<li data-bind="click:goAccountDetails">
+						<i class="iconfont myAccountInfo-icon myAccountInfo-icon4">&#xe6af;</i>
+						<span class="myAccountInfo-font">收支明细</span>
+					</li>
+					<li data-bind="click:goMyIncoming,visible:UserType() == common.gDictUserType.teacher">
+						<i class="iconfont myAccountInfo-icon myAccountInfo-icon5">&#xe6b2;</i>
+						<span class="myAccountInfo-font">收入管理</span>
+					</li>
+					<li data-bind="click:goBankList,visible:UserType() == common.gDictUserType.teacher">
+						<i class="iconfont myAccountInfo-icon myAccountInfo-icon6">&#xe6b4;</i>
+						<span class="myAccountInfo-font">银行卡</span>
+					</li>
+					<li>
+						<i class="iconfont myAccountInfo-icon myAccountInfo-icon7">&#xe6b1;</i>
+						<span class="myAccountInfo-font">绑定支付宝</span>
+					</li>
+					
+					<li data-bind="click: bindingWeixin">
+						<i class="iconfont myAccountInfo-icon myAccountInfo-icon8">&#xe6b0;</i>
+						<span class="myAccountInfo-font" data-bind="text: self.WeixinAPP() ===''? '绑定微信': '已绑定'"></span>
+					</li>
+					
+				</ul>
+			</div>			
+		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/myAccountInfo.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

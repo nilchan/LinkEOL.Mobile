@@ -71,7 +71,7 @@ var applay = function() {
         mui.ajax(url,{
             type: 'GET',
             success: function(result) {
-            	console.log(result);
+            	//console.log(result);
                 var obj = JSON.parse(result);
                 self.title(obj.Title);
                 
@@ -80,7 +80,7 @@ var applay = function() {
 				
 				var groupTypes = common.JsonConvert(JSON.parse(obj.GroupTypeJSON), 'Id', 'GroupType');
 				self.Types(JSON.parse(obj.GroupTypeJSON));
-				console.log(JSON.stringify(self.Types()));
+				//console.log(JSON.stringify(self.Types()));
 				self.testStyle.setData(groupTypes);
 				
 				var groupDivisions = common.JsonConvert(JSON.parse(obj.GroupDivisionJSON), 'Id', 'GroupDivision');

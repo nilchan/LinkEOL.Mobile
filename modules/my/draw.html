@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+			html,
+			.mui-content {
+				background: #f0f0f0!important;
+			}
+			
+			.myInfoTeacher-next {
+				margin-top: -2px;
+			}
+			
+			.myAccount-point {
+				left: 102px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe602;</i>
+			<h1 class="mui-title">提现</h1>
+		</header>
+		<div class="mui-content">
+			<div class="draw-header">
+				<div class="draw-width-left">提现金额</div>
+				<div class="draw-width-right">
+					<input type="text" class="draw-balance" data-bind="attr:{'placeholder':placeholderValue},value:amount"/>
+					<span class="draw-time">1-3个工作日内到账</span>
+				</div>
+			</div>
+			<div class="draw-content">
+				<div class="draw-font">
+					提现到</div>
+				<div class='drawType' id='bankcard'>
+					<div class="draw-content-left"><!--circle-cheacked-->
+						<em class="circle"></em>
+					</div>
+					<div class="draw-content-right">
+						<div class="draw-icon"><img src="../../images/draw1.jpg" /></div>
+						<span class="draw-title">银行卡账户</span>
+						<span class="draw-subhead" data-bind="text:(common.StrIsNull(bankData().Description)=='' ? '未绑定' :bankData().Description)"></span>
+					</div>
+				</div>
+				<div class='drawType' id='alipay'>
+					<div class="draw-content-left">
+						<em class="circle"></em>
+					</div>
+					<div class="draw-content-right">
+						<div class="draw-icon"><img src="../../images/draw2.jpg" /></div>
+						<span class="draw-title">支付宝账户</span>
+						<span class="draw-subhead" data-bind="text:(common.StrIsNull(aliData().Description)=='' ? '未绑定' :aliData().Description)"></span>
+					</div>
+				</div>
+				<div class='drawType'  id='weixinpay'>
+					<div class="draw-content-left">
+						<em class="circle"></em>
+					</div>
+					<div class="draw-content-right border-none">
+						<div class="draw-icon"><img src="../../images/draw3.jpg" /></div>
+						<span class="draw-title">微信账户</span>
+						<span class="draw-subhead" data-bind="text:(common.StrIsNull(weixinData().Description)=='' ? '未绑定' :weixinData().Description)">真实姓名：展造</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="remark">
+				<i class="iconfont">&#xe6b7;</i>请正确填写个人信息中的姓名，其将作为微信账户、支付宝账户收款的校验凭据。
+			</div>
+			<div class="mui-content-padded" style="margin-top: 30px;" data-bind='click:drawAccount'>
+				<button type="button" class="mui-btn mui-btn-block mui-btn-primary th-btn th-mui-f p-btn-color p-btn-padding">申请提现</button>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/draw.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

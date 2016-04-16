@@ -13,6 +13,7 @@ var accountDetail = function() {
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
 				self.accountDetail(result); //DetailsType==common.gAccountDetail[1].value?'\+':'\-'
+				//console.log(JSON.stringify(self.accountDetail()));
 				self.accountLength(self.accountDetail().length);
 			}
 		})

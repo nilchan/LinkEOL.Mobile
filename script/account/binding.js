@@ -38,16 +38,16 @@ var binding = function() {
 					var province = info.province;
 					var city = info.city;
 					
-					mui.ajax(common.gServerUrl + "The URL to be finished.", {
+					mui.ajax(common.gServerUrl + "API/User/AccountBinding?type=1&content=" + openid, {
 						dataType: 'json',
-						type: "GET",
-						data: {
-							Gender: sex,
-							DisplayName: nickname,
-							WeixinOpen: openid,
-							UnionID: unionid,
-							Photo: headimgurl
-						},
+						type: "PUT",
+//						data: {
+//							//Gender: sex,
+//							//DisplayName: nickname,
+//							WeixinApp: openid
+//							//UnionID: unionid,
+//							//Photo: headimgurl
+//						},
 						success: function(responseText) {
 							mui.toast('已成功绑定微信');
 							common.setEnabled(evt);

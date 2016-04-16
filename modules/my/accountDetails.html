@@ -71,10 +71,14 @@
 								<h3 data-bind="text:TargetName">微信红包</h3>
 								<p class="accountDetails-time" data-bind='text:AddTime'>2016-02-14 19:30:05</p>
 							</div>
-							<div class="accountDetails-right" data-bind="text:(DetailsType==common.gAccountDetail[1].value?'+':'-')+Amount.toFixed(2)">+12.00
+							<div class="accountDetails-right" data-bind="text:(DetailsType==common.gAccountDetail[3].value?'':(DetailsType==common.gAccountDetail[1].value?'+':'-'))+Amount.toFixed(2)">+12.00
 							</div>
-							<div class="remarks-box" data-bind="text: Remark">有效期2016年3月10日-2016年4月1日</div>
-						</li>	
+							<div class="remarks-box" data-bind="text:Remark,visible:(DetailsType!=common.gAccountDetail[3].value)">有效期2016年3月10日-2016年4月1日</div>
+							<div class="remarks-box" data-bind='visible:(DetailsType==common.gAccountDetail[3].value)'>
+								<span data-bind="text: Remark">工商银行(3256)</span>
+								<span style="float: right;" data-bind='text:common.gDrawStatus[DrawStatus].text'>待转账</span>
+							</div>
+						</li>
 					</ul>
 				</div>
 			</div>

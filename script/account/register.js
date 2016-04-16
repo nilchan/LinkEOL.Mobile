@@ -192,7 +192,6 @@ var register = function() {
 			VerifyCode: self.CheckNum(),
 			InviteCode:inviteCode
 		};
-		console.log(JSON.stringify(data));
 		if(common.gDictUserType.teacher==self.UserType()){
 			data.SubjectID=self.SubjectID();
 		}

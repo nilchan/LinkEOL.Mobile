@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+			html,.mui-content{
+				background: #f0f0f0;
+			}
+			.myInfoTeacher-next{
+				margin-top: -2px;
+			}
+			.myAccount-point{
+				left: 102px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe602;</i>
+			<h1 class="mui-title">充值</h1>
+		</header>
+		<div class="mui-content">
+			<!--<div class="recharge-header">
+				<div class="recharge-width">
+					<span class="recharge-photo"><img src="../../images/Identity.jpg" /></span>
+					<span class="recharge-name">张三</span>
+				</div>
+				<div class="recharge-width float-right">
+					<span class="balance-font">余额</span>
+					<span class="balance-money">￥123.56</span>
+				</div>				
+			</div>-->
+			
+			<div class="recharge-content">
+				<p class="recharge-p">请选择充值金额</p>
+				<ul data-bind="foreach: {data: payList}">
+					<li data-bind="click: toPay">
+						<div class="recharge-box">
+							<span class="face-value" data-bind="text: Amount + '元'">10元</span>
+							<span class="face-value face-font" data-bind="text: '售价' + AmountInFact + '元'">
+								售价12元
+							</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+			<!--弹出付款对话框-->
+			<div id="middlePopover" class="mui-popover submitComment-top">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll submitClass-mui-scroll Lesson-mui">
+						<div class="mui-scroll-title">
+							<i class="iconfont" data-bind="click:closePopover">&#xe63f;</i>
+							<span>付款详情</span>
+						</div>
+						<ul>
+							<form class="mui-input-group">
+								<div class="mui-input-row mui-radio mui-left Lesson-radio ">
+									<label>
+									<li class="wx-pay">
+										<img src="../../images/submitClass-wx.png" />
+										<span>微信支付</span>
+										<input name="payType" value="wxpay" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
+									</li>
+			
+								</label>
+								</div>
+								<li class="lineHeight">
+									总额：￥
+									<!--ko text: price-->
+									<!--/ko-->
+								</li>
+							</form>
+						</ul>
+						<button class="p-btn-color" data-bind="click: gotoPay">付款</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../script/common/pay.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/recharge.js"></script>
+	</body>
+</html>

@@ -200,9 +200,9 @@ var viewModel = function() {
 		common.transfer("../works/worksListAllHeader.html", false, {}, false, false);
 	}
 
-	mui.back = function() {
-		common.showIndexWebview(1);
-	}
+//	mui.back = function() {
+//		common.showIndexWebview(1);
+//	}
 
 	mui.plusReady(function() {
 		var web = plus.webview.currentWebview();

@@ -1,11 +1,11 @@
 ﻿var common = {
 	//Web API地址
-	gServerUrl: "http://cloud.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
+	//gServerUrl: "http://cloud.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
 	//gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
-	//gServerUrl: "http://192.168.1.88:8090/",gVideoServerUrl: "http://192.168.1.88:8099/",gWebsiteUrl: "http://192.168.1.88:8081/",
+	gServerUrl: "http://192.168.1.88:8090/",gVideoServerUrl: "http://192.168.1.88:8099/",gWebsiteUrl: "http://192.168.1.88:8081/",
 	//gServerUrl: "http://192.168.1.66:8090/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
-	//gServerUrl: "http://nilchan.f3322.net:8090/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
-	
+	gServerUrl: "http://nilchan.f3322.net:8090/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
+
 	//判断字符串是否为空，空则返回""
 	StrIsNull: function(str) {
 		if (str != null)
@@ -230,51 +230,50 @@
 		var idSub = 'myUpload';
 		var pageSub = plus.webview.getWebviewById(idSub);
 		var isFirst = false;
-		
-		if(!pageSub){
+
+		if (!pageSub) {
 			var topPx = '48px';
 			if (plus.os.vendor == 'Apple') {
 				topPx = '63px';
 			}
-			
+
 			var pageSub = mui.preload({
-			    url: tmpUrlSub,
-			    id: idSub,
-			    styles: {
+				url: tmpUrlSub,
+				id: idSub,
+				styles: {
 					top: topPx,
 					bottom: '0px',
 				},
-			    extras:{}
+				extras: {}
 			});
-			
+
 			isFirst = true;
 		}
-		
+
 		var tmpUrl = '../../modules/works/myUploadHeader.html';
 		var id = 'myUploadHeader';
 		var page = plus.webview.getWebviewById(id);
-		
-		if(!page){
+
+		if (!page) {
 			var page = mui.preload({
-			    url: tmpUrl,
-			    id: id,
-			    styles:{},
-			    extras:{}
+				url: tmpUrl,
+				id: id,
+				styles: {},
+				extras: {}
 			});
 		}
-		
-		if(pageSub.parent() == null)
+
+		if (pageSub.parent() == null)
 			page.append(pageSub);
-		
+
 		page.show();
-		
-		if(isFirst){
-			pageSub.addEventListener('loaded',function () {
-			    mui.fire(pageSub,'triggerUpload',{});
+
+		if (isFirst) {
+			pageSub.addEventListener('loaded', function() {
+				mui.fire(pageSub, 'triggerUpload', {});
 			})
-		}
-		else{
-			mui.fire(pageSub,'triggerUpload',{});
+		} else {
+			mui.fire(pageSub, 'triggerUpload', {});
 		}
 	},
 
@@ -284,51 +283,50 @@
 		var idSub = 'mydownload';
 		var pageSub = plus.webview.getWebviewById(idSub);
 		var isFirst = false;
-		
-		if(!pageSub){
+
+		if (!pageSub) {
 			var topPx = '48px';
 			if (plus.os.vendor == 'Apple') {
 				topPx = '63px';
 			}
-			
+
 			var pageSub = mui.preload({
-			    url: tmpUrlSub,
-			    id: idSub,
-			    styles: {
+				url: tmpUrlSub,
+				id: idSub,
+				styles: {
 					top: topPx,
 					bottom: '0px',
 				},
-			    extras:{}
+				extras: {}
 			});
-			
+
 			isFirst = true;
 		}
-		
+
 		var tmpUrl = '../../modules/works/mydownloadHeader.html';
 		var id = 'mydownloadHeader';
 		var page = plus.webview.getWebviewById(id);
-		
-		if(!page){
+
+		if (!page) {
 			var page = mui.preload({
-			    url: tmpUrl,
-			    id: id,
-			    styles:{},
-			    extras:{}
+				url: tmpUrl,
+				id: id,
+				styles: {},
+				extras: {}
 			});
 		}
-		
-		if(pageSub.parent() == null)
+
+		if (pageSub.parent() == null)
 			page.append(pageSub);
-		
+
 		page.show();
-		
-		if(isFirst){
-			pageSub.addEventListener('loaded',function () {
-			    mui.fire(pageSub,'triggerDownload',{});
+
+		if (isFirst) {
+			pageSub.addEventListener('loaded', function() {
+				mui.fire(pageSub, 'triggerDownload', {});
 			})
-		}
-		else{
-			mui.fire(pageSub,'triggerDownload',{});
+		} else {
+			mui.fire(pageSub, 'triggerDownload', {});
 		}
 	},
 
@@ -536,11 +534,11 @@
 
 		return ret;
 	},
-	
+
 	//删除动作
-	deleteAction:function(actionType, targetType, targetID,userId) {
+	deleteAction: function(actionType, targetType, targetID, userId) {
 		var ret = false;
-		var ajaxUrl = common.gServerUrl + 'API/Action?actionType='+actionType+'&targetType='+targetType+'&userId='+userId+'&targetId='+targetID;
+		var ajaxUrl = common.gServerUrl + 'API/Action?actionType=' + actionType + '&targetType=' + targetType + '&userId=' + userId + '&targetId=' + targetID;
 		mui.ajax(ajaxUrl, {
 			type: 'DELETE',
 			async: false,
@@ -932,24 +930,24 @@
 		var c = b.slice(b.length - 1, b.length).toString(String).split(".");
 		return c.slice(0, 1);
 	},
-	
+
 	/**
 	 * 刷新个人中心的数字数值（关注数、相册数、账户余额）
 	 * @param {Object} valueJsonObj 
 	 * 		举例：{'valueType': '', 'count': 0, 'changeValue': 0}
 	 * 		valueType取值：关注数-fav；相册数-album；账户余额-balance；银行卡-bankcard
 	 */
-	refreshMyValue:function(valueJsonObj){
-		var myPage = common.getIndexChild(4);	//个人中心页面
-		mui.fire(myPage,'refreshMyValue', valueJsonObj);
+	refreshMyValue: function(valueJsonObj) {
+		var myPage = common.getIndexChild(4); //个人中心页面
+		mui.fire(myPage, 'refreshMyValue', valueJsonObj);
 	},
-	
+
 	//刷新我的订单
-	refreshOrder:function(){
-		var orderWeb=plus.webview.getWebviewById('myOrders.html');
-		mui.fire(orderWeb,'refreshOrderInfo');
+	refreshOrder: function() {
+		var orderWeb = plus.webview.getWebviewById('myOrders.html');
+		mui.fire(orderWeb, 'refreshOrderInfo');
 	},
-	
+
 	gContentRefreshDown: '刷新中...', //下拉时显示的文字
 	gContentRefreshUp: '努力加载中...', //上拉时显示的文字
 	gContentNomoreUp: '没有更多数据了', //上拉无数据时显示的文字
@@ -975,7 +973,7 @@
 		instructModule: 10, //授课关系通知
 		accountModule: 11, //账户通知
 		submitHomeworkModule: 12, //交作业提醒
-		activityRegister: 13	//活动报名
+		activityRegister: 13 //活动报名
 	},
 
 	//性别类型枚举
@@ -1046,9 +1044,9 @@
 		Download: 3, //下载
 		Exam: 4, //考级报名
 		Ticket: 5, //活动售票
-		Homework:6, //作业付费
-		RegGame: 7,	//赛事报名
-		RegLectures: 8	//讲座报名
+		Homework: 6, //作业付费
+		RegGame: 7, //赛事报名
+		RegLectures: 8 //讲座报名
 	},
 
 	//课程类型
@@ -1120,7 +1118,7 @@
 		orchestraRecruit: 4 //青少年乐团团员招募
 
 	},
-	
+
 	//视频码率类型
 	gJsonVideoLevel: {
 		SD: 1, //流畅（即标清）
@@ -1360,6 +1358,9 @@
 	}, {
 		value: 2,
 		text: '支出'
+	},{
+		value:3,
+		text:'提现'
 	}],
 
 	//老师点评类型
@@ -1376,25 +1377,51 @@
 		isHaveTeacher: 1, //是否有授课老师
 		isHaveClassmate: 2 //是否有同学
 	},
-	
+
 	//分享内容的类型
-	gShareContentType:{
-		teacher:1,  //老师
-		video:2,    //视频
-		activity:3, //活动
-		exam:4,		//考级
-		news:5,		//咨询
-		recommend:6,//推荐好友
-		UserGuide:7 //用户指南
+	gShareContentType: {
+		teacher: 1, //老师
+		video: 2, //视频
+		activity: 3, //活动
+		exam: 4, //考级
+		news: 5, //咨询
+		recommend: 6, //推荐好友
+		UserGuide: 7 //用户指南
 	},
-	
-	
+
 	//分享类型
-	gShareType:{
-		WXSceneSession:1,
-		WXSceneTimeline:2,
-		qqFriend:3
+	gShareType: {
+		WXSceneSession: 1,
+		WXSceneTimeline: 2,
+		qqFriend: 3
 	},
+
+	//账户类型
+	gPayType: [{
+		value: 'bankcard',
+		text: 3
+	}, {
+		value: 'alipay',
+		text: 2
+	}, {
+		value: 'weixinpay',
+		text: 1
+	}],
+
+	//提现状态
+	gDrawStatus: [{
+		value: 0,
+		text:''
+	},{
+		value: 1,
+		text:'待转账' 
+	}, {
+		value:2,
+		text:'已转账'
+	}, {
+		value:3,
+		text:'已拒绝' 
+	}],
 
 	gArrayDayOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
 	gVarLocalDownloadTask: 'global.downloadTasks', //下载任务，包括已完成下载和未完成下载

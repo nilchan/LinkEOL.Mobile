@@ -25,7 +25,9 @@ var my = function() {
 	self.IsFamous = ko.observable(false);
 	self.ProTitleAuth = ko.observable(false);
 	self.EduAuth = ko.observable(false);
-
+	self.WeixinAPP = ko.observable('');
+	self.AliPay = ko.observable('');
+	
 	self.goIntructStudentList = function() { //授课学生
 		common.transfer('myStudentList.html', true, {
 			isGetStudent: true
@@ -46,9 +48,11 @@ var my = function() {
 		common.transfer('moreInfo.html', false, {}, false);
 	}
 	self.goMyAccount = function() { //我的账户
-		common.transfer('myAccount.html', true, {
+		common.transfer('myAccountInfo.html', true, {
 			Photo: self.Photo(),
-			bankCardNum: self.BankCardNum()
+			bankCardNum: self.BankCardNum(),
+			WeixinAPP: self.WeixinAPP(),
+			AliPay: self.AliPay()
 		}, false, true);
 	}
 	self.goMessageList = function() {
@@ -113,6 +117,7 @@ var my = function() {
 			dataType: 'json',
 			type: 'GET',
 			success: function(responseText) {
+				//console.log(JSON.stringify(responseText));
 				self.ID(responseText.ID);
 				self.DisplayName(responseText.DisplayName);
 				self.Province(setStr('Province', responseText, ''));
@@ -143,6 +148,10 @@ var my = function() {
 					self.ProTitleAuth(responseText.ProTitleAuth);
 				if (responseText.EduAuth)
 					self.EduAuth(responseText.EduAuth);
+				if (responseText.WeixinAPP)
+					self.WeixinAPP(responseText.WeixinAPP);
+				if (responseText.AliPay)
+					self.AliPay(responseText.AliPay);
 //				console.log('f:'+self.IsFamous() + '~A:' + self.IDAuth() +'~P:' +self.ProTitleAuth() + '~E:' + self.EduAuth());
 
 			}
@@ -180,7 +189,11 @@ var my = function() {
 			disPlayName: self.DisplayName()
 		}, false, true);
 	}
-
+	
+	self.goRecharge = function() {
+		common.transfer('recharge.html', true);
+	}
+	
 	mui.plusReady(function() {
 		if (self.UserID() > 0) {
 			self.getInfo();
