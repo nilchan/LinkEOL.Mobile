@@ -55,9 +55,9 @@
 						<i class="iconfont myAccountInfo-icon myAccountInfo-icon6">&#xe6b4;</i>
 						<span class="myAccountInfo-font">银行卡</span>
 					</li>
-					<li>
+					<li data-bind="click: bindingAli">
 						<i class="iconfont myAccountInfo-icon myAccountInfo-icon7">&#xe6b1;</i>
-						<span class="myAccountInfo-font">绑定支付宝</span>
+						<span class="myAccountInfo-font" data-bind="text: self.AliPay() ===''? '绑定支付宝': '已绑定'">绑定支付宝</span>
 					</li>
 					
 					<li data-bind="click: bindingWeixin">

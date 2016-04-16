@@ -30,6 +30,13 @@ var myAccount = function() {
 		common.transfer('draw.html', true, {}, false, false);
 	}
 
+	//支付宝绑定
+	self.bindingAli = function() {
+		common.transfer('alipay.html', true, {
+			ailpay: self.AliPay()
+		});
+	}
+
 	self.getBalance = function() {
 		mui.ajax(common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + getLocalItem('UserID'), {
 			type: 'GET',
@@ -158,6 +165,7 @@ var myAccount = function() {
 		}
 		if (typeof(thisWebview.AliPay) != "undefined") {
 			self.AliPay(thisWebview.AliPay);
+			//console.log(self.AliPay());
 		}
 		self.getBalance();
 		self.getOAuthServices();
@@ -174,6 +182,16 @@ var myAccount = function() {
 	//刷新余额
 	window.addEventListener('refeshBalance', function(event) {
 		self.getBalance();
+	});
+	
+	//刷新支付宝状态
+	window.addEventListener('refeshAli', function(event) {
+		if(typeof event.detail.alipay=='undefined'){
+			self.AliPay('');
+		}else{
+			self.AliPay(event.detail.alipay);
+		}
+		
 	});
 
 	mui.init({

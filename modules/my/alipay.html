@@ -27,21 +27,19 @@
 		<div class="mui-content">
 			<div class="alipay">
 				<label>支付宝账号</label>
-				<input type="tel" placeholder="请输入您的支付宝账号" />
+				<input type="text" placeholder="请输入您的支付宝账号" data-bind='value:aliAccount' id="alipayId"/>
 			</div>
-			
-			
-			
 			<div class="remark">
 				<i class="iconfont">&#xe6b7;</i>请正确填写个人信息中的姓名，其将作为支付宝账户收款的校验凭据。
 			</div>
-			<div class="mui-content-padded" style="margin-top: 60%;" data-bind='click:drawAccount'>
-				<button type="button" class="mui-btn mui-btn-block mui-btn-primary th-btn th-mui-f p-btn-color p-btn-padding">立即绑定</button>
+			<div class="mui-content-padded" style="margin-top: 60%;" data-bind='click:bandAccount'>
+				<button type="button" class="mui-btn mui-btn-block mui-btn-primary th-btn th-mui-f p-btn-color p-btn-padding" data-bind="text:bandStatus()?'解除绑定':'立即绑定'"></button>
 			</div>
-			
-			
-			
-			
 		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/alipay.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 </html>

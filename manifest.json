@@ -3184,7 +3184,8 @@
 					"modules/my/myCard.html",
 					"modules/my/myIncoming.html",
 					"modules/my/accountDetailsHeader.html",
-					"modules/my/myOrders.html"
+					"modules/my/myOrders.html",
+					"modules/my/alipay.html"
 				],
 				"priority": 0
 			},
@@ -3217,6 +3218,23 @@
 					"content/fonts/iconfont.css",
 					"script/common/common.js",
 					"script/common/base.js",
+					"content/fonts/iconfont.woff",
+					"content/mui/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/my/alipay.html": {
+				"resources": [
+					"script/my/alipay.js",
+					"script/common/common.js",
+					"script/common/base.js",
+					"script/mui/mui.js",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"content/common/global.css",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/fonts/iconfont.css",
 					"content/fonts/iconfont.woff",
 					"content/mui/mui.min.css"
 				],

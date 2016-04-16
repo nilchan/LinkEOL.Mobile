@@ -12,7 +12,6 @@ var recharge = function() {
 		mui.ajax(url, {
 			type: 'GET',
 			success: function(responseText) {
-				console.log(responseText);
 				var result = JSON.parse(responseText);
 				self.payList(result);
 			}
@@ -75,12 +74,10 @@ var recharge = function() {
 		if( orderID !== 0 ) {
 			ajaxUrl = common.gServerUrl + 'API/Order/ResubmitOrder?id=' + orderID + '&payType=' + paytype;
 		}
-		console.log(ajaxUrl);
 		//新增则保存下载信息；修改则保存新的支付方式。均返回订单信息
 		mui.ajax(ajaxUrl, {
 			type: 'POST',
 			success: function(responseText) { //responseText为微信支付所需的json
-				console.log(responseText);
 				var ret = JSON.parse(responseText);
 				var orderID = ret.orderID;
 				if (ret.requestJson == '') { //无需网上支付，报名成功
