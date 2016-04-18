@@ -3,6 +3,7 @@ var draw = function() {
 	var remark; //账户标记
 	var userid = getLocalItem("UserID"); //用户id
 	var account; //账户余额
+	var UserPassword; //账户密码
 	self.placeholderValue = ko.observable("当前余额0.00元");
 	self.amount = ko.observable('');
 	self.bankData = ko.observableArray([]); //银行数据
@@ -59,45 +60,52 @@ var draw = function() {
 			mui.toast('请输入正确的提现金额');
 			return;
 		}
-		if(Number(self.amount()) > account){
+		if (Number(self.amount()) > account) {
 			mui.toast('超出账户余额');
-			return ;
+			return;
 		}
 		if (common.StrIsNull(self.checkPayType()) == '') {
 			mui.toast('请选择一种提现方式');
 			return;
 		}
+		var evt = event;
+		if (!common.setDisabled()) return;
+
 		common.gPayType.forEach(function(item) {
 			if (item.value == self.checkPayType()) {
 				self.PayTypeData().forEach(function(payItem) {
 					if (payItem.PayType == item.text) {
 						if (!payItem.Enabled) {
 							mui.toast('还没绑定，请选择已绑定账户');
+							common.setEnabled(evt);
 						} else {
-							remark = payItem.Remark;
-
-							var evt = event;
-							if (!common.setDisabled()) return;
-
-							var drawAjax = common.gServerUrl + 'API/AccountDetails/DrawMoneyAdd?amount=' + self.amount() + '&remark=' + remark;
-							//console.log(common.gServerUrl + 'API/AccountDetails/DrawMoneyAdd?amount=' + self.amount() + '&remark=' + remark)
-							mui.ajax(drawAjax, {
-								type: 'GET',
-								success: function(responseText) {
-									var result = JSON.parse(responseText);
-									//console.log(JSON.stringify(result));
-									mui.toast('成功提交提现申请，将在48小时内到账，请留意通知');
-									common.refreshMyValue({
-										valueType: 'balance',
+							plus.nativeUI.prompt('请输入登录密码', function(e) {
+								if (e.index == 0) {
+									UserPassword = e.value;
+									remark = payItem.Remark;
+									var drawAjax = common.gServerUrl + 'API/AccountDetails/DrawMoneyAdd?amount=' + self.amount() + '&remark=' + remark+'&pass='+UserPassword;
+									mui.ajax(drawAjax, {
+										type: 'GET',
+										success: function(responseText) {
+											var result = JSON.parse(responseText);
+											mui.toast('成功提交提现申请，将在48小时内到账，请留意通知');
+											common.refreshMyValue({
+												valueType: 'balance',
+											});
+											self.getAmount();
+											mui.back();
+										},
+										error: function() {
+											common.setEnabled(evt);
+										}
 									});
-									self.getAmount();
-									mui.back();
-									//common.setEnabled(evt);
-								},
-								error: function() {
+
+								} else {
 									common.setEnabled(evt);
+									return;
 								}
-							});
+							}, '', '登录密码', ['确定', '取消']);
+
 						}
 					}
 				})

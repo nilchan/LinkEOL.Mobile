@@ -142,6 +142,15 @@ var recharge = function() {
 	 	self.getBalance();
 	 });
 	
+	mui.init({
+		beforeback: function() {
+			var my = plus.webview.currentWebview().opener();
+			common.refreshMyValue({
+				valueType: 'balance',
+			});
+			return true;
+		}
+	})
 };
 
 ko.applyBindings(recharge);

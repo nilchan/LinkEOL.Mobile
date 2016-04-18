@@ -54,7 +54,6 @@ var myOrders = function() {
 			type: 'GET',
 			success: function(responseText) {
 				self.OrdersNotPay(JSON.parse(responseText));
-				//console.log(JSON.stringify(self.OrdersNotPay()));
 				self.Sum(common.getArraySum(self.OrdersNotPay(), 'Amount'));
 			}
 		})
@@ -161,6 +160,9 @@ var myOrders = function() {
 				break;
 			default:
 				return;
+		}
+		if(this.IsFinish === true && order.TargetType == common.gDictOrderTargetType.TbPay) {
+			return  ;
 		}
 		common.transfer(url, true, {
 			order: order

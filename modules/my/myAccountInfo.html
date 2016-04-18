@@ -35,7 +35,7 @@
 						<i class="iconfont myAccountInfo-icon myAccountInfo-icon1">&#xe6ae;</i>
 						<span class="myAccountInfo-font">充值</span>
 					</li>
-					<li data-bind='click:goDraw'>
+					<li data-bind="click:goDraw,visible:UserType() == common.gDictUserType.teacher">
 						<i class="iconfont myAccountInfo-icon myAccountInfo-icon2">&#xe6b5;</i>
 						<span class="myAccountInfo-font">提现</span>
 					</li>
