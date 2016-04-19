@@ -65,7 +65,7 @@ var recharge = function() {
 		} else {
 			paytype = 3;
 		}
-
+		
 		var evt = event;
 		if (!common.setDisabled()) return;
 
@@ -78,7 +78,6 @@ var recharge = function() {
 		mui.ajax(ajaxUrl, {
 			type: 'POST',
 			success: function(responseText) { //responseText为微信支付所需的json
-				alert(responseText);
 				var ret = JSON.parse(responseText);
 				
 				var orderID = ret.orderID;
@@ -97,7 +96,7 @@ var recharge = function() {
 						requestJson = ret.requestJson;
 					else
 						requestJson = JSON.stringify(ret.requestJson);
-					alert(requestJson);
+					alert(self.PayType() + ' ' + typeof requestJson + ' ' + requestJson);
 
 					//根据支付方式、订单信息，调用支付操作
 					Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数

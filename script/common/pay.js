@@ -40,6 +40,7 @@ var pays = {};
 		//order = '{"appid":"wx888888","noncestr":"5d318d9f064b4415b6db41340a17c1af","package":"Sign=WXPay","partnerid":"88888","prepayid":"wx9999999","timestamp":"1445653811","sign":"8888"}';
 		//console.log(payid);
 		//https://pay.weixin.qq.com/wiki/doc/api/app.php?chapter=8_5
+		alert(JSON.stringify(pays[payid]));
 		plus.payment.request(pays[payid], order, function(result) {
 			mui.toast("支付成功");
 			var tradeno = result.tradeno;

@@ -261,6 +261,7 @@ var applay = function() {
 					mui.back();
 				} else {
 					var requestJson = JSON.stringify(ret.requestJson);
+					alert(self.PayType() + ' ' + typeof requestJson + ' ' + requestJson);
 
 					//根据支付方式、订单信息，调用支付操作
 					Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数
