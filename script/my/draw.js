@@ -79,11 +79,11 @@ var draw = function() {
 							mui.toast('还没绑定，请选择已绑定账户');
 							common.setEnabled(evt);
 						} else {
-							plus.nativeUI.prompt('请输入登录密码', function(e) {
+							mui.prompt('请输入登录密码', '登录密码', '', ['确定', '取消'], function(e) {
 								if (e.index == 0) {
 									UserPassword = e.value;
 									remark = payItem.Remark;
-									var drawAjax = common.gServerUrl + 'API/AccountDetails/DrawMoneyAdd?amount=' + self.amount() + '&remark=' + remark+'&pass='+UserPassword;
+									var drawAjax = common.gServerUrl + 'API/AccountDetails/DrawMoneyAdd?amount=' + self.amount() + '&remark=' + remark + '&pass=' + UserPassword;
 									mui.ajax(drawAjax, {
 										type: 'GET',
 										success: function(responseText) {
@@ -99,12 +99,11 @@ var draw = function() {
 											common.setEnabled(evt);
 										}
 									});
-
 								} else {
 									common.setEnabled(evt);
-									return;
 								}
-							}, '', '登录密码', ['确定', '取消']);
+							});
+							//document.querySelector('.mui-popup-input input').type='password'
 
 						}
 					}

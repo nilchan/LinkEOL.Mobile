@@ -3200,7 +3200,10 @@
 					"script/libs/knockout/knockout-3.3.0.js",
 					"content/fonts/iconfont.css",
 					"content/fonts/iconfont.woff",
-					"content/mui/mui.min.css"
+					"content/mui/mui.min.css",
+					"script/common/pay.js",
+					"images/ali.png",
+					"images/submitClass-wx.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -3219,7 +3222,9 @@
 					"script/common/common.js",
 					"script/common/base.js",
 					"content/fonts/iconfont.woff",
-					"content/mui/mui.min.css"
+					"content/mui/mui.min.css",
+					"script/mui/mui.min2.90.js",
+					"content/mui/mui.min2.6.0.css"
 				],
 				"refer": [],
 				"priority": 0

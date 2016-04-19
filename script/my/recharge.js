@@ -78,7 +78,9 @@ var recharge = function() {
 		mui.ajax(ajaxUrl, {
 			type: 'POST',
 			success: function(responseText) { //responseText为微信支付所需的json
+				alert(responseText);
 				var ret = JSON.parse(responseText);
+				
 				var orderID = ret.orderID;
 				if (ret.requestJson == '') { //无需网上支付，报名成功
 					mui.toast("已成功支付");
@@ -90,11 +92,17 @@ var recharge = function() {
 					common.refreshOrder();//刷新订单
 					mui.back();
 				} else {
-					var requestJson = JSON.stringify(ret.requestJson);
+					var requestJson = '';
+					if(self.PayType() == 'alipay')
+						requestJson = ret.requestJson;
+					else
+						requestJson = JSON.stringify(ret.requestJson);
+					alert(requestJson);
 
 					//根据支付方式、订单信息，调用支付操作
 					Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数
 						//plus的pay有可能在微信支付成功的同步返回时，并未返回tradeno
+						alert('tradeno')
 						if(tradeno == '' || typeof tradeno == 'undefined'){
 							plus.nativeUI.closeWaiting();
 							mui('#middlePopover').popover("toggle");
@@ -120,6 +128,7 @@ var recharge = function() {
 							}
 						})
 					}, function() {
+						alert('pay error');
 						common.setEnabled(evt);
 						plus.nativeUI.closeWaiting();
 					});
