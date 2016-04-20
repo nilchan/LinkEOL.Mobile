@@ -155,13 +155,13 @@ var myOrders = function() {
 				arg1 = false;
 				arg2 = false;
 				break;
-			case common.gDictOrderTargetType.TbPay:
+			case common.gDictOrderTargetType.Recharge:
 				url = '../../modules/my/recharge.html';
 				break;
 			default:
 				return;
 		}
-		if(this.IsFinish === true && order.TargetType == common.gDictOrderTargetType.TbPay) {
+		if(this.IsFinish === true && order.TargetType == common.gDictOrderTargetType.Recharge) {
 			return  ;
 		}
 		common.transfer(url, true, {

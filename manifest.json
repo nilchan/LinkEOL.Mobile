@@ -848,7 +848,8 @@
 					"modules/works/WorksDetails.html",
 					"modules/works/worksListMyHeader.html",
 					"modules/activity/saleTicket.html",
-					"modules/activity/XSBRegister/apply.html"
+					"modules/activity/XSBRegister/apply.html",
+					"modules/my/recharge.html"
 				],
 				"priority": 0
 			},
@@ -3203,7 +3204,8 @@
 					"content/mui/mui.min.css",
 					"script/common/pay.js",
 					"images/ali.png",
-					"images/submitClass-wx.png"
+					"images/submitClass-wx.png",
+					"content/fonts/iconfont.ttf"
 				],
 				"refer": [],
 				"priority": 0

@@ -1,10 +1,10 @@
 ﻿var common = {
 	//Web API地址
-	//gServerUrl: "http://cloud.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
+	//gServerUrl: "http://cloudtest.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
 	//gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
 	//gServerUrl: "http://192.168.1.88:8090/",gVideoServerUrl: "http://192.168.1.88:8099/",gWebsiteUrl: "http://192.168.1.88:8081/",
-	//gServerUrl: "http://192.168.1.66:8090/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
-	gServerUrl: "http://nilchan.f3322.net:8090/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
+	//gServerUrl: "http://192.168.1.66:8190/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
+	gServerUrl: "http://nilchan.f3322.net:8190/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
 
 	//判断字符串是否为空，空则返回""
 	StrIsNull: function(str) {
@@ -1047,7 +1047,7 @@
 		Homework: 6, //作业付费
 		RegGame: 7, //赛事报名
 		RegLectures: 8, //讲座报名
-		TbPay: 9	//充值
+		Recharge: 9	//充值
 	},
 
 	//课程类型
