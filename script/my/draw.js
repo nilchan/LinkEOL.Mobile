@@ -63,8 +63,8 @@ var draw = function() {
 			result=false;
 			return;
 		}
-		if(Number(self.amount()) <= 0.01 ){
-			mui.toast('提现金额至少为0.01');
+		if(Number(self.amount()) < 1 ){
+			mui.toast('提现金额至少为1元');
 			result=false;
 			return;
 		}
