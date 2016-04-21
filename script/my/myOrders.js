@@ -54,7 +54,7 @@ var myOrders = function() {
 			type: 'GET',
 			success: function(responseText) {
 				self.OrdersNotPay(JSON.parse(responseText));
-				self.Sum(common.getArraySum(self.OrdersNotPay(), 'Amount'));
+				self.Sum(common.getArraySum(self.OrdersNotPay(), 'AmountInFact'));
 			}
 		})
 	}
@@ -66,7 +66,7 @@ var myOrders = function() {
 			type: 'GET',
 			success: function(responseText) {
 				self.OrdersPayed(JSON.parse(responseText));
-				self.Sum(common.getArraySum(self.OrdersPayed(), 'Amount'));
+				self.Sum(common.getArraySum(self.OrdersPayed(), 'AmountInFact'));
 			}
 		})
 	}
@@ -78,7 +78,7 @@ var myOrders = function() {
 			type: 'GET',
 			success: function(responseText) {
 				self.OrdersRefunded(JSON.parse(responseText));
-				self.Sum(common.getArraySum(self.OrdersRefunded(), 'Amount'));
+				self.Sum(common.getArraySum(self.OrdersRefunded(), 'AmountInFact'));
 			}
 		})
 	}
@@ -118,7 +118,7 @@ var myOrders = function() {
 					type:'DELETE',
 					success:function(responseText){
 						self.OrdersNotPay.remove(order);
-						self.Sum(common.getArraySum(self.OrdersNotPay(), 'Amount'));
+						self.Sum(common.getArraySum(self.OrdersNotPay(), 'AmountInFact'));
 					}
 				})
 			}

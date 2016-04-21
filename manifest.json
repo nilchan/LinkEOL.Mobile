@@ -670,7 +670,8 @@
 					null,
 					"script/libs/polyv/polyvplayer.min.js",
 					"images/ye.png",
-					"script/libs/plugins/videoUtility.js"
+					"script/libs/plugins/videoUtility.js",
+					"images/ali.png"
 				],
 				"refer": [
 					"modules/account/login.html",

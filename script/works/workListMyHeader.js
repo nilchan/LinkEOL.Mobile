@@ -38,8 +38,8 @@ var worksHeader = function() {
 	//返回按钮
 	var old_back = mui.back;
 	mui.back = function() {
-		//console.log(JSON.stringify(workIndex.opener()))
-		if (workIndex) {
+		//console.log(workIndex.opener())
+		if (workIndex.opener()) {
 			if (workIndex.opener().id == 'modules/my/my.html') {
 				old_back();
 			} else {

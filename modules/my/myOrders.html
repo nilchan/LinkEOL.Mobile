@@ -34,14 +34,34 @@
 			}
 			
 			.mui-segmented-control.mui-segmented-control-inverted {
-				border-bottom: 0.7px solid #C8C7CC !important;
-				border-top: 0.7px solid #C8C7CC !important;
+				border-bottom: 1px solid #C8C7CC !important;
+				border-top: 1px solid #C8C7CC !important;
 			}
-			
+			@media only screen and (min-width: 320px) and (max-width: 339px) {
 			.mui-control-content {
-				min-height:18.5rem;	
+				min-height:18.2rem;	
 				margin-bottom: 40px;
+				}
 			}
+			@media only screen and (min-width: 340px) and (max-width: 374px) {
+			.mui-control-content {
+				min-height:22.5rem;	
+				margin-bottom: 40px;
+				}
+			}
+				@media only screen and (min-width: 375px) and (max-width: 413px) {
+				.mui-control-content {
+				min-height:25.8rem;	
+				margin-bottom: 40px;
+				}
+			}
+			@media only screen and (min-width: 414px) and (max-width: 639px) {
+				.mui-control-content {
+				min-height:19.8rem;	
+				margin-bottom: 40px;
+				}
+			}
+		
 			.mui-table-view-cell {
 				padding: 12px 15px;
 			}
@@ -100,7 +120,7 @@
 										<span class="span-color-grey" style="width: 21%; float: left; display: inline-block;" data-bind='text: TargetTypeName'></span>
 										<span class="span-color-grey" data-bind='text: TargetName'></span>
 										<span class="span-color-grey" data-bind='text: OrderTime.split(" ")[0]'></span>
-										<span data-bind='text: "￥" + Amount'></span>
+										<span data-bind='text: "￥" + AmountInFact'></span>
 									</li>
 								</ul>
 							</div>
@@ -114,7 +134,7 @@
 										<span class="span-color-grey" data-bind='text: TargetTypeName'></span>
 										<span class="span-color-grey" data-bind='text: TargetName'></span>
 										<span class="span-color-grey" data-bind='text: OrderTime.split(" ")[0]'></span>
-										<span data-bind='text: "￥" + Amount'></span>
+										<span data-bind='text: "￥" + AmountInFact'></span>
 										<span style="margin-top: 18px; " data-bind='text: "评分："+ Score.toFixed(1), visible: (Score > 0 && (TargetType == common.gDictOrderTargetType.Comment || TargetType == common.gDictOrderTargetType.CourseToUser))'></span>
 										<!--<div class="mui-content-padded myAccount-sure " data-bind="visible: (Score === 0 && (TargetType == common.gDictOrderTargetType.Comment || TargetType == common.gDictOrderTargetType.CourseToUser))">
 											<a href="#middlePopover" class="mui-btn mui-btn-warning mui-btn-outlined myOrders-sure-btn" data-bind="event:{tap: getOrderID}">
@@ -134,7 +154,7 @@
 										<span class="span-color-grey" data-bind='text: TargetTypeName'>12</span>
 										<span class="span-color-grey" data-bind='text: TargetName'>34</span>
 										<span class="span-color-grey" data-bind='text: OrderTime.split(" ")[0]'>56</span>
-										<span data-bind='text: "￥" + Amount'>78</span>
+										<span data-bind='text: "￥" + AmountInFact'>78</span>
 									</li>
 								</ul>
 							</div>

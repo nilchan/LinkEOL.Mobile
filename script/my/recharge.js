@@ -1,6 +1,6 @@
 var recharge = function() {
 	var self = this;
-	var ID, orderID = 0;
+	var ID, orderID = 0, orderError = true;
 	
 	self.payList = ko.observableArray([]);
 	self.balance = ko.observable();
@@ -14,6 +14,15 @@ var recharge = function() {
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
 				self.payList(result);
+				self.payList.forEach(function(item){
+					if( self.targetID() == item.TargetID ) {
+						orderError = false;
+					}
+					if( orderError ) {
+						alert('充值订单套餐信息已失效！');
+						mui.back();
+					}
+				});
 			}
 		})
 	};

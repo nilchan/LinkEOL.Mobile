@@ -116,7 +116,7 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 					requestJson = ret.requestJson;
 				else
 					requestJson = JSON.stringify(ret.requestJson);
-				alert(self.PayType() + ' ' + typeof requestJson + ' ' + requestJson);
+				//alert(self.PayType() + ' ' + typeof requestJson + ' ' + requestJson);
 
 				//根据支付方式、订单信息，调用支付操作
 				Pay.pay(payType, requestJson, function(tradeno) { //成功后的回调函数
@@ -124,6 +124,7 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 					if(tradeno == '' || typeof tradeno == 'undefined'){
 						plus.nativeUI.closeWaiting();
 						mui('#middlePopover').popover("toggle");
+						common.refreshOrder();//刷新订单
 						successPayCB();
 						return true;
 					}
