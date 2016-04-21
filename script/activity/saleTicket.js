@@ -1,22 +1,19 @@
 var saleTicket = function() {
 	var self = this;
+	var orderID = 0;	//保存成功后返回的订单ID（若未能支付成功，亦可立刻再次支付）
+	
 	self.custormPriceList = ko.observableArray([]); //票价信息
 	self.TotalAmount = ko.observable(0); //票价总价
 	self.paid = ko.observable(false); //是否已支付
 	self.isHaveTicket=ko.observable(false);
 
-	self.Order = ko.observable({}); //由我的订单传递过来的订单参数
 	self.ViewOrder = ko.observable(false); //标记是否由我的订单跳转而来，默认为否
-	self.OrderNO = ko.observable(''); //请求后返回的订单号
-
-	self.OrderID = ko.observable(0); //保存成功后返回的订单ID（若未能支付成功，亦可立刻再次支付）
 
 	self.payRemainTime = ko.observable('');
 	self.ticketUrl = ko.observable('');	//座位示意图URL
 	self.balance = ko.observable(0); //余额
 	
 	var ActivityID;
-	var isSaleticket = false; //是否 有购票
 	var SeatPrice = [];
 	var ticketInfo;
 
@@ -126,29 +123,14 @@ var saleTicket = function() {
 
 	//支付
 	self.gotoPay = function() {
+		var ticketJson = "";
 
-		var ajaxUrl;
-		var ticket;
-
-		//支付方式的数值
-		var paytype = 3;
-		if (self.PayType() == 'wxpay') {
-			paytype = 1;
-		} else if (self.PayType() == 'alipay') {
-			paytype = 2;
-		} else if (self.PayType() == 'balance'){
-			paytype = 4;
-		} else {
-			paytype = 3;
-		}
-
-		/*console.log('ViewOrder: '+self.ViewOrder());
-		console.log('OrderID: '+self.OrderID());*/
-
-		if (!(self.ViewOrder() || self.OrderID() > 0)) { //不是由我的订单跳转而来，或者未曾保存过订单
+		if (!(self.ViewOrder() || orderID > 0)) { //不是由我的订单跳转而来，或者未曾保存过订单
+			var isSaleticket = false; //是否有购票
 			self.custormPriceList().forEach(function(item) {
 				if (item.BuySeatNum != 0) {
 					isSaleticket = true;
+					return;
 				}
 			})
 			if (!isSaleticket) {
@@ -161,7 +143,6 @@ var saleTicket = function() {
 				return;
 			}
 
-
 			SeatPrice = [];	//清空原有的票信息
 			self.custormPriceList().forEach(function(item) {
 				SeatPrice.push({
@@ -173,103 +154,26 @@ var saleTicket = function() {
 				})
 			})
 
-
 			//准备售票信息
 			ticket = {
-					ActivityID: ActivityID,
-					UserID: getLocalItem('UserID'),
-					SeatPrice: JSON.stringify(SeatPrice)
-				}
-				//console.log(JSON.stringify(ticket));
-
-			ajaxUrl = common.gServerUrl + 'API/ActTicket?payType=' + paytype;
-		} else {
-			var orderID;
-			if (self.ViewOrder())
-				orderID = self.Order().ID;
-			else
-				orderID = self.OrderID();
-			ajaxUrl = common.gServerUrl + 'API/Order/ResubmitOrder?id=' + orderID + '&payType=' + paytype;
+				ActivityID: ActivityID,
+				UserID: getLocalItem('UserID'),
+				SeatPrice: JSON.stringify(SeatPrice)
+			};
+			ticketJson = JSON.stringify(ticket);
 		}
-
-		var evt = event;
-		if (!common.setDisabled()) return;
-
-		plus.nativeUI.showWaiting();
-		//新增则保存点评信息；修改则保存新的支付方式。均返回订单信息
-		mui.ajax(ajaxUrl, {
-			type: 'POST',
-			data: (self.ViewOrder() || self.OrderID() > 0) ? null : ticket,
-			success: function(responseText) { //responseText为微信支付所需的json
-				var ret = JSON.parse(responseText);
-				if (ret.orderID && ret.orderID > 0) {
-					self.OrderID(ret.orderID); //订单跳转的状态，其返回并无orderID,requestJson
-					self.Order({
-						ID: ret.orderID,
-						AmountInFact: self.TotalAmount(),
-						Amount: self.TotalAmount(),
-						UserID: getLocalItem('UserID'),
-						TargetType: common.gDictOrderTargetType.Ticket
-					});
-					
-					//订单已生成，此时相当于浏览订单
-					self.ViewOrder(true);
+		
+		Pay.preparePay(ticketJson, self.PayType(), common.gDictOrderTargetType.Ticket, 
+			orderID, function(newOrderID, expireMinutes){
+				orderID = newOrderID;
+				if(expireMinutes > 0){
+					var oTime = newDate();
+					maxtime = (newDate(oTime).getTime() + expireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
 				}
-
-				if (ret.requestJson == '') { //无需网上支付，预约点评成功
-					mui.toast("已成功售票");
-					//跳转至点评（暂时未打开）
-					common.refreshMyValue({
-						valueType: 'balance'
-					})
-					plus.nativeUI.closeWaiting();
-					common.refreshOrder();//刷新订单
-					mui.back();
-				} else {
-					var requestJson = JSON.stringify(ret.requestJson);
-					//console.log(requestJson);
-					//根据支付方式、订单信息，调用支付操作
-					Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数
-						if(tradeno == '' || typeof tradeno == 'undefined'){
-							plus.nativeUI.closeWaiting();
-							mui.back();
-							return;
-						}
-						
-						var aurl = common.gServerUrl + 'API/Order/SetOrderSuccess?id=' + self.OrderID() + '&otherOrderNO=' + tradeno;
-						mui.ajax(aurl, {
-							type: 'PUT',
-							success: function(respText) {
-								//var ticket = JSON.parse(respText);
-								plus.nativeUI.closeWaiting();
-								common.refreshMyValue({
-									valueType: 'balance',
-								})
-								common.refreshOrder();//刷新订单
-								mui.back();
-							},
-							error: function() {
-								common.setEnabled(evt);
-							}
-						})
-					}, function() {
-						common.setEnabled(evt);
-						plus.nativeUI.closeWaiting();
-					});
-				}
-			},
-			error: function() {
-				common.setEnabled(evt);
-				plus.nativeUI.closeWaiting();
-			}
-		})
+			}, function(){
+				mui.back();
+			});
 	};
-
-	//popover的关闭功能
-	self.closePopover = function() {
-		mui('#middlePopover').popover('hide');
-	}
-
 
 	//关闭支付界面
 	self.closePopover = function() {
@@ -282,7 +186,6 @@ var saleTicket = function() {
 	 * @param {Int} ticketId 购票ID
 	 */
 	self.getDataForOrder = function(ticketId) {
-		self.ViewOrder(true); //标记由我的订单跳转而来
 		var ajaxUrl = common.gServerUrl + '/API/ActTicket/ActTicketInfo?ticketId=' + ticketId;
 		mui.ajax(ajaxUrl, {
 			type: 'GET',
@@ -296,6 +199,7 @@ var saleTicket = function() {
 					self.custormPriceList().forEach(function(item){
 						if(item.BuySeatNum>0){
 							self.isHaveTicket(true);
+							return;
 						}
 					})
 				} else {
@@ -366,13 +270,14 @@ var saleTicket = function() {
 		//console.log(typeof(thisWebview.order));
 		if (typeof(thisWebview.order) != "undefined") { //从订单跳转进来
 			//console.log(JSON.stringify(thisWebview.order));
-			self.Order(thisWebview.order);
-			self.paid(self.Order().IsFinish);
-			self.TotalAmount(self.Order().Amount);
-			self.getDataForOrder(self.Order().TargetID);
-			var oTime = self.Order().OrderTime;
-			maxtime = (newDate(oTime).getTime() + self.Order().ExpireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
-
+			var orderTmp = thisWebview.order;
+			orderID = orderTmp.ID;
+			self.ViewOrder(true);
+			self.paid(orderTmp.IsFinish);
+			self.TotalAmount(orderTmp.Amount);
+			self.getDataForOrder(orderTmp.TargetID);
+			var oTime = orderTmp.OrderTime;
+			maxtime = (newDate(oTime).getTime() + orderTmp.ExpireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
 		}
 	})
 }

@@ -2422,7 +2422,8 @@
 					"script/libs/knockout/knockout-3.3.0.min.js",
 					"content/fonts/iconfont.ttf",
 					"script/common/pay.js",
-					"images/ye.png"
+					"images/ye.png",
+					"images/ali.png"
 				],
 				"refer": [
 					"modules/activity/showSet.html"
@@ -3084,7 +3085,8 @@
 					"script/common/base.js",
 					"content/fonts/iconfont.ttf",
 					"content/mui/mui.min.css",
-					"content/fonts/iconfont.woff"
+					"content/fonts/iconfont.woff",
+					"images/ali.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -3226,7 +3228,8 @@
 					"content/fonts/iconfont.woff",
 					"content/mui/mui.min.css",
 					"script/mui/mui.min2.90.js",
-					"content/mui/mui.min2.6.0.css"
+					"content/mui/mui.min2.6.0.css",
+					"script/mui/mui.min.js"
 				],
 				"refer": [],
 				"priority": 0

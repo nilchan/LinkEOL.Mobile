@@ -2,7 +2,8 @@ var teacherFTF = function() {
 	var self = this;
 
 	var aid = 0,
-		rid = 0;
+		rid = 0,
+		orderID = 0;
 	self.canChange = ko.observable(true);
 
 	var userId = getLocalItem('UserID');
@@ -266,81 +267,17 @@ var teacherFTF = function() {
 	//支付
 	self.gotoPay = function() {
 
-		//支付方式的数值
-		var paytype = 3;
-		if (self.PayType() == 'wxpay') {
-			paytype = 1;
-		} else if (self.PayType() == 'alipay') {
-			paytype = 2;
-		} else if (self.PayType() == 'balance') {
-			paytype = 4;
-		} else {
-			paytype = 3;
-		}
-
-		var evt = event;
-		if (!common.setDisabled()) return;
-
-		plus.nativeUI.showWaiting();
-		var ajaxUrl = common.gServerUrl + "/API/RegLectures/RegLecturesAddOrder?regId=" + rid + "&payType=" + paytype
-			//console.log(ajaxUrl);
-			//新增则保存下载信息；修改则保存新的支付方式。均返回订单信息
-		mui.ajax(ajaxUrl, {
-			type: 'POST',
-			success: function(responseText) { //responseText为微信支付所需的json
-				console.log(responseText);
-				var ret = JSON.parse(responseText);
-				var orderID = ret.orderID;
-				if (ret.requestJson == '') { //无需网上支付，报名成功
-					mui.toast("已成功支付");
-					plus.nativeUI.closeWaiting();
-					common.refreshMyValue({
-						valueType: 'balance',
-					})
-					mui('#middlePopover').popover("toggle");
-					common.refreshOrder(); //刷新订单
-					mui.back();
-				} else {
-					var requestJson = JSON.stringify(ret.requestJson);
-
-					//根据支付方式、订单信息，调用支付操作
-					Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数
-						//plus的pay有可能在微信支付成功的同步返回时，并未返回tradeno
-						if (tradeno == '' || typeof tradeno == 'undefined') {
-							plus.nativeUI.closeWaiting();
-							mui('#middlePopover').popover("toggle");
-							mui.back();
-							return;
-						}
-
-						var aurl = common.gServerUrl + 'API/Order/SetOrderSuccess?id=' + orderID + '&otherOrderNO=' + tradeno;
-						mui.ajax(aurl, {
-							type: 'PUT',
-							success: function(respText) {
-								plus.nativeUI.closeWaiting();
-								common.refreshMyValue({
-									valueType: 'balance',
-								})
-								mui('#middlePopover').popover("toggle");
-								common.refreshOrder(); //刷新订单
-								mui.back();
-							},
-							error: function() {
-								common.setEnabled(evt);
-								plus.nativeUI.closeWaiting();
-							}
-						})
-					}, function() {
-						common.setEnabled(evt);
-						plus.nativeUI.closeWaiting();
-					});
-				}
+		var obj = {
+			ID: rid
+		};
+		Pay.preparePay(JSON.stringify(obj), self.PayType(), common.gDictOrderTargetType.RegLectures,
+			orderID,
+			function(newOrderID) {
+				orderID = newOrderID;
 			},
-			error: function() {
-				common.setEnabled(evt);
-				plus.nativeUI.closeWaiting();
-			}
-		})
+			function() {
+				mui.back();
+			});
 	}
 
 	self.setChange = function() {

@@ -99,10 +99,8 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 		data: {"": targetJson},
 		success: function(responseText) { //responseText为微信支付所需的json
 			var ret = JSON.parse(responseText);
-			alert(responseText);
-			
 			var orderID = ret.orderID;
-			successsOrderCB(orderID);
+			successsOrderCB(orderID, ret.expireMinutes);
 			if (ret.requestJson == '') { //无需网上支付，报名成功
 				mui.toast("已成功支付");
 				plus.nativeUI.closeWaiting();

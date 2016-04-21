@@ -99,7 +99,7 @@
 				float: right;
 			}
 			.examEnroll-top{
-				height: 300px;
+				height: 350px;
 				bottom: 50%;
 				margin-bottom: -150px;
 				position: fixed;
@@ -224,19 +224,28 @@
 											</li>
 										</label>
 									</div>
+									<div class="mui-input-row mui-radio mui-left Lesson-radio ">
+										<label>
+											<li class="wx-pay">
+												<img src="../../images/ali.png" />
+												<span>支付宝</span>
+												<input name="payType" value="alipay" type="radio" data-bind="event:{change: checkPayType}">
+											</li>
+										</label>
+									</div>
 									<div class="mui-input-row mui-radio mui-left Lesson-radio">
-								<label>
-									<li class="wx-pay">
-										<img src="../../images/ye.png" />
-										<span>余额支付
-											<!--ko text: '( ￥ ' + balance() + ' )'-->
-											(￥120.00)
-											<!--/ko-->
-										</span>
-										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
-									</li>
-								</label>
-							</div>
+										<label>
+											<li class="wx-pay">
+												<img src="../../images/ye.png" />
+												<span>余额支付
+													<!--ko text: '( ￥ ' + balance() + ' )'-->
+													(￥120.00)
+													<!--/ko-->
+												</span>
+												<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
+											</li>
+										</label>
+									</div>
 									<!--<div class="mui-input-row mui-radio mui-left Lesson-radio">
 								<label>
 									<li class="wx-pay">

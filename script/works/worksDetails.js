@@ -12,6 +12,8 @@ var worksDetails = function() {
 	var workIsDel = false;
 	var workIsFav = false; //是否收藏
 	var videoUrl; //视频地址
+	var orderID;
+	
 	self.collectionStatus = ko.observable('worksDetails-after');
 	self.LikeStatus = ko.observable("star-before");
 	self.UserID = getLocalItem("UserID"); //当前用户UserID
@@ -238,7 +240,7 @@ var worksDetails = function() {
 			common.transfer("../account/login.html");
 		} else {
 			//弹出支付框
-			mui('#bottomPopover').popover('toggle');
+			mui('#middlePopover').popover('toggle');
 		}
 	}
 
@@ -250,25 +252,11 @@ var worksDetails = function() {
 
 	self.Order = ko.observable({}); //由我的订单传递过来的订单参数
 	self.ViewOrder = ko.observable(false); //标记是否由我的订单跳转而来，默认为否
-	self.OrderNO = ko.observable(''); //请求后返回的订单号
+
 	//支付的生成订单
 	self.gotoPay = function() {
-		var ajaxUrl;
-		var comment;
-
-		//支付方式的数值
-		var paytype = 3;
-		if (self.PayType() == 'wxpay') {
-			paytype = 1;
-		} else if (self.PayType() == 'alipay') {
-			paytype = 2;
-		} else if (self.PayType() == 'balance') {
-			paytype = 4;
-		} else {
-			paytype = 3;
-		}
-
-		if (!self.ViewOrder()) { //不是由我的订单跳转而来
+		var downloadJson = "";
+		if (!self.ViewOrder() || orderID > 0) { //不是由我的订单跳转而来
 			if (!self.Works().WorkID()) {
 				mui.toast("请选择需下载的作品");
 				return;
@@ -286,80 +274,16 @@ var worksDetails = function() {
 				DownloaderID: UserID,
 				Amount: self.DownloadAmount()
 			}
-
-			ajaxUrl = common.gServerUrl + 'API/Download/?payType=' + paytype;
-		} else {
-			ajaxUrl = common.gServerUrl + 'API/Order/ResubmitOrder?id=' + self.Order().ID + '&payType=' + paytype;
+			downloadJson = JSON.stringify(download);
 		}
 
-		var evt = event;
-		if (!common.setDisabled()) return;
-		plus.nativeUI.showWaiting();
-
-		//新增则保存下载信息；修改则保存新的支付方式。均返回订单信息
-		mui.ajax(ajaxUrl, {
-			type: 'POST',
-			//data: self.ViewOrder() ? self.Order() : download,
-			data: self.ViewOrder() ? null : download,
-			success: function(responseText) { //responseText为微信支付所需的json
-				var ret = JSON.parse(responseText);
-				var orderID = ret.orderID;
-				
-				//订单已生成，此时相当于浏览订单
-				self.Order().ID = ret.orderID;
-				self.ViewOrder(true);
-				
-				//console.log(JSON.stringify(ret.requestJson))
-				if (ret.requestJson == '') { //无需网上支付，下载成功
-					mui.toast("购买成功");
-
-					//重新获取视频
-					self.getWorkDetail(self.Works().WorkID());
-					common.refreshMyValue({
-						valueType: 'balance'
-					});
-					common.refreshOrder();//刷新订单
-
-					mui('#bottomPopover').popover("hide");
-					plus.nativeUI.closeWaiting();
-				} else {
-					var requestJson = JSON.stringify(ret.requestJson);
-					//根据支付方式、订单信息，调用支付操作
-					Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数
-						//plus的pay有可能在微信支付成功的同步返回时，并未返回tradeno
-						if(tradeno == '' || typeof tradeno == 'undefined'){
-							plus.nativeUI.closeWaiting();
-							self.getWorkDetail(self.Works().WorkID());
-							mui('#bottomPopover').popover("toggle");
-							return;
-						}
-						
-						var aurl = common.gServerUrl + 'API/Order/SetOrderSuccess?id=' + orderID + '&otherOrderNO=' + tradeno;
-						mui.ajax(aurl, {
-							type: 'PUT',
-							success: function(respText) {
-								console.log(respText);
-								//重新获取视频
-								self.getWorkDetail(self.Works().WorkID());
-								common.refreshMyValue({
-									valueType: 'balance'
-								});
-								common.refreshOrder();//刷新订单
-								plus.nativeUI.closeWaiting();
-								mui('#bottomPopover').popover("toggle");
-							}
-						})
-					}, function() {
-						common.setEnabled(evt);
-						plus.nativeUI.closeWaiting();
-					});
-				}
-			},
-			error: function() {
-				common.setEnabled(evt);
-				plus.nativeUI.closeWaiting();
-			}
-		})
+		Pay.preparePay(downloadJson, self.PayType(), common.gDictOrderTargetType.Download, 
+			orderID, function(newOrderID, expireMinutes){
+				orderID = newOrderID;
+			}, function(){
+				mui.back();
+			});
+		
 	};
 
 	/**
@@ -457,7 +381,7 @@ var worksDetails = function() {
 				if (responseText.toLowerCase() == "true") { //不用付费,直接下载
 					self.downWork();
 				} else {
-					mui('#bottomPopover').popover('toggle');
+					mui('#middlePopover').popover('toggle');
 				}
 
 				plus.nativeUI.closeWaiting();
@@ -696,7 +620,7 @@ var worksDetails = function() {
 	}
 
 	self.closePopover = function() {
-		mui('#bottomPopover').popover("hide");
+		mui('#middlePopover').popover("hide");
 	}
 
 	/*other end*/
@@ -712,7 +636,7 @@ var worksDetails = function() {
 				self.Order(workVaule.order);
 				self.DownloadAmount(self.Order().Amount);
 				getDataForOrder(self.Order().TargetID);
-
+				orderID = self.Order().ID;
 				self.getBalance();
 				//self.getDownloadPrice();
 				common.showCurrentWebview();

@@ -1,5 +1,6 @@
 var examEnroll = function() {
 	var self = this;
+	
 	self.UserName = ko.observable(''); //姓名
 	self.PinYin = ko.observable(''); //姓名报名
 	self.Phone = ko.observable(''); //联系电话
@@ -132,9 +133,9 @@ var examEnroll = function() {
 							mui('#middlePopover').popover('toggle');
 						} else {
 							common.transfer('examEnrollList.html', true, {
-									examid: self.ExamID()
-								})
-								//mui.back();
+								examid: self.ExamID()
+							})
+							//mui.back();
 						}
 					});
 
@@ -171,81 +172,15 @@ var examEnroll = function() {
 
 	//支付
 	self.gotoPay = function() {
-
-		//支付方式的数值
-		var paytype = 3;
-		if (self.PayType() == 'wxpay') {
-			paytype = 1;
-		} else if (self.PayType() == 'alipay') {
-			paytype = 2;
-		} else if (self.PayType() == 'balance') {
-			paytype = 4;
-		} else {
-			paytype = 3;
-		}
-
-		var evt = event;
-		if (!common.setDisabled()) return;
-
-		plus.nativeUI.showWaiting();
-		var ajaxUrl = common.gServerUrl + "API/ExamToUser/ExamToUserPay?examToUserId=" + self.enrollId() + "&payType=" + paytype
-		//console.log(ajaxUrl);
-		//新增则保存下载信息；修改则保存新的支付方式。均返回订单信息
-		mui.ajax(ajaxUrl, {
-			type: 'POST',
-			success: function(responseText) { //responseText为微信支付所需的json
-				console.log(responseText);
-				var ret = JSON.parse(responseText);
-				var orderID = ret.orderID;
-				if (ret.requestJson == '') { //无需网上支付，报名成功
-					mui.toast("已成功报名");
-					plus.nativeUI.closeWaiting();
-					common.refreshMyValue({
-						valueType: 'balance',
-					})
-					mui('#middlePopover').popover("toggle");
-					common.refreshOrder();//刷新订单
-					mui.back();
-				} else {
-					var requestJson = JSON.stringify(ret.requestJson);
-
-					//根据支付方式、订单信息，调用支付操作
-					Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数
-						//plus的pay有可能在微信支付成功的同步返回时，并未返回tradeno
-						if(tradeno == '' || typeof tradeno == 'undefined'){
-							plus.nativeUI.closeWaiting();
-							mui('#middlePopover').popover("toggle");
-							mui.back();
-							return;
-						}
-						
-						var aurl = common.gServerUrl + 'API/Order/SetOrderSuccess?id=' + orderID + '&otherOrderNO=' + tradeno;
-						mui.ajax(aurl, {
-							type: 'PUT',
-							success: function(respText) {
-								plus.nativeUI.closeWaiting();
-								common.refreshMyValue({
-									valueType: 'balance',
-								})
-								mui('#middlePopover').popover("toggle");
-								mui.back();
-							},
-							error: function() {
-								common.setEnabled(evt);
-								plus.nativeUI.closeWaiting();
-							}
-						})
-					}, function() {
-						common.setEnabled(evt);
-						plus.nativeUI.closeWaiting();
-					});
-				}
-			},
-			error: function() {
-				common.setEnabled(evt);
-				plus.nativeUI.closeWaiting();
-			}
-		})
+		var obj = {ID: self.enrollId()};
+		
+		//self.enrollId()为报名ID，先完成报名后付费，不可能为空，因此无需订单ID
+		Pay.preparePay(JSON.stringify(obj), self.PayType(), common.gDictOrderTargetType.Exam, 
+			0, function(newOrderID){
+				//orderID = newOrderID;
+			}, function(){
+				mui.back();
+			});
 	}
 
 	//性别设置

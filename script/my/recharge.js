@@ -74,10 +74,11 @@ var recharge = function() {
 	
 	mui.init({
 		beforeback: function() {
-			var my = plus.webview.currentWebview().opener();
+			var parentWeb = plus.webview.currentWebview().opener();
 			common.refreshMyValue({
 				valueType: 'balance',
 			});
+			mui.fire(parentWeb,'refeshBalance');
 			return true;
 		}
 	})

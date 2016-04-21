@@ -2,17 +2,16 @@ var worksHeader = function() {
 	var self = this;
 	var workTypeID;
 	self.workTitle = ko.observable('');
-	self.seachValue=ko.observable('');
+	self.seachValue = ko.observable('');
 	mui.init();
 	var workIndex;
 
 	mui.plusReady(function() {
 		workIndex = plus.webview.currentWebview();
-		
-		if(getLocalItem('UserType') == common.gDictUserType.student){
+
+		if (getLocalItem('UserType') == common.gDictUserType.student) {
 			self.workTitle('我的作业');
-		}
-		else{
+		} else {
 			self.workTitle('我的作品');
 		}
 		removeLocalItem("teacherID"); //清空该键值的内容
@@ -30,7 +29,7 @@ var worksHeader = function() {
 		})
 		workIndex.append(pageMy);
 	});
-	
+
 	self.goUploads = function() { //我的上传
 		//common.transfer('../works/myUploadHeader.html', true);
 		common.transferToMyUpload();
@@ -40,11 +39,16 @@ var worksHeader = function() {
 	var old_back = mui.back;
 	mui.back = function() {
 		//console.log(JSON.stringify(workIndex.opener()))
-		if (workIndex.opener().id == 'modules/my/my.html') {
-			old_back();
-		} else {
+		if (workIndex) {
+			if (workIndex.opener().id == 'modules/my/my.html') {
+				old_back();
+			} else {
+				common.showIndexWebview(3);
+			}
+		}else{
 			common.showIndexWebview(3);
 		}
+
 	}
 }
 ko.applyBindings(worksHeader);

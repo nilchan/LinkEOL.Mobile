@@ -34,7 +34,7 @@
 			<div class="draw-header">
 				<div class="draw-width-left">提现金额</div>
 				<div class="draw-width-right">
-					<input type="text" class="draw-balance" data-bind="attr:{'placeholder':placeholderValue},value:amount"/>
+					<input type="text" class="draw-balance" data-bind="attr:{'placeholder':placeholderValue},value:amount,event:{blur:checkAccount}"/>
 					<span class="draw-time">1-3个工作日内到账</span>
 				</div>
 			</div>

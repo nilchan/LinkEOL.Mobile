@@ -1,5 +1,7 @@
 var viewModel = function() {
 	var self = this;
+	
+	var orderID = 0, orderType = 0;
 	self.works = ko.observable({});
 	self.teacher = ko.observable({});
 	self.Amount = ko.observable(50); //点评费用
@@ -78,6 +80,8 @@ var viewModel = function() {
 		//从订单跳转过来
 		if (typeof(web.order) != "undefined") {
 			self.Order(web.order);
+			orderID = self.Order().ID;
+			orderType = self.Order().TargetType;
 			self.Amount(self.Order().Amount);
 			self.paid(self.Order().IsFinish);
 			getDataForOrder(self.Order().TargetID);
@@ -115,20 +119,10 @@ var viewModel = function() {
 	self.gotoPay = function() {
 		var ajaxUrl;
 		var comment;
-
-		//支付方式的数值
-		var paytype = 3;
-		if (self.PayType() == 'wxpay') {
-			paytype = 1;
-		} else if (self.PayType() == 'alipay') {
-			paytype = 2;
-		} else if (self.PayType() == 'balance') {
-			paytype = 4;
-		} else {
-			paytype = 3;
-		}
-
-		if (!self.ViewOrder()) { //不是由我的订单跳转而来
+		var type;
+		var commentJson = "";
+		
+		if (!self.ViewOrder() || orderID > 0) { //不是由我的订单跳转而来
 			if (!self.works().ID) {
 				mui.toast("请选择作品");
 				return;
@@ -150,81 +144,94 @@ var viewModel = function() {
 				CommenterID: self.teacher().UserID,
 				Amount: self.Amount()
 			}
-
-			ajaxUrl = common.gServerUrl + 'API/Comment/AddComment?payType=' + paytype;
-			if (self.isHomeWork()) {
-				ajaxUrl = common.gServerUrl + 'Common/Work/AddHomeWork?payType=' + paytype + '&workId=' + self.works().ID + '&TeacherUserID=' + self.teacher().UserID;
-				comment = '';
+			
+			if( self.isHomeWork() ) {
+				type = common.gDictOrderTargetType.Homework;
+			} else {
+				type = common.gDictOrderTargetType.Comment;
 			}
-		} else {
-			ajaxUrl = common.gServerUrl + 'API/Order/ResubmitOrder?id=' + self.Order().ID + '&payType=' + paytype;
-			//console.log(ajaxUrl);
+			
+			if( orderType > 0 ) {
+				type = orderType;
+			}
+			
+			commentJson = JSON.stringify(comment);
 		}
+		
+		console.log(type);
+		
+		Pay.preparePay(commentJson, self.PayType(), type, 
+			orderID, function(newOrderID, expireMinutes){
+				orderID = newOrderID;
+			}, function(){
+				mui.back();
+				common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
+			});
 
-		var evt = event;
-		if (!common.setDisabled()) return;
-
-		plus.nativeUI.showWaiting();
-		//新增则保存点评信息；修改则保存新的支付方式。均返回订单信息
-		mui.ajax(ajaxUrl, {
-			type: 'POST',
-			data: self.ViewOrder() ? self.Order() : comment,
-			success: function(responseText) { //responseText为微信支付所需的json
-				var ret = JSON.parse(responseText);
-				var orderID = ret.orderID; //订单跳转回来并无orderID,requestJson
-				
-				//订单已生成，此时相当于浏览订单
-				self.Order().ID = ret.orderID;
-				self.ViewOrder(true);
-				
-				if (ret.requestJson == '') { //无需网上支付，预约点评成功
-					mui.toast("已成功提交");
-					plus.nativeUI.closeWaiting();
-					common.refreshMyValue({
-						valueType: 'balance',
-					});
-					common.refreshOrder();//刷新订单
-					common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
-				} else {
-					var requestJson = JSON.stringify(ret.requestJson);
-					//console.log(requestJson);
-					//根据支付方式、订单信息，调用支付操作
-					Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数
-						//plus的pay有可能在微信支付成功的同步返回时，并未返回tradeno
-						if(tradeno == '' || typeof tradeno == 'undefined'){
-							plus.nativeUI.closeWaiting();
-							common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
-							return;
-						}
-						
-						var aurl = common.gServerUrl + 'API/Order/?id=' + orderID + '&otherOrderNO=' + tradeno;
-						mui.ajax(aurl, {
-							type: 'PUT',
-							success: function(respText) {
-								var comment = JSON.parse(respText);
-								common.refreshMyValue({
-										valueType: 'balance',
-								});
-								common.refreshOrder();//刷新订单
-								common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
-								plus.nativeUI.closeWaiting();
-							},
-							error: function() {
-								common.setEnabled(evt);
-							}
-						})
-					}, function() {
-						common.setEnabled(evt);
-						plus.nativeUI.closeWaiting();
-					});
-				}
-			},
-			error: function() {
-				console.log("order error")
-				common.setEnabled(evt);
-				plus.nativeUI.closeWaiting();
-			}
-		})
+//		var evt = event;
+//		if (!common.setDisabled()) return;
+//
+//		plus.nativeUI.showWaiting();
+//		//新增则保存点评信息；修改则保存新的支付方式。均返回订单信息
+//		mui.ajax(ajaxUrl, {
+//			type: 'POST',
+//			data: self.ViewOrder() ? self.Order() : comment,
+//			success: function(responseText) { //responseText为微信支付所需的json
+//				var ret = JSON.parse(responseText);
+//				var orderID = ret.orderID; //订单跳转回来并无orderID,requestJson
+//				
+//				//订单已生成，此时相当于浏览订单
+//				self.Order().ID = ret.orderID;
+//				self.ViewOrder(true);
+//				
+//				if (ret.requestJson == '') { //无需网上支付，预约点评成功
+//					mui.toast("已成功提交");
+//					plus.nativeUI.closeWaiting();
+//					common.refreshMyValue({
+//						valueType: 'balance',
+//					});
+//					common.refreshOrder();//刷新订单
+//					common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
+//				} else {
+//					var requestJson = JSON.stringify(ret.requestJson);
+//					//console.log(requestJson);
+//					//根据支付方式、订单信息，调用支付操作
+//					Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数
+//						//plus的pay有可能在微信支付成功的同步返回时，并未返回tradeno
+//						if(tradeno == '' || typeof tradeno == 'undefined'){
+//							plus.nativeUI.closeWaiting();
+//							common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
+//							return;
+//						}
+//						
+//						var aurl = common.gServerUrl + 'API/Order/?id=' + orderID + '&otherOrderNO=' + tradeno;
+//						mui.ajax(aurl, {
+//							type: 'PUT',
+//							success: function(respText) {
+//								var comment = JSON.parse(respText);
+//								common.refreshMyValue({
+//										valueType: 'balance',
+//								});
+//								common.refreshOrder();//刷新订单
+//								common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
+//								plus.nativeUI.closeWaiting();
+//							},
+//							error: function() {
+//								common.setEnabled(evt);
+//							}
+//						})
+//					}, function() {
+//						common.setEnabled(evt);
+//						plus.nativeUI.closeWaiting();
+//					});
+//				}
+//			},
+//			error: function() {
+//				console.log("order error")
+//				common.setEnabled(evt);
+//				plus.nativeUI.closeWaiting();
+//			}
+//		})
 	};
 
 	//popover的关闭功能

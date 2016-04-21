@@ -4,7 +4,7 @@
 	//gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
 	//gServerUrl: "http://192.168.1.88:8090/",gVideoServerUrl: "http://192.168.1.88:8099/",gWebsiteUrl: "http://192.168.1.88:8081/",
 	//gServerUrl: "http://192.168.1.66:8190/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
-	gServerUrl: "http://nilchan.f3322.net:8190/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
+	gServerUrl: "http://nilchan.f3322.net:8090/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
 
 	//判断字符串是否为空，空则返回""
 	StrIsNull: function(str) {
@@ -69,7 +69,7 @@
 
 	//是否为数字
 	IsNum: function(str) {
-		var reg = /^[0-9]{1,20}$/; //数字匹配
+		var reg = /^(\d+(.\d{1,2})?)$/; //数字匹配
 		var result = reg.test(str);
 		return result; //返回boolean  true为数字，false为非数字
 	},

@@ -53,17 +53,39 @@ var draw = function() {
 			}
 		})
 	}
+	
+	//提现金额合法检测
+	self.checkAccount=function(){
+		var result=true;
+		var regE=/^[0-9]*\.?[0-9]{0,2}$/
+		if(!regE.test(self.amount())){
+			mui.toast('请输入正确的提现金额,最多为两位小数');
+			result=false;
+			return;
+		}
+		if(Number(self.amount()) <= 0.01 ){
+			mui.toast('提现金额至少为0.01');
+			result=false;
+			return;
+		}
+		
+		if (Number(self.amount()) > account) {
+			mui.toast('超出账户余额');
+			result=false;
+			return;
+		}
+		
+		return result;
+		
+	}
 
 	//提现
 	self.drawAccount = function() { //|| (!common.IsNum(self.amount())) || self.amount()>account
-		if (self.amount() <= 0 || !common.IsNum(self.amount())) {
-			mui.toast('请输入正确的提现金额');
-			return;
+		
+		if(!self.checkAccount()){
+			return ;
 		}
-		if (Number(self.amount()) > account) {
-			mui.toast('超出账户余额');
-			return;
-		}
+		
 		if (common.StrIsNull(self.checkPayType()) == '') {
 			mui.toast('请选择一种提现方式');
 			return;
