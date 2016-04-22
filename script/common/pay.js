@@ -102,7 +102,7 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 			var orderID = ret.orderID;
 			successsOrderCB(orderID, ret.expireMinutes);
 			if (ret.requestJson == '') { //无需网上支付，报名成功
-				mui.toast("已成功支付");
+				mui.toast("操作成功");
 				plus.nativeUI.closeWaiting();
 				common.refreshMyValue({
 					valueType: 'balance',

@@ -977,7 +977,8 @@
 					"content/fonts/iconfont.css",
 					"content/mui/mui.picker.min.css",
 					"content/common/global.css",
-					"script/my/forgetPassword.js"
+					"script/my/forgetPassword.js",
+					"content/fonts/iconfont.woff"
 				],
 				"refer": [
 					"modules/my/messageList.html",
@@ -3230,7 +3231,9 @@
 					"content/mui/mui.min.css",
 					"script/mui/mui.min2.90.js",
 					"content/mui/mui.min2.6.0.css",
-					"script/mui/mui.min.js"
+					"script/mui/mui.min.js",
+					"script/mui/mui.min-2.9.0.js",
+					"content/mui/mui.min-2.9.0.css"
 				],
 				"refer": [],
 				"priority": 0

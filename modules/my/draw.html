@@ -4,8 +4,10 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<title>乐评家</title>
-		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.min-2.9.0.css" rel="stylesheet" />
 		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
 		<link href="../../content/common/global.css" rel="stylesheet" />
 		<link href="../../content/common/style.css" rel="stylesheet" />
@@ -22,6 +24,9 @@
 			.myAccount-point {
 				left: 102px;
 			}
+			
+			.mui-active {
+				background: rgba(0,0,0,.4)!important;			}
 		</style>
 	</head>
 
@@ -34,7 +39,7 @@
 			<div class="draw-header">
 				<div class="draw-width-left">提现金额</div>
 				<div class="draw-width-right">
-					<input type="text" class="draw-balance" data-bind="attr:{'placeholder':placeholderValue},value:amount,event:{blur:checkAccount}"/>
+					<input type="text" class="draw-balance" data-bind="attr:{'placeholder':placeholderValue},value:amount,event:{blur:checkAccount}" />
 					<span class="draw-time">1-3个工作日内到账</span>
 				</div>
 			</div>
@@ -42,7 +47,8 @@
 				<div class="draw-font">
 					提现到</div>
 				<div class='drawType' id='bankcard'>
-					<div class="draw-content-left"><!--circle-cheacked-->
+					<div class="draw-content-left">
+						<!--circle-cheacked-->
 						<em class="circle"></em>
 					</div>
 					<div class="draw-content-right">
@@ -61,7 +67,7 @@
 						<span class="draw-subhead" data-bind="text:(common.StrIsNull(aliData().Description)=='' ? '未绑定' :aliData().Description)"></span>
 					</div>
 				</div>
-				<div class='drawType'  id='weixinpay'>
+				<div class='drawType' id='weixinpay'>
 					<div class="draw-content-left">
 						<em class="circle"></em>
 					</div>
@@ -80,7 +86,7 @@
 				<button type="button" class="mui-btn mui-btn-block mui-btn-primary th-btn th-mui-f p-btn-color p-btn-padding">申请提现</button>
 			</div>
 		</div>
-		<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/mui/mui.min-2.9.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>

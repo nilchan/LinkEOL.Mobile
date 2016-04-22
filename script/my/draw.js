@@ -80,6 +80,9 @@ var draw = function() {
 	}
 
 	//提现
+	
+	
+	
 	self.drawAccount = function() { //|| (!common.IsNum(self.amount())) || self.amount()>account
 		
 		if(!self.checkAccount()){
@@ -101,7 +104,9 @@ var draw = function() {
 							mui.toast('还没绑定，请选择已绑定账户');
 							common.setEnabled(evt);
 						} else {
+							//this.gesture.preventDefault();
 							mui.prompt('请输入登录密码', '登录密码', '', ['确定', '取消'], function(e) {
+								
 								if (e.index == 0) {
 									UserPassword = e.value;
 									remark = payItem.Remark;
@@ -124,9 +129,9 @@ var draw = function() {
 								} else {
 									common.setEnabled(evt);
 								}
-							});
-							//document.querySelector('.mui-popup-input input').type='password'
-
+							},'div');
+							
+							document.querySelector('.mui-popup-input input').type='password';
 						}
 					}
 				})

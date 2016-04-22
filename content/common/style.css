@@ -4573,7 +4573,6 @@ li {
 .submitClass-mui-scroll ul li {
 	height: 50px;
 	border-bottom: 1px solid #C8C7CC;
-	width: 220px;
 	line-height: 50px;
 	font-size: 16px!important;
 }
@@ -4615,7 +4614,7 @@ li {
 	line-height: 44px;
 	text-align: center;
 	margin-left: 10%;
-	margin-top: 40px;
+	margin-top: 15px;
 }
 
 /*----约课-----*/

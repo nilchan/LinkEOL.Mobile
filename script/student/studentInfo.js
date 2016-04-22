@@ -151,7 +151,7 @@ var studentInfo = function() {
 		},
 		beforeback: function() {
 			var thisWeb = plus.webview.currentWebview().opener();
-			mui.fire(teacherList, 'refreshAttention');
+			mui.fire(thisWeb, 'refreshAttention');
 			return true;
 		}
 	});

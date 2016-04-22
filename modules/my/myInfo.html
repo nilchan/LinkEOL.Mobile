@@ -117,6 +117,22 @@
 						<i class="red-point point-left" data-bind="visible:IDAuth()==false"></i>
 					</a>
 				</li>-->
+				<div class="mui-input-row reg-mui-input-row" data-bind='visible:UserType() == common.gDictUserType.teacher'>
+					<label>所属机构</label>
+					<input id="address" type="text" class="mui-btn mui-btn-block th-mui-btn-block" data-bind="value:Org" />
+				</div>
+				<div class="mui-input-row reg-mui-input-row" data-bind='visible:UserType() == common.gDictUserType.teacher'>
+					<label>机构联系人</label>
+					<input id="address" type="text" class="mui-btn mui-btn-block th-mui-btn-block" data-bind="value:OrgPerson" />
+				</div>
+				<div class="mui-input-row reg-mui-input-row" data-bind='visible:UserType() == common.gDictUserType.teacher'>
+					<label>机构联系电话</label>
+					<input id="address" type="text" class="mui-btn mui-btn-block th-mui-btn-block" data-bind="value:OrgPhone" />
+				</div>
+				<div class="mui-input-row reg-mui-input-row" data-bind='visible:UserType() == common.gDictUserType.teacher'>
+					<label>机构编码</label>
+					<input id="address" type="text" class="mui-btn mui-btn-block th-mui-btn-block" data-bind="value:OrgNumber" />
+				</div>
 				<div class="th-textarea-div th-textarea" style="height: 12rem;" data-bind='visible: UserType() == common.gDictUserType.teacher'>
 					<label class="textarea-label">自我简介</label>
 					<textarea placeholder="输入详细的介绍，能方便学生更快的了解和信任您" data-bind="value:Introduce"></textarea>

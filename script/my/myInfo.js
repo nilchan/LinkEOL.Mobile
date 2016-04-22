@@ -31,6 +31,10 @@ var myInfo = function() {
 	self.Introduce = ko.observable(''); //简介
 	self.Path = ko.observable('../../images/my-default.png'); //图片路径
 	self.Base64 = ko.observable(''); //图片的base64字符串
+	self.Org = ko.observable(''); //所属机构
+	self.OrgPerson = ko.observable(''); //机构联系人
+	self.OrgPhone = ko.observable(''); //机构联系电话
+	self.OrgNumber = ko.observable(''); //机构编码
 	self.Score = ko.observable(''); //老师得分
 
 	self.selectPic = function() {
@@ -160,6 +164,14 @@ var myInfo = function() {
 		self.Introduce(common.StrIsNull(result.Introduce));
 		if (result.IDAuth && common.StrIsNull(result.IDAuth) != '')
 			self.IDAuth(result.IDAuth);
+		if (result.Org)
+			self.Org(result.Org);
+		if (result.OrgPerson)
+			self.OrgPerson(result.OrgPerson);
+		if (result.OrgPhone)
+			self.OrgPhone(result.OrgPhone);
+		if (result.OrgNumber)
+			self.OrgNumber(result.OrgNumber);	
 	}
 
 	self.changeUserName = function() {
@@ -215,6 +227,7 @@ var myInfo = function() {
 				mui.toast('请选择科目');
 				return;
 			}
+			
 		}
 		/*if (common.StrIsNull(self.GenderText()) == "") {
 			mui.toast('请选择性别');
@@ -245,7 +258,11 @@ var myInfo = function() {
 			Gender: self.Gender(),
 			Province: self.Province(),
 			City: self.City(),
-			District: self.District()
+			District: self.District(),
+			Org:self.Org(),
+			OrgPerson:self.OrgPerson(),
+			OrgPhone:self.OrgPhone(),
+			OrgNumber:self.OrgNumber() 
 		};
 		if (self.Base64() != '') {
 			data.PhotoBase64 = self.Base64();

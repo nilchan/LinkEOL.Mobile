@@ -40,6 +40,10 @@
 			.mui-input-group:after,.mui-input-group:before{
 				height: 0px!important;
 			}
+			.submitComment-top {
+				margin-top: -300px!important;
+   				height: 300px!important;
+			}
 		</style>
 	</head>
 	<body>
@@ -89,11 +93,11 @@
 				</div>		
 			</div>
 		
-		<nav class="mui-bar mui-bar-tab" data-bind="visible: paid() == false">
+		<nav class="mui-bar mui-bar-tab" style="display: none;" data-bind="visible: paid() == false && balanceGot() == true">
             <div class="mui-content-padded availableTime-sure">
-            	<a href="#middlePopover">
-				<button type="button" class="mui-btn mui-btn-primary availableTime-mui-btn p-btn-color" >
-					付款
+            	<a data-bind="attr:{href:(freeCount() <= 0 ?'#middlePopover':'javascript:void(0);')}">
+				<button type="button" class="mui-btn mui-btn-primary availableTime-mui-btn p-btn-color" data-bind="text: freeCount() <= 0 ? '提交' : '免费提交（剩余'+ freeCount() +'次）', click: freeCount() <= 0 ? '' : gotoPay">
+
 				</button>
 				</a>
 			</div>
@@ -110,7 +114,7 @@
 					</div>
 					<ul>
 						<form class="mui-input-group">
-							<div class="mui-input-row mui-radio mui-left Lesson-radio ">
+							<!--<div class="mui-input-row mui-radio mui-left Lesson-radio ">
 								<label>
 									<li class="wx-pay">
 										<img src="../../images/submitClass-wx.png" />
@@ -128,7 +132,7 @@
 										<input name="payType" value="alipay" type="radio" data-bind="event:{change: checkPayType}">
 									</li>
 								</label>
-							</div>
+							</div>-->
 							<div class="mui-input-row mui-radio mui-left Lesson-radio">
 								<label>
 									<li class="wx-pay">
@@ -142,11 +146,12 @@
 									</li>
 								</label>
 							</div>
-							<li class="lineHeight">
+							<div class="lineHeight" style="height: 50px; line-height: 50px;">
 								总额：￥
 								<!--ko text: Amount-->
 								<!--/ko-->
-							</li>
+							</div>
+							<p data-bind="click: gotoRecharge" style=" text-align: center; margin-top: 30px; padding-right: 40px;">余额不足？<span style="color: #e64578;">立即充值</span></p>
 						</form>
 					</ul>			
 					<button class="p-btn-color" data-bind="click: gotoPay, text: Amount() > 0 ? '去付款' : '免费点评，直接提交'"></button>

@@ -6,9 +6,11 @@ var viewModel = function() {
 	self.teacher = ko.observable({});
 	self.Amount = ko.observable(50); //点评费用
 	self.paid = ko.observable(false); //是否已支付
+	self.balanceGot = ko.observable(false); //是否已获取余额
 	self.balance = ko.observable(0); //余额
 	self.isHomeWork = ko.observable(false); //交作业
-
+	self.freeCount = ko.observable(0);  //免费次数
+	
 	//支付方式，默认为微信支付
 	self.PayType = ko.observable('wxpay');
 	self.checkPayType = function() {
@@ -50,15 +52,28 @@ var viewModel = function() {
 			}
 		});
 	}
+	
+	self.gotoRecharge = function() {
+		common.transfer('/modules/my/recharge.html', true);
+	}
 
 	//获取余额
 	self.getBalance = function() {
 		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + getLocalItem('UserID');
+		if( self.isHomeWork() ) {
+			url = common.gServerUrl + 'API/AccountDetails/GetUserAmount2?UserID=' + getLocalItem('UserID');
+		}
 		mui.ajax(url, {
 			type: 'GET',
 			success: function(responseText) {
-				self.balance(JSON.parse(responseText).Amount);
-				//console.log(JSON.stringify(self.teacher()))
+				var ret = JSON.parse(responseText);
+				self.balance(ret.Amount);
+				if(ret.FreeCount)
+					self.freeCount(ret.FreeCount);
+				
+				self.balanceGot(true);
+			},error:function(){
+				self.balanceGot(true);
 			}
 		});
 	}
@@ -74,6 +89,11 @@ var viewModel = function() {
 			}
 		});
 	}
+
+	//刷新余额
+	window.addEventListener('refeshBalance', function(event) {
+		self.getBalance();
+	});
 
 	mui.plusReady(function() {
 		var web = plus.webview.currentWebview();
@@ -158,8 +178,6 @@ var viewModel = function() {
 			commentJson = JSON.stringify(comment);
 		}
 		
-		console.log(type);
-		
 		Pay.preparePay(commentJson, self.PayType(), type, 
 			orderID, function(newOrderID, expireMinutes){
 				orderID = newOrderID;
@@ -167,71 +185,6 @@ var viewModel = function() {
 				mui.back();
 				common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
 			});
-
-//		var evt = event;
-//		if (!common.setDisabled()) return;
-//
-//		plus.nativeUI.showWaiting();
-//		//新增则保存点评信息；修改则保存新的支付方式。均返回订单信息
-//		mui.ajax(ajaxUrl, {
-//			type: 'POST',
-//			data: self.ViewOrder() ? self.Order() : comment,
-//			success: function(responseText) { //responseText为微信支付所需的json
-//				var ret = JSON.parse(responseText);
-//				var orderID = ret.orderID; //订单跳转回来并无orderID,requestJson
-//				
-//				//订单已生成，此时相当于浏览订单
-//				self.Order().ID = ret.orderID;
-//				self.ViewOrder(true);
-//				
-//				if (ret.requestJson == '') { //无需网上支付，预约点评成功
-//					mui.toast("已成功提交");
-//					plus.nativeUI.closeWaiting();
-//					common.refreshMyValue({
-//						valueType: 'balance',
-//					});
-//					common.refreshOrder();//刷新订单
-//					common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
-//				} else {
-//					var requestJson = JSON.stringify(ret.requestJson);
-//					//console.log(requestJson);
-//					//根据支付方式、订单信息，调用支付操作
-//					Pay.pay(self.PayType(), requestJson, function(tradeno) { //成功后的回调函数
-//						//plus的pay有可能在微信支付成功的同步返回时，并未返回tradeno
-//						if(tradeno == '' || typeof tradeno == 'undefined'){
-//							plus.nativeUI.closeWaiting();
-//							common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
-//							return;
-//						}
-//						
-//						var aurl = common.gServerUrl + 'API/Order/?id=' + orderID + '&otherOrderNO=' + tradeno;
-//						mui.ajax(aurl, {
-//							type: 'PUT',
-//							success: function(respText) {
-//								var comment = JSON.parse(respText);
-//								common.refreshMyValue({
-//										valueType: 'balance',
-//								});
-//								common.refreshOrder();//刷新订单
-//								common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
-//								plus.nativeUI.closeWaiting();
-//							},
-//							error: function() {
-//								common.setEnabled(evt);
-//							}
-//						})
-//					}, function() {
-//						common.setEnabled(evt);
-//						plus.nativeUI.closeWaiting();
-//					});
-//				}
-//			},
-//			error: function() {
-//				console.log("order error")
-//				common.setEnabled(evt);
-//				plus.nativeUI.closeWaiting();
-//			}
-//		})
 	};
 
 	//popover的关闭功能

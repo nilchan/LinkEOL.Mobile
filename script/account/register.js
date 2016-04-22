@@ -205,12 +205,14 @@ var register = function() {
 					data: data,
 					success: function(responseText) {
 						var result = eval("(" + responseText + ")");
+						console.log(JSON.stringify(result))
 						setLocalItem("UserID", result.UserID);
 						setLocalItem("UserName", result.UserName);
 						setLocalItem("Token", result.Token);
 						setLocalItem("UserType", result.UserType);
 						setLocalItem('DisplayName', result.DisplayName);
 						//plus.webview.close(index); //关闭首页webview
+						alert(result.Tips);
 						if (ID) {
 							common.transfer('activityEnroll.html', false, {
 								aid: ID

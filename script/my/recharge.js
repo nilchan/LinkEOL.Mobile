@@ -14,11 +14,11 @@ var recharge = function() {
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
 				self.payList(result);
-				self.payList.forEach(function(item){
+				self.payList().forEach(function(item){
 					if( self.targetID() == item.TargetID ) {
 						orderError = false;
 					}
-					if( orderError ) {
+					if( orderError && self.targetID() != 0 ) {
 						alert('充值订单套餐信息已失效！');
 						mui.back();
 					}
