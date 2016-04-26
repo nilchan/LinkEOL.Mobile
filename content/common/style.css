@@ -1330,7 +1330,7 @@ li {
 	line-height: 52px;
 }
 .index-more:active {
-	color: #036FB8;
+	color: #efa900;
 }
 .index-content-bg {
 	width: 100%;
@@ -3729,6 +3729,7 @@ li {
 
 .messageNotification-title {
 	height: 50px;
+	position: relative;
 	border-bottom: 1px solid #C8C7CC;
 	padding: 0 10px;
 	box-sizing: border-box;
@@ -4088,7 +4089,7 @@ li {
 	display: inline-block;
 }
 .openedCoursesList-first span {
-	color: #5b5b5b!important;
+	color: #333!important;
 	font-size: 16px;
 }
 .openedCoursesList-btn {
@@ -4103,7 +4104,7 @@ li {
 	position: absolute;
 	left: 15px;
 	top: 4px;
-	color: #999;
+	color: #333;
 	font-size: 14px;
 }
 .openedCoursesList-span {
@@ -4739,7 +4740,7 @@ li {
 /*----我的账号----*/
 .myAccount-header {
 	width: 100%;
-	height: 12.48rem;
+	height: 12.8rem;
 	background: #F5F4EF;
 }
 .myAccount-header i {
@@ -5332,7 +5333,7 @@ li {
 	color: #e44879!important;
 }
 .examScore-left{
-	width: 44%;
+	width: 51%;
 	height: 100%;
 	line-height:34px;
 	display: inline-block;
@@ -5352,7 +5353,7 @@ li {
 	top: 10px;
 }
 .examScore-right{
-	width:56%;
+	width:49%;
 	/*height: 100%;*/
 	line-height: 34px;
 	word-wrap: break-word;
@@ -5364,6 +5365,7 @@ li {
 	padding-left:12px;
 	box-sizing: border-box;
 	position: relative;
+	font-size: 12px;
 }
 .examScore-btn-play{
 	height: 30px;

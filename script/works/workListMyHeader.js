@@ -39,10 +39,14 @@ var worksHeader = function() {
 	var old_back = mui.back;
 	mui.back = function() {
 		//console.log(workIndex.opener())
+		var myupload=plus.webview.getWebviewById('myUpload');//获取我的上传页面webview
+//		console.log(JSON.stringify(myupload.opener()));
 		if (workIndex.opener()) {
 			if (workIndex.opener().id == 'modules/my/my.html') {
 				old_back();
-			} else {
+			} else if(myupload.opener().id == '../works/worksListMyHeader.html'){
+				common.showIndexWebview(4);
+			}else{
 				common.showIndexWebview(3);
 			}
 		}else{

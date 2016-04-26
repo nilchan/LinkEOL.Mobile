@@ -38,7 +38,7 @@ var myAccount = function() {
 		}
 	})
 	
-	mui.init({
+	/*mui.init({
 		beforeback: function() {
 			var my = plus.webview.currentWebview().opener();
 			//console.log(JSON.stringify(my));
@@ -47,7 +47,8 @@ var myAccount = function() {
 			})
 			return true;
 		}
-	})
+	})*/
+	mui.init();
 
 }
 ko.applyBindings(myAccount);

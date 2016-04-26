@@ -226,10 +226,10 @@
 
 	//打开我的上传页面（独特处理，因为除首次打开外不再关闭）
 	transferToMyUpload: function() {
+		var isFirst = false;
 		var tmpUrlSub = '../../modules/works/myUpload.html';
 		var idSub = 'myUpload';
 		var pageSub = plus.webview.getWebviewById(idSub);
-		var isFirst = false;
 
 		if (!pageSub) {
 			var topPx = '48px';
@@ -858,17 +858,15 @@
 
 	//获取未读消息
 	getUnreadCount: function(callback) {
-		//console.log(common.hasLogined());
-		if (common.hasLogined() == false) {
+//		console.log(common.hasLogined());
+		if (common.hasLogined() == true) {
 			mui.ajax(common.gServerUrl + "API/Message/GetUnreadCount", {
 				dataType: 'json',
 				type: "GET",
 				data: {
-					receiver: getLocalItem('UserID'),
-					lastTime: getLocalItem('msgLastTime')
+					receiver: getLocalItem('UserID')
 				},
 				success: function(responseText) {
-					//console.log(responseText);
 					callback(responseText);
 				}
 			});
@@ -947,6 +945,22 @@
 		var orderWeb = plus.webview.getWebviewById('myOrders.html');
 		mui.fire(orderWeb, 'refreshOrderInfo');
 	},
+	
+	refreshMessage: function(timer) {
+		setInterval(function(){
+			common.getUnreadCount(function(count){
+				var page1 = common.getIndexChild(0);
+				var page4 = common.getIndexChild(4);
+				plus.runtime.setBadgeNumber(count);
+				mui.fire(page1, 'refreshMessage', {
+					count: count
+				});
+				mui.fire(page4, 'refreshMessage', {
+					count: count
+				});
+			});
+		}, timer);
+	},
 
 	gContentRefreshDown: '刷新中...', //下拉时显示的文字
 	gContentRefreshUp: '努力加载中...', //上拉时显示的文字
@@ -961,19 +975,20 @@
 	},
 	//消息类型
 	gMessageModule: {
-		commentModule: 1, //点评
-		workDownloadModule: 2, //作品下载
-		courseModule: 3, //课程表
-		homeworkModule: 4, //作业
-		teacherAuthModule: 5, //老师认证
-		examModule: 6, //考级报名
-		feedBackModule: 7, //新建页面跳转
-		systemMessageModule: 8, //系统通知
-		activityModule: 9, //活动购票
-		instructModule: 10, //授课关系通知
-		accountModule: 11, //账户通知
-		submitHomeworkModule: 12, //交作业提醒
-		activityRegister: 13 //活动报名
+		temp: 0,					//临时
+		commentModule: 1, 			//点评
+		workDownloadModule: 2, 		//作品下载
+		courseModule: 3, 			//课程表
+		homeworkModule: 4, 			//作业
+		teacherAuthModule: 5, 		//老师认证
+		examModule: 6, 				//考级报名
+		feedBackModule: 7, 			//新建页面跳转
+		systemMessageModule: 8, 	//系统通知
+		activityModule: 9, 			//活动购票
+		instructModule: 10, 		//授课关系通知
+		accountModule: 11, 			//账户通知
+		submitHomeworkModule: 12, 	//交作业提醒
+		activityRegister: 13 		//活动报名
 	},
 
 	//性别类型枚举
@@ -1423,6 +1438,12 @@
 		value:3,
 		text:'已拒绝' 
 	}],
+	
+	//消息状态
+	gMessageStatus:{
+		unread:0, //未读
+		read:1    // 已读 
+	},
 
 	gArrayDayOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
 	gVarLocalDownloadTask: 'global.downloadTasks', //下载任务，包括已完成下载和未完成下载

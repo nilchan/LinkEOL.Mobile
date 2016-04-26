@@ -1,7 +1,7 @@
 var viewModel = function() {
 	var self = this;
 	var isRecommend;
-	
+
 	self.works = ko.observable({});
 	self.teacher = ko.observable({});
 	self.feedbacks = ko.observableArray([]);
@@ -91,36 +91,38 @@ var viewModel = function() {
 			}
 		})
 	}
-	
+
 	//提交评语
 	self.submitComment = function() {
 		var arr = [];
-			self.commentToRules().forEach(function(item) {
-				arr.push({
-					RuleID: item.RuleID(),
-					Comment: item.Comment(),
-					RuleName: item.RuleName()
-				});
-			})
-			mui.ajax(common.gServerUrl + "API/Comment/SaveCommentContent?id=" + self.Comment().ID, {
-				type: "POST",
-				data: {
-					TotalComment: self.totalComment(),
-					CommentToRules: JSON.stringify(arr),
-					IsRecommend: isRecommend
-				},
-				success: function(responseText) {
-					self.Comment().TotalComment = self.totalComment();
-					self.Comment().CommentToRules = JSON.stringify(arr);
-					self.Comment().IsFinish = true;
-					mui.toast("保存成功");
-					var myWebview=plus.webview.getWebviewById('modules/my/my.html');
-					mui.fire(myWebview,'refreshAccount');
-					mui.back();
-				}
+		self.commentToRules().forEach(function(item) {
+			arr.push({
+				RuleID: item.RuleID(),
+				Comment: item.Comment(),
+				RuleName: item.RuleName()
 			});
+		})
+		mui.ajax(common.gServerUrl + "API/Comment/SaveCommentContent?id=" + self.Comment().ID, {
+			type: "POST",
+			data: {
+				TotalComment: self.totalComment(),
+				CommentToRules: JSON.stringify(arr),
+				IsRecommend: isRecommend
+			},
+			success: function(responseText) {
+				self.Comment().TotalComment = self.totalComment();
+				self.Comment().CommentToRules = JSON.stringify(arr);
+				self.Comment().IsFinish = true;
+				mui.toast("保存成功");
+				mui.fire(myWebview, 'refreshAccount');
+				common.refreshMyValue({
+					valueType: 'balance',
+				});
+				mui.back();
+			}
+		});
 	}
-	
+
 	//保存评语
 	self.setComment = function() {
 		if (common.StrIsNull(self.totalComment()) == '') {
@@ -128,13 +130,13 @@ var viewModel = function() {
 			return;
 		}
 		isRecommend = false;
-		if( self.Comment().CommentType == common.gTeacherCommentType[0].value && self.Comment().IsFinish == false) {
+		if (self.Comment().CommentType == common.gTeacherCommentType[0].value && self.Comment().IsFinish == false) {
 			var btnArray = ['值得推荐', '不推荐，完成点评'];
 			mui.confirm('该作品是否值得推荐？（推荐将在专区中置顶,选择后将不可更改）', '推荐提示', btnArray, function(e) {
-			if (e.index == 0) {
-				isRecommend = true;
-			}
-			self.submitComment();
+				if (e.index == 0) {
+					isRecommend = true;
+				}
+				self.submitComment();
 			});
 		} else {
 			self.submitComment();
@@ -201,7 +203,6 @@ var viewModel = function() {
 				common.showCurrentWebview();
 			}
 		});
-
 
 	}
 

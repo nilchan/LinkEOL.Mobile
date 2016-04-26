@@ -252,6 +252,9 @@ var my = function() {
 	self.refreshMessageNotice = function(status) {
 		self.hasNewMessage(status);
 	}
+	window.addEventListener("refreshMessage", function(event) {
+		self.unReadMessage(event.detail.count);
+	});
 	window.addEventListener("refreshMessageStatus", function(event) {
 		self.refreshMessageNotice(true);
 	});

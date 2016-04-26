@@ -11,8 +11,8 @@ var viewModel = function() {
 	self.isHomeWork = ko.observable(false); //交作业
 	self.freeCount = ko.observable(0);  //免费次数
 	
-	//支付方式，默认为微信支付
-	self.PayType = ko.observable('wxpay');
+	//支付方式，默认为余额支付
+	self.PayType = ko.observable('balance');
 	self.checkPayType = function() {
 		PayType(event.srcElement.value);
 	}
@@ -80,8 +80,14 @@ var viewModel = function() {
 
 	self.confirmContinue = function() {
 		var message = this;
+		var msgText = '作品已找过该老师点评，是否继续？';
+		var msgTitle = '点评确认';
+		if(self.isHomeWork()){
+			msgText = '已交过这个作业给该老师，是否再次提交？';
+			msgText = '交作业确认';
+		}
 		var btnArray = ['是', '否'];
-		mui.confirm('作品已找过该老师点评，是否继续？', '点评确认', btnArray, function(e) {
+		mui.confirm(msgText, msgTitle, btnArray, function(e) {
 			if (e.index == 0) {
 				self.getAmount();
 			} else {

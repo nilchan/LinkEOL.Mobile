@@ -52,10 +52,10 @@ var register = function() {
 
 	//用户类型选择
 	self.setUserType = function() {
-		if (ID) {
+		/*if (ID) {
 			mui.toast('活动只允许学习报名!');
 			return;
-		}
+		}*/
 		userType.show(function(items) {
 			self.UserTypeText(items[0].text);
 			self.UserType(items[0].value);

@@ -10,12 +10,23 @@
 		<link href="../../content/common/global.css" rel="stylesheet" />
 		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
 		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<style>
+			.mui-bar-nav span {
+				float: right;
+				margin-right: 15px;
+				color: #fff;
+				font-size: 16px;
+				line-height: 44px;
+			}
+		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<i class="mui-action-back iconfont">&#xe602;</i>
+			<i class="mui-action-back iconfont" id='backIcon'>&#xe602;</i>
+			<span style="color: #666;display: none;" class="qx" id='cancelEdit'>取消</span>
 			<h1 class="mui-title">消息通知</h1>
+			<span style="color: #666;" id='editMessage'>编辑</span>
 		</header>
 		<div class="mui-content">
 
@@ -40,7 +51,38 @@
 						}
 					}]
 				});
-				
+			})
+			var startEdit = false;
+			var allCheckout=false;
+			var backIcon = document.getElementById("backIcon");
+			var editMessage = document.getElementById("editMessage");
+			var cancelEdit = document.getElementById("cancelEdit");
+			editMessage.addEventListener('click', function() {
+				var messageSub = plus.webview.getWebviewById('messageListID');
+				if (!startEdit) {
+					startEdit = true;
+					editMessage.innerHTML = '全选';
+					cancelEdit.style.display = '';
+					backIcon.style.display = 'none';
+					mui.fire(messageSub, 'editMess', {
+						isStartEdit: startEdit
+					})
+				} else {
+					allCheckout=!allCheckout;
+					mui.fire(messageSub, 'checkMess', {
+						isAllCheckout: allCheckout
+					})
+				}
+			})
+			cancelEdit.addEventListener('click', function() {
+				var messageSub = plus.webview.getWebviewById('messageListID');
+				startEdit = false;
+				editMessage.innerHTML = '编辑';
+				cancelEdit.style.display = 'none';
+				backIcon.style.display = '';
+				mui.fire(messageSub, 'editMess', {
+					isStartEdit: startEdit
+				})
 			})
 		</script>
 	</body>

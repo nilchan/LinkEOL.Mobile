@@ -32,10 +32,10 @@ var myInfo = function() {
 	self.Path = ko.observable('../../images/my-default.png'); //图片路径
 	self.Base64 = ko.observable(''); //图片的base64字符串
 	self.Org = ko.observable(''); //所属机构
-	self.OrgPerson = ko.observable(''); //机构联系人
-	self.OrgPhone = ko.observable(''); //机构联系电话
-	self.OrgNumber = ko.observable(''); //机构编码
-	self.Score = ko.observable(''); //老师得分
+	self.OrgPerson = ko.observable('空'); //机构联系人
+	self.OrgPhone = ko.observable('空'); //机构联系电话
+	self.OrgNumber = ko.observable('空'); //机构编码
+	self.Score = ko.observable('空'); //老师得分
 
 	self.selectPic = function() {
 		picture.SelectPicture(true, false, function(retValue) {
@@ -258,11 +258,7 @@ var myInfo = function() {
 			Gender: self.Gender(),
 			Province: self.Province(),
 			City: self.City(),
-			District: self.District(),
-			Org:self.Org(),
-			OrgPerson:self.OrgPerson(),
-			OrgPhone:self.OrgPhone(),
-			OrgNumber:self.OrgNumber() 
+			District: self.District()
 		};
 		if (self.Base64() != '') {
 			data.PhotoBase64 = self.Base64();
@@ -275,6 +271,11 @@ var myInfo = function() {
 			data.SubjectID = self.SubjectID();
 			data.TeachAge = self.TeachAge();
 			data.Introduce = self.Introduce();
+			data.Org = self.Org();
+			data.OrgPerson = self.OrgPerson();
+			data.OrgPhone = self.OrgPhone();
+			data.OrgNumber = self.OrgNumber();
+			
 		}
 		plus.nativeUI.showWaiting();
 		mui.ajax(infoUrl + self.UserID(), {

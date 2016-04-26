@@ -108,6 +108,21 @@
 				white-space: nowrap;
 				text-overflow: ellipsis;
 			}
+			.index-read{
+				background: #d80005;
+				height: 12px;
+				padding:0 3px;
+				line-height: 12px!important;
+				color: #fff!important;
+				border-radius: 3px;
+				text-align: center;
+				width: auto;
+				right: 0px;
+				top: 5px;
+				position: absolute;
+				display: inline-block;
+				font-size: 12px!important;
+			}
 		</style>
 	</head>
 
@@ -121,7 +136,8 @@
 			<em class="iconfont mui-bar-nav-em" data-bind="click:goMessageList">&#xe685;
 				<!--<span class="mui-badge mui-badge-warning" data-bind="text: UnreadCount, visible: UnreadCount() > 0">	
 				</span>-->
-			<i class="index-red" data-bind="visible: UnreadCount() > 0 && getUserID() > 0 "></i>					
+			<!--<i class="index-red" data-bind="visible: UnreadCount() > 0 && getUserID() > 0 " ></i>-->
+			<i class="index-read" data-bind="text: UnreadCount, visible: UnreadCount() > 0">5</i>					
 			</em>
 		</header>
 		<div class="mui-content">

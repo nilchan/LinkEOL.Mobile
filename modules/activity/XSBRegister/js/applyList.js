@@ -3,17 +3,33 @@ var applyList = function() {
     var aid;
 
     self.scores = ko.observableArray([]);
-
+	
+	//生成二维码
+    self.makeQRCode = function(id, w, h, code) {
+    	var qrcode = new QRCode(document.getElementById(id), {
+				width: w, //设置宽高
+				height: h
+			});
+		qrcode.makeCode(code);
+    }
+	
     self.getList = function() {
     	if(aid <= 0) return;
-    	
+    	//common.showCurrentWebview();
         var url = common.gServerUrl + 'Common/RegGame/RegGameInfo?ActivityID=' + aid +'&UserID=' + getLocalItem('UserID');
         mui.ajax(url, {
             type: 'GET',
             success: function(result) {
                 self.scores(JSON.parse(result));
-				//console.log(JSON.stringify(self.scores()));                
-                common.showCurrentWebview();
+             
+              	self.scores().forEach(function(item){
+					if( item.IsVoucher ) {
+						self.makeQRCode('qrcode-'+item.ID, 100, 100, common.gWebsiteUrl + 'mobiles/modules/activity/verifyInfo.html?property=4&id=' + item.ID + '&sign=' + encodeURIComponent(item.Voucher));
+					}
+				});
+				 common.showCurrentWebview();
+				
+                
             },
             error: function(){
             	common.showCurrentWebview();
@@ -21,6 +37,8 @@ var applyList = function() {
         });
 
     };
+    
+    
     
     //增加报名
     self.gotoSignup = function(){

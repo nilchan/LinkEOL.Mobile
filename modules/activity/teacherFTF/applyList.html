@@ -109,6 +109,19 @@
 							<span class="examScore-left">报名曲目</span>
 							<span class="examScore-right" data-bind="text:ChapterOptionText"></span>
 						</li>
+						<li data-bind="visible: IsPlaceAndTime">
+							<span class="examScore-left">比赛地点</span>
+							<span class="examScore-right" data-bind="text:GamePlace"></span>
+						</li>
+						<li data-bind="visible: IsPlaceAndTime">
+							<span class="examScore-left">比赛时间</span>
+							<span class="examScore-right" data-bind="text:GameTime"></span>
+						</li>
+						<li data-bind="visible: IsVoucher">
+							<span class="examScore-left">入场凭证</span>
+							<span class="examScore-right"><div style="padding-top: 10px;" data-bind="attr:{'id': 'qrcode-'+ID}"></div></span>
+						</li>
+						
 
 					</ul>
 					<li class="mui-table-view-cell mui-collapse info-li">
@@ -156,6 +169,7 @@
 		<script src="../../../script/common/common.js " type="text/javascript " charset="utf-8 "></script>
 		<script src="../../../script/common/base.js " type="text/javascript " charset="utf-8 "></script>
 		<script src="../../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../../script/common/qrcode.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/applyList.js"></script>
 	</body>
 

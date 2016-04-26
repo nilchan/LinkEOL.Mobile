@@ -1204,7 +1204,9 @@
 					"script/common/base.js",
 					"content/fonts/iconfont.ttf",
 					"content/fonts/iconfont.woff",
-					"images/logo-pic.png"
+					"images/logo-pic.png",
+					"images/radio-check.png",
+					"images/radio-check-active.png"
 				],
 				"refer": [
 					"modules/my/messageList.html",

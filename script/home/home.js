@@ -45,7 +45,7 @@ var home = function() {
 
 	self.gotoActivityWorks = function() {
 		common.transfer('../activity/activityInfo.html', false, {
-			aid: 147
+			aid: 73
 		});
 	}
 	
@@ -71,7 +71,6 @@ var home = function() {
 
 	//跳转至消息页面
 	self.goMessageList = function() {
-		self.UnreadCount(0);
 		common.gotoMessage();
 		var page5 = common.getIndexChild(4);
 		if (page5) {
@@ -188,7 +187,7 @@ var home = function() {
 				self.Teachers(result.Teachers);
 				self.clampDes();
 				self.UnreadCount(result.MessageCount);
-				self.UnreadCount(0);
+				plus.runtime.setBadgeNumber(result.MessageCount);
 				self.getUserID(getLocalItem('UserID'));
 				self.getHeadlineNewsList();
 				common.showCurrentWebview();
@@ -229,13 +228,12 @@ var home = function() {
 		common.transfer("../exam/examList.html", false, {}, false, true);
 	}
 
-
 	self.indexSubject(common.getAllSubjectsIndex());
 
 	var teacherList;
 	mui.plusReady(function() {
 		$A.gC('index-banner')[0].style.height = document.body.clientWidth * 7 / 15 + 'px';
-		plus.runtime.setBadgeNumber(0);
+//		plus.runtime.setBadgeNumber(0);
 		/*self.getSlideshow();
 		self.getTeachers();
 		self.getActivity();*/
@@ -246,7 +244,11 @@ var home = function() {
 	mui.back = function() {
 		common.confirmQuit();
 	}
-
+	
+	window.addEventListener("refreshMessage", function(event) {
+		self.UnreadCount(event.detail.count);
+	});
+	
 	window.addEventListener("refreshMessageStatus", function(event) {
 		self.UnreadCount(1);
 		self.getUnreadCount();

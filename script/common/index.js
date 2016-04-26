@@ -26,6 +26,7 @@ var viewModelIndex = function() {
 	}
 
 	mui.plusReady(function() {
+		common.refreshMessage(600000);
 		common.getPushInfo();
 		common.getLocalVersion();
 		common.getAllSubjectsStr();
@@ -95,6 +96,8 @@ var viewModelIndex = function() {
 	window.addEventListener("refreshMessageStatusFalse", function(event) {
 		self.refreshMessageNotice(false);
 	});
-
+	
+	
+	
 };
 ko.applyBindings(viewModelIndex);

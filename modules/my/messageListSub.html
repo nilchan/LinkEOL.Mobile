@@ -20,6 +20,7 @@
 			}
 			.card-footer{
 				margin-bottom: 10px;
+				
 			}
 			.card-footer span{
 				font-size: 14px;
@@ -31,11 +32,12 @@
 			.card-content-inner {
 			    padding:10px 15px!important;
 			    text-indent: 2em;
+			    color: #333;
 			    font-size: 14px;
 			}
 			.card-font {
 			    font-size:0.96rem;
-			    color:#036fb8;
+			    color:#333;
 			}
 		    .card-font i {
 		        font-size:16px;
@@ -65,6 +67,36 @@
 		    .mui-scroll-wrapper{
 		    	background: #F1F1F1!important;
 		    }
+		    	.mui-bar-tab .ah-mui-tab-item {
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				height: 50px;
+				text-align: center;
+				vertical-align: middle;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				background: #fff;
+			}
+		.teacher-list-check{
+			right: 5px;
+			top:78px;
+			z-index: 9999;
+			position: absolute;
+		}
+		.mui-bar-tab a:active{
+			color:#d34777!important;
+		}
+		.messageNotification-content em{
+			background: none!important;
+		}
+		.messageNotification-content .unread{
+			color: #333!important;
+		}
+		/*已读样式*/
+		.messageNotification-content .read{
+			color: #999!important;
+		}
 		</style>
 	</head>
 
@@ -82,26 +114,42 @@
 				<div class="mui-scroll">
 					<!--数据列表-->
 					<div data-bind="template: {name:'messageTemplate', foreach: messages }">
+						
 					</div>
 					<!--message模板页-->
 					<script type="text/html" id="messageTemplate">
 						<div class="messageNotification-content">
 							<div class="messageNotification-title openedCoursesList-first mesg-padding">
-								<span data-bind="event:{tap:goMessagesDetail}"><!--ko text:Title--><!--/ko--></span>
-								<i class="iconfont" data-bind="event:{tap:removeMessages}">&#xe61b;</i>
+								<span  data-bind="event:{tap:goMessagesDetail},css:IsRead ?'read':'unread',text:Title"></span>								
+								<i class="iconfont" data-bind="css:IsRead?'read':'unread',visible: (isEdit()==false && canTransfer)">&#xe618;</i>
+								<em class="teacher-list-check myStudent-check" data-bind='visible:isEdit,click:goMessagesDetail'>
+										<img data-bind="attr: {src: ischeckout()==true ?'../../images/radio-check-active.png':'../../images/radio-check.png' }"/>
+										<!--<img src="../../images/radio-check-active.png" />-->
+									</em>
 							</div>
 							<div class="card-content" data-bind="event:{tap:goMessagesDetail}">
-								<div class="card-content-inner">
+								<div class="card-content-inner" data-bind="css:IsRead?'read':'unread'"> 
 									<span data-bind="html:ContentText"></span>
 								</div>
 							</div>
-							<div class="card-footer" data-bind="event:{tap:goMessagesDetail}">
+							<div class="card-footer" data-bind="event:{tap:goMessagesDetail},css:IsRead?'read':'unread'">
 								<span data-bind="text:SendTime"></span>
 							</div>
 						</div>
 					</script>
 				</div>
 			</div>
+			<nav class="mui-bar mui-bar-tab" data-bind="visible:isEdit">
+			<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" data-bind="click:setRead">
+				<i class="iconfont" style="font-size: 20px;" >&#xe6c7;</i>
+				<span class="mui-tab-label">已读</span>
+			</a>
+		
+			<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui newsInfo-nav" data-bind='click:removeMess'>
+				<i class="iconfont" style="font-size: 20px;">&#xe61b;</i>
+				<span class="mui-tab-label ">删除</span>
+			</a>
+		</nav>
 		</div>
 		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
