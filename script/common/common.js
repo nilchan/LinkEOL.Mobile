@@ -858,7 +858,6 @@
 
 	//获取未读消息
 	getUnreadCount: function(callback) {
-//		console.log(common.hasLogined());
 		if (common.hasLogined() == true) {
 			mui.ajax(common.gServerUrl + "API/Message/GetUnreadCount", {
 				dataType: 'json',
@@ -945,20 +944,24 @@
 		var orderWeb = plus.webview.getWebviewById('myOrders.html');
 		mui.fire(orderWeb, 'refreshOrderInfo');
 	},
-	
-	refreshMessage: function(timer) {
-		setInterval(function(){
-			common.getUnreadCount(function(count){
-				var page1 = common.getIndexChild(0);
-				var page4 = common.getIndexChild(4);
-				plus.runtime.setBadgeNumber(count);
-				mui.fire(page1, 'refreshMessage', {
-					count: count
-				});
-				mui.fire(page4, 'refreshMessage', {
-					count: count
-				});
+
+	refreshMessage: function() {
+		var page1 = common.getIndexChild(0);
+		var page4 = common.getIndexChild(4);
+		common.getUnreadCount(function(count) {
+			plus.runtime.setBadgeNumber(count);
+			mui.fire(page1, 'refreshMessage', {
+				count: count
 			});
+			mui.fire(page4, 'refreshMessage', {
+				count: count
+			});
+		});
+	},
+
+	autoRefreshMessage: function(timer) {
+		setInterval(function() {
+			common.refreshMessage();
 		}, timer);
 	},
 
@@ -975,20 +978,20 @@
 	},
 	//消息类型
 	gMessageModule: {
-		temp: 0,					//临时
-		commentModule: 1, 			//点评
-		workDownloadModule: 2, 		//作品下载
-		courseModule: 3, 			//课程表
-		homeworkModule: 4, 			//作业
-		teacherAuthModule: 5, 		//老师认证
-		examModule: 6, 				//考级报名
-		feedBackModule: 7, 			//新建页面跳转
-		systemMessageModule: 8, 	//系统通知
-		activityModule: 9, 			//活动购票
-		instructModule: 10, 		//授课关系通知
-		accountModule: 11, 			//账户通知
-		submitHomeworkModule: 12, 	//交作业提醒
-		activityRegister: 13 		//活动报名
+		temp: 0, //临时
+		commentModule: 1, //点评
+		workDownloadModule: 2, //作品下载
+		courseModule: 3, //课程表
+		homeworkModule: 4, //作业
+		teacherAuthModule: 5, //老师认证
+		examModule: 6, //考级报名
+		feedBackModule: 7, //新建页面跳转
+		systemMessageModule: 8, //系统通知
+		activityModule: 9, //活动购票
+		instructModule: 10, //授课关系通知
+		accountModule: 11, //账户通知
+		submitHomeworkModule: 12, //交作业提醒
+		activityRegister: 13 //活动报名
 	},
 
 	//性别类型枚举
@@ -1062,7 +1065,7 @@
 		Homework: 6, //作业付费
 		RegGame: 7, //赛事报名
 		RegLectures: 8, //讲座报名
-		Recharge: 9	//充值
+		Recharge: 9 //充值
 	},
 
 	//课程类型
@@ -1374,9 +1377,9 @@
 	}, {
 		value: 2,
 		text: '支出'
-	},{
-		value:3,
-		text:'提现'
+	}, {
+		value: 3,
+		text: '提现'
 	}],
 
 	//老师点评类型
@@ -1427,22 +1430,22 @@
 	//提现状态
 	gDrawStatus: [{
 		value: 0,
-		text:''
-	},{
+		text: ''
+	}, {
 		value: 1,
-		text:'待转账' 
+		text: '待转账'
 	}, {
-		value:2,
-		text:'已转账'
+		value: 2,
+		text: '已转账'
 	}, {
-		value:3,
-		text:'已拒绝' 
+		value: 3,
+		text: '已拒绝'
 	}],
-	
+
 	//消息状态
-	gMessageStatus:{
-		unread:0, //未读
-		read:1    // 已读 
+	gMessageStatus: {
+		unread: 0, //未读
+		read: 1 // 已读 
 	},
 
 	gArrayDayOfWeek: ['日', '一', '二', '三', '四', '五', '六'],

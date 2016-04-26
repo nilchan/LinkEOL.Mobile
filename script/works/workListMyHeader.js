@@ -38,13 +38,13 @@ var worksHeader = function() {
 	//返回按钮
 	var old_back = mui.back;
 	mui.back = function() {
-		//console.log(workIndex.opener())
+		//console.log(JSON.stringify(workIndex.opener()))
 		var myupload=plus.webview.getWebviewById('myUpload');//获取我的上传页面webview
 //		console.log(JSON.stringify(myupload.opener()));
 		if (workIndex.opener()) {
-			if (workIndex.opener().id == 'modules/my/my.html') {
+			if (workIndex.opener().id == 'modules/my/my.html' || workIndex.opener().id =='messageListID') {
 				old_back();
-			} else if(myupload.opener().id == '../works/worksListMyHeader.html'){
+			} else if(myupload && myupload.opener().id == '../works/worksListMyHeader.html'){
 				common.showIndexWebview(4);
 			}else{
 				common.showIndexWebview(3);

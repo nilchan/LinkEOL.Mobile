@@ -72,10 +72,10 @@ var home = function() {
 	//跳转至消息页面
 	self.goMessageList = function() {
 		common.gotoMessage();
-		var page5 = common.getIndexChild(4);
-		if (page5) {
-			mui.fire(page5, 'refreshMessageStatusFalse', {});
-		}
+//		var page5 = common.getIndexChild(4);
+//		if (page5) {
+//			mui.fire(page5, 'refreshMessageStatusFalse', {});
+//		}
 	}
 
 	//获取未读消息数量

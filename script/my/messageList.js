@@ -6,8 +6,9 @@ var message_notification = function() {
 	var receiverId = getLocalItem("UserID");
 	self.messageLength = ko.observable(1);
 	self.isEdit = ko.observable(false); //是否编辑
+	var thisWeb;
 	//获取消息
-	self.getMessage = function() {
+	self.getMessage = function(callback) {
 		plus.runtime.setBadgeNumber(0);
 		mui.ajax(common.gServerUrl + "API/Message/GetMyMessage?receiver=" + receiverId + "&page=" + pageNum, {
 			dataType: 'json',
@@ -23,6 +24,10 @@ var message_notification = function() {
 				mui('#pullrefresh').pullRefresh().refresh(true); //重置上拉加载
 				if (responseText.length > 0)
 					setLocalItem("msgLastTime", responseText[responseText.length - 1].SendTime);
+				if(typeof callback =='function'){
+					callback();	
+				}
+				
 			}
 		})
 	}
@@ -278,9 +283,14 @@ var message_notification = function() {
 			contentType: "application/json",
 			data: JSON.stringify(readArray),
 			success: function(responseText) {
-				self.messages([]);
-				self.getMessage();
-				mui.toast('成功设置为已读');
+				//self.messages([]);
+				self.isEdit(false);
+				mui.fire(thisWeb.opener(),'refreshEdit');
+				self.getMessage(function(){
+					mui.toast('成功设置为已读');
+				});
+				
+				
 			}
 		})
 	}
@@ -306,9 +316,20 @@ var message_notification = function() {
 					contentType: "application/json",
 					data: JSON.stringify(readArray),
 					success: function(responseText) {
-						self.messages([]);
-						self.getMessage();
-						mui.toast('成功删除消息');
+						//self.messages([]);
+						self.isEdit(false);
+						mui.fire(thisWeb.opener(),'refreshEdit');
+						self.getMessage(function(){
+							mui.toast('成功删除消息');
+						});
+						/*for(var i=0;i<self.messages().length;i++){
+							for(var a=0;a<readArray.lenth;a++){
+								if(self.messages()[i].ID==readArray[a].ID){
+									self.messages.remove(readArray[a]);
+								}
+							}
+						}*/
+						//mui.toast('成功删除消息');
 
 					}
 				})
@@ -345,6 +366,7 @@ var message_notification = function() {
 	});
 
 	mui.plusReady(function() {
+		thisWeb=plus.webview.currentWebview();
 		if (receiverId > 0) {
 			self.getMessage();
 		}

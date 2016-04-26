@@ -1206,7 +1206,8 @@
 					"content/fonts/iconfont.woff",
 					"images/logo-pic.png",
 					"images/radio-check.png",
-					"images/radio-check-active.png"
+					"images/radio-check-active.png",
+					null
 				],
 				"refer": [
 					"modules/my/messageList.html",
@@ -1224,7 +1225,9 @@
 					"modules/activity/teacherFTF/apply.html",
 					"modules/activity/XSBRegister/apply.html",
 					"modules/my/accountDetails.html",
-					"modules/my/accountDetailsHeader.html"
+					"modules/my/accountDetailsHeader.html",
+					"modules/works/worksListMyHeader.html",
+					"modules/exam/examList.html"
 				],
 				"priority": 2
 			},
@@ -3110,7 +3113,8 @@
 					"script/common/base.js",
 					"content/fonts/iconfont.ttf",
 					"script/libs/knockout/knockout-3.3.0.min.js",
-					"content/fonts/iconfont.woff"
+					"content/fonts/iconfont.woff",
+					"script/common/qrcode.js"
 				],
 				"refer": [
 					"modules/activity/XSBRegister/apply.html"

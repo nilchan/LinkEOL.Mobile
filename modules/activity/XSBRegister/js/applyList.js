@@ -23,8 +23,8 @@ var applyList = function() {
                 self.scores(JSON.parse(result));
              
               	self.scores().forEach(function(item){
-					if( item.IsVoucher ) {
-						self.makeQRCode('qrcode-'+item.ID, 100, 100, common.gWebsiteUrl + 'mobiles/modules/activity/verifyInfo.html?property=4&id=' + item.ID + '&sign=' + encodeURIComponent(item.Voucher));
+					if( item.IsVoucher && common.StrIsNull(item.Voucher) != '') {
+						self.makeQRCode('qrcode-'+item.ID, 100, 100, common.gWebsiteUrl + 'mobiles/modules/activity/verifyInfo.html?property='+common.gJsonActivityActProperty.orchestraRecruit+'&id=' + item.ID + '&sign=' + encodeURIComponent(item.Voucher));
 					}
 				});
 				 common.showCurrentWebview();

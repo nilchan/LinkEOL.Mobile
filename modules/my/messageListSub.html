@@ -79,8 +79,8 @@
 				background: #fff;
 			}
 		.teacher-list-check{
-			right: 5px;
-			top:78px;
+			right:0px;
+			top:27px;
 			z-index: 9999;
 			position: absolute;
 		}
@@ -118,21 +118,21 @@
 					</div>
 					<!--message模板页-->
 					<script type="text/html" id="messageTemplate">
-						<div class="messageNotification-content">
+						<div class="messageNotification-content" data-bind="event:{tap:goMessagesDetail}">
 							<div class="messageNotification-title openedCoursesList-first mesg-padding">
-								<span  data-bind="event:{tap:goMessagesDetail},css:IsRead ?'read':'unread',text:Title"></span>								
+								<span  data-bind="css:IsRead ?'read':'unread',text:Title"></span>								
 								<i class="iconfont" data-bind="css:IsRead?'read':'unread',visible: (isEdit()==false && canTransfer)">&#xe618;</i>
-								<em class="teacher-list-check myStudent-check" data-bind='visible:isEdit,click:goMessagesDetail'>
+								<em class="teacher-list-check myStudent-check" data-bind='visible:isEdit'>
 										<img data-bind="attr: {src: ischeckout()==true ?'../../images/radio-check-active.png':'../../images/radio-check.png' }"/>
 										<!--<img src="../../images/radio-check-active.png" />-->
 									</em>
 							</div>
-							<div class="card-content" data-bind="event:{tap:goMessagesDetail}">
+							<div class="card-content">
 								<div class="card-content-inner" data-bind="css:IsRead?'read':'unread'"> 
 									<span data-bind="html:ContentText"></span>
 								</div>
 							</div>
-							<div class="card-footer" data-bind="event:{tap:goMessagesDetail},css:IsRead?'read':'unread'">
+							<div class="card-footer" data-bind="css:IsRead?'read':'unread'">
 								<span data-bind="text:SendTime"></span>
 							</div>
 						</div>

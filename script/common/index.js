@@ -26,7 +26,7 @@ var viewModelIndex = function() {
 	}
 
 	mui.plusReady(function() {
-		common.refreshMessage(600000);
+		common.autoRefreshMessage(600000);
 		common.getPushInfo();
 		common.getLocalVersion();
 		common.getAllSubjectsStr();
@@ -60,7 +60,7 @@ var viewModelIndex = function() {
 			if (page5) {
 				mui.fire(page5, 'refreshMessageStatus', {});
 			}
-			refreshMessageNotice(true);
+//			refreshMessageNotice(true);
 		}, false);
 
 		// 监听在线消息事件
@@ -79,7 +79,7 @@ var viewModelIndex = function() {
 			if (page5) {
 				mui.fire(page5, 'refreshMessageStatus', {});
 			}
-			refreshMessageNotice(true);
+//			refreshMessageNotice(true);
 		}, false);
 	}, false);
 	
