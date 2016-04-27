@@ -50,34 +50,21 @@
 							bottom: '0px'
 						}
 					}],
-					beforeback:function(){
+					beforeback: function() {
 						common.refreshMessage();
 					}
 				});
 			})
 			var startEdit = false;
-			var allCheckout=false;
+			var allCheckout = false;
 			var backIcon = document.getElementById("backIcon");
 			var editMessage = document.getElementById("editMessage");
 			var cancelEdit = document.getElementById("cancelEdit");
-			editMessage.addEventListener('click', function() {
+			editMessage.addEventListener('click', function() {//点击编辑事件
 				var messageSub = plus.webview.getWebviewById('messageListID');
-				if (!startEdit) {
-					startEdit = true;
-					editMessage.innerHTML = '全选';
-					cancelEdit.style.display = '';
-					backIcon.style.display = 'none';
-					mui.fire(messageSub, 'editMess', {
-						isStartEdit: startEdit
-					})
-				} else {
-					allCheckout=!allCheckout;
-					mui.fire(messageSub, 'checkMess', {
-						isAllCheckout: allCheckout
-					})
-				}
+				mui.fire(messageSub, 'canEdit', function() {});//询问是否可以编辑
 			})
-			cancelEdit.addEventListener('click', function() {
+			cancelEdit.addEventListener('click', function() {//点击关闭事件
 				var messageSub = plus.webview.getWebviewById('messageListID');
 				startEdit = false;
 				editMessage.innerHTML = '编辑';
@@ -87,12 +74,34 @@
 					isStartEdit: startEdit
 				})
 			})
-			window.addEventListener('refreshEdit',function(event){
-				startEdit=false;
+			window.addEventListener('refreshEdit', function(event) {//
+				startEdit = false;
 				editMessage.innerHTML = '编辑';
 				cancelEdit.style.display = 'none';
 				backIcon.style.display = '';
 			})
+			window.addEventListener('getCanEdit', function(event) {//根据是否可以编辑执行相应内容
+				if (!event.detail.canEdit) {
+					return;
+				} else {
+					var messageSub = plus.webview.getWebviewById('messageListID');
+					//mui.fire(messageSub, 'canEdit', function() {});
+					if (!startEdit) {//出现全选
+						startEdit = true;
+						editMessage.innerHTML = '全选';
+						cancelEdit.style.display = '';
+						backIcon.style.display = 'none';
+						mui.fire(messageSub, 'editMess', {
+							isStartEdit: startEdit
+						})
+					} else {//全选全不选
+						allCheckout = !allCheckout;
+						mui.fire(messageSub, 'checkMess', {
+							isAllCheckout: allCheckout
+						})
+					}
+				}
+			});
 		</script>
 	</body>
 

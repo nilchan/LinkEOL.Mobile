@@ -50,17 +50,8 @@ var viewModelIndex = function() {
 					outSet("您有新消息，请查看通知列表~");
 					break;
 			}
-
+			common.refreshMessage();
 			common.gotoMessage();
-			var page1 = common.getIndexChild(0);
-			if (page1) {
-				mui.fire(page1, 'refreshMessageStatus', {});
-			}
-			var page5 = common.getIndexChild(4);
-			if (page5) {
-				mui.fire(page5, 'refreshMessageStatus', {});
-			}
-//			refreshMessageNotice(true);
 		}, false);
 
 		// 监听在线消息事件
@@ -70,34 +61,9 @@ var viewModelIndex = function() {
 			} else {
 				outSet("您有新消息，请查看通知列表~");
 			}
-
-			var page1 = common.getIndexChild(0);
-			if (page1) {
-				mui.fire(page1, 'refreshMessageStatus', {});
-			}
-			var page5 = common.getIndexChild(4);
-			if (page5) {
-				mui.fire(page5, 'refreshMessageStatus', {});
-			}
-//			refreshMessageNotice(true);
+			common.refreshMessage();
 		}, false);
 	}, false);
-	
-	
-	
-	self.refreshMessageNotice = function(status) {
-		self.hasNewMessage(status);
-	}
-
-	window.addEventListener("refreshMessageStatus", function(event) {
-		self.refreshMessageNotice(true);
-	});
-
-	window.addEventListener("refreshMessageStatusFalse", function(event) {
-		self.refreshMessageNotice(false);
-	});
-	
-	
 	
 };
 ko.applyBindings(viewModelIndex);

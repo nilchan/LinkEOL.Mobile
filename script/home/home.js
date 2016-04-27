@@ -248,16 +248,6 @@ var home = function() {
 	window.addEventListener("refreshMessage", function(event) {
 		self.UnreadCount(event.detail.count);
 	});
-	
-	window.addEventListener("refreshMessageStatus", function(event) {
-		self.UnreadCount(1);
-		self.getUnreadCount();
-	});
-
-	window.addEventListener("refreshMessageStatusFalse", function(event) {
-		self.UnreadCount(0);
-	});
-
 
 };
 ko.applyBindings(home);

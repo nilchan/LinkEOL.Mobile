@@ -241,7 +241,7 @@ var message_notification = function() {
 						responseText.forEach(function(item) {
 							item['ischeckout'] = ko.observable(false);
 							item['canTransfer'] = ko.observable(self.canJump(item.ModuleID, item.MsgUrl));
-							self.messages.push(item);
+							//self.messages.push(item);
 						})
 						self.messages(self.messages().concat(responseText));
 						self.messageLength(self.messages().length);
@@ -337,7 +337,22 @@ var message_notification = function() {
 		});
 
 	}
+	
+	//监听是否可以编辑
+	window.addEventListener('canEdit',function(){
+		if(self.messages().length<=0){
+			mui.fire(thisWeb.opener(),'getCanEdit',{
+				canEdit:false
+			});
+			mui.toast('没有消息可以编辑~');
+		}else{
+			mui.fire(thisWeb.opener(),'getCanEdit',{
+				canEdit:true
+			});
+		}
+	});
 
+	//监听编辑的状态
 	window.addEventListener('editMess', function(event) {
 		self.isEdit(event.detail.isStartEdit); //获取编辑状态
 		//console.log(self.isEdit());
@@ -346,7 +361,8 @@ var message_notification = function() {
 		})
 
 	});
-
+	
+	//监听全选事件
 	window.addEventListener('checkMess', function(event) {
 		var isAllCheckout = event.detail.isAllCheckout
 			//console.log(self.isEdit());

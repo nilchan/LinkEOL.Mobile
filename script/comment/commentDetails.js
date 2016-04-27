@@ -114,7 +114,6 @@ var viewModel = function() {
 				self.Comment().CommentToRules = JSON.stringify(arr);
 				self.Comment().IsFinish = true;
 				mui.toast("保存成功");
-				mui.fire(myWebview, 'refreshAccount');
 				common.refreshMyValue({
 					valueType: 'balance',
 				});

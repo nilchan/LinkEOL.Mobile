@@ -11,8 +11,8 @@
 		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
 		<link href="../../content/common/style.css" rel="stylesheet" />
 		<style>
-			body{
-				background: #F1F1F1;
+			body,.mui-content{
+				background: #F1F1F1!important;
 			}					
 			.pull-left-pic {
 			    color:#fff!important;
@@ -76,7 +76,7 @@
 				vertical-align: middle;
 				white-space: nowrap;
 				text-overflow: ellipsis;
-				background: #fff;
+				background: #f1f1f1;
 			}
 		.teacher-list-check{
 			right:0px;
@@ -96,6 +96,9 @@
 		/*已读样式*/
 		.messageNotification-content .read{
 			color: #999!important;
+		}
+		.messageListSub-nav a{
+			color: #333;
 		}
 		</style>
 	</head>
@@ -139,7 +142,7 @@
 					</script>
 				</div>
 			</div>
-			<nav class="mui-bar mui-bar-tab" data-bind="visible:isEdit">
+			<nav class="mui-bar mui-bar-tab messageListSub-nav" data-bind="visible:isEdit">
 			<a class="ah-mui-tab-item teacherList-mui-bar-tab teacherList-mui" data-bind="click:setRead">
 				<i class="iconfont" style="font-size: 20px;" >&#xe6c7;</i>
 				<span class="mui-tab-label">已读</span>

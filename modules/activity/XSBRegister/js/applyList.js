@@ -24,7 +24,7 @@ var applyList = function() {
              
               	self.scores().forEach(function(item){
 					if( item.IsVoucher && common.StrIsNull(item.Voucher) != '') {
-						self.makeQRCode('qrcode-'+item.ID, 100, 100, common.gWebsiteUrl + 'mobiles/modules/activity/verifyInfo.html?property='+common.gJsonActivityActProperty.orchestraRecruit+'&id=' + item.ID + '&sign=' + encodeURIComponent(item.Voucher));
+						self.makeQRCode('qrcode-'+item.ID, 100, 100, common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property='+common.gJsonActivityActProperty.orchestraRecruit+'&id=' + item.ID + '&sign=' + encodeURIComponent(item.Voucher));
 					}
 				});
 				 common.showCurrentWebview();

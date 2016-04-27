@@ -66,11 +66,11 @@ var my = function() {
 //		if (UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed != IDAuthApproved()) {
 //			mui.fire(index, 'refreshMessageStatus', {});
 //		}
-		self.hasNewMessage(false); //取消消息列表红点
-		var page1 = common.getIndexChild(0); //取消铃铛红点
-		if (page1) {
-			mui.fire(page1, 'refreshMessageStatusFalse', {});
-		}
+//		self.hasNewMessage(false); //取消消息列表红点
+//		var page1 = common.getIndexChild(0); //取消铃铛红点
+//		if (page1) {
+//			mui.fire(page1, 'refreshMessageStatusFalse', {});
+//		}
 		common.transfer('messageList.html', true);
 	}
 	self.goMyAlbum = function() { //我的相册
@@ -198,11 +198,11 @@ var my = function() {
 		if (self.UserID() > 0) {
 			self.getInfo();
 			common.getUnreadCount(function(count) {
-				if (count > 99) {
-					self.unReadMessage('+' + count);
-				} else {
+//				if (count > 99) {
+//					self.unReadMessage('+' + count);
+//				} else {
 					self.unReadMessage(count);
-				}
+//				}
 
 			});
 			var urlPart = 'modules/student/studentInfo.html?id=';
@@ -248,25 +248,12 @@ var my = function() {
 			self.IDAuth(event.detail.IDAuth);
 		}
 	});
-
-	self.refreshMessageNotice = function(status) {
-		self.hasNewMessage(status);
-	}
+	
+//	self.refreshMessageNotice = function(status) {
+//		self.hasNewMessage(status);
+//	}
 	window.addEventListener("refreshMessage", function(event) {
 		self.unReadMessage(event.detail.count);
-	});
-	window.addEventListener("refreshMessageStatus", function(event) {
-		self.refreshMessageNotice(true);
-	});
-	window.addEventListener("refreshMessageStatusFalse", function(event) {
-		self.refreshMessageNotice(false);
-//		var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID'); //取消“我”红点
-//		if (UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed == IDAuthApproved()) {
-//			mui.fire(index, 'refreshMessageStatusFalse', {});
-//		}
-//		if (UserType() == common.gDictUserType.student) {
-//			mui.fire(index, 'refreshMessageStatusFalse', {});
-//		}
 	});
 
 	//刷新银行卡数量

@@ -552,20 +552,37 @@ var worksDetails = function() {
 		var height = width * 9 / 16;
 		_bought = work.IsBought;
 		//console.log(work.IsBought + ' ' + work.VidPolyv);
-		document.getElementById('videoPos').innerHTML = '';
-		if (work.IsBought) {
-			var player = polyvObject('#videoPos').videoPlayer({
-				'width': '100%',
-				'height': height,
-				'vid': work.VidPolyv
-			});
-		} else {
-			var player = polyvObject('#videoPos').previewPlayer({
-				'width': '100%',
-				'height': height,
-				'vid': work.VidPolyvPreview
-			});
-		}
+		
+		mui.ajax(common.gServerUrl + "API/PolyvCloud/GetTsAndHashApp", {
+			type: 'GET',
+			success: function(responseText) {
+				var result = JSON.parse(responseText);
+				var ts = result.ts;
+				var hash = result.hash;
+				console.log(work.VidPolyvPreview);
+				console.log(work.IsBought);
+				
+				document.getElementById('videoPos').innerHTML = '';
+				if (work.IsBought) {
+					var player = polyvObject('#videoPos').videoPlayer({
+						'width': '100%',
+						'height': height,
+						'vid': work.VidPolyv,
+						'ts': ts,
+						'sign': hash
+					});
+				} else {
+					var player = polyvObject('#videoPos').previewPlayer({
+						'width': '100%',
+						'height': height,
+						'vid': work.VidPolyvPreview
+					});
+				}
+			},
+			error: function(){
+				mui.toast('获取视频信息错误');
+			}
+		});
 	}
 
 	/*work end*/

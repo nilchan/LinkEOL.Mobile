@@ -958,7 +958,7 @@
 			});
 		});
 	},
-
+	
 	autoRefreshMessage: function(timer) {
 		setInterval(function() {
 			common.refreshMessage();
