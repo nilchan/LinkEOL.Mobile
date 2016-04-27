@@ -95,7 +95,7 @@ var worksDetails = function() {
 	for (var i = 0; i < lis.length; i++) {
 		lis[i].onclick = function() {
 			//mui.toast("敬请期待");
-			mui('#middlePopover').popover('toggle');
+			mui('#bottomPopover').popover('toggle');
 			plus.nativeUI.showWaiting();
 			Share.sendShare(this.id, shareTitle, shareContent, shareUrl + self.Works().WorkID(), shareImg, common.gShareContentType.video);
 			
@@ -551,9 +551,23 @@ var worksDetails = function() {
 		var width = document.body.clientWidth;
 		var height = width * 9 / 16;
 		_bought = work.IsBought;
-		//console.log(work.IsBought + ' ' + work.VidPolyv);
 		
-		mui.ajax(common.gServerUrl + "API/PolyvCloud/GetTsAndHashApp", {
+		document.getElementById('videoPos').innerHTML = '';
+		if (work.IsBought) {
+			var player = polyvObject('#videoPos').videoPlayer({
+				'width': '100%',
+				'height': height,
+				'vid': work.VidPolyv
+			});
+		} else {
+			var player = polyvObject('#videoPos').previewPlayer({
+				'width': '100%',
+				'height': height,
+				'vid': work.VidPolyvPreview
+			});
+		}
+
+		/*mui.ajax(common.gServerUrl + "API/PolyvCloud/GetTsAndHashApp", {
 			type: 'GET',
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
@@ -575,14 +589,16 @@ var worksDetails = function() {
 					var player = polyvObject('#videoPos').previewPlayer({
 						'width': '100%',
 						'height': height,
-						'vid': work.VidPolyvPreview
+						'vid': work.VidPolyvPreview,
+						'ts': ts,
+						'sign': hash
 					});
 				}
 			},
 			error: function(){
 				mui.toast('获取视频信息错误');
 			}
-		});
+		});*/
 	}
 
 	/*work end*/
@@ -658,9 +674,7 @@ var worksDetails = function() {
 				//self.getDownloadPrice();
 				common.showCurrentWebview();
 			} else {
-				//console.log(workVaule.works.ID);
 				self.getWorkDetail(workVaule.works.ID);
-				//workobj = workVaule.works;
 			}
 		}
 	});
@@ -670,10 +684,7 @@ var worksDetails = function() {
 		beforeback: function() {
 			var workParent = workVaule.opener();
 			var webObj = plus.webview.getWebviewById('myCollection.html');
-			mui.fire(webObj, 'refreshCollection', {
-				worksId: self.Works().WorkID(),
-				favStatus: workIsFav
-			})
+			mui.fire(webObj, 'refreshCollection');
 			
 			if (workParent != null) {
 				if (workParent.id == 'worksListAllWorks.html' || workParent.id == 'classmateWorks.html') {

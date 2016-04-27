@@ -494,30 +494,35 @@ var viewModel = function() {
 	mui.init({
 		beforeback: function() {
 			var myCourses = plus.webview.currentWebview().opener();
-			if (self.course().ID() > 0) { //此时为修改页面传递参数
-				mui.fire(myCourses, 'refreshCourses', {
-					courseId: self.course().ID(),
-					CourseName: self.course().CourseName(),
-					CourseType: self.course().CourseType(),
-					BeginTime: self.course().BeginTime(),
-					LessonCount: self.course().LessonCount(),
-					Introduce: self.course().Introduce(),
-					MaxStudent: self.course().MaxStudent(),
-					SubjectID: self.course().SubjectID(),
-					AgeMin: self.course().AgeMin(),
-					AgeMax: self.course().AgeMax(),
-					SubjectName: self.course().SubjectName(),
-					ClasstimeJson: JSON.stringify(self.Classtimes()),
-					StudentJson: self.course().StudentJson()
-				});
-				return true;
-			} else { //新增课程参数
-				//console.log(JSON.stringify(courseNew));
-				mui.fire(myCourses, 'refreshCourseList', {
+			if (myCourses.id == '../course/myCourse.html') {
+				mui.fire(myCourses, 'refreshCourse', {
 					course: courseNew
 				});
-				return true;
+			} else {
+				if (self.course().ID() > 0) { //此时为修改页面传递参数
+					mui.fire(myCourses, 'refreshCourses', {
+						courseId: self.course().ID(),
+						CourseName: self.course().CourseName(),
+						CourseType: self.course().CourseType(),
+						BeginTime: self.course().BeginTime(),
+						LessonCount: self.course().LessonCount(),
+						Introduce: self.course().Introduce(),
+						MaxStudent: self.course().MaxStudent(),
+						SubjectID: self.course().SubjectID(),
+						AgeMin: self.course().AgeMin(),
+						AgeMax: self.course().AgeMax(),
+						SubjectName: self.course().SubjectName(),
+						ClasstimeJson: JSON.stringify(self.Classtimes()),
+						StudentJson: self.course().StudentJson()
+					});
+				} else { //新增课程参数
+					//console.log(JSON.stringify(courseNew));
+					mui.fire(myCourses, 'refreshCourseList', {
+						course: courseNew
+					});
+				}
 			}
+			return true;
 		}
 	})
 };

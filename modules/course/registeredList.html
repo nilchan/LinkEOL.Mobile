@@ -70,9 +70,9 @@
 
 			<nav class="mui-bar mui-bar-tab">
 				<!--<a class="ah-mui-tab-item mui-active works-list-mui-tab-label" href="#tabbar"></a>-->
-				<div class="mui-input-row mui-checkbox mui-left select-all">
+				<div class="mui-input-row mui-checkbox mui-left select-all" data-bind="event:{tap: checkAll}">
 					<label>全选</label>
-					<input name="checkbox" value="all" type="checkbox" id="checkId" data-bind="event:{tap: checkAll}">
+					<input name="checkbox" value="all" type="checkbox" id="checkId" >
 				</div>
 				<a class="ah-mui-tab-item works-list-mui-tab-btn" data-bind="event:{tap:ensure}">
 					<span class="mui-tab-label works-list-mui-btn">确定</span>

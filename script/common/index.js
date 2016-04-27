@@ -26,7 +26,7 @@ var viewModelIndex = function() {
 	}
 
 	mui.plusReady(function() {
-		common.autoRefreshMessage(600000);
+		common.autoRefreshMessage(60000);
 		common.getPushInfo();
 		common.getLocalVersion();
 		common.getAllSubjectsStr();

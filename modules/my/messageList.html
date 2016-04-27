@@ -49,10 +49,7 @@
 							top: topPx,
 							bottom: '0px'
 						}
-					}],
-					beforeback: function() {
-						common.refreshMessage();
-					}
+					}]
 				});
 			})
 			var startEdit = false;
@@ -102,6 +99,15 @@
 					}
 				}
 			});
+			
+			var old_back=mui.back;
+			mui.back=function(){
+				plus.nativeUI.showWaiting();
+				common.refreshMessage(function(){
+					plus.nativeUI.closeWaiting();
+					old_back();
+				});
+			}
 		</script>
 	</body>
 

@@ -85,12 +85,14 @@ var viewModel = function() {
 				tmp.SubjectID = event.detail.SubjectID;
 				//console.log(typeof tmp);
 				self.courses.replace(item, tmp);
+				console.log('课程列表刷新');
 				//console.log(JSON.stringify(self.courses()));
 			}
 		});
 	});
 	
 	window.addEventListener('refreshCourseList', function(event) {
+		
 		if (event.detail.course!="" && typeof event.detail.course!="undefined") {
 			self.courses(self.courses().concat(event.detail.course));
 		}

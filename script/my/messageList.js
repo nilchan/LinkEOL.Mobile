@@ -8,7 +8,7 @@ var message_notification = function() {
 	self.isEdit = ko.observable(false); //是否编辑
 	var thisWeb;
 	//获取消息
-	self.getMessage = function(callback) {
+	self.getMessage = function() {
 		plus.runtime.setBadgeNumber(0);
 		mui.ajax(common.gServerUrl + "API/Message/GetMyMessage?receiver=" + receiverId + "&page=" + pageNum, {
 			dataType: 'json',
@@ -24,10 +24,8 @@ var message_notification = function() {
 				mui('#pullrefresh').pullRefresh().refresh(true); //重置上拉加载
 				if (responseText.length > 0)
 					setLocalItem("msgLastTime", responseText[responseText.length - 1].SendTime);
-				if(typeof callback =='function'){
-					callback();	
-				}
 				
+
 			}
 		})
 	}
@@ -268,39 +266,54 @@ var message_notification = function() {
 
 	//设置为已读
 	self.setRead = function() {
+		var readArrayID = [];
 		var readArray = [];
 		self.messages().forEach(function(item) {
 			if (item.ischeckout()) {
-				readArray.push(item.ID);
+				readArrayID.push(item.ID);
+				readArray.push(item);
 			}
 		})
-		if (readArray.length == 0) {
+		if (readArrayID.length == 0) {
 			mui.toast('请至少选中一条消息');
 			return;
 		}
 		mui.ajax(common.gServerUrl + 'API/Message/UpdateMsgRead', {
 			type: 'PUT',
 			contentType: "application/json",
-			data: JSON.stringify(readArray),
+			data: JSON.stringify(readArrayID),
 			success: function(responseText) {
 				//self.messages([]);
 				self.isEdit(false);
-				mui.fire(thisWeb.opener(),'refreshEdit');
-				self.getMessage(function(){
+				mui.fire(thisWeb.opener(), 'refreshEdit');
+				/*self.getMessage(function(){
 					mui.toast('成功设置为已读');
-				});
-				
-				
+				});*/
+				for (var i = 0; i < self.messages().length; i++) {
+					for (var a = 0; a < readArray.length; a++) {
+						if (self.messages()[i].ID == readArray[a].ID) {
+							//self.messages.remove(deleteArray[a]);
+							var tmp = common.clone(self.messages()[i]);
+							tmp.IsRead = true;
+							self.messages.replace(self.messages()[i], tmp);
+
+						}
+					}
+				}
+				mui.toast('成功设置为已读');
+
 			}
 		})
 	}
 
 	//删除消息
 	self.removeMess = function() {
-		var readArray = [];
+		var deleteArrayID = [];
+		var deleteArray = [];
 		self.messages().forEach(function(item) {
 			if (item.ischeckout()) {
-				readArray.push(item.ID);
+				deleteArray.push(item);
+				deleteArrayID.push(item.ID);
 			}
 		})
 		if (readArray.length == 0) {
@@ -314,22 +327,19 @@ var message_notification = function() {
 				mui.ajax(common.gServerUrl + 'API/Message/Delete2', {
 					type: 'DELETE',
 					contentType: "application/json",
-					data: JSON.stringify(readArray),
+					data: JSON.stringify(deleteArrayID),
 					success: function(responseText) {
 						//self.messages([]);
 						self.isEdit(false);
-						mui.fire(thisWeb.opener(),'refreshEdit');
-						self.getMessage(function(){
-							mui.toast('成功删除消息');
-						});
-						/*for(var i=0;i<self.messages().length;i++){
-							for(var a=0;a<readArray.lenth;a++){
-								if(self.messages()[i].ID==readArray[a].ID){
-									self.messages.remove(readArray[a]);
+						mui.fire(thisWeb.opener(), 'refreshEdit');
+						for (var i = 0; i < self.messages().length; i++) {
+							for (var a = 0; a < deleteArray.length; a++) {
+								if (self.messages()[i].ID == deleteArray[a].ID) {
+									self.messages.remove(deleteArray[a]);
 								}
 							}
-						}*/
-						//mui.toast('成功删除消息');
+						}
+						mui.toast('成功删除消息');
 
 					}
 				})
@@ -337,17 +347,17 @@ var message_notification = function() {
 		});
 
 	}
-	
+
 	//监听是否可以编辑
-	window.addEventListener('canEdit',function(){
-		if(self.messages().length<=0){
-			mui.fire(thisWeb.opener(),'getCanEdit',{
-				canEdit:false
+	window.addEventListener('canEdit', function() {
+		if (self.messages().length <= 0) {
+			mui.fire(thisWeb.opener(), 'getCanEdit', {
+				canEdit: false
 			});
 			mui.toast('没有消息可以编辑~');
-		}else{
-			mui.fire(thisWeb.opener(),'getCanEdit',{
-				canEdit:true
+		} else {
+			mui.fire(thisWeb.opener(), 'getCanEdit', {
+				canEdit: true
 			});
 		}
 	});
@@ -361,7 +371,7 @@ var message_notification = function() {
 		})
 
 	});
-	
+
 	//监听全选事件
 	window.addEventListener('checkMess', function(event) {
 		var isAllCheckout = event.detail.isAllCheckout
@@ -382,7 +392,7 @@ var message_notification = function() {
 	});
 
 	mui.plusReady(function() {
-		thisWeb=plus.webview.currentWebview();
+		thisWeb = plus.webview.currentWebview();
 		if (receiverId > 0) {
 			self.getMessage();
 		}

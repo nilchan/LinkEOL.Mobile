@@ -2,18 +2,20 @@ var myUserAttented = function() {
 	var self = this;
 	self.worksCollectionList = ko.observableArray([]); //关注我的人列表
 	self.PageWorks = ko.observable(1); //作品页码
+	var ajaxUrl = common.gServerUrl + 'API/Action?userId=' + getLocalItem('UserID') + '&targetType=' +
+			common.gDictActionTargetType.Works + '&page=' + self.PageWorks() + '&pageSize=999';
 	//mui.init();
 
-	self.workCollection = function() {
+	self.workCollection = function(callback) {
 		//未做分页，因此第一页显示999个
-		var ajaxUrl = common.gServerUrl + 'API/Action?userId=' + getLocalItem('UserID') + '&targetType=' +
-			common.gDictActionTargetType.Works + '&page=' + self.PageWorks() + '&pageSize=999';
 		mui.ajax(ajaxUrl, {
 			type: 'GET',
 			success: function(responseText) {
 				var favWorks = JSON.parse(responseText);
 				self.worksCollectionList(favWorks);
-				common.showCurrentWebview();
+				/*common.showCurrentWebview();*/
+				if(callback!==''&& typeof callback ==='function')
+					callback()
 			}
 		});
 	}
@@ -32,13 +34,15 @@ var myUserAttented = function() {
 	self.gotoAllWorks = function() {
 		common.transfer("../works/worksListAllHeader.html", true, {}, false, false);
 	};
-	
-	window.addEventListener('refreshCollection',function(event){
+
+	window.addEventListener('refreshCollection', function(event) {
 		self.workCollection();
 	});
 
 	mui.plusReady(function() {
-		self.workCollection();
+		self.workCollection(function(){
+			common.showCurrentWebview();
+		});
 	})
 }
 ko.applyBindings(myUserAttented);

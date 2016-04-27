@@ -5,7 +5,7 @@ var informationList = function() {
 	self.newsList = ko.observableArray([]); //列表数组
 	self.userName = ko.observable('我');
 	self.displayCheck = ko.observable(false);
-	self.isAuthor = ko.observable('false');
+	self.isAuthor = ko.observable(false);
 	
 	//限制行数
 	self.clampText = function() {

@@ -18,7 +18,7 @@ var register = function() {
 	self.inviteCodeStyle=ko.observable('reg-code-error');//邀请码提示语样式，默认为false样式
 	self.inviteCodeText=ko.observable('邀请码无效');//邀请码提示语
 	self.placeholderText=ko.observable('请输入邀请码(若无可不填)');
-	
+	self.showVerify = ko.observable(true);
 
 	/*
 	 * registerInfo 相关绑定
@@ -159,7 +159,7 @@ var register = function() {
 			mui.toast('手机号不能为空');
 			return;
 		}
-		if (self.CheckNum() == "") {
+		if (self.CheckNum() == "" && self.showVerify()) {
 			mui.toast('验证码不能为空');
 			return;
 		}
@@ -190,10 +190,17 @@ var register = function() {
 			Password: self.Password(),
 			UserType: self.UserType(),
 			VerifyCode: self.CheckNum(),
-			InviteCode:inviteCode
+			InviteCode:inviteCode,
+			Province: decodeURI(self.Province()),
+			City: decodeURI(self.City()),
+			District: decodeURI(self.District())
 		};
 		if(common.gDictUserType.teacher==self.UserType()){
 			data.SubjectID=self.SubjectID();
+		}
+		
+		if( self.showVerify() === false ) {
+			data.VerifyCode = '';
 		}
 		
 		mui.ajax(common.gServerUrl + "API/Account/CheckAccount?userName=" + self.UserName() + "&exists=false&verifyCode=" + self.CheckNum(), {
@@ -277,6 +284,11 @@ var register = function() {
 	self.address = function() {
 		mui.plusReady(function() {
 			self.places.show(function(items) {
+				if( items[0].value > 700000 ) {
+					self.showVerify(false);
+				} else {
+					self.showVerify(true);
+				}
 				cityValueMon = (items[0] || {}).text + " " + common.StrIsNull((items[1] || {}).text) + " " + common.StrIsNull((items[2] || {}).text);
 				self.Province(cityValueMon.split(" ")[0]);
 				self.City(cityValueMon.split(" ")[1]);
@@ -354,6 +366,10 @@ var register = function() {
 			Introduce: self.Introduce(),
 			InviteCode:inviteCode
 		};
+		if( self.showVerify() === false ) {
+			data.VerifyCode = '';
+		}
+		mui.toast(data.Province + '~' + data.City + '~' + data.District);
 		if (self.Base64() != '') {
 			data.PhotoBase64 = self.Base64();
 		}

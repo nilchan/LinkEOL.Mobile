@@ -132,6 +132,7 @@ var registeredList = function() {
 
 		self.dispList().forEach(function(item){
 			item.Checked(!status);
+			console.log(item.Checked());
 		})
 	}
 

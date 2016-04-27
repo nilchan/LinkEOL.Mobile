@@ -12,7 +12,7 @@ var home = function() {
 	self.slideshowEndUrl = ko.observable();
 	self.slideshowEndPic = ko.observable();
 	self.activitys = ko.observableArray([]);
-	self.newsTitleArray =ko.observableArray([]);
+	self.newsTitleArray = ko.observableArray([]);
 
 	self.getTeachers = function() {
 		mui.ajax(common.gServerUrl + "API/Teacher/GetIndexTeachers?count=" + self.count, {
@@ -27,7 +27,7 @@ var home = function() {
 			}
 		});
 	};
-	
+
 	//跳转新闻列表
 	self.gotoNewsList = function() {
 		common.transfer('../news/newsListHeader.html', false, {}, false, false);
@@ -35,7 +35,7 @@ var home = function() {
 
 	self.clampDes = function() {
 		var intros = document.getElementsByClassName('teacher-list-p1');
-		var introsLen=intros.length;
+		var introsLen = intros.length;
 		for (var i = 0; i < introsLen; i++) {
 			$clamp(intros[i], {
 				clamp: 2
@@ -48,10 +48,8 @@ var home = function() {
 			aid: 73
 		});
 	}
-	
-	
-	
-	self.goHelp=function(){
+
+	self.goHelp = function() {
 		common.transfer('userGuide.html', false);
 	}
 
@@ -72,10 +70,10 @@ var home = function() {
 	//跳转至消息页面
 	self.goMessageList = function() {
 		common.gotoMessage();
-//		var page5 = common.getIndexChild(4);
-//		if (page5) {
-//			mui.fire(page5, 'refreshMessageStatusFalse', {});
-//		}
+		//		var page5 = common.getIndexChild(4);
+		//		if (page5) {
+		//			mui.fire(page5, 'refreshMessageStatusFalse', {});
+		//		}
 	}
 
 	//获取未读消息数量
@@ -101,10 +99,11 @@ var home = function() {
 
 	self.gotoTeacherTest = function() {
 		//teacherTest.show();
-		if(typeof teacherTest=='undefined'){
+		/*if(typeof teacherTest=='undefined'){
 			teacherTest = common.preload('../../modules/teacher/teacherListHeader.html', {}, 'teacherListHeader.html')
 		}
-		teacherTest.show();
+		teacherTest.show();*/
+		common.transfer('../../modules/teacher/teacherListHeader.html', false, {},false,false,'teacherListHeader.html');
 	}
 
 	self.initSlidershow = function() {
@@ -142,14 +141,14 @@ var home = function() {
 			}
 		});
 	};
-	
+
 	//首页新闻资讯轮播
-	self.getHeadlineNewsList=function(){
-		var ajaxUrl=common.gServerUrl+'Common/News/GetHeadlineNewsList';
-		mui.ajax(ajaxUrl,{
-			type:'GET',
-			success:function(responseText){
-				var result=JSON.parse(responseText);
+	self.getHeadlineNewsList = function() {
+		var ajaxUrl = common.gServerUrl + 'Common/News/GetHeadlineNewsList';
+		mui.ajax(ajaxUrl, {
+			type: 'GET',
+			success: function(responseText) {
+				var result = JSON.parse(responseText);
 				self.newsTitleArray(result);
 				self.newsTitleArray.push(result[0]);
 			}
@@ -192,11 +191,10 @@ var home = function() {
 				self.getHeadlineNewsList();
 				common.showCurrentWebview();
 				plus.navigator.closeSplashscreen(); //关闭启动界面
-				teacherTest = common.preload('../../modules/teacher/teacherListHeader.html', {}, 'teacherListHeader.html')
+				//teacherTest = common.preload('../../modules/teacher/teacherListHeader.html', {}, 'teacherListHeader.html')
 			}
 		});
 	};
-
 
 	self.gotoweb = function(ss) {
 		if (common.StrIsNull(ss.Url) == "") {
@@ -233,7 +231,7 @@ var home = function() {
 	var teacherList;
 	mui.plusReady(function() {
 		$A.gC('index-banner')[0].style.height = document.body.clientWidth * 7 / 15 + 'px';
-//		plus.runtime.setBadgeNumber(0);
+		//		plus.runtime.setBadgeNumber(0);
 		/*self.getSlideshow();
 		self.getTeachers();
 		self.getActivity();*/
@@ -244,7 +242,7 @@ var home = function() {
 	mui.back = function() {
 		common.confirmQuit();
 	}
-	
+
 	window.addEventListener("refreshMessage", function(event) {
 		self.UnreadCount(event.detail.count);
 	});

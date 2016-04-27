@@ -29,7 +29,8 @@
 			}
 			
 			.mui-bar-nav ~ .mui-content .mui-pull-top-pocket {
-				top: 138px !important;
+				/*top: 138px !important;*/
+				top: 44px !important;
 			}
 			
 			.mui-bar-tab .ah-mui-tab-item {
@@ -205,6 +206,7 @@
 		<script src="../../script/libs/jquery.min.js"></script>
 		<script type="text/javascript">
 			mui.plusReady(function() {
+				var thisWeb = plus.webview.currentWebview();
 				var contentWebview = null;
 				document.querySelector('#filtrate-icon').addEventListener('tap', function() {
 					if (contentWebview == null) {
@@ -231,12 +233,34 @@
 					work = web.works;
 					display = web.displayCheck;
 				}
+				
 				udata = web.data;
 				var topPx = '45px';
 				if (plus.os.vendor == 'Apple') {
 					topPx = '60px';
 				}
-				mui.init({
+				
+				var pageAll = mui.preload({
+					url: "teacherList.html",
+					id: "teacherListID",
+					styles: {
+						top: topPx,
+						bottom: '0px',
+					},
+					extras: {
+							displayCheck: display,
+							works: work,
+							data: udata
+					},
+					show: {
+						autoShow: false,
+						aniShow: "slide-in-right",
+						duration: "100ms"
+					}
+				});
+				//plus.nativeUI.showWaiting();
+				thisWeb.append(pageAll);
+				/*mui.init({
 					subpages: [{
 						url: 'teacherList.html',
 						id: 'teacherListID',
@@ -250,69 +274,60 @@
 							data: udata
 						}
 					}]
-				});
-				
-				
+				});*/
 				//--搜索功能--
-	var t;
-	$('#seachInput').bind('input propertychange', function() {
-		clearTimeout(t);
-		t = setTimeout(function() {
-			seachValueEvent();
-		}, 1000);
-		
-	});
+				var t;
+				$('#seachInput').bind('input propertychange', function() {
+					clearTimeout(t);
+					t = setTimeout(function() {
+						seachValueEvent();
+					}, 1000);
+				});
+				$('#seachBtn').click(function() {
+					$('#input-search').toggleClass('list-search-show');
+					$('#input-search').toggleClass('list-search-hide');
+					$('.myAttention-bg-color').toggle();
+					$('#seachBtn').hide();
+					$('#seachBtnHide').show();
+					if ($('#input-search').hasClass('list-search-show')) {
+						$('#seachInput').focus();
+					}
+				});
+				$('#seachBtnHide').click(function() {
+					$('#seachInput').blur();
+				});
+				$(document).on('tap', '.mui-icon-clear', function() {
+					seachValueEvent();
+				});
+				$('#seachInput').blur(function() {
+					$('#input-search').removeClass('list-search-show');
+					$('#input-search').addClass('list-search-hide');
+					$('.myAttention-bg-color').show();
+					$('#seachBtn').show();
+					$('#seachBtnHide').hide();
+				});
 
-	$('#seachBtn').click(function() {
-		$('#input-search').toggleClass('list-search-show');
-		$('#input-search').toggleClass('list-search-hide');
-		$('.myAttention-bg-color').toggle();
-		$('#seachBtn').hide();
-		$('#seachBtnHide').show();
-		if ($('#input-search').hasClass('list-search-show')) {
-			$('#seachInput').focus();
-		}
-	});
-	
-	$('#seachBtnHide').click(function(){
-		$('#seachInput').blur();
-	});
+				function hiddenSeacher() {
+					$('#seachInput').blur();
+					$('#seachInput').val("");
+					seachValueEvent();
+				}
 
-	$(document).on('tap', '.mui-icon-clear', function() {
-		seachValueEvent();
-	});
-
-	$('#seachInput').blur(function() {
-		$('#input-search').removeClass('list-search-show');
-		$('#input-search').addClass('list-search-hide');
-		$('.myAttention-bg-color').show();
-		$('#seachBtn').show();
-		$('#seachBtnHide').hide();
-	});
-	
-	function hiddenSeacher() {
-		$('#seachInput').blur();
-		$('#seachInput').val("");
-		seachValueEvent();
-	}
-
-	function seachValueEvent() {
-		var contentWebview = null;
-		var seachValue = document.getElementById("seachInput").value;
-		if (contentWebview == null) {
-			contentWebview = plus.webview.currentWebview().children()[0];
-		}
-		mui.fire(contentWebview, 'seachEvent', {
-			seachValue: seachValue
-		});
-	}
-
-	var old_back = mui.back;
-	mui.back = function() {
-		old_back();
-		hiddenSeacher();
-	}
-	//--搜索功能--
+				function seachValueEvent() {
+					var contentWebview = null;
+					var seachValue = document.getElementById("seachInput").value;
+					if (contentWebview == null) {
+						contentWebview = plus.webview.currentWebview().children()[0];
+					}
+					mui.fire(contentWebview, 'seachEvent', {
+						seachValue: seachValue
+					});
+				}
+				var old_back = mui.back;
+				mui.back = function() {
+					old_back();
+					hiddenSeacher();
+				}
 			});
 		</script>
 

@@ -57,7 +57,6 @@ var viewModel = function() {
 				var result = eval("(" + responseText + ")");
 				self.teacherList([]);
 				result.forEach(function(item) {
-
 					var obj = {
 						info: item,
 						selected: ko.observable(false)
@@ -77,7 +76,7 @@ var viewModel = function() {
 					mui.toast('你还没有添加授课老师！');
 					mui.back();
 				}
-				//common.showCurrentWebview();
+				common.showCurrentWebview();
 				//self.teacherList(result);
 			}
 		});
@@ -99,6 +98,7 @@ var viewModel = function() {
 	});
 	//下拉刷新
 	function pulldownRefresh() {
+		//console.log(1);
 		setTimeout(function() {
 			//pageID++;
 			pageID = 1;

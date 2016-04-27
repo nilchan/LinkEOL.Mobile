@@ -945,10 +945,11 @@
 		mui.fire(orderWeb, 'refreshOrderInfo');
 	},
 
-	refreshMessage: function() {
+	refreshMessage: function(callback) {
 		var page1 = common.getIndexChild(0);
 		var page4 = common.getIndexChild(4);
 		common.getUnreadCount(function(count) {
+			//console.log(count);
 			plus.runtime.setBadgeNumber(count);
 			mui.fire(page1, 'refreshMessage', {
 				count: count
@@ -956,6 +957,9 @@
 			mui.fire(page4, 'refreshMessage', {
 				count: count
 			});
+			if(callback!=='' && typeof callback==='function'){
+				callback();
+			}
 		});
 	},
 	

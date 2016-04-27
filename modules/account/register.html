@@ -76,11 +76,15 @@
 						<label>用户类型</label>
 						<button id='selectUserPicker' class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:UserTypeText,event:{click:setUserType}"></button>
 					</div>
+					<div class="mui-input-row reg-mui-input-row th-mui-input-row">
+						<label>位置</label>
+						<button id='selectUserPicker' class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:Place,event:{click:address}"></button>
+					</div>
 					<div class="mui-input-row reg-mui-input-row">
 						<label>手机号码</label>
 						<input type="text" onfocus="this.type='number'" onblur="this.type='text'" class="mui-input-clear mui-input reg-mui-input" placeholder="请输入手机号码" data-bind="value:UserName">
 					</div>
-					<div class="mui-input-row reg-mui-input-row">
+					<div class="mui-input-row reg-mui-input-row" data-bind="visible: showVerify">
 						<label>验证码</label>
 						<input type="text" onfocus="this.type='number'" onblur="this.type='text'" class="mui-input reg-mui-input" placeholder="请输入验证码" data-bind="value:CheckNum">
 						<em data-bind="click:getVerifyCode, css:{disabled: RemainTime() > 0}, enable: RemainTime() <= 0">获取验证码<span data-bind="text:'('+RemainTime()+')', visible: RemainTime() > 0"></span></em>
