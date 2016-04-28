@@ -189,6 +189,17 @@ var newsDetail=function(){
 	
 //	newsID = 149;
 //	self.getNewsDetail();
+	mui.init({
+		beforeback:function(){
+			var thisWeb=plus.webview.currentWebview();
+			mui.fire(thisWeb.opener(),'refreshValue',{
+				newsID:self.newsDetail().newsID(),
+				LikeCount:self.newsDetail().LikeCount()
+			})
+			return true;
+		}
+	})
+	
 	
 	mui.plusReady(function(){
 		Share.updateSerivces(); //初始化分享

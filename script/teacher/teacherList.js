@@ -37,7 +37,6 @@ var viewModel = function() {
 
 	self.subjectSelect = ko.observableArray([]);
 
-
 	self.clampText = function() {
 		var intros = document.getElementsByClassName('teacher-list-p1');
 		for (var i = 0; i < intros.length; i++) {
@@ -56,6 +55,8 @@ var viewModel = function() {
 			success: function(responseText) {
 				var result = eval("(" + responseText + ")");
 				self.teacherList([]);
+				document.getElementById('listTeachers').style.display = "";
+				document.getElementById('barOp').style.display = self.displayCheck() ? '' : 'none';
 				result.forEach(function(item) {
 					var obj = {
 						info: item,
@@ -77,6 +78,7 @@ var viewModel = function() {
 					mui.back();
 				}
 				common.showCurrentWebview();
+				plus.nativeUI.closeWaiting();
 				//self.teacherList(result);
 			}
 		});
@@ -185,14 +187,25 @@ var viewModel = function() {
 		//mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
 
 	}
-
+	
+	//事件
+	var cacelStopped = function() {
+		var _popover = document.querySelector('.mui-popover.mui-active');
+		if( _popover ) {
+			return ;
+		} else {
+			mui('#pullrefresh').pullRefresh().setStopped(false);
+			this.removeEventListener('webkitTransitionEnd', cacelStopped);
+		}
+	}
+	
 	if (mui.os.plus) {
 		mui.plusReady(function() {
 			if (plus.os.vendor == 'Apple') {
 				mui('.mui-scroll-wrapper').scroll();
-				mui('#down-nav2').scroll();
-				mui('#down-nav3').scroll();
 			}
+			mui('#down-nav2').scroll();
+			mui('#down-nav3').scroll();
 		});
 	}
 
@@ -293,12 +306,10 @@ var viewModel = function() {
 			} else {
 				return common.gServerUrl + "API/Teacher/GetFamousTeacherList?UserID=" + getLocalItem('UserID') + "&page=" + pageID;
 
-
 			}
 		}
 
 		return thisUrl + curl;
-
 
 	}
 
@@ -420,6 +431,8 @@ var viewModel = function() {
 			$('#subject-nav').removeClass('select-current-1');
 		});
 		$('#subject-nav-list').click(function(event) {
+			document.getElementById('pull-down-nav').addEventListener('webkitTransitionEnd', cacelStopped);
+			mui('#pullrefresh').pullRefresh().setStopped(true);
 			$('#down-nav3').hide();
 			$('#down-nav3').show();
 		});

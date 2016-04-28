@@ -239,8 +239,7 @@
 				if (plus.os.vendor == 'Apple') {
 					topPx = '60px';
 				}
-				
-				var pageAll = mui.preload({
+				/*var pageAll = mui.preload({
 					url: "teacherList.html",
 					id: "teacherListID",
 					styles: {
@@ -257,13 +256,16 @@
 						aniShow: "slide-in-right",
 						duration: "100ms"
 					}
-				});
+				});*/
 				//plus.nativeUI.showWaiting();
-				thisWeb.append(pageAll);
-				/*mui.init({
+				//thisWeb.append(pageAll);
+				//console.log(JSON.stringify(pageAll));
+				common.showCurrentWebview();
+				plus.nativeUI.showWaiting();
+				mui.init({
 					subpages: [{
-						url: 'teacherList.html',
-						id: 'teacherListID',
+						url: "teacherList.html",
+						id: "teacherListID",
 						styles: {
 							top: topPx,
 							bottom: '0px'
@@ -272,9 +274,14 @@
 							displayCheck: display,
 							works: work,
 							data: udata
+						},
+						show:{
+							autoShow:false,//页面loaded事件发生后自动显示，默认为true
 						}
+						
 					}]
-				});*/
+				});
+				
 				//--搜索功能--
 				var t;
 				$('#seachInput').bind('input propertychange', function() {

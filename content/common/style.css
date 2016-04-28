@@ -2137,8 +2137,8 @@ li {
 	width: 100%;
 }
 .works-content-dow span {
-	color: #e64578!important;
-	font-size: 16px;
+	color: #666!important;
+	font-size: 14px;
 	height: 32px;
 	line-height: 45px;
 	width: 100%;
@@ -4714,12 +4714,14 @@ li {
 
 /*---点评详情----*/
 .works-content-dow textarea {
-	min-height: 6rem;
+	min-height: 70px;
 	border: 1px solid #C8C7CC;
 	width: 87%;
+	font-size: 14px;
 	margin-left: 5%;
-	margin-top: 12px;
-	padding: 12px;
+	margin-top:5px;
+	padding:12px;
+	line-height: 24px;
 	box-sizing: border-box;
 }
 .reviewInfo-content {
@@ -4731,7 +4733,8 @@ li {
 	text-align: center;
 }
 .works-content-dow .t-comment {
-	color: #d2000a!important;
+	color: #666!important;
+	font-weight: 600;
 }
 .comment-top {
 	margin-top: 0px!important;

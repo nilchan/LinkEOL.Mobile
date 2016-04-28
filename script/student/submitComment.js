@@ -84,7 +84,7 @@ var viewModel = function() {
 		var msgTitle = '点评确认';
 		if(self.isHomeWork()){
 			msgText = '已交过这个作业给该老师，是否再次提交？';
-			msgText = '交作业确认';
+			msgTitle = '交作业确认';
 		}
 		var btnArray = ['是', '否'];
 		mui.confirm(msgText, msgTitle, btnArray, function(e) {
@@ -188,7 +188,7 @@ var viewModel = function() {
 			orderID, function(newOrderID, expireMinutes){
 				orderID = newOrderID;
 			}, function(){
-				mui.back();
+				//mui.back();
 				common.transfer('../works/worksListMyHeader.html', true, {}, false, false);
 			});
 	};

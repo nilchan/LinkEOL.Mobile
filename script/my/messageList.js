@@ -316,7 +316,7 @@ var message_notification = function() {
 				deleteArrayID.push(item.ID);
 			}
 		})
-		if (readArray.length == 0) {
+		if (deleteArrayID.length == 0) {
 			mui.toast('请至少选中一条消息');
 			return;
 		}

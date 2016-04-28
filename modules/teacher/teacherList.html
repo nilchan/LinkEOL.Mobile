@@ -292,7 +292,7 @@
 				<div id="teacher-scroll" class="mui-scroll">
 					<!--教师显示页-->
 					<ul class="mui-input-group">
-						<div data-bind="foreach:{data:teacherList, as:'teacher'}">
+						<div id="listTeachers" style="display: none;" data-bind="foreach:{data:teacherList, as:'teacher'}">
 							<div data-bind="css: (selected() ? 'teacher-list-check-bgColor ' : '') + 'p-teacher-list mui-table-view-cell'">
 								<a href="javascript:void(0);" data-bind="event:{tap:clickOne}">
 									<span class="teacherList-sc" data-bind="visible: teacher.info.IsFavorite">已关注</span>
@@ -320,7 +320,7 @@
 				</div>
 			</div>
 
-			<nav class="mui-bar mui-bar-tab" data-bind="visible: displayCheck">
+			<nav id="barOp" class="mui-bar mui-bar-tab" style="display: none;" data-bind="visible: displayCheck">
 				<a class="ah-mui-tab-item mui-active works-list-mui-tab-label mui-action-back">
 					<span class="mui-tab-label ">取消</span>
 				</a>

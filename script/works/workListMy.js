@@ -51,7 +51,6 @@ var workListMy = function() {
 			type: 'GET',
 			success: function(responseText) {
 				var result = eval("(" + responseText + ")");
-				//console.log(responseText);
 				self.worksList.removeAll(); //先移除所有
 				if (result && result.length > 0) {
 					result.forEach(function(item) {

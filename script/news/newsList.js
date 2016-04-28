@@ -42,6 +42,7 @@ var informationList = function() {
 				callback: pullupRefresh
 			}
 		}
+		
 	});
 	
 	//下拉刷新
@@ -118,6 +119,18 @@ var informationList = function() {
 	
 	window.addEventListener("refreshNews", function(event) {
 		self.getNewsList();
+	});
+	
+	window.addEventListener("refreshValue", function(event) {
+		if(typeof event.detail.newsID !=='undefined'){
+			self.newsList().forEach(function(item){
+				if(item.ID==event.detail.newsID){
+					var tmp = common.clone(item);
+						tmp.LikeCount = event.detail.LikeCount;
+						self.newsList.replace(item, tmp);
+				}
+			})
+		}
 	});
 	
 	self.getNewsList();

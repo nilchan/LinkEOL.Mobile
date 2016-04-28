@@ -147,13 +147,25 @@ var workListAll = function() {
 			};
 		}, 1500);
 	};
+	
+		//事件
+	var cacelStopped = function() {
+		var _popover = document.querySelector('.mui-popover.mui-active');
+		if( _popover ) {
+			return ;
+		} else {
+			mui('#pullrefresh').pullRefresh().setStopped(false);
+			this.removeEventListener('webkitTransitionEnd', cacelStopped);
+		}
+	}
+	
 	if (mui.os.plus) {
 		mui.plusReady(function() {
 			if (plus.os.vendor == 'Apple') {
 				mui('.mui-scroll-wrapper').scroll();
+			}
 				mui('#down-nav2').scroll();
 				mui('#down-nav3').scroll();
-			}
 		});
 	}
 
@@ -337,6 +349,8 @@ var workListAll = function() {
 			$('#subject-nav').removeClass('select-current-1');
 		});
 		$('#subject-nav-list').click(function(event) {
+			document.getElementById('pull-down-nav').addEventListener('webkitTransitionEnd', cacelStopped);
+			mui('#pullrefresh').pullRefresh().setStopped(true);
 			$('#down-nav3').hide();
 			$('#down-nav3').show();
 		});

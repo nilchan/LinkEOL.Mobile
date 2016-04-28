@@ -8,7 +8,7 @@ var worksHeader = function() {
 
 	mui.plusReady(function() {
 		workIndex = plus.webview.currentWebview();
-
+		console.log(workIndex);
 		if (getLocalItem('UserType') == common.gDictUserType.student) {
 			self.workTitle('我的作业');
 		} else {
