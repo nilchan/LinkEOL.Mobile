@@ -107,7 +107,7 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 				common.refreshMyValue({
 					valueType: 'balance',
 				});
-				mui('#middlePopover').popover("toggle");
+				//mui('#middlePopover').popover("hide");
 				common.refreshOrder();//刷新订单
 				successPayCB();
 			} else {
