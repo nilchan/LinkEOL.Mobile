@@ -15,12 +15,13 @@ var recharge = function() {
 				var result = JSON.parse(responseText);
 				self.payList(result);
 				self.payList().forEach(function(item){
-					if( self.targetID() == item.TargetID ) {
+					if( self.targetID() == item.ID ) {
 						orderError = false;
 					}
 					if( orderError && self.targetID() != 0 ) {
-						alert('充值订单套餐信息已失效！');
+						alert('该订单的充值套餐已失效！');
 						mui.back();
+						return;
 					}
 				});
 			}
