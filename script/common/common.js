@@ -946,6 +946,7 @@
 	},
 
 	refreshMessage: function(callback) {
+		if( plus.networkinfo.getCurrentType() <= 1 ) return ;
 		var page1 = common.getIndexChild(0);
 		var page4 = common.getIndexChild(4);
 		common.getUnreadCount(function(count) {

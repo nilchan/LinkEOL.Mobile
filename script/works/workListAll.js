@@ -16,7 +16,7 @@ var workListAll = function() {
 	var count = 0; //上拉刷新检测次数
 	self.sortList = ko.observableArray([]);
 	self.workType = ko.observable([]);
-	self.workUserType=ko.observable('');//当前作品的用户大类  (学生 or 老师)
+	self.workUserType = ko.observable(''); //当前作品的用户大类  (学生 or 老师)
 	common.gJsonWorkTypeTeacher.unshift({
 		value: 0,
 		text: "全部"
@@ -34,7 +34,7 @@ var workListAll = function() {
 	self.IsFamous = ko.observable(-1); //是否为名师，0 为专业老师，1为名师    默认全部老师
 	self.subjectSelect = ko.observableArray([]);
 	var currentClasses = -1;
-	self.worksLength=ko.observable(0);
+	self.worksLength = ko.observable(0);
 
 	//初始化界面
 	mui.init({
@@ -147,25 +147,25 @@ var workListAll = function() {
 			};
 		}, 1500);
 	};
-	
-		//事件
-	var cacelStopped = function() {
-		var _popover = document.querySelector('.mui-popover.mui-active');
-		if( _popover ) {
-			return ;
-		} else {
-			mui('#pullrefreshAll').pullRefresh().setStopped(false);
-			this.removeEventListener('webkitTransitionEnd', cacelStopped);
-		}
-	}
-	
+
+	//事件
+//	var cacelStopped = function() {
+//		var _popover = document.querySelector('.mui-popover.mui-active');
+//		if (_popover) {
+//			return;
+//		} else {
+//			mui('#pullrefreshAll').pullRefresh().setStopped(false);
+//			this.removeEventListener('webkitTransitionEnd', cacelStopped);
+//		}
+//	}
+
 	if (mui.os.plus) {
 		mui.plusReady(function() {
 			if (plus.os.vendor == 'Apple') {
 				mui('.mui-scroll-wrapper').scroll();
 			}
-				mui('#down-nav2').scroll();
-				mui('#down-nav3').scroll();
+			mui('#down-nav2').scroll();
+			mui('#down-nav3').scroll();
 		});
 	}
 
@@ -251,8 +251,6 @@ var workListAll = function() {
 			}
 		}
 	}
-	
-	
 
 	mui.plusReady(function() {
 		//活动作品
@@ -261,7 +259,7 @@ var workListAll = function() {
 		removeLocalItem('tmp.activityWorkID'); //及时清除，否则在所有作品那里会有问题
 		if (typeof thisWeb.workUserType != "undefined") {
 			self.workUserType(thisWeb.workUserType);
-  			if (self.workUserType() == common.gDictUserType.teacher) {
+			if (self.workUserType() == common.gDictUserType.teacher) {
 				self.workType(common.gJsonWorkTypeTeacher);
 			} else {
 				self.workType(0);
@@ -271,7 +269,6 @@ var workListAll = function() {
 			self.IsFamous(thisWeb.IsFamous);
 		}
 
-
 		self.getWorks();
 		self.tmplSubjectClasses(common.getAllSubjectClasses());
 		self.tmplSubjects(common.getAllSubjects());
@@ -280,7 +277,7 @@ var workListAll = function() {
 		}
 	});
 
-	window.addEventListener('refreshwoks', function(event) {//刷新作品赞
+	window.addEventListener('refreshwoks', function(event) { //刷新作品赞
 		self.works().forEach(function(item) {
 			var tmp = common.clone(item);
 			if (item.ID == event.detail.worksId) {
@@ -289,7 +286,7 @@ var workListAll = function() {
 			}
 		});
 	});
-	window.addEventListener('refreshAllworks',function(event) {//作品删除
+	window.addEventListener('refreshAllworks', function(event) { //作品删除
 		if (event.detail.worksStatus) {
 			self.works().forEach(function(item) {
 				if (item.ID == event.detail.worksId) {
@@ -298,27 +295,33 @@ var workListAll = function() {
 			});
 		}
 	});
-	
-	window.addEventListener('seachworks', function(event) {//作品搜索
+
+	window.addEventListener('seachworks', function(event) { //作品搜索
 		seachValue = event.detail.seachValue;
 		page = 1; //还原为显示第一页
 		count = 0; //还原刷新次数
 		mui('#pullrefreshAll').pullRefresh().refresh(true);
 		self.getWorks();
 	});
-	
-	window.addEventListener('reloadWorks', function(event) {//作品搜索
+
+	window.addEventListener('reloadWorks', function(event) { //作品搜索
 		page = 1; //还原为显示第一页
 		count = 0; //还原刷新次数
 		mui('#pullrefreshAll').pullRefresh().refresh(true);
 		self.getWorks();
 	});
 
+	document.getElementById('pull-down-nav').addEventListener('shown', function(e) {
+		mui('#pullrefreshAll').pullRefresh().setStopped(true);
+	});
+	document.getElementById('pull-down-nav').addEventListener('hidden', function(e) {
+		mui('#pullrefreshAll').pullRefresh().setStopped(false);
+	});
 
 	$(function() {
 		$('#sort-nav-list').hide();
-			$('#type-nav-list').hide();
-			$('#subject-nav-list').hide();
+		$('#type-nav-list').hide();
+		$('#subject-nav-list').hide();
 		$('#subject-nav').click(function(event) {
 			$('#sort-nav-list').hide();
 			$('#type-nav-list').hide();
@@ -349,8 +352,8 @@ var workListAll = function() {
 			$('#subject-nav').removeClass('select-current-1');
 		});
 		$('#subject-nav-list').click(function(event) {
-			document.getElementById('pull-down-nav').addEventListener('webkitTransitionEnd', cacelStopped);
-			mui('#pullrefreshAll').pullRefresh().setStopped(true);
+			//document.getElementById('pull-down-nav').addEventListener('webkitTransitionEnd', cacelStopped);
+
 			$('#down-nav3').hide();
 			$('#down-nav3').show();
 		});

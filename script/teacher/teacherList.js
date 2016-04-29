@@ -189,15 +189,15 @@ var viewModel = function() {
 	}
 	
 	//事件
-	var cacelStopped = function() {
-		var _popover = document.querySelector('.mui-popover.mui-active');
-		if( _popover ) {
-			return ;
-		} else {
-			mui('#pullrefresh').pullRefresh().setStopped(false);
-			this.removeEventListener('webkitTransitionEnd', cacelStopped);
-		}
-	}
+//	var cacelStopped = function() {
+//		var _popover = document.querySelector('.mui-popover.mui-active');
+//		if( _popover ) {
+//			return ;
+//		} else {
+//			mui('#pullrefresh').pullRefresh().setStopped(false);
+//			this.removeEventListener('webkitTransitionEnd', cacelStopped);
+//		}
+//	}
 	
 	if (mui.os.plus) {
 		mui.plusReady(function() {
@@ -381,7 +381,14 @@ var viewModel = function() {
 		});
 		self.subjectSelect(newS);
 	};
-
+	
+	document.getElementById('pull-down-nav').addEventListener('shown', function(e) {
+		mui('#pullrefresh').pullRefresh().setStopped(true);
+	});
+	document.getElementById('pull-down-nav').addEventListener('hidden', function(e) {
+		mui('#pullrefresh').pullRefresh().setStopped(false);
+	});
+	
 	mui.plusReady(function() {
 		var web = plus.webview.currentWebview(); //页面间传值
 
@@ -431,8 +438,6 @@ var viewModel = function() {
 			$('#subject-nav').removeClass('select-current-1');
 		});
 		$('#subject-nav-list').click(function(event) {
-			document.getElementById('pull-down-nav').addEventListener('webkitTransitionEnd', cacelStopped);
-			mui('#pullrefresh').pullRefresh().setStopped(true);
 			$('#down-nav3').hide();
 			$('#down-nav3').show();
 		});

@@ -3497,8 +3497,7 @@
 					"content/fonts/iconfont.svg"
 				],
 				"refer": [
-					"modules/news/myNewsList.html",
-					"modules/news/newsList.html"
+					"modules/news/myNewsList.html"
 				],
 				"priority": 0
 			},
