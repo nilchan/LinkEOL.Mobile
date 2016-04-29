@@ -1038,9 +1038,7 @@
 					"content/fonts/iconfont.eot",
 					"content/fonts/iconfont.svg"
 				],
-				"refer": [
-					"modules/my/messageListSub.html"
-				]
+				"refer": []
 			},
 			"modules/my/forgetPassword.html": {
 				"href": "modules/my/forgetPassword.html",
@@ -1253,8 +1251,7 @@
 				"refer": [
 					"modules/works/myUploadHeader.html",
 					"modules/works/myUpload.html",
-					"modules/works/worksListMyHeader.html",
-					"modules/works/worksListMyWorks.html"
+					"modules/works/worksListMyHeader.html"
 				]
 			},
 			"modules/works/addWorks.html": {

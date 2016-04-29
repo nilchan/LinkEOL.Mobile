@@ -153,7 +153,7 @@ var viewModel = function() {
 						};
 						self.instructedArray.push(obj);
 					})
-					//console.log(JSON.stringify(self.instructedArray()));
+					console.log(JSON.stringify(self.instructedArray()));
 				self.instructLength(self.instructedArray().length);
 				plus.nativeUI.closeWaiting();
 				common.showCurrentWebview();

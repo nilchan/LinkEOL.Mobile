@@ -20,7 +20,7 @@ var applyList = function() {
         mui.ajax(url, {
             type: 'GET',
             success: function(result) {
-            	console.log(result);
+            	//console.log(result);
                 self.scores(JSON.parse(result));
 				self.scores().forEach(function(item){
 					if( item.IsVoucher && common.StrIsNull(item.Voucher) != '') {
@@ -28,6 +28,7 @@ var applyList = function() {
 					}
 				});
                 common.showCurrentWebview();
+                
             },
             error: function(){
             	common.showCurrentWebview();

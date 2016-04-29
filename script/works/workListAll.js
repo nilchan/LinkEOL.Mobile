@@ -154,7 +154,7 @@ var workListAll = function() {
 		if( _popover ) {
 			return ;
 		} else {
-			mui('#pullrefresh').pullRefresh().setStopped(false);
+			mui('#pullrefreshAll').pullRefresh().setStopped(false);
 			this.removeEventListener('webkitTransitionEnd', cacelStopped);
 		}
 	}
@@ -318,7 +318,7 @@ var workListAll = function() {
 	$(function() {
 		$('#sort-nav-list').hide();
 			$('#type-nav-list').hide();
-			$('#subject-nav-list').show();
+			$('#subject-nav-list').hide();
 		$('#subject-nav').click(function(event) {
 			$('#sort-nav-list').hide();
 			$('#type-nav-list').hide();
@@ -350,7 +350,7 @@ var workListAll = function() {
 		});
 		$('#subject-nav-list').click(function(event) {
 			document.getElementById('pull-down-nav').addEventListener('webkitTransitionEnd', cacelStopped);
-			mui('#pullrefresh').pullRefresh().setStopped(true);
+			mui('#pullrefreshAll').pullRefresh().setStopped(true);
 			$('#down-nav3').hide();
 			$('#down-nav3').show();
 		});

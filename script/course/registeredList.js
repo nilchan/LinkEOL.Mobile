@@ -23,7 +23,7 @@ var registeredList = function() {
 		if(web.selectOnly)
 			self.selectOnly(true);
 		
-		//获取关注我的学生列表
+		//获取我的授课学生列表
 		var ajaxUrl = common.gServerUrl + "API/TeacherToStudent/TeacherToStudentList?TeacherID=" + getLocalItem("UserID");
 		mui.ajax(ajaxUrl, {
 			type: 'GET',
@@ -40,13 +40,13 @@ var registeredList = function() {
 						self.regList(list2);
 						
 						var studentListLen=self.studentList().length;
-						var regListLen=self.regList().length
 						//两者均有返回
 						if(studentListLen > 0 || regListLen > 0){
 							for(var j = studentListLen - 1; j >= 0; j--){
 								var student = self.studentList()[j];
 								
 								//从数据库读取的已报名学生列表
+								var regListLen=self.regList().length;
 								for(var i = regListLen - 1; i >= 0; i--){
 									var reg = self.regList()[i];
 									var isSelected = false;		//判断传入参数列表中是否有这个学生，没有则不需要选中
@@ -56,7 +56,7 @@ var registeredList = function() {
 											break;
 										}
 									}
-
+	
 									if(student.ID == reg.ID){
 										var obj = {
 											ID: student.ID,
