@@ -61,7 +61,10 @@
 				color: #E64578!important;
 				background: #fff;
 			}
-			
+			.teacher-list-check{
+				top: 76%;
+				right: 25%;
+			}
 			@media only screen and (min-width: 320px) and (max-width: 374px) {
 				.informationList-box {
 					height: 110px;
@@ -93,6 +96,7 @@
 					<div class="informationList-right" data-bind="event:{tap: clickOne}">
 						<em class="teacher-list-check myStudent-check" data-bind="visible: displayCheck">
 							<img data-bind="attr:{src: '../../images/radio-check'+(selected() ? '-active' : '')+'.png'}" />
+						
 						</em>
 						<h3 class="informationList-h3" data-bind="text: info.Title">「乐」趣 | 未来钢琴长怎样？来看匈牙利音乐家Bogányi 的10年</h3>
 						<div class="informationList-right-l">

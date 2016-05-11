@@ -99,7 +99,14 @@
 		"Proximity": {},
 		"Orientation": {},
 		"Accelerometer": {},
-		"NativeObj": {},"OAuth":{}
+		"NativeObj": {},
+		"OAuth": {},
+		"Geolocation": {
+			"description": "定位插件"
+		},
+		"Maps": {
+			"description": "地图插件"
+		}
 	},
 	"plus": {
 		"splashscreen": {
@@ -110,7 +117,20 @@
 		"runmode": "liberate",
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",
 		"distribute": {
-			"plugins": {"oauth":{"weixin":{"appid":"wx142ee69041c3765a","appsecret":"1ccf661d050bea7a05ff4d5abbc3a865"}},
+			"plugins": {
+				"maps": {
+					"amap": {
+						"appkey_ios": "ad9ab4df26402185ea125c768d05cf66",
+						"appkey_android": "41b7406a32459427a44917f4bacbbd4b",
+						"description": "高德地图"
+					}
+				},
+				"oauth": {
+					"weixin": {
+						"appid": "wx142ee69041c3765a",
+						"appsecret": "1ccf661d050bea7a05ff4d5abbc3a865"
+					}
+				},
 				"statics": {
 					"umeng": {
 						"appkey_ios": "56ab233fe0f55a394700328d",
@@ -130,7 +150,11 @@
 					"weixin": {
 						"description": "微信支付",
 						"appid": "wx142ee69041c3765a"
-					},"alipay":{"description":"阿里支付","scheme":""}
+					},
+					"alipay": {
+						"description": "阿里支付",
+						"scheme": ""
+					}
 				},
 				"share": {
 					"weixin": {
@@ -163,6 +187,7 @@
 					"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
 					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
 					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
 					"<uses-permission android:name=\"android.permission.GET_TASKS\"/>",
 					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
 					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
@@ -178,6 +203,7 @@
 					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
 					"<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>",
 					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
 					"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
 					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>",
 					"<uses-permission android:name=\"android.permission.CAMERA\"/>"
@@ -334,7 +360,8 @@
 					"modules/works/workIndex1.html",
 					"modules/works/addWorks.html",
 					"modules/account/login.html",
-					"modules/my/messageList.html"
+					"modules/my/messageList.html",
+					"modules/home/select.html"
 				],
 				"priority": 0
 			},
@@ -433,7 +460,10 @@
 					"script/common/update.js",
 					"images/headline.png",
 					"content/fonts/iconfont.eot",
-					"images/video-big-default.png"
+					"images/video-big-default.png",
+					"images/index-022.png",
+					"images/index-023.png",
+					"images/index-021.png"
 				],
 				"refer": [
 					"modules/teacher/teacherListHeader.html",
@@ -668,9 +698,7 @@
 					"images/my-bg.png",
 					"images/video-big-default.png"
 				],
-				"refer": [
-					"modules/works/worksListAllWorks.html"
-				],
+				"refer": [],
 				"priority": 0
 			},
 			"modules/works/WorksDetails.html": {
@@ -720,7 +748,9 @@
 					"modules/works/classmateWorks.html",
 					"modules/activity/activityInfo.html",
 					"modules/works/worksListMyWorks.html",
-					"modules/works/worksListAllWorks.html"
+					"modules/works/worksListAllWorks.html",
+					"modules/student/submitComment1.html",
+					"modules/student/submitComment.html"
 				],
 				"priority": 0
 			},
@@ -914,7 +944,8 @@
 					"modules/activity/saleTicket.html",
 					"modules/activity/XSBRegister/apply.html",
 					"modules/my/recharge.html",
-					"modules/activity/teacherFTF/apply.html"
+					"modules/activity/teacherFTF/apply.html",
+					"modules/activity/seatMap.html"
 				],
 				"priority": 0
 			},
@@ -952,7 +983,8 @@
 					"modules/my/messageList.html",
 					"modules/account/login.html",
 					"modules/teacher/teacherInfo.html",
-					"modules/student/submitComment.html"
+					"modules/student/submitComment.html",
+					"modules/student/submitComment1.html"
 				],
 				"priority": 0
 			},
@@ -1182,7 +1214,9 @@
 				],
 				"refer": [
 					"modules/works/worksListMyHeader.html",
-					"modules/my/recharge.html"
+					"modules/my/recharge.html",
+					"modules/works/WorksDetails.html",
+					"modules/teacher/teacherHomeWorkHeader.html"
 				]
 			},
 			"modules/works/worksListMyWorks.html": {
@@ -2277,7 +2311,10 @@
 					"modules/account/loginNew.html",
 					"modules/my/invitationCode.html",
 					"modules/my/myAccountInfo.html",
-					"modules/my/recharge.html"
+					"modules/my/recharge.html",
+					"modules/my/myTicketsEntrance.html",
+					"modules/my/mylocation.html",
+					"modules/course/orgCoursesListHeader.html"
 				],
 				"priority": 0
 			},
@@ -2321,7 +2358,9 @@
 					"modules/home/web.html",
 					"modules/activity/activitySchedule.html",
 					"modules/activity/activityRehearsal.html",
-					"modules/activity/activityCalendar.html"
+					"modules/activity/activityCalendar.html",
+					"modules/activity/seatMap.html",
+					"modules/org/orgInfo.html"
 				],
 				"priority": 0
 			},
@@ -3233,9 +3272,7 @@
 					"images/my-bg.png",
 					"images/video-big-default.png"
 				],
-				"refer": [
-					"modules/teacher/teacherList.html"
-				],
+				"refer": [],
 				"priority": 0
 			},
 			"modules/account/loginNew.html": {
@@ -3847,6 +3884,231 @@
 					"script/activity/activityCalendar.js"
 				],
 				"priority": 6
+			},
+			"modules/home/select.html": {
+				"resources": [
+					"content/common/Tf_global.css",
+					"script/common/common.js",
+					"script/common/base.js",
+					"script/mui/mui.js",
+					"content/fonts/iconfont.ttf",
+					"content/common/style.css",
+					"content/common/global.css",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/fonts/iconfont.css",
+					"content/mui/mui.min.css",
+					"content/fonts/iconfont.woff"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/my/myTicketsEntrance.html": {
+				"resources": [
+					"script/my/myTicketsEntrance.js",
+					"script/common/common.js",
+					"script/common/base.js",
+					"script/mui/mui.js",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"content/common/global.css",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/fonts/iconfont.css",
+					"content/fonts/iconfont.woff",
+					"content/mui/mui.min.css",
+					"content/fonts/iconfont.ttf"
+				],
+				"refer": [
+					"modules/my/myTicketsHeader.html",
+					"modules/activity/XSBRegister/applyList.html",
+					"modules/activity/teacherFTF/applyList.html"
+				],
+				"priority": 0
+			},
+			"modules/my/myTicketsHeader.html": {
+				"resources": [
+					"modules/my/myTicketsContent.html",
+					"script/mui/mui.min.js",
+					"script/libs/knockout/knockout-3.3.0.min.js",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/common/style.css",
+					"content/common/global.css",
+					"content/fonts/iconfont.css",
+					"content/fonts/iconfont.woff",
+					"content/mui/mui.min.css",
+					"content/fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/my/myTicketsContent.html": {
+				"resources": [
+					"images/used.png",
+					"images/ewm.png",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/common/style.css",
+					"script/mui/mui.min.js",
+					"content/common/global.css",
+					"content/fonts/iconfont.css",
+					"content/mui/mui.min.css",
+					"script/my/myTicketsContent.js",
+					"script/common/qrcode.js",
+					"images/logo-pic.png",
+					"content/fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/student/submitComment1.html": {
+				"resources": [
+					"script/common/pay.js",
+					"content/common/style.css",
+					"script/mui/mui.min.js",
+					"content/common/global.css",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/fonts/iconfont.css",
+					"images/ye.png",
+					"script/common/common.js",
+					"script/student/submitComment.js",
+					"script/common/base.js",
+					"images/video-big-default.png",
+					"content/fonts/iconfont.woff",
+					"content/mui/mui.min.css",
+					"images/my-default.png",
+					"script/student/submitComment1.js"
+				],
+				"refer": [
+					"modules/works/WorksDetails.html",
+					"modules/teacher/teacherHomeWorkHeader.html"
+				],
+				"priority": 0
+			},
+			"modules/my/mylocation.html": {
+				"resources": [
+					"script/common/common.js",
+					"script/common/base.js",
+					"script/mui/mui.js",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"content/common/global.css",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/fonts/iconfont.css",
+					"content/fonts/iconfont.woff",
+					"content/mui/mui.min.css",
+					"script/my/mylocation.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/course/orgCoursesListHeader.html": {
+				"resources": [
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"script/mui/mui.min.js",
+					"content/common/global.css",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/mui/mui.css",
+					"content/fonts/iconfont.css",
+					"content/fonts/iconfont.woff",
+					"modules/course/orgCoursesListContent.html",
+					"content/common/Tf_global.css",
+					"content/fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/course/orgCoursesListContent.html": {
+				"resources": [
+					"script/course/orgCoursesListContent.js",
+					"images/logo-pic.png",
+					"script/libs/clamp/clamp.js",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"script/mui/mui.min.js",
+					"content/common/global.css",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/mui/mui.css",
+					"content/fonts/iconfont.css",
+					"content/common/Tf_global.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/activity/seatMap.html": {
+				"resources": [
+					"script/common/pay.js",
+					"images/ye.png",
+					"images/ali.png",
+					"images/show-set.jpg",
+					"script/libs/jquery.min.js",
+					"script/activity/seatMap.js",
+					"images/submitClass-wx.png",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"script/mui/mui.min.js",
+					"content/common/global.css",
+					"content/fonts/iconfont.css",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/fonts/iconfont.ttf",
+					"content/mui/mui.min.css",
+					"script/libs/knockout/knockout-3.3.0.min.js"
+				],
+				"refer": [
+					"modules/activity/seatSelect.html"
+				],
+				"priority": 0
+			},
+			"modules/activity/seatSelect.html": {
+				"resources": [
+					"script/libs/quo/quo.standalone.js",
+					"script/activity/seatSelect.js",
+					"images/ye.png",
+					"images/ali.png",
+					"script/libs/jquery.min.js",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"content/common/global.css",
+					"content/fonts/iconfont.css",
+					"images/submitClass-wx.png",
+					"content/mui/mui.min.css",
+					"content/fonts/iconfont.ttf",
+					"script/common/pay.js",
+					"script/mui/mui.min.js",
+					"script/common/common.js",
+					"script/common/base.js",
+					"script/libs/knockout/knockout-3.3.0.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"modules/org/orgInfo.html": {
+				"resources": [
+					"script/libs/jquery.min.js",
+					"content/common/style.css",
+					"images/logo.png",
+					"images/orgInfo-header-bg.jpg",
+					"script/mui/mui.min.js",
+					"content/common/global.css",
+					"content/mui/mui.css",
+					"content/fonts/iconfont.css",
+					"content/fonts/iconfont.woff",
+					"images/invitationCode.png",
+					"images/logo-pic.png",
+					"images/share-qq.png",
+					"images/share-wx.png",
+					"images/share-py.png",
+					"script/libs/clamp/clamp.min.js",
+					"script/org/orgInfo.js"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
@@ -3861,7 +4123,6 @@
 				"modules/student/chooseTime.html",
 				"images/invitationCode-btn-active.png",
 				"images/subject_05.png",
-				"images/ewm.png",
 				"images/triangle-icon.png",
 				"script/common/device.min.js",
 				"script/common/device.js",
@@ -3881,8 +4142,7 @@
 				"images/subject_07.png",
 				"content/cropperjs/cropper.min.css",
 				"images/register-pic.png",
-				"modules/teacher/findTeacher.html",
-				"script/libs/clamp/clamp.js"
+				"modules/teacher/findTeacher.html"
 			]
 		},
 		"index": {

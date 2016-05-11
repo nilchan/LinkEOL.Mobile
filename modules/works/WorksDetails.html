@@ -203,7 +203,7 @@
 							<!--/ko-->]老师评语   <span data-bind="text:'【'+(IsRecommend?'推荐':'点评')+'】'">【推荐】</span></a> 
 						<div class="mui-collapse-content" data-bind="visible:isshowComment()=='true'||IsAuthor()">
 							<div class="works-content-dow">
-								<div data-bind="template:{name:'commentToRulseTemplate',foreach:CommentToRules}"></div>
+								<div data-bind="template:{name:'commentToRulseTemplate',foreach:CommentToRules},visible:CommentType==common.gTeacherCommentType[0].value" ></div>
 								<span class="totil">总评语</span>
 								<p data-bind="text:TotalComment"></p>
 							</div>

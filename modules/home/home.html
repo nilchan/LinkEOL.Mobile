@@ -183,7 +183,7 @@
 			<div class="pin-blank"></div>
 			<div class="index-two first-bottom">
 				<ul>
-					<li id="findTeacher" class="index-two-first" data-bind="click:gotoTeacherTest">
+					<li id="findTeacher" class="index-two-first index-line-left" data-bind="click:gotoTeacherTest">
 						<div class="index-display">
 							<div class="iconfton-c">
 								<img src="../../images/index_003.png" />
@@ -192,7 +192,7 @@
 							<span class="index-teacher-select">顶尖名师任你选</span>
 						</div>
 					</li>
-					<li id="help" data-bind="click:goHelp">
+					<li id="help" class="index-line-right" data-bind="click:goHelp">
 						<div class="index-display">
 							<div class="iconfton-c">
 								<img src="../../images/index_002.png" />
@@ -229,7 +229,7 @@
 		
 			<!--科目-->
 			<div class="pin-blank"></div>
-			<div class="index-subject">
+			<!--<div class="index-subject">
 				<ul>
 					<div data-bind="foreach:{data: indexSubject, as: 'indexS'}">
 						<li data-bind="click: gotoTeachers">
@@ -243,6 +243,32 @@
 					</li>
 				</ul>
 
+			</div>-->
+			<div class="index-two index-type">
+				<div class="index-type-left" data-bind='click:goOrkList'>
+					<div class="index-type-img">
+						<img src="../../images/index-022.png" />
+					</div>
+					<span class="index-type-span">教学机构</span>
+					<span class="index-teacher-select">大量优秀师资</span>
+				</div>
+				<div class="index-type-right">
+					<div class="index-type-right-samllBox index-type-line" data-bind='click:goActivityList'>
+						<div class="index-type-float">
+							<img src="../../images/index-023.png" />
+						</div>
+						<span class="index-type-samllBox-span">精品班</span>
+						<span class="index-type-samllBox-select">精品班报名</span>
+					</div>
+					<div class="index-type-right-samllBox index-type-right-dow" data-bind='click:goorgToCourseList'>
+						<div class="index-type-float">
+							<img src="../../images/index-021.png" />
+						</div>
+						<span class="index-type-samllBox-span">高考培训</span>
+						<span class="index-type-samllBox-select">专业高考培训</span>
+					</div>
+					
+				</div>
 			</div>
 
 			<div class="pin-blank"></div>

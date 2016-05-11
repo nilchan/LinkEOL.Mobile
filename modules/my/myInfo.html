@@ -117,9 +117,15 @@
 						<i class="red-point point-left" data-bind="visible:IDAuth()==false"></i>
 					</a>
 				</li>-->
-				<div class="mui-input-row reg-mui-input-row" data-bind='visible:UserType() == common.gDictUserType.teacher'>
+				<div class="mui-input-row reg-mui-input-row" id="myInfo-organization" data-bind='visible:UserType() == common.gDictUserType.teacher'>
 					<label>所属机构</label>
-					<input id="address" type="text" class="mui-btn mui-btn-block th-mui-btn-block" data-bind="value:Org" />
+					<!--<input id="address" type="text" class="mui-btn mui-btn-block th-mui-btn-block" data-bind="value:Org" />-->
+					<div class="organization-name">
+						辰星音乐培训中心
+					</div>
+						<div class="organization-name">
+						辰星音乐培训中心
+					</div>
 				</div>
 				<div class="mui-input-row reg-mui-input-row" data-bind='visible:UserType() == common.gDictUserType.teacher'>
 					<label>机构联系人</label>

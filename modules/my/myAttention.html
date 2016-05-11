@@ -98,18 +98,18 @@
 					</div>
 				</div>
 				
-				
+			
 				<!--关注模板页-->
 				<script type="text/html" id="attentionTemple">
 					<div class="card-row" data-bind="event:{tap: gotoUserInfo}">
 						<div class="card-right card-width">
 							<img data-bind="attr:{'src':common.getPhotoUrl(Photo)}" onerror="this.src='../../images/my-default.png';" />
 							<div class="card-row-right">
-								<span data-bind="text:DisplayName"></span><u>(<!--ko text:common.gJsonGenderType[Gender].text--><!--/ko-->)</u>
+								<span data-bind="text:DisplayName"></span><u><!--ko text: UserType != common.gDictUserType.org ? '('+common.gJsonGenderType[Gender].text+')' : ''--><!--/ko--></u>
 								<!--<u class="u-font-right" data-bind='text: UserType == common.gDictUserType.teacher ? TeachAge + " 年教龄 " : TheAge'></u>-->
 							</div>
 							<div class="card-row-right card-row-dow">
-								<u data-bind="text:((common.StrIsNull(Province)==''?'':Province)+(common.StrIsNull(City)==''?'':City)+(common.StrIsNull(District)==''?'':District))"></u>
+								<u data-bind="text:((common.StrIsNull(Province)==''?'':Province)+(common.StrIsNull(City)==''?'':' · '+City)+(common.StrIsNull(District)==''?'':' · '+District))"></u>
 							</div>
 						</div>
 					</div>

@@ -99,11 +99,13 @@
 					老师未点评
 				</div>
 				<div data-bind="visible: hasCommented() == true && isCommenter() == false || isCommenter() == true">
-					<!--ko foreach: {data: commentToRules}-->
+					<!---ko foreach: {data: commentToRules},visible: Comment().CommentType ==common.gTeacherCommentType[0].value -->
+					<div data-bind='foreach:{data: commentToRules},visible:commentType() ==common.gTeacherCommentType[0].value'>
 					<span data-bind="text: RuleName"></span>
 					<p data-bind="text:Comment, visible: isCommenter() == false"></p>
 					<textarea data-bind="value: Comment, visible: isCommenter() == true, attr:{'placeholder': '请输入评语'}"></textarea>
-					<!--/ko-->
+					</div>
+					<!----/ko-->
 					<span class="t-comment">总评语</span>
 					<p data-bind="text:totalComment, visible: isCommenter() == false"></p>
 					<textarea style="height: 90px;" data-bind="value: totalComment, visible: isCommenter() == true, attr:{'placeholder': '请输入评语'}"></textarea>

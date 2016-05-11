@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			html,
+			.mui-content {
+				background: #F1F1F1!important;
+			}
+			
+			.orgList-li {
+				padding: 0px;
+				background: #F1F1F1!important;
+			}
+			
+			.orgList-ul:before {
+				height: 0px;
+			}
+			
+			.orgList-li:after {
+				left: 0px;
+			}
+			
+			.orgList-li.mui-active {
+				background: #e6e5e5!important;
+				color: #666!important;
+			}
+			
+			.mui-content>.orgList-ul:first-child {
+				margin-top: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div id="pullrefresh" class="mui-scroll-wrapper">
+				<ul class="mui-table-view orgList-ul mui-scroll" data-bind="foreach: coursesList">
+					<li class="mui-table-view-cell orgList-li" data-bind="event:{tap: gotoDetail}">
+						<div class="orgList-box orgCourseList-padding">
+							<div class="orgCourseList-logo">
+								<img data-bind='attr:{src:common.getPhotoUrl(Photo)}'  src="../../images/logo-pic.png" onerror="this.src='../../images/logo-pic.png';" />
+							</div>
+							<div class="orgCourseList-right">
+								<h3 class="orgCourseList-title" data-bind='text:CourseName'>星海音乐学院</h3>
+								<p class="orgCourseList-comment" data-bind="text:'限'+RegStudent+'人'">限200人
+									<em class="orgCourseList-pay" data-bind='text:"￥"+RegMoney'>￥250</em>
+							</div>
+
+							<div class="orgCourseList-introduction" data-bind='text:CourseAbout'>
+								“嘉音”致言：其实很多人有不错的嗓音条件，但由于不能用丹田正确地运气发声，浪费……
+							</div>
+							</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/course/orgCoursesListContent.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

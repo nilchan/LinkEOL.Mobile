@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+			.orgList-ul:before {
+				height: 0px!important;
+			}
+			
+			.share-height {
+				position: fixed!important;
+			}
+			
+			.share-height {
+				top: 100%!important;
+				margin-top: -178px!important;
+				left: 0px!important;
+			}
+			
+			.share-height.mui-active {
+				top: 100%!important;
+				margin-top: -178px!important;
+			}
+			
+			@media only screen and (min-width: 320px) and (max-width:374px) {
+				.ogrInfo-title {
+					position: absolute;
+					left: 24%;
+					color: #fff;
+					top: 4%;
+					font-size: 17px;
+				}
+				.ogrInfo-address {
+					position: absolute;
+					left: 24%;
+					color: #fff;
+					bottom: -10%;
+					font-size: 12px;
+				}
+			}
+			
+			@media only screen and (min-width: 321px) and (max-width:375px) {
+				.ogrInfo-title {
+					position: absolute;
+					left: 24%;
+					color: #fff;
+					top: 9%;
+					font-size: 17px;
+				}
+				.ogrInfo-address {
+					position: absolute;
+					left: 24%;
+					color: #fff;
+					bottom: 7%;
+					font-size: 12px;
+				}
+			}
+			
+			@media only screen and (min-width: 376px) and (max-width:414px) {
+				.ogrInfo-title {
+					position: absolute;
+					left: 24%;
+					color: #fff;
+					top: 12%;
+					font-size: 17px;
+				}
+				.ogrInfo-address {
+					position: absolute;
+					left: 24%;
+					color: #fff;
+					bottom: 10%;
+					font-size: 12px;
+				}
+				.shareTeacher-pic ul li img {
+					height: 3rem;
+					width: 3rem;
+				}
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="orgInfo-header-box">
+			<i class="iconfont orgInfo-back">&#xe683;</i>
+			<a href="#sharePopover"><i class="iconfont orgInfo-share">&#xe670;</i></a>
+			<div class="orgInfo-logo-box">
+				<div class="orgInfo-logo">
+					<img data-bind='attr:{src:common.getPhotoUrl(PhotoUrl())}' onerror="this.src='../../images/logo-pic.png';" />
+				</div>
+				<span class="ogrInfo-title" data-bind='text:OrgName'>辰星音乐培训机构</span>
+				<span class="ogrInfo-address">
+					<!--省市区-->
+					<!--ko text:Province-->
+					<!--/ko--><!--ko text:(common.StrIsNull(City())==''?'':'·'+City())-->
+					<!--/ko--><!--ko text:(common.StrIsNull(District())==''?'':'·'+District())-->
+					<!--/ko-->
+				</span>
+				<div class="ogrInfo-attention" data-bind='event:{click: addFav},css:favClass'><em class="iconfont" style="margin-right: 5px;">&#xe6ce;</em>关注</div>
+			</div>
+		</div>
+		<div class="orgInf-introduction" id="orgInf-introduction" data-bind='text:Introduce,css:{"introduction-open":isShowIntroduce},click:changeShowInstruct'>
+		</div>
+		<div class="ogrInfo-title-bg">
+			<span class="ogrInfo-title-left">相册</span>
+		</div>
+		<div class="orgInfo-album" data-bind='click:goAlbum'>
+			<ul data-bind='foreach:photoList'>
+				<li><img data-bind='attr:{src:common.getPhotoUrl(Path)}' onerror="this.src='../../images/logo-pic.png';" /></li>
+			</ul>
+		</div>
+		<div class="ogrInfo-title-bg">
+			<span class="ogrInfo-title-left">精品班</span>
+			<span class="ogrInfo-num" data-bind="text:'('+regLecturesList().length+')'"></span>
+		</div>
+		<div class="orgInfo-album">
+			<ol class="mui-table-view orgList-ul orgInfo-album-ol" data-bind='foreach:regLecturesList'>
+				<li class="mui-table-view-cell orgList-li orgInfo-li" data-bind='click:regLectures'>
+					<div class="orgInfo-class">
+						<div class="orgInfo-class-photo">
+							<img data-bind='attr:{src:common.getPhotoUrl(Thumbnail)}' onerror="this.src='../../images/logo-pic.png';" />
+						</div>
+						<p class="orgInfo-class-title" data-bind='text:Title'></p>
+						<p class="orgInfo-class-time" data-bind='text:Times'></p>
+						<p class="orgInfo-class-address" data-bind='text:PlaceName'></p>
+					</div>
+				</li>
+			</ol>
+		</div>
+		<div class="ogrInfo-title-bg">
+			<span class="ogrInfo-title-left">高考培训班</span>
+			<span class="ogrInfo-num" data-bind="text:'('+orgToCourseList().length+')'"></span>
+		</div>
+
+		<div class="orgInfo-album">
+			<ol class="mui-table-view orgList-ul orgInfo-album-ol" data-bind='foreach:orgToCourseList'>
+				<li class="mui-table-view-cell orgList-li orgInfo-li" data-bind='click:orgToCourse'>
+					<div class="orgInfo-class">
+						<div class="orgInfo-class-photo orgInfo-class-circle">
+							<img data-bind='attr:{src:common.getPhotoUrl(Photo)}' onerror="this.src='../../images/logo-pic.png';" />
+						</div>
+						<p class="orgInfo-class-title" data-bind='text:CourseName'></p>
+						<p class="orgInfo-class-time orgInfo-class-person">
+							<span data-bind="text:'限'+RegStudent+'人'"></span>
+							<em class="orgInfo-pay" data-bind="text:'￥'+RegMoney"></em>
+						</p>
+						<p class="orgInfo-class-address" data-bind='text:Introduce'>11</p>
+					</div>
+				</li>
+			</ol>
+		</div>
+		<div class="ogrInfo-title-bg">
+			<span class="ogrInfo-title-left">地理位置</span>
+		</div>
+		<div class="ogrInfo-map-font">
+			<span class="ogrInfo-map-address" data-bind='text:Address'>
+				<!--广东省广州市天河区珠江新城华夏路49号津滨腾越大厦南塔2710室-->
+			</span>
+			<span class="ogrInfo-map-navigation">导航</span>
+		</div>
+		<div class="ogrInfo-map-box" id="mapDiv">
+			
+		</div>
+		<div id="sharePopover" class="mui-popover share-height">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="shareTeacher-pic">
+						<ul>
+							<li id="weichatFriend">
+								<img src="../../images/share-wx.png" />
+								<span>微信好友</span>
+							</li>
+							<li id="weichatMoments">
+								<img src="../../images/share-py.png" />
+								<span>微信朋友圈</span>
+							</li>
+							<li id="qqFriend">
+								<img src="../../images/share-qq.png" />
+								<span>QQ好友</span>
+							</li>
+						</ul>
+					</div>
+					<div class="shareTeacher-qx" data-bind="click:closeShare">取消</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.min.js" type="text/javascript " charset="utf-8 "></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/org/orgInfo.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

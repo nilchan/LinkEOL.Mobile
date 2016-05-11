@@ -202,12 +202,12 @@
 							<span class="mui-badge my-mui-badge iconfont myInfoTeacher-next">&#xe618;</span>我的作业
 						</a>
 					</li>
-					<li class="mui-table-view-cell" data-bind="click: goMyCourse">
+					<!--<li class="mui-table-view-cell" data-bind="click: goMyCourse">
 						<a class="my-mui-navigate-right">
 							<em class="iconfont myTeacher-zh">&#xe67d;</em>
 							<span class="mui-badge my-mui-badge iconfont myInfoTeacher-next">&#xe618;</span>课程表
 						</a>
-					</li>
+					</li>-->
 					<li class="mui-table-view-cell" data-bind="click: goMyCollection">
 						<a class="my-mui-navigate-right">
 							<em class="iconfont myTeacher-yz" style="padding: 0px 2px;">&#xe612;</em>
@@ -220,6 +220,12 @@
 							<span class="mui-badge my-mui-badge iconfont myInfoTeacher-next">&#xe618;</span>通知列表
 							<em class="news-num" data-bind='text:unReadMessage,visible:unReadMessage()!=0'>+99</em>
 							<i class="red-point" data-bind="visible:hasNewMessage"></i>
+						</a>
+					</li>
+					<li class="mui-table-view-cell" data-bind='click:goMyTicket'>
+						<a class="my-mui-navigate-right">
+							<em class="iconfont myTeacher-zh" style="padding: 0px 2px;">&#xe6c8;</em>
+							<span class="mui-badge my-mui-badge iconfont myInfoTeacher-next">&#xe618;</span>购买凭证
 						</a>
 					</li>
 					<li class="mui-table-view-cell" data-bind="click:goIntructStudentList,visible:UserType() == common.gDictUserType.teacher">
@@ -244,6 +250,12 @@
 						<a class="my-mui-navigate-right">
 							<em class="iconfont invite-works" style="padding: 1px 6px;">&#xe6a7;</em>
 							<span class="mui-badge my-mui-badge iconfont myInfoTeacher-next">&#xe618;</span>我的邀请码
+						</a>
+					</li>
+					<li class="mui-table-view-cell" data-bind="click:goLocation">
+						<a class="my-mui-navigate-right">
+							<em class="iconfont invite-works" style="padding: 1px 6px;">&#xe6a7;</em>
+							<span class="mui-badge my-mui-badge iconfont myInfoTeacher-next">&#xe618;</span>我的位置
 						</a>
 					</li>
 				</ul>

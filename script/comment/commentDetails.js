@@ -10,6 +10,7 @@ var viewModel = function() {
 	self.isCommenter = ko.observable(false); //是否点评老师
 	self.hasCommented = ko.observable(false); //是否已点评
 	self.commentToRules = ko.observableArray([]); //点评标准
+	self.commentType=ko.observable();
 
 	//点评标准构造函数
 	self.ruleItem = function(data) {
@@ -209,6 +210,7 @@ var viewModel = function() {
 		var web = plus.webview.currentWebview();
 		if (typeof(web.teacherComment) != "undefined") {
 			self.Comment(web.teacherComment);
+			self.commentType(self.Comment().CommentType);
 			if (common.StrIsNull(self.Comment().CommentToRules) != '') {
 				self.hasCommented(true);
 			}

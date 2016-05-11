@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<style>
+			html,
+			.mui-content {
+				background: #F1F1F1!important;
+			}
+			
+			.myTickets-content {
+				width: 90%;
+				height: auto;
+				overflow: hidden;
+				margin: 20px auto;
+				background: #FFF;
+				border: 1px solid #e5e3e3;
+				border-radius: 5px;
+				padding: 20px 15px;
+				box-sizing: border-box;
+			}
+			
+			.myTickets-con {
+				height: auto;
+				overflow: hidden;
+				width: 100%;
+				position: relative;
+			}
+			
+			.myTickets-title {
+				font-size: 17px;
+				color: #4c4b4b;
+				line-height: 22px;
+				padding-bottom: 1px;
+			}
+			
+			.myTickets-subhead {
+				color: #4c4b4b;
+				padding-top: 7px;
+				font-size: 15px;
+			}
+			
+			.myTickets-time {
+				color: #e64578;
+				padding-top: 7px;
+				font-size: 15px;
+			}
+			
+			.used-img {
+				position: absolute;
+				right: -10px;
+				bottom: 5px;
+				z-index: 33;
+			}
+			
+			.used-img img {
+				width: 60%;
+			}
+			
+			.myTickets-ewm {
+				height: auto;
+				width: 100%;
+				margin-top: 20px;
+				padding-top: 20px;
+				text-align: center;
+				position: relative;
+			}
+			
+			.myTickets-ewm:after {
+				height: 1px;
+				width: 206%;
+				left: -53%;
+				top: 0px;
+				background: #cfcece;
+				transform: scale(0.5);
+				-webkit-transform: scale(0.5);
+				content: '';
+				position: absolute;
+			}
+			
+			.myTickets-ewm img {
+				display: inline-block;
+				width: 40%;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div id='pullrefresh' class="mui-scroll-wrapper">
+				<div class="openedCourses-ys" data-bind="visible:ticketsArray().length <= 0">
+					<i>
+					<img src="../../images/logo-pic.png" />
+				</i>
+					<span>还没有购买过票~</span>
+					<!--<div class="mui-content-padded">
+						<button type="button" class="mui-btn mui-btn-block mui-btn-primary th-btn th-mui-f p-btn-color p-btn-padding" data-bind="click: selectImage">添加照片</button>
+					</div>-->
+				</div>
+
+				<div class="mui-scroll" data-bind='foreach:{data:ticketsArray},visible:ticketsArray().length >0'>
+					<div class="myTickets-content">
+						<div class="myTickets-con">
+							<p class="myTickets-title" data-bind='text:Title'></p>
+							<p class="myTickets-subhead" data-bind='text:PlaceName'></p>
+							<p class="myTickets-subhead" data-bind='text:SeatName,visible:IsOnLine=="true"'>A区　4排15座 　一等座 </p>
+							<div data-bind="foreach:common.transforArray(SeatName),visible:IsOnLine =='false'">
+								<p class="myTickets-subhead" data-bind='text:$data'></p>
+							</div>
+							<p class="myTickets-time" data-bind='text:Times'></p>
+							<div class="used-img" data-bind="visible:IsUse=='true'">
+								<img src="../../images/used.png" />
+							</div>
+						</div>
+						<div class="myTickets-ewm" data-bind="attr:{'id': 'qrcode-'+Id},visible:IsOnLine=='true'">
+							<!--<img src="../../images/ewm.png" />-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/qrcode.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/myTicketsContent.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

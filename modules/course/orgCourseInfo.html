@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			html,
+			.mui-content {
+				background: #F1F1F1!important;
+			}
+			
+			.mui-bar-nav .mui-title {
+				left: 18%;
+				right: 18%;
+			}
+			
+			.mui-bar-nav .orgCourseInfo-share {
+				right: 35px!important;
+				position: absolute;
+				width: 0px!important;
+			}
+			
+			@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.shareTeacher-pic ul li img {
+					height: 3rem;
+					width: 3rem;
+				}
+			}
+			
+			.share-height {
+				position: fixed!important;
+			}
+			
+			.share-height {
+				top: 100%!important;
+				margin-top: -178px!important;
+				left: 0px!important;
+			}
+			
+			.share-height.mui-active {
+				top: 100%!important;
+				margin-top: -178px!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title" data-bind='text:CourseName'></h1>
+			<a href="#sharePopover"><i class="iconfont orgCourseInfo-share">&#xe670;</i></a>
+		</header>
+		<div class="mui-content">
+			<div class="orgCourseInfo-title-box">
+				<div class="orgCourseInfo-title-left">
+					<p data-bind='text:CourseName'></p>
+					<span><em data-bind='text:NowRegStudent()+"人"'></em><!--ko text:"已经报名/(限"+RegStudent()+"人)"--><!--/ko--></span>
+				</div>
+				<div class="orgCourseInfo-title-right" data-bind='text:"￥"+RegMoney()'>
+				</div>
+			</div>
+			<div class="orgCourseInfo-introduction">
+				<p class="introduction-font">简介：</p>
+				<p class="introduction-content" data-bind='text:CourseAbout'></p>
+			</div>
+			<div class="orgCourseInfo-homepage-box" data-bind='click:goOrg'>
+				<div class="orgCourseInfo-homepage-logo">
+					<img data-bind='attr:{src:common.getPhotoUrl(Photo)}' onerror="this.src='../../images/logo-pic.png';"/>
+				</div>
+				<span class="orgCourseInfo-homepage-title" data-bind='text:OrgName'></span>
+				<span class="orgCourseInfo-homepage-comment" data-bind='text:"关注"+UserFavCount()'></span>
+				<span class="orgCourseInfo-homepage-page">进入主页<i class="iconfont">&#xe672;</i></span>
+			</div>
+			<div class="orgCourseInfo-introduction">
+				<p class="introduction-font">课程说明：</p>
+				<p class="introduction-content" data-bind='text:Introduce'>
+				</p>
+			</div>
+		</div>
+
+		<nav class="mui-bar mui-bar-tab orgCourseInfo-nav">
+			<a class="ah-mui-tab-item teacherList-mui-bar-tab">
+					立即报名
+				</a>
+		</nav>
+
+		<div id="sharePopover" class="mui-popover share-height">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="shareTeacher-pic">
+						<ul>
+							<li id="weichatFriend">
+								<img src="../../images/share-wx.png" />
+								<span>微信好友</span>
+							</li>
+							<li id="weichatMoments">
+								<img src="../../images/share-py.png" />
+								<span>微信朋友圈</span>
+							</li>
+							<li id="qqFriend">
+								<img src="../../images/share-qq.png" />
+								<span>QQ好友</span>
+							</li>
+						</ul>
+					</div>
+					<div class="shareTeacher-qx" data-bind="click:closeShare">取消</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
+	</body>
+	<script src="../../script/mui/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/course/orgCourseInfo.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -126,7 +126,7 @@ var myOrders = function() {
 	}
 
 	self.goDetail = function(order) {
-		//console.log(JSON.stringify(order));
+		//console.log('~'+JSON.stringify(order));
 		var url = '', arg1 = true, arg2 = true;
 		switch (order.TargetType) {
 			case common.gDictOrderTargetType.Comment:
@@ -141,6 +141,22 @@ var myOrders = function() {
 				break;
 			case common.gDictOrderTargetType.Ticket:
 				url = '../../modules/activity/saleTicket.html';
+				var ajaxUrl = common.gServerUrl + 'API/ActTicket/ActTicketInfo?ticketId=' + order.TargetID;
+				mui.ajax(ajaxUrl, {
+					type: 'GET',
+					success: function(responseText) {
+						var result = JSON.parse(responseText);
+						if(result){
+							if(result.IsOnLine){
+								url = '../../modules/activity/seatMap.html';
+							}
+							
+							common.transfer(url, true, {
+								order: order
+							}, arg1, arg2);
+						}
+					}
+				})
 				break;
 			case common.gDictOrderTargetType.Homework:
 				url = '../../modules/student/submitComment.html';
@@ -164,9 +180,12 @@ var myOrders = function() {
 		if(this.IsFinish === true && order.TargetType == common.gDictOrderTargetType.Recharge) {
 			return  ;
 		}
-		common.transfer(url, true, {
-			order: order
-		}, arg1, arg2);
+		
+		if(order.TargetType != common.gDictOrderTargetType.Ticket){
+			common.transfer(url, true, {
+				order: order
+			}, arg1, arg2);
+		}
 	}
 
 	window.addEventListener('refreshOrderInfo', function() {

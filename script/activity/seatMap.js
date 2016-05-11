@@ -1,0 +1,267 @@
+var seatMap = function() {
+	var self = this;
+	var aid = 78;
+	var MAX_REGIONLIST = 30;
+	var orderID = 0;
+
+	self.seatRegionList = ko.observableArray([]);
+	self.selectSeatList = ko.observableArray([]); //选择座位列表
+	self.selectFormatList = ko.observableArray([]); //格式化座位列表
+	self.totalPrice = ko.observable(0); //总价
+	self.totalCount = ko.observable(0); //总数量
+	self.balance = ko.observable(0);
+
+	self.ViewOrder = ko.observable(false); //标记是否由我的订单跳转而来，默认为否
+	self.paid = ko.observable(false); //是否已支付
+	self.payRemainTime = ko.observable('');
+	
+	//初始化格式化座位列表
+	for (var i = 0; i < MAX_REGIONLIST; i++) {
+		self.selectFormatList()[i] = ko.observableArray([]);
+	}
+
+	//格式化座位
+	function formatSeat() {
+		for (var i = 0; i < MAX_REGIONLIST; i++) {
+			self.selectFormatList()[i]([]);
+		}
+
+		var tmpPrice = 0;
+
+		self.selectSeatList().forEach(function(item) {
+			tmpPrice += item.Price;
+			self.selectFormatList()[getFormatRegion(item.RegionID)].push(item);
+		});
+		tmpPrice = tmpPrice.toFixed(2);
+
+		self.totalPrice(tmpPrice);
+		self.totalCount(self.selectSeatList().length);
+	}
+
+	//初始化座位
+	function initSeat() {
+		var localSeatJSON = getLocalItem('seatListJSON');
+		if (localSeatJSON === '') return;
+		var localSeat = JSON.parse(localSeatJSON);
+
+		self.selectSeatList(localSeat);
+		formatSeat();
+	}
+
+	//区域增加属性
+	function formatRegion() {
+		for (var i = 0; i < self.seatRegionList().length; i++) {
+			self.seatRegionList()[i]['FormatRegion'] = i;
+		}
+	}
+
+	//区域转换
+	function getFormatRegion(id) {
+		for (var i = 0; i < self.seatRegionList().length; i++) {
+			if (self.seatRegionList()[i].ID === id) return self.seatRegionList()[i].FormatRegion;
+		}
+	}
+
+	self.getSeatRegionList = function() {
+		var url = common.gServerUrl + 'Common/Seat/SeatRegionList?ActivityID=' + aid;
+		mui.ajax(url, {
+			type: 'GET',
+			success: function(responseText) {
+				self.seatRegionList(JSON.parse(responseText));
+				formatRegion();
+				initSeat();
+			}
+		});
+	}
+
+	self.gotoSeatSelect = function() {
+		var rid = this.ID;
+		var rname = this.RegionName;
+		var X = this.X;
+		common.transfer('seatSelect.html', true, {
+			ActivityID: aid,
+			RegionID: rid,
+			RegionName: rname,
+			RegionList: self.seatRegionList(),
+			Row: X
+
+		});
+	}
+
+	self.selectOne = function(obj) {
+		var tmpArray = [];
+
+		//删除列表座位
+		self.selectSeatList().forEach(function(item) {
+			if (item.ID !== obj.ID) {
+				tmpArray.push(item);
+			}
+		});
+
+		self.selectSeatList(tmpArray);
+
+		formatSeat();
+
+		setLocalItem('seatListJSON', JSON.stringify(self.selectSeatList()));
+	}
+
+	//获取余额
+	self.getBalance = function() {
+		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + getLocalItem('UserID');
+		mui.ajax(url, {
+			type: 'GET',
+			success: function(responseText) {
+				self.balance(JSON.parse(responseText).Amount);
+				common.showCurrentWebview();
+			},
+			error: function() {
+				common.showCurrentWebview();
+			}
+		});
+	}
+
+	//关闭支付界面
+	self.closePopover = function() {
+		mui('#middlePopover').popover("hide");
+		common.setEnabled(event);
+	}
+
+	//支付方式，默认为微信支付
+	self.PayType = ko.observable('wxpay');
+	self.checkPayType = function() {
+		PayType(event.srcElement.value);
+	}
+
+	//支付
+	self.gotoPay = function() {
+		var ticketJSON = "",
+			submitTicketArray = [];
+
+		if (self.selectSeatList().length === 0) {
+			mui.toast('请至少选择一张票');
+			mui('#middlePopover').popover("hide");
+			return;
+		}
+
+		var i = 1;
+		self.selectSeatList().forEach(function(item) {
+			submitTicketArray.push({
+				'Id': i,
+				'ActivityID': item.ActivityID,
+				'Price': item.Price,
+				'RegionID': item.RegionID,
+				'X': item.X,
+				'Y': item.Y
+			});
+			i++;
+		});
+
+		var ticket = {
+			ActivityID: aid,
+			UserID: getLocalItem('UserID'),
+			SeatPrice: JSON.stringify(submitTicketArray),
+			IsOnLine: 1
+		};
+
+		ticketJSON = JSON.stringify(ticket);
+
+		Pay.preparePay(ticketJSON, self.PayType(), common.gDictOrderTargetType.Ticket,
+			orderID,
+			function(newOrderID, expireMinutes) {
+				orderID = newOrderID;
+				self.ViewOrder(true);
+				if(expireMinutes > 0){
+					var oTime = newDate();
+					maxtime = (newDate(oTime).getTime() + expireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
+				}
+			},
+			function() {
+				mui('#middlePopover').popover("hide");
+				mui.back();
+			});
+	}
+
+	_oldBack = mui.back;
+
+	mui.back = function() {
+		removeLocalItem('seatListJSON');
+		_oldBack();
+	}
+
+	window.addEventListener('refreshTicket', function(event) {
+		initSeat();
+	})
+
+	window.addEventListener('backAgain', function(event) {
+		mui.back();
+	})
+
+	/**
+	 * 为显示订单的购票信息而获取数据
+	 * @param {Int} ticketId 购票ID
+	 */
+	self.getDataForOrder = function(ticketId) {
+		var ajaxUrl = common.gServerUrl + '/API/ActTicket/ActTicketInfo?ticketId=' + ticketId;
+		mui.ajax(ajaxUrl, {
+			type: 'GET',
+			success: function(responseText) {
+				if (common.StrIsNull(responseText) != '') {
+					//console.debug(responseText);
+					ticketInfo = JSON.parse(responseText);
+					
+					setLocalItem('seatListJSON', ticketInfo.SeatPrice);
+					self.getSeatRegionList();
+					/*var arr = JSON.parse(ticketInfo.SeatPrice);
+					self.selectSeatList(arr);
+					formatSeat();*/
+				} else {
+					mui.toast('订单已失效');
+					mui.back();
+				}
+			}
+
+		});
+	}
+
+	var maxtime = 30 * 60;
+	self.CountDown = function() {
+		//console.log(maxtime);
+		if (maxtime >= 0) {
+			minutes = Math.floor(maxtime / 60);
+			seconds = Math.floor(maxtime % 60);
+			--maxtime;
+			self.payRemainTime("00:" + (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
+			//console.log(self.payRemainTime());
+		} else {
+			self.payRemainTime("00:00:00");
+			clearInterval(timer);
+		}
+	}
+	var timer = setInterval("CountDown()", 1000);
+
+	mui.plusReady(function() {
+		var thisWebview = plus.webview.currentWebview();
+		if (typeof thisWebview.ActivityID != "undefined") {
+			aid = thisWebview.ActivityID;
+		}
+		
+		if (typeof(thisWebview.order) != "undefined") { //从订单跳转进来
+			var orderTmp = thisWebview.order;
+			//console.debug(JSON.stringify(orderTmp));
+			orderID = orderTmp.ID;
+			self.ViewOrder(true);
+			self.paid(orderTmp.IsFinish);
+			self.totalPrice(orderTmp.Amount);
+			self.getDataForOrder(orderTmp.TargetID);
+			var oTime = orderTmp.OrderTime;
+			maxtime = (newDate(oTime).getTime() + orderTmp.ExpireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
+		}
+		else{
+			self.getSeatRegionList();
+		}
+		
+		self.getBalance();
+	});
+};
+
+ko.applyBindings(seatMap);

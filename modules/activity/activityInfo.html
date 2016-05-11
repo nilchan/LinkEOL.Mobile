@@ -153,14 +153,17 @@
 						<span class="activityInfo-span2" data-bind="text: PlaceName">广州星海音乐厅</span>
 					</li>
 					<!--<li>
-					<span class="activityInfo-span1">限额:</span>
-					<span class="activityInfo-span2">不限</span>
-				</li>-->
-					<li  data-bind="visible:common.StrIsNull(Sponsor)!=''">
-						<span class="activityInfo-span1">主办方:</span>
+						<span class="activityInfo-span1">限额:</span>
+						<span class="activityInfo-span2">不限</span>
+					</li>-->
+					<li id="activityInfo-li-box" data-bind="visible:common.StrIsNull(Sponsor)!=''">
+						<span class="activityInfo-span1 activityInfo-span-padding">主办方:</span>
 						<!--<span class="activityInfo-span2" data-bind="text:Sponsor">主办方</span>-->
-						<div id="activityInfo-div" data-bind="foreach:common.transforArray(Sponsor)">
-							<p data-bind="text:$data,visible:$data!='' "></p>
+						<div id="activityInfo-div" class="activityInfo-div" data-bind="foreach:sponsors">
+							<p class="activityInfo-p activityInfo-span-padding" data-bind="visible:$data.text != '', event: {tap: gotoOrgInfo}">
+								<!--ko text:$data.text--><!--/ko-->
+								<i class="iconfont activityInfo-next" data-bind="visible: $data.id > 0"></i>
+							</p>
 						</div>
 					</li>
 					<li  data-bind="visible:common.StrIsNull(Organizer)!=''">

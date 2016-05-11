@@ -110,6 +110,14 @@ var my = function() {
 	self.goClassmateWorks = function() { //同学作业
 		common.transfer('../works/classmateWorksHeader.html', true, {}, false, false);
 	}
+	self.goMyTicket = function() { //我的购票
+		common.transfer('myTicketsEntrance.html', true);
+	}
+	self.goLocation=function(){
+		common.transfer('mylocation.html',false);
+		//common.transfer('../course/orgCoursesListHeader.html',false,{},false,false);
+		//common.transfer('../org/orgInfo.html');
+	}
 
 	self.getInfo = function() {
 		var ajaxUrl = common.gServerUrl + "API/Account/GetInfo?userid=" + self.UserID() + "&usertype=" + self.UserType();
@@ -208,6 +216,9 @@ var my = function() {
 			var urlPart = 'modules/student/studentInfo.html?id=';
 			if (self.UserType() == common.gDictUserType.teacher) {
 				urlPart = 'modules/teacher/teacherInfo.html?id=';
+			}
+			else if (self.UserType() == common.gDictUserType.org) {
+				urlPart = 'modules/org/orgInfo.html?id=';
 			}
 
 			var qrcode = new QRCode(document.getElementById("qrcode"), {

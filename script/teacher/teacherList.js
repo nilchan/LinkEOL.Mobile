@@ -14,6 +14,7 @@ var viewModel = function() {
 	var refreshFlag = true;
 	var currentClasses = -1;
 	self.isHomeWork = ko.observable(false);
+	self.chooseNewTeacher = ko.observable(false);
 	//接收属性
 	var works;
 
@@ -187,18 +188,18 @@ var viewModel = function() {
 		//mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
 
 	}
-	
+
 	//事件
-//	var cacelStopped = function() {
-//		var _popover = document.querySelector('.mui-popover.mui-active');
-//		if( _popover ) {
-//			return ;
-//		} else {
-//			mui('#pullrefresh').pullRefresh().setStopped(false);
-//			this.removeEventListener('webkitTransitionEnd', cacelStopped);
-//		}
-//	}
-	
+	//	var cacelStopped = function() {
+	//		var _popover = document.querySelector('.mui-popover.mui-active');
+	//		if( _popover ) {
+	//			return ;
+	//		} else {
+	//			mui('#pullrefresh').pullRefresh().setStopped(false);
+	//			this.removeEventListener('webkitTransitionEnd', cacelStopped);
+	//		}
+	//	}
+
 	if (mui.os.plus) {
 		mui.plusReady(function() {
 			if (plus.os.vendor == 'Apple') {
@@ -267,11 +268,22 @@ var viewModel = function() {
 		for (var i = 0; i < self.teacherList().length; i++) {
 			var item = self.teacherList()[i];
 			if (item.selected()) {
-				common.transfer('../student/submitComment.html', true, {
-					works: self.works,
-					teacher: item.info,
-					homeWork: self.isHomeWork()
-				});
+				if (self.chooseNewTeacher()) {//由提交点评页再次选择老师，执行此处方法
+					var submitComment=plus.webview.getWebviewById('submitCommentId');
+					console.log(JSON.stringify(submitComment));
+					mui.fire(submitComment,'refreshTeacher',{
+						teacher:item.info
+					});
+					mui.back();
+					
+				} else {//其他页面选择老师的时候执行
+					common.transfer('../student/submitComment.html', true, {
+						works: self.works,
+						teacher: item.info,
+						homeWork: self.isHomeWork(),
+					},false,true,'submitCommentId');
+				}
+
 				sel = true;
 				break;
 			}
@@ -381,25 +393,27 @@ var viewModel = function() {
 		});
 		self.subjectSelect(newS);
 	};
-	
+
 	document.getElementById('pull-down-nav').addEventListener('shown', function(e) {
 		mui('#pullrefresh').pullRefresh().setStopped(true);
 	});
 	document.getElementById('pull-down-nav').addEventListener('hidden', function(e) {
 		mui('#pullrefresh').pullRefresh().setStopped(false);
 	});
-	
+
 	mui.plusReady(function() {
 		var web = plus.webview.currentWebview(); //页面间传值
 
 		if (typeof(web.displayCheck) !== "undefined") {
 			self.displayCheck(web.displayCheck);
 			self.works = web.works;
-			//			$A.gI('teacher-scroll').style.marginTop = '45px';
 		}
 
 		if (typeof(web.homeWork) !== "undefined") {
 			self.isHomeWork(web.homeWork);
+		}
+		if (typeof(web.chooseNewTeacher) !== "undefined") {
+			self.chooseNewTeacher(web.chooseNewTeacher);
 		}
 
 		//科目

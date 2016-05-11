@@ -3,6 +3,7 @@ var viewModel = function() {
 	var ID;
 
 	self.activity = ko.observableArray([]);
+	self.sponsors = ko.observableArray([]);			//主办方
 	self.Thumbnail = ko.observable('');
 	self.ActStatText = ko.observable(''); //活动状态描述
 	self.BuyText = ko.observable(''); //是否在售票中的状态
@@ -21,10 +22,22 @@ var viewModel = function() {
 			dataType: 'json',
 			type: "GET",
 			success: function(responseText) {
-				//console.log(JSON.stringify(responseText));
+//				console.log(JSON.stringify(responseText));
 				self.CanRegGame(responseText.CanRegGame);
 				self.RegGameURL(responseText.RegGameUrl);
-				//console.log(responseText.ActContent);
+				var tmp = common.transforArray(responseText.Sponsor);
+				if(tmp && tmp.length > 0){
+					tmp.forEach(function(item){
+						self.sponsors.push({
+							text: item,
+							id: 0
+						})
+					})
+				}
+				
+				if(responseText.OrgID > 0){
+					self.sponsors.unshift({text: responseText.OrgAbbr, id: responseText.OrgID});
+				}
 				self.activity(responseText);
 				
 				CustomPrice = JSON.parse(self.activity().CustomPrice);
@@ -102,6 +115,12 @@ var viewModel = function() {
 		});
 	}
 
+	self.gotoOrgInfo = function(data) {
+		common.transfer('../../modules/org/orgInfo.html', false, {
+			oid: data.id
+		});
+	}
+
 	self.gotoNews = function() {
 		common.transfer('/modules/home/web.html', false, {
 			url: 'http://mp.weixin.qq.com/s?__biz=MzIwOTA4MDMzOA==&mid=402038844&idx=1&sn=fd4e2026683d2c3aee0b4dbc76964c31#rd'
@@ -121,11 +140,17 @@ var viewModel = function() {
 	}
 
 	self.gotoSaleTicket = function() {
-		common.transfer('saleTicket.html', true, {
-			ActivityID: self.activity().ID,
-			CustomPrice: self.activity().CustomPrice,
-			TicketUrl: self.activity().SeatsPreviewUrl
-		});
+		if( self.activity().IsOnLine ) {
+			common.transfer('seatMap.html', true, {
+				ActivityID: self.activity().ID,
+			});
+		} else {
+			common.transfer('saleTicket.html', true, {
+				ActivityID: self.activity().ID,
+				CustomPrice: self.activity().CustomPrice,
+				TicketUrl: self.activity().SeatsPreviewUrl
+			});
+		}
 	}
 	
 	//判断是否已有报名

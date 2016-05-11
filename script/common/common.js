@@ -1,10 +1,10 @@
 ﻿var common = {
 	//Web API地址
-	gServerUrl: "http://cloud.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
+	//gServerUrl: "http://cloud.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
 	//gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
 	//gServerUrl: "http://192.168.1.88:8090/",gVideoServerUrl: "http://192.168.1.88:8099/",gWebsiteUrl: "http://192.168.1.88:8081/",
 	//gServerUrl: "http://192.168.1.66:8190/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8080/",
-	//gServerUrl: "http://nilchan.f3322.net:8090/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
+	gServerUrl: "http://nilchan.f3322.net:8090/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
 
 	//判断字符串是否为空，空则返回""
 	StrIsNull: function(str) {
@@ -224,6 +224,20 @@
 		});
 	},
 
+	debounce: function(fn, delay) {
+		var timer = null;
+		return function() {
+			var _this = this;
+			for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+				args[_key2] = arguments[_key2];
+			}
+			clearTimeout(timer);
+			timer = setTimeout(function() {
+				return fn.apply(_this, args);
+			}, delay);
+		};
+	},
+
 	//打开我的上传页面（独特处理，因为除首次打开外不再关闭）
 	transferToMyUpload: function() {
 		var isFirst = false;
@@ -349,7 +363,7 @@
 		if (!pos) pos = 0;
 		var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID');
 		var reloadID = 0;
-
+		if (index === null) return;
 		for (var i = 0; i < index.children().length; i++) {
 			if (index.children()[i].id == common.gIndexChildren[pos].webviewId) {
 				reloadID = i;
@@ -946,7 +960,7 @@
 	},
 
 	refreshMessage: function(callback) {
-		if( plus.networkinfo.getCurrentType() <= 1 ) return ;
+		if (plus.networkinfo.getCurrentType() <= 1) return;
 		var page1 = common.getIndexChild(0);
 		var page4 = common.getIndexChild(4);
 		common.getUnreadCount(function(count) {
@@ -958,12 +972,12 @@
 			mui.fire(page4, 'refreshMessage', {
 				count: count
 			});
-			if(callback!=='' && typeof callback==='function'){
+			if (callback !== '' && typeof callback === 'function') {
 				callback();
 			}
 		});
 	},
-	
+
 	autoRefreshMessage: function(timer) {
 		setInterval(function() {
 			common.refreshMessage();
@@ -978,6 +992,7 @@
 
 	//用户类型枚举
 	gDictUserType: {
+		org: 8,
 		teacher: 32,
 		student: 64
 	},

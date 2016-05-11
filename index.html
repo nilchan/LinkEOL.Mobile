@@ -138,7 +138,7 @@
 		<script src="script/common/index.js" type="text/javascript" charset="utf-8"></script>
 		<!--<script src="script/common/update.js" type="text/javascript" charset="utf-8"></script>-->
 		<script type="text/javascript" charset="utf-8">
-
+			var selectPage;
 			//mui初始化
 			mui.init();
 			//var subpages = ['modules/home/home.html','modules/comment/commentListHeader.html',  'modules/course/myCourse.html', "modules/works/workIndex.html", self.MyHref()];
@@ -156,6 +156,7 @@
 			var dfPage = 0;
 			//创建子页面，首个选项卡页面显示，其它均隐藏；
 			mui.plusReady(function() {
+				selectPage = common.preload('modules/home/select.html');
 				//console.log(plus.screen.resolutionHeight*plus.screen.scale+'!'+plus.screen.resolutionWidth*plus.screen.scale);
 				var web = plus.webview.currentWebview();
 				if (typeof(web.page) !== "undefined") {
@@ -191,13 +192,15 @@
 				var defaultTab = document.getElementById("Tab" + (dfPage + 1));
 				defaultTab.classList.add('mui-active');
 			});
+			
+			
 			//当前激活选项
 			var activeTab = subpages[dfPage];
 			//选项卡点击事件
 			mui('.mui-bar-tab').on('tap', 'a', function(e) {
 				var targetTab = this.getAttribute('href');
 				if( this.getAttribute('id') == "Tab3" ) {
-					common.transfer('modules/works/addWorks.html', true);
+					plus.webview.show(selectPage, 'zoom-fade-out', '100ms');
 					return ;
 				}
 				if (targetTab == activeTab) {

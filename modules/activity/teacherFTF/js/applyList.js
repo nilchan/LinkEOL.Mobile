@@ -1,6 +1,7 @@
 var applyList = function() {
     var self = this;
     var aid = 0;
+    self.hasActivity = ko.observable(false);
 	
     self.scores = ko.observableArray([]);
 	
@@ -14,7 +15,7 @@ var applyList = function() {
     }
 	
     self.getList = function() {
-    	if(aid <= 0) return;
+    	if(aid < 0) return;
     	
         var url = common.gServerUrl + 'Common/RegLectures/RegLecturesInfo?ActivityID=' + aid +'&UserID=' + getLocalItem('UserID');
         mui.ajax(url, {
@@ -56,6 +57,9 @@ var applyList = function() {
 		var web = plus.webview.currentWebview();
 		if (typeof(web.aid) !== "undefined") {
 			aid = web.aid;
+			self.hasActivity(true);
+		}else{
+			aid=0;
 		}
 		self.getList();
 	});

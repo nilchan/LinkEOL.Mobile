@@ -2,20 +2,16 @@ var favUser = function() {
 	var self = this;
 	var qrcodeID, qrcodeType;
 	var qrcodeWeb = null;
-	self.Gendervalue = ko.observable('男')
+	self.Gendervalue = ko.observable('');
 	self.userInfo = ko.observableArray([]);
-	var infoUrl = "API/Account/GetInfo?userid=";
-	var infoType = "&usertype=";
-	var teacherUrl = '?TeacherID=';
-	var studentUrl = '&StudentID=';
-	var SubjectUrl = '&SubjectID=';
-	var typeUrl = '&type=';
+
 	var userId = getLocalItem('UserID'); //当前用户id
 	var subjectId = getLocalItem('SubjectID'); //当前用户科目id
-	self.valid = ko.observable(true);
-	self.isTrueInstruct = ko.observable(true); //是否能正确设置授课关系 ,只有在学生关注学生打开此页面的时候为false
-	self.isShowTeacher = ko.observable(true); //是否显示授课老师按钮
-	var isAttentionUser = ko.observable(false);//是否关注成功
+	self.valid = ko.observable(false);
+	self.isShowStudent = ko.observable(false); 	//是否显示授课学生按钮
+	self.isShowTeacher = ko.observable(false); 	//是否显示授课老师按钮
+	self.isShowOrg = ko.observable(false); 		//是否显示绑定机构按钮
+	var isAttentionUser = false;	//是否关注成功
 
 	mui.plusReady(function() {
 		qrcodeWeb = plus.webview.currentWebview();
@@ -25,37 +21,52 @@ var favUser = function() {
 			//console.log(httpDomain);
 			if (result.indexOf("teacher") >= 0) { //用户类型
 				qrcodeType = common.gDictUserType.teacher;
-				if (getLocalItem('UserType') == common.gDictUserType.student) { //学生打开老师关注页
-					self.isTrueInstruct(false);
+				if (getLocalItem('UserType') == common.gDictUserType.student) { //学生扫码老师
+					self.isShowTeacher(true);
 				}
 			} else if (result.indexOf("student") >= 0) {
 				qrcodeType = common.gDictUserType.student;
-				self.isShowTeacher(false);
-				if (getLocalItem('UserType') == qrcodeType) { //学生打开学生的此页
-					self.isTrueInstruct(false);
+				if (getLocalItem('UserType') == common.gDictUserType.teacher) { //老师扫码学生
+					self.isShowStudent(true);
+				}
+			} else if (result.indexOf("org") >= 0){
+				qrcodeType = common.gDictUserType.org;
+				if (getLocalItem('UserType') != common.gDictUserType.org) { 	//非机构扫码机构
+					self.isShowOrg(true);
 				}
 			}
 			qrcodeID = common.getQueryStringByName("id", result); //用户id
 
 			if (common.StrIsNull(qrcodeID) == '' || common.StrIsNull(qrcodeType) == '' || httpDomain < 0) {
-				self.valid(true);
+				self.valid(false);
 				common.showCurrentWebview();
 				plus.webview.close(qrcodeWeb.opener());
-				//qrcodeWeb.evalJS("closeScan()");
 			} else {
-				mui.ajax(common.gServerUrl + infoUrl + qrcodeID + infoType + qrcodeType, {
+				var ajaxUrl = common.gServerUrl + "API/Account/GetInfo?userid=" + qrcodeID + "&usertype=" + qrcodeType;
+				console.log(ajaxUrl);
+				mui.ajax(ajaxUrl, {
 					type: "GET",
 					success: function(responseText) {
-						if (responseText != "") {
+						if (common.StrIsNull(responseText) != '') {
 							var result = eval("(" + responseText + ")");
-							//console.log(JSON.stringify(result));
-							self.Gendervalue(common.gJsonGenderType[parseInt(result.Gender)].text);
+							if(result.UserType == common.gDictUserType.teacher || 
+								result.UserType == common.gDictUserType.student){
+								self.Gendervalue(common.gJsonGenderType[parseInt(result.Gender)].text);
+							}
+							
 							self.userInfo(result);
-							self.valid(false);
-							common.showCurrentWebview();
-							plus.webview.close(qrcodeWeb.opener());
-							//qrcodeWeb.evalJS("closeScan()");
+							self.valid(true);
 						}
+						else{
+							self.valid(false);
+						}
+						common.showCurrentWebview();
+						plus.webview.close(qrcodeWeb.opener());
+					},
+					error: function(){
+						self.valid(false);
+						common.showCurrentWebview();
+						plus.webview.close(qrcodeWeb.opener());
 					}
 				})
 			}
@@ -85,7 +96,8 @@ var favUser = function() {
 	self.setMyTeacher = function() {
 		var instuctUrl = common.gServerUrl + 'API/TeacherToStudent/TeacherToStudentAdd';
 		if (self.userInfo().SubjectID > 0) { //获取的用户存在科目信息，为老师
-			instuctUrl += teacherUrl + self.userInfo().UserID + studentUrl + userId + SubjectUrl + self.userInfo().SubjectID + typeUrl + common.gInstructType[0].value;
+			instuctUrl += '?TeacherID=' + self.userInfo().UserID + '&StudentID=' + userId + 
+				'&SubjectID=' + self.userInfo().SubjectID + '&type=' + common.gInstructType[0].value;
 			mui.ajax(instuctUrl, {
 				type: 'POST',
 				success: function(responseText) {
@@ -99,12 +111,29 @@ var favUser = function() {
 	//设置为我的授课学生
 	self.setMyStudent = function() {
 		var instuctUrl = common.gServerUrl + 'API/TeacherToStudent/TeacherToStudentAdd';
-		instuctUrl += teacherUrl + userId + studentUrl + self.userInfo().UserID + SubjectUrl + subjectId + typeUrl + common.gInstructType[1].value;
+		instuctUrl += '?TeacherID=' + userId + '&StudentID=' + self.userInfo().UserID + 
+			'&SubjectID=' + subjectId + '&type=' + common.gInstructType[1].value;
 		mui.ajax(instuctUrl, {
 			type: 'POST',
 			success: function(responseText) {
 				mui.toast('已设置成功');
 				common.transfer('myStudentList.html');
+			}
+		})
+	}
+	
+	//绑定机构
+	self.setMyOrg = function() {
+		var instuctUrl = common.gServerUrl + 'Common/Org/OrgToUserAdd';
+		mui.ajax(instuctUrl, {
+			type: 'POST',
+			data: {
+				OrgID: qrcodeID,
+				UserID: userId
+			},
+			success: function(responseText) {
+				mui.toast('已绑定成功');
+				mui.back();
 			}
 		})
 	}

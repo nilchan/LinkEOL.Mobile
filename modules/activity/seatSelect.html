@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			html,
+			.mui-content {
+				background: #F1F1F1!important;
+			}
+			
+			.money-delete-icon {
+				    padding: 12px;
+    				display: inline-block;
+    				width: 13.33%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title" data-bind="text: regionName() + '座位示意图'"></h1>
+		</header>
+		<div class="mui-content">
+			<div class="grade-box">
+				<ul data-bind="foreach:{data: seatLevelList}">
+					<li>
+						<button class="grade-btn" data-bind="text: '￥' + Price, style: {'backgroundColor': Color}">￥580</button>
+						<span class="grade-span" data-bind="text: LevelName">VIP</span>
+					</li>
+				</ul>
+			</div>
+
+			<div id="seatArea" style="overflow: hidden;">
+				<div id="seat-box" class="seat-box">
+					<div id="seatGraph" data-bind="foreach:{data: seatList}">
+						
+					
+					<ul data-bind="foreach: {data: $data}">
+						<li class="four-grade iconfont" data-bind="style: {'backgroundColor': SeatStatus == 1 ? Color : (SeatStatus == 4 ? '#f1f1f1' : '#999')}, event:{tap: selectOne}"></li>
+					</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="buy-ticket" data-bind="foreach: {data: selectFormatList}">
+				<div data-bind="visible: $data.length > 0">
+					<div class="seat-zone"><span data-bind="text: ($data.length > 0 ? $data[0].RegionName : '') + '区'">A区</span></div>
+					<ul data-bind="foreach: {data: $data}">
+						<li>
+							<span class="seat-table vip-font" data-bind="text: SeatNO">9排14座</span>
+							<span class="grade-table" data-bind="text: LevelName">VIP</span>
+							<span class="money-table"><!-- ko text: '￥' + Price -->580 <!-- /ko --></span>
+							<i class="iconfont money-delete-icon" data-bind="event:{tap: deleteOne}">&#xe63f;</i>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<nav class="show-set-nav">
+				<div class="nav-left">
+					<i class="iconfont">&#xe6c8;</i>
+					<em class="iconfont dow-nav"></em>
+				</div>
+				<div class="nav-right">
+					<span class="totil-pay" data-bind="text: '￥' + totalPrice()">1920</span>
+					<span class="amount" data-bind="text: '(' + totalCount() + '张)'">(4张)</span>
+
+				</div>
+				 <a href="#middlePopover"><button class="settle-accounts">结算</button></a>
+			</nav>
+			
+			<div id="middlePopover" class="mui-popover submitComment-top">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll submitClass-mui-scroll Lesson-mui">
+						<div class="mui-scroll-title">
+							<i class="iconfont" data-bind="click:closePopover">&#xe63f;</i>
+							<span>付款详情</span>
+						</div>
+						<ul>
+							<form class="mui-input-group">
+								<div class="mui-input-row mui-radio mui-left Lesson-radio">
+									<label>
+										<li class="wx-pay">
+											<img src="../../images/submitClass-wx.png" />
+											<span>微信支付</span>
+											<input name="payType" value="wxpay" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
+										</li>
+									</label>
+								</div>
+								<div class="mui-input-row mui-radio mui-left Lesson-radio ">
+									<label>
+										<li class="wx-pay">
+											<img src="../../images/ali.png" />
+											<span>支付宝</span>
+											<input name="payType" value="alipay" type="radio" data-bind="event:{change: checkPayType}">
+										</li>
+									</label>
+								</div>
+								<div class="mui-input-row mui-radio mui-left Lesson-radio">
+									<label>
+									<li class="wx-pay">
+										<img src="../../images/ye.png" />
+										<span>余额支付
+											<!--ko text: '( ￥ ' + balance() + ' )'-->
+											(￥120.00)
+											<!--/ko-->
+										</span>
+										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
+									</li>
+								</label>
+								</div>
+								<li class="lineHeight">
+									总额：￥
+									<!--ko text: totalPrice-->
+									<!--/ko-->
+								</li>
+							</form>
+						</ul>
+						<button class="p-btn-color" data-bind="event:{tap: gotoPay}">去付款</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../script/libs/jquery.min.js"></script>
+		<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js " type="text/javascript " charset="utf-8 "></script>
+		<script type="text/javascript" src="../../script/libs/quo/quo.standalone.js"></script>
+		<script src="../../script/common/pay.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../script/activity/seatSelect.js"></script>
+		<script>
+			$(function() {
+				$('.nav-left').on('tap', function() {
+					$('.buy-ticket').toggleClass('hide');
+					$('.nav-left>em').toggleClass('up-nav')
+				})
+			});
+		</script>
+	</body>
+
+</html>

@@ -193,6 +193,7 @@ var saleTicket = function() {
 				if (common.StrIsNull(responseText) != '') {
 					ticketInfo = JSON.parse(responseText);
 					var arr = JSON.parse(ticketInfo.SeatPrice);
+					console.log(JSON.stringify(arr));
 					self.custormPriceList([]); //先清除
 					self.custormPriceList(arr);
 					//console.log(JSON.stringify(self.custormPriceList()));

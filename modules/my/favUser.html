@@ -28,6 +28,39 @@
     			font-size: 16px;
     			border: none;
 			}
+			.favUser-introduction{
+				height: auto;
+				width: 100%;
+				padding: 15px;
+				box-sizing: border-box;
+				background: #fff;
+				margin-top: 10px;
+				position: relative;
+			}
+			.favUser-introduction:before{
+				height: 1px;
+				width: 201%;
+				position: absolute;
+				left: -51%;
+				top: 0px;
+				background: #C8C7CC;
+				transform: scale(0.5);
+				-webkit-transform: scale(0.5);
+				content: '';
+				
+			}
+				.favUser-introduction:after{
+				height: 1px;
+				width: 201%;
+				position: absolute;
+				left: -51%;
+				background: #C8C7CC;
+				transform: scale(0.5);
+				-webkit-transform: scale(0.5);
+				content: '';
+				bottom: 0;
+				
+			}
 		</style>
 	</head>
 
@@ -37,29 +70,50 @@
 			<h1 class="mui-title">用户信息</h1>
 		</header>
 		<div class="mui-content">
-			<div data-bind="visible:valid()==false">
+			<div data-bind="visible:valid()==true">
 				<div class="card-row favUser-card" data-bind='click:goInfo'>
 					<div class="card-right card-width">
 						<img data-bind="attr:{'src':common.getPhotoUrl(userInfo().Photo)}" onerror="this.src='../../images/my-default.png';" />
 						<div class="card-row-right">
-							<span data-bind="text:userInfo().DisplayName"></span><u>(<!--ko text:Gendervalue--><!--/ko-->)</u>
+							<span data-bind="text:userInfo().DisplayName"></span><u><!--ko text:Gendervalue--><!--/ko--></u>
 						</div>
 						<div class="card-row-right card-row-dow">
-							<u> <!--ko text:userInfo().Province--><!--/ko--><!--ko text:(common.StrIsNull(userInfo().City)==''?'':'>'+userInfo().City)--><!--/ko--><!--ko text:(common.StrIsNull(userInfo().District)==''?'':'>'+userInfo().District)--><!--/ko--></u>
+							<u>
+								<!--ko text:userInfo().Province--><!--/ko--><!--ko text:(common.StrIsNull(userInfo().City)==''?'':' · '+userInfo().City)--><!--/ko--><!--ko text:(common.StrIsNull(userInfo().District)==''?'':' · '+userInfo().District)--><!--/ko-->
+							</u>
 						</div>
 					</div>
 				</div>
-				<div class="mui-content-padded favUser-div-btn">
+				<div class="favUser-introduction" data-bind="visible: isShowOrg">
+					<p class="introduction-font">简介：</p>
+					<p class="introduction-content" data-bind="text: userInfo().Introduce"></p>
+					<p class="favUser-introduction-more">查看全文</p>
+				</div>
+				<!--<div class="mui-content-padded favUser-div-btn">
 					<button type="button" class="mui-btn mui-btn-success mui-btn-block favUser-btn" data-bind="click:addMyAttention">添加到我的关注</button>
 				</div>
 				<div class="mui-content-padded">
 					<button type="button" class="mui-btn mui-btn-success mui-btn-block favUser-btn1" data-bind='click:setMyTeacher,visible:isShowTeacher'>设置为授课老师</button>
 				</div>
 				<div class="mui-content-padded">
-					<button type="button" class="mui-btn mui-btn-success mui-btn-block favUser-btn2" data-bind='click:setMyStudent,visible:isTrueInstruct'>设置为授课学生</button>
+					<button type="button" class="mui-btn mui-btn-success mui-btn-block favUser-btn2" data-bind='click:setMyStudent,visible:isShowStudent'>设置为授课学生</button>
+				</div>-->
+				<div class="favUser-btn-box">
+					<div class="favUser-comment">
+						<button data-bind="click:addMyAttention">关注</button>
+					</div>
+					<div class="favUser-right-btn">
+						<button data-bind="click:setMyTeacher, visible:isShowTeacher">设置为授课老师</button>
+					</div>
+					<div class="favUser-right-btn">
+						<button data-bind="click:setMyStudent, visible:isShowStudent">设置为授课学生</button>
+					</div>
+					<div class="favUser-right-btn">
+						<button data-bind="click:setMyOrg, visible:isShowOrg">绑定该机构</button>
+					</div>
 				</div>
 			</div>
-			<div class="favUser-error" data-bind="visible:valid()==true">
+			<div class="favUser-error" data-bind="visible:valid()==false">
 				<i class="iconfont">&#xe64d;</i>
 				<span>请求无效，请扫描乐评家的用户二维码</span>
 			</div>

@@ -1,9 +1,14 @@
 var _bought = false;
+var player = null;
+
+function hidePlayer() {
+	document.getElementById("videoBuy").style.display = "block";
+	document.getElementById("videoPos").style.display = "none";
+}
 
 function s2j_onPlayOver() {
 	if (!_bought) {
-		document.getElementById("videoBuy").style.display = "block";
-		document.getElementById("videoPos").style.display = "none";
+		hidePlayer();
 	}
 }
 
@@ -13,7 +18,7 @@ var worksDetails = function() {
 	var workIsFav = false; //是否收藏
 	var videoUrl; //视频地址
 	var orderID;
-	
+
 	self.collectionStatus = ko.observable('worksDetails-after');
 	self.LikeStatus = ko.observable("star-before");
 	self.UserID = getLocalItem("UserID"); //当前用户UserID
@@ -69,6 +74,8 @@ var worksDetails = function() {
 		self.IsFamous = ko.observable(works.IsFamous);
 		self.ConvertResult = ko.observable(works.ConvertResult);
 		self.IsBought = ko.observable(works.IsBought);
+		self.CommentType = ko.observable(works.CommentType);
+
 	}
 
 	//是否为作者
@@ -98,7 +105,7 @@ var worksDetails = function() {
 			mui('#bottomPopover').popover('toggle');
 			plus.nativeUI.showWaiting();
 			Share.sendShare(this.id, shareTitle, shareContent, shareUrl + self.Works().WorkID(), shareImg, common.gShareContentType.video);
-			
+
 		}
 	}
 	//关闭分享窗口
@@ -140,6 +147,7 @@ var worksDetails = function() {
 				var result = eval("(" + responseText + ")");
 				result.forEach(function(item, i, array) {
 					self.teacherComment.push(Comment(item));
+					//console.log(JSON.stringify(self.teacherComment()));
 				})
 			}
 		});
@@ -169,6 +177,7 @@ var worksDetails = function() {
 		obj.TotalComment = model ? model.TotalComment : '';
 		obj.IsFamous = model ? model.IsFamous : '';
 		obj.IsRecommend = model ? model.IsRecommend : '';
+		obj.CommentType = model ? model.CommentType : '';
 		var ctr = [];
 		if (model && model.CommentToRules) {
 			var arr = JSON.parse(model.CommentToRules);
@@ -277,13 +286,15 @@ var worksDetails = function() {
 			downloadJson = JSON.stringify(download);
 		}
 
-		Pay.preparePay(downloadJson, self.PayType(), common.gDictOrderTargetType.Download, 
-			orderID, function(newOrderID, expireMinutes){
+		Pay.preparePay(downloadJson, self.PayType(), common.gDictOrderTargetType.Download,
+			orderID,
+			function(newOrderID, expireMinutes) {
 				orderID = newOrderID;
-			}, function(){
+			},
+			function() {
 				mui.back();
 			});
-		
+
 	};
 
 	/**
@@ -403,7 +414,6 @@ var worksDetails = function() {
 				workobj = result;
 				obj = new self.initWorksValue(result);
 				self.Works(obj);
-
 				if (self.Works().IsPublic()) {
 					self.worksClock('worksDetails-open');
 				} else {
@@ -429,7 +439,7 @@ var worksDetails = function() {
 							if (item.ActionType.toString() == common.gDictActionType.Favorite) {
 								self.collectionStatus('worksDetails-before');
 								self.isFav(true);
-								workIsFav=true;
+								workIsFav = true;
 							}
 							if (item.ActionType.toString() == common.gDictActionType.Like) {
 								self.LikeStatus("star-after");
@@ -551,34 +561,33 @@ var worksDetails = function() {
 		var width = document.body.clientWidth;
 		var height = width * 9 / 16;
 		_bought = work.IsBought;
-		
-		document.getElementById('videoPos').innerHTML = '';
+
+		/*document.getElementById('videoPos').innerHTML = '';
 		if (work.IsBought) {
-			var player = polyvObject('#videoPos').videoPlayer({
+			player = polyvObject('#videoPos').videoPlayer({
 				'width': '100%',
 				'height': height,
 				'vid': work.VidPolyv
 			});
 		} else {
-			var player = polyvObject('#videoPos').previewPlayer({
+			player = polyvObject('#videoPos').previewPlayer({
 				'width': '100%',
 				'height': height,
 				'vid': work.VidPolyvPreview
 			});
-		}
+		}*/
 
-		/*mui.ajax(common.gServerUrl + "API/PolyvCloud/GetTsAndHashApp", {
+		mui.ajax(common.gServerUrl + "API/PolyvCloud/GetTsAndHashApp", {
 			type: 'GET',
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
 				var ts = result.ts;
 				var hash = result.hash;
-				console.log(work.VidPolyvPreview);
-				console.log(work.IsBought);
-				
+
+				document.getElementById('videoBuy').style.height = height + 'px';
 				document.getElementById('videoPos').innerHTML = '';
 				if (work.IsBought) {
-					var player = polyvObject('#videoPos').videoPlayer({
+					player = polyvObject('#videoPos').videoPlayer({
 						'width': '100%',
 						'height': height,
 						'vid': work.VidPolyv,
@@ -586,7 +595,7 @@ var worksDetails = function() {
 						'sign': hash
 					});
 				} else {
-					var player = polyvObject('#videoPos').previewPlayer({
+					player = polyvObject('#videoPos').previewPlayer({
 						'width': '100%',
 						'height': height,
 						'vid': work.VidPolyvPreview,
@@ -595,10 +604,10 @@ var worksDetails = function() {
 					});
 				}
 			},
-			error: function(){
+			error: function() {
 				mui.toast('获取视频信息错误');
 			}
-		});*/
+		});
 	}
 
 	/*work end*/
@@ -611,15 +620,27 @@ var worksDetails = function() {
 			mui.toast('视频尚未审核，请稍后再试~');
 			return;
 		}
-		common.transfer('../../modules/teacher/teacherHomeWorkHeader.html', true, {
-			works: workobj,
-			displayCheck: true,
-			homeWork: true
+		
+		mui.ajax(common.gServerUrl + 'API/TeacherToStudent/IsTeacherOrClassMate?UserID=' + self.UserID + '&Type=' + 1, {
+			type: 'GET',
+			success: function(responseText) {
+				if (responseText == 'true') {
+					common.transfer('../../modules/student/submitComment.html', true, {
+						works: workobj,
+						//displayCheck: true,
+						homeWork: true
+					},false,true,'submitCommentId');
+				} else {
+					mui.toast('还没有授课老师 ~');
+				}
+			}
 		});
+
 	}
 
 	//找老师点评
 	self.goTeacherComment = function() {
+
 		if (self.Works().ConvertResult() != "1") {
 			mui.toast('视频尚未审核，请稍后再试~');
 			return;
@@ -685,7 +706,7 @@ var worksDetails = function() {
 			var workParent = workVaule.opener();
 			var webObj = plus.webview.getWebviewById('myCollection.html');
 			mui.fire(webObj, 'refreshCollection');
-			
+
 			if (workParent != null) {
 				if (workParent.id == 'worksListAllWorks.html' || workParent.id == 'classmateWorks.html') {
 					if (workIsDel) { //删除作品
@@ -704,7 +725,7 @@ var worksDetails = function() {
 						worksId: self.Works().WorkID(),
 						worksStatus: workIsDel
 					})
-				} 
+				}
 			}
 
 			return true;

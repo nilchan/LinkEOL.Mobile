@@ -363,7 +363,8 @@ var myCourse = function() {
 					common.transfer('../works/worksList.html', true, {
 						teacher: result,
 						displayCheck: true,
-						homeWork: true
+						homeWork: true,
+						isChangeTeacher:false
 					});
 				}
 			})

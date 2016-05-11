@@ -9,157 +9,286 @@
 		<link href="../../content/common/global.css" rel="stylesheet" />
 		<link href="../../content/common/style.css" rel="stylesheet" />
 		<style>
-			body,.mui-content{
+			html,
+			.mui-content {
 				background: #F1F1F1!important;
 			}
-			.mui-bar .mui-btn{
+			
+			.submitClass-title {
+				height: 55px;
+				width: 100%;
+				background: #c9c9c9;
+				line-height: 55px;
+				text-align: center;
+				color: #676767;
+				position: relative;
+			}
+			
+			.submitClass-title h4 {
+				line-height: 55px;
+			}
+			
+			.submitClass-font-size li {
+				font-size: 14px;
+			}
+			
+			.works-list-f-left .submitClass-font-color {
+				color: #2cbacb;
+			}
+			
+			.submitClass-title-bottom {
+				margin-bottom: 40px;
+			}
+			
+			.change-span {
+				position: absolute;
+				right: 10px;
+				height: 55px;
+				width: 100px;
+				color: #e74478;
+				font-size: 16px;
+				top: 0px;
+				display: inline-block;
+			}
+			
+			.change-em {
+				height: 20px;
+				width: 20px;
+				border-radius: 50%;
+				background: #e74478;
+				display: inline-block;
+				top: 18px;
+				right: 17px;
+				position: absolute;
+			}
+			
+			.change-em i {
+				color: #fff;
+				font-size: 14px;
+				position: absolute;
+				left: 4px;
+				top: -18px;
+			}
+			
+			.teacherList-photo {
+				margin: 15px 0 10px 10px;
+			}
+			
+			.teacherList-professional .professional-teacherList {
+				padding: 1px 5px;
+			}
+			
+			.p-teacher-list:after {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				height: 1px!important;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #c8c7cc;
+				border: none!important;
+			}
+			
+			@media only screen and (min-width:320px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+			}
+			
+			@media only screen and (min-width: 321px) and (max-width: 375px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 5px 0px 15px;
+					position: relative;
+					width: 78%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			@media only screen and (min-width: 376px) and (max-width: 415px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 75%;
+					box-sizing: border-box;
+					position: relative;
+				}
+				.p-teacher-list > a:not(.mui-btn) {
+					background: none;
+					margin: -11px -30px;
+				}
+			}
+			
+			@media only screen and (min-width: 415px) and (max-width: 1025px) {
+				.teacher-list-con {
+					float: left;
+					padding: 10px 10px 0px 15px;
+					position: relative;
+					width: 82%;
+					box-sizing: border-box;
+					position: relative;
+				}
+			}
+			
+			.mui-bar .mui-btn {
 				top: 9px;
 				padding: 6px 18px;
-			}	
-			.mui-content-padded{
+			}
+			
+			.mui-content-padded {
 				margin: 0!important;
 			}
-			.submitComment-top.mui-active{
+			
+			.submitComment-top.mui-active {
 				left: 0!important;
 			}
-			.mui-btn-block{
+			
+			.mui-btn-block {
 				width: 30%!important;
 				float: right;
 				top: -9px!important;
 				margin-right: 15px;
 			}
-		   .mui-radio input[type=radio]:before{
+			
+			.mui-radio input[type=radio]:before {
 				content: "";
 			}
-			.mui-input-group .mui-input-row:after{
+			
+			.mui-input-group .mui-input-row:after {
 				background: #f1f1f1!important;
 			}
-			.Lesson-radio-height{
+			
+			.Lesson-radio-height {
 				height: 100px!important;
 			}
-			.mui-input-group:after,.mui-input-group:before{
+			
+			.mui-input-group:after,
+			.mui-input-group:before {
 				height: 0px!important;
 			}
+			
 			.submitComment-top {
 				margin-top: -300px!important;
-   				height: 300px!important;
+				height: 300px!important;
 			}
 		</style>
 	</head>
+
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe683;</i>
-			<h1 class="mui-title">提交点评</h1>			
+			<h1 class="mui-title">提交点评</h1>
 		</header>
-		
 		<div class="mui-content">
-			<div class="submitClass-card">
-				<div class="submitClass-card-title">被点评作品</div>
-				<div class="submitClass-card-img">
-					<img data-bind="attr: {src: common.getThumbnail(works().VideoThumbnail)}" onerror="this.src='../../images/video-big-default.png';" />
-				</div>
-				<span data-bind="text: works().Title">希望之星希望之星希望之星</span>
-				<em data-bind="text: works().AuthorName">钢琴</em>						
+			<div class="submitClass-title">
+				<h4>被点评的作品</h4>
 			</div>
-			
-			<div class="submitClass-card submitClass-th">
-				<div class="submitClass-card-title">点评老师</div>
-				<div class="submitClass-teacher">
-					<div class="submitClass-teacher-left">
+			<!--作品显示页-->
+			<ul class="mui-input-group submitClass-title-bottom ">
+				<li class="mui-table-view-cell works-list">
+					<a>
+						<div class="works-list-works">
+							<img data-bind="attr: {src: common.getThumbnail(works().VideoThumbnail)}" onerror="this.src='../../images/video-big-default.png';" />
+						</div>
+						<div class="works-list-right">
+							<div class="works-list-title">
+								<span class="works-list-title-span" data-bind="text:works().Title">张小杰的作品</span>
+							</div>
+						</div>
+						<div class="works-list-f">
+							<ul class="works-list-f-left submitClass-font-size">
+								<li class="aline-left" data-bind="text: addtime">
+									2016-02-26
+								</li>
+								<li class="aline-right submitClass-font-color" data-bind="text: works().AuthorName">
+									吉他
+								</li>
+							</ul>
+						</div>
+					</a>
+				</li>
+			</ul>
+
+			<div class="submitClass-title submitClass-title-top" data-bind='click:changeTeacher,visible:isChangeTeacher'>
+		
+				<h4>点评老师</h4>
+				<span class="change-span">更改</span>
+				<em class="change-em"><i class="iconfont">&#xe672;</i></em>
+			</div>
+			<div class="p-teacher-list mui-table-view-cell" >
+				<a href="javascript:void(0);">
+					<div class="teacher-head">
 						<img data-bind="attr: {src: common.getPhotoUrl(teacher().Photo)}" onerror="this.src='../../images/my-default.png';" />
 					</div>
-					<div class="submitClass-teacher-right">
-						<div class="up">
-							<span data-bind="text: teacher().DisplayName">袁怡航</span>
-							<span data-bind="text: teacher().SubjectName">钢琴</span>
-						</div>
-						<!--<div class="dow">
-							<em data-bind="css: 'star'+(teacher().Star>3?'3':teacher().Star)"></em>		
-						<div class="teacherList-professional" style="margin-top: -22px; width: 50%; float: right;">
-								<div class="professional"><i class="iconfont">&#xe696;</i></div>
-								<div class="education"><i class="iconfont">&#xe69b;</i></div>
-								<div class="identity"><i class="iconfont">&#xe69e;</i></div>
-							</div>
-						</div>-->
-						<div class="submitComment-pic">
-							<em data-bind="visible:teacher().IsFamous==false,css: 'star'+(teacher().Star>3?'3':teacher().Star)"></em>
-						</div>
-						<div class="teacherList-professional submitComment-pic-professional">
-								<em class="professional submitComment-professional" data-bind='visible:teacher().IsFamous==true && teacher().ProTitleAuth==true'><i class="iconfont">&#xe696;</i></em>
-								<em class="education" data-bind='visible:teacher().IsFamous==false && teacher().IDAuth==true'><i class="iconfont">&#xe69b;</i></em>
-								<em class="identity" data-bind='visible:teacher().IsFamous==false && teacher().EduAuth==true'><i class="iconfont">&#xe69e;</i></em>
-						</div>
-					</div>		
-				</div>		
-			</div>
-		
-		<nav class="mui-bar mui-bar-tab" style="display: none;" data-bind="visible: paid() == false && balanceGot() == true">
-            <div class="mui-content-padded availableTime-sure">
-            	<a data-bind="attr:{href:(freeCount() <= 0 ?'#middlePopover':'javascript:void(0);')}">
-				<button type="button" class="mui-btn mui-btn-primary availableTime-mui-btn p-btn-color" data-bind="text: freeCount() <= 0 ? '提交' : '免费提交（剩余'+ freeCount() +'次）', click: freeCount() <= 0 ? '' : gotoPay">
-
-				</button>
+					<div class="teacher-list-con teacherList-professional">
+						<span class="teacher-list-teacherName" data-bind="text: teacher().DisplayName">张三</span>
+						<em class="professional" data-bind='visible:teacher().IsFamous==true && teacher().ProTitleAuth==true'><i class="iconfont">&#xe696;</i></em>
+						<em class="education" data-bind='visible:teacher().IsFamous==false && teacher().IDAuth==true'><i class="iconfont">&#xe69b;</i></em>
+						<em class="identity" data-bind='visible:teacher().IsFamous==false && teacher().EduAuth==true'><i class="iconfont">&#xe69e;</i></em>
+						<span class="teacher-list-subject" data-bind="text: teacher().SubjectName">小提琴</span>
+						<p class="teacher-list-p1" data-bind="text: teacher().Introduce">著名演奏家，国家一级演奏员，中国民族管弦乐 学会理事，中国音乐家...
+						</p>
+					</div>
 				</a>
 			</div>
-        </nav>	
-		
-		
-		<!--弹出付款对话框-->
-		<div id="middlePopover" class="mui-popover submitComment-top">	
-			<div class="mui-scroll-wrapper">
-				<div class="mui-scroll submitClass-mui-scroll Lesson-mui" >
-					<div class="mui-scroll-title">
-						<i class="iconfont" data-bind="click:closePopover">&#xe63f;</i>
-						<span>付款详情</span>
-					</div>
-					<ul>
-						<form class="mui-input-group">
-							<!--<div class="mui-input-row mui-radio mui-left Lesson-radio ">
-								<label>
-									<li class="wx-pay">
-										<img src="../../images/submitClass-wx.png" />
-										<span>微信支付</span>
-										<input name="payType" value="wxpay" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
-									</li>
-			
-								</label>
-							</div>
-							<div class="mui-input-row mui-radio mui-left Lesson-radio">
-								<label>
-									<li class="wx-pay">
-										<img src="../../images/ali.png" />
-										<span>支付宝</span>
-										<input name="payType" value="alipay" type="radio" data-bind="event:{change: checkPayType}">
-									</li>
-								</label>
-							</div>-->
-							<div class="mui-input-row mui-radio mui-left Lesson-radio">
-								<label>
+
+			<nav class="mui-bar mui-bar-tab" data-bind="visible: paid() == false && balanceGot() == true">
+				<div class="mui-content-padded availableTime-sure">
+					<a data-bind="attr:{href:(freeCount() <= 0 ?'#middlePopover':'javascript:void(0);')}">
+						<button type="button" class="mui-btn mui-btn-primary availableTime-mui-btn p-btn-color" data-bind="text: freeCount() <= 0 ? '提交' : '免费提交（剩余'+ freeCount() +'次）', click: freeCount() <= 0 ? '' : gotoPay">
+					付款
+				</button>
+					</a>
+				</div>
+			</nav>
+
+			<div id="middlePopover" class="mui-popover submitComment-top">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll submitClass-mui-scroll Lesson-mui">
+						<div class="mui-scroll-title">
+							<i class="iconfont" data-bind="click:closePopover">&#xe63f;</i>
+							<span>付款详情</span>
+						</div>
+						<ul>
+							<form class="mui-input-group">
+								<div class="mui-input-row mui-radio mui-left Lesson-radio">
+									<label>
 									<li class="wx-pay">
 										<img src="../../images/ye.png" />
 										<span>余额支付
 											<!--ko text: '( ￥ ' + balance() + ' )'-->
-											(￥120.00)
 											<!--/ko-->
 										</span>
 										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
 									</li>
 								</label>
-							</div>
-							<div class="lineHeight" style="height: 50px; line-height: 50px;">
-								总额：￥
-								<!--ko text: Amount-->
-								<!--/ko-->
-							</div>
-							<p data-bind="click: gotoRecharge" style=" text-align: center; margin-top: 30px; padding-right: 40px;">余额不足？<span style="color: #e64578;">立即充值</span></p>
-						</form>
-					</ul>			
-					<button class="p-btn-color" data-bind="click: gotoPay, text: Amount() > 0 ? '去付款' : '免费点评，直接提交'"></button>
+								</div>
+								<div class="lineHeight" style="height: 50px; line-height: 50px;">
+									总额：￥
+									<!--ko text: Amount-->
+									<!--/ko-->
+								</div>
+								<p data-bind="click: gotoRecharge" style=" text-align: center; margin-top: 30px; padding-right: 40px;">余额不足？<span style="color: #e64578;">立即充值</span></p>
+							</form>
+						</ul>
+						<button class="p-btn-color" data-bind="click: gotoPay, text: Amount() > 0 ? '去付款' : '免费点评，直接提交'"></button>
+					</div>
 				</div>
 			</div>
-		</div>	
-	
-		</div>	
+		</div>
 		<script src="../../script/mui/mui.min.js"></script>
 		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
@@ -167,4 +296,5 @@
 		<script src="../../script/common/pay.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/student/submitComment.js" type="text/javascript" charset="utf-8"></script>
 	</body>
+
 </html>

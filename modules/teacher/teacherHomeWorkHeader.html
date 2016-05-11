@@ -23,11 +23,12 @@
 		<script type="text/javascript">
 			mui.plusReady(function() {
 				var web = plus.webview.currentWebview();
-				var work, display, homeWork, topPx;
+				var work, display, homeWork, topPx,chooseNewTeacher;
 				if (typeof(web.displayCheck) !== "undefined") {
 					work = web.works;
 					display = web.displayCheck;
 					homeWork = web.homeWork;
+					chooseNewTeacher=web.chooseNewTeacher;
 				}
 				topPx = '45px';
 				if (plus.os.vendor == 'Apple') {
@@ -44,7 +45,8 @@
 						extras: {
 							displayCheck: display,
 							works: work,
-							homeWork: homeWork
+							homeWork: homeWork,
+							chooseNewTeacher:chooseNewTeacher
 						}
 					}]
 				});

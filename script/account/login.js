@@ -88,7 +88,7 @@ var login = function() {
 		if ( typeof(web.aid) !== "undefined" ) {
 			ID = web.aid;
 		}
-		plus.statistic.eventTrig('95060701','checkLogin');
+		//plus.statistic.eventTrig('95060701','checkLogin');
 	})
 }
 ko.applyBindings(login);

@@ -9,6 +9,7 @@ var workList = function() {
 	self.UnreadCount = ko.observable("0");
 	self.dbSubject = ko.observable("科目");
 	self.dbSort = ko.observable("排序");
+	self.isChangeTeacher=ko.observable(true);
 	//var receiverId = getLocalItem("UserID");
 
 	self.tmplSubjects = ko.observableArray([]);
@@ -174,7 +175,8 @@ var workList = function() {
 					common.transfer('../student/submitComment.html', true, {
 						works: item.info,
 						teacher: teacherInfo(),
-						homeWork: self.isHomeWork()
+						homeWork: self.isHomeWork(),
+						isChangeTeacher:self.isChangeTeacher()
 					});
 				}
 				
@@ -196,6 +198,9 @@ var workList = function() {
 		}
 		if (typeof(web.homeWork) !== "undefined") {
 				self.isHomeWork(web.homeWork);
+		}
+		if(typeof web.isChangeTeacher !=='undefined'){
+			self.isChangeTeacher(web.isChangeTeacher);
 		}
 		self.tmplSubjectClasses(common.getAllSubjectClasses());
 		self.tmplSubjects(common.getAllSubjects());

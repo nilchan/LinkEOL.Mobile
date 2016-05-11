@@ -4,7 +4,7 @@ var examList = function() {
 	self.examListInfo = ko.observableArray([]);
 	
 	self.getExamList = function() {
-		var url = common.gServerUrl + '/API/Exam/GetExamInfoList';
+		var url = common.gServerUrl + 'API/Exam/GetExamInfoList';
 		mui.ajax(url, {
 			type: 'GET',
 			success: function(responseText) {

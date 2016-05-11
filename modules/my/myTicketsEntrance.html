@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.min.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+			.mui-table-view-cell>a:not(.mui-btn) {
+				margin: -11px -15px;
+			}
+			
+			.mui-table-view-cell>.mui-badge,
+			.mui-table-view-cell>.mui-btn,
+			.mui-table-view-cell>.mui-switch,
+			.mui-table-view-cell>a>.mui-badge,
+			.mui-table-view-cell>a>.mui-btn,
+			.mui-table-view-cell>a>.mui-switch {
+				top: 65%;
+			}
+			
+			.mui-table-view-chevron .mui-table-view-cell > a:not(.mui-btn) {
+				color: #404040!important;
+			}
+			
+			#qrcode img {
+				margin: 10px;
+				margin-top: 5px;
+			}
+			
+			#photo {
+				height: 50px;
+				width: 50px;
+				top: 80px;
+				left: 90px;
+				position: absolute;
+			}
+			
+			.mui-popover {
+				min-height: 220px;
+				width: 220px;
+				top: 50%!important;
+				left: 50%!important;
+				margin-left: -110px;
+				margin-top: -110px;
+			}
+			
+			.myInfoTeacher-address a {
+				color: #8B0000;
+				font-size: 16px;
+			}
+			.my-identity{
+				border: 1px solid #3dc1d1;
+			    height: 20px;
+			    width: 20px;
+			    line-height: 14px;
+			    display: inline-block;
+			    color: #3dc1d1;
+			    padding-left: 1px;
+			    border-radius: 50%;
+			    box-sizing: border-box;
+			}
+			.my-professional{
+				border: 1px solid #dfc268;
+			    height: 20px;
+			    width: 20px;
+			    line-height: 14px;
+			    display: inline-block;
+			    color: #dfc268;
+			    padding-left: 3px;
+			    border-radius: 50%;
+			    box-sizing: border-box;
+			}
+			.my-professional i{
+				font-size: 11px!important;
+			}
+			.my-education{
+				border: 1px solid #f89e61;
+			    height: 20px;
+			    width: 20px;
+			    line-height: 14px;
+			    display: inline-block;
+			    color: #f89e61;
+			    padding-left: 1px;
+			    margin-right: 5px;
+			    border-radius: 50%;
+			    box-sizing: border-box;
+			}
+			.myInfo-star:after {
+				font-size: 14px!important;
+				position: absolute;
+				top: 43%;				
+			}
+			.my-qualifications{
+				margin-top:11.2%; box-sizing: border-box; width: 50%; padding-left:23.5%;
+				}
+			@media only screen and (min-width: 376px) and (max-width: 414px) {
+				.my-qualifications{
+				margin-top:10.5%; box-sizing: border-box; width: 50%; padding-left:23.5%;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="mui-action-back iconfont">&#xe602;</i>
+			<h1 id="title" class="mui-title">我的购票</h1>	
+		</header>
+		<div class="mui-content">		
+			<div class="my-content">
+				<ul class="mui-table-view mui-table-view-chevron my-mui-table-view">
+					<li class="mui-table-view-cell" data-bind='click:goMyTicket'>
+						<a class="my-mui-navigate-right">
+							<em class="iconfont myTeacher-zh" style="padding: 1px 2px;">&#xe6c8;</em>
+							<span class="mui-badge my-mui-badge iconfont myInfoTeacher-next">&#xe618;</span>活动购票
+						</a>
+					</li>
+					<li class="mui-table-view-cell" data-bind="click:goAcRegister">
+						<a class="my-mui-navigate-right">
+							<em class="iconfont myTeacher-works">&#xe6cb;</em>
+							<span class="mui-badge my-mui-badge iconfont myInfoTeacher-next">&#xe618;</span>赛事报名
+						</a>
+					</li>
+					<li class="mui-table-view-cell" data-bind="click: goClassRegister">
+						<a class="my-mui-navigate-right">
+							<em class="iconfont myTeacher-myworks" style="padding: 0px; font-size: 20px;">&#xe6cc;</em>
+							<span class="mui-badge my-mui-badge iconfont myInfoTeacher-next">&#xe618;</span>讲座报名
+						</a>
+					</li>
+					<li class="mui-table-view-cell" data-bind="click: goCourseRegister">
+						<a class="my-mui-navigate-right">
+							<em class="iconfont myTeacher-myworks" style="padding: 0px; font-size: 20px;">&#xe6cf;</em>
+							<span class="mui-badge my-mui-badge iconfont myInfoTeacher-next">&#xe618;</span>课程报名
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/my/myTicketsEntrance.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

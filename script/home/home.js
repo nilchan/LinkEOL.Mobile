@@ -217,6 +217,21 @@ var home = function() {
 		}
 
 	}
+	
+	//机构
+	self.goOrkList=function(){
+		common.transfer('../org/orgList.html');
+	}
+	
+	//精品班/名师讲座
+	self.goActivityList=function(){
+		common.showIndexWebview(1);
+	}
+	
+	//高考培训
+	self.goorgToCourseList=function(){
+		common.transfer('../course/orgCoursesListHeader.html',false,{},false,false);
+	}
 
 	//跳转至考级页面
 	self.gotoExam = function() {

@@ -53,8 +53,8 @@
 			}
 			
 			.studentInfo-sex,.studentInfo-man{
-				height: 24px;
-				width: 24px;
+				height: 20px;
+				width: 20px;
 				border-radius: 50%;	
 				display: inline-block;
 				position: relative;
@@ -152,7 +152,7 @@
 			.sex-woman:after {
 				content: '\e6ad';
 				color: #fff;
-				font-size: 26px;
+				font-size: 22px;
 				position: absolute;
 				left: -1px;
 				top: 0px;
@@ -161,7 +161,7 @@
 			.sex-man:after {
 				content: '\e6ac';
 				color: #fff;
-				font-size: 26px;
+				font-size: 22px;
 				position: absolute;
 				left: -1px;
 				top: 0px;
@@ -207,6 +207,21 @@
 				background: #e64578;
 				color: #fff;
 			}
+			.studentInfo-ul:before{
+				height: 0px;
+			}
+			.studentIndo-logo{
+				width: 9%;
+				border-radius: 50%;
+				float: left;
+				margin-right: 12px;
+				border: 1px solid #ccc;
+			}
+			.studentIndo-logo img{
+				width: 100%;
+				border-radius: 50%;
+				vertical-align: middle;
+			}
 		</style>
 	</head>
 
@@ -236,13 +251,22 @@
 				<!--/ko-->
 			</div>
 		</div>
-			<li class="mui-table-view-cell mui-collapse info-li" data-bind='event:{tap:goUserNews}'>
+			<li class="mui-table-view-cell mui-collapse info-li">
+				<a class="mui-navigate-right info-pic" href="#">
+					<div class="studentIndo-logo">
+						<img src="../../images/logo-pic.png" />
+					</div>
+					<span>辰星音乐培训中心</span>
+				</a>
+			</li>
+			<div class="pin-blank"></div>
+			<li class="mui-table-view-cell mui-collapse info-li" style="border-top: 1px solid #e1e1e1;" data-bind='event:{tap:goUserNews}'>
 				<a class="mui-navigate-right info-pic" href="#">
 					<!--ko text:userInfo().DisplayName--><!--/ko-->的资讯
 				</a>
 			</li>
 			<div class="pin-blank"></div>
-			<ul class="mui-input-group" data-bind="foreach:{data:works}" id="pullrefresh">
+			<ul class="mui-input-group studentInfo-ul" data-bind="foreach:{data:works}" id="pullrefresh">
 				<li class="mui-table-view-cell works-list" data-bind="event:{tap:goWorksDetails}">
 					<a href="javascript:void(0);">
 						<div class="works-list-works" data-bind="style: {'background-image': 'url(' + (common.StrIsNull(VideoThumbnail) == '' ? '../../images/video-big-default.png' : common.getThumbnail(VideoThumbnail)) +')'}">
