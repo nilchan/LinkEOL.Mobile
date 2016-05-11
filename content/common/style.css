@@ -8087,7 +8087,30 @@ li {
 	
 }
 #activityInfo-li-box{
-	padding-top: 0px!important; padding-bottom: 0px!important; padding-left: 3%;
+	padding-top: 0px!important; 
+	padding-bottom: 0px!important;
+	 padding-left: 3%;
+
+}
+.activityInfo-box-li{
+	height: auto;
+    width: 100%;
+    overflow: hidden;
+    padding: 11px 0;
+    position: relative;
+    padding-left: 3%;
+    box-sizing: border-box;
+}
+.activityInfo-box-li::after{
+	content: '';
+	height: 1px;
+	width:220%;
+	position: absolute;
+	left: -53%;
+	background: #C8C7CC;
+	transform: scaleY(.5);
+	-webkit-transform: scale(0.5);
+	bottom: 0;
 }
 #activityInfo-li-box .activityInfo-span-padding{
 	padding-top: 11px!important;
@@ -8096,7 +8119,9 @@ li {
 	position: relative;
 	padding: 11px 0px 8px!important;
 }
-
+.activityInfo-p:active{
+	background: #F1F1F1;
+}
 .activityInfo-p:after{
 	position: absolute;
 	left: -53%;
@@ -8114,10 +8139,10 @@ li {
 	content: '\e6c6';
 	color: #999;
 	font-size: 16px;
-	right: 0px;
+	right: 15px;
 	top:9px;
 }
-.activityInfo-div:last-of-type::before{
+#activityInfo-div .activityInfo-p:last-of-type:after{
 	height: 0px!important;
 }
 .activityInfo-span2{
@@ -8135,7 +8160,6 @@ li {
 	font-size: 14px;
 	width: 75%;
 	float: right;
-	padding-right: 15px;
 	box-sizing: border-box;
 }
 #activityInfo-div p{

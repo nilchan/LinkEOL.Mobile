@@ -141,40 +141,41 @@
 
 				<ul class="activityInfo-ul">
 					<li>
-						<span class="activityInfo-span1">报名时间:</span>
+						<span class="activityInfo-span1">报名时间</span>
 						<span class="activityInfo-span2" data-bind="text: RegTimes">2016.1.24-2016.1.28</span>
 					</li>
 					<li>
-						<span class="activityInfo-span1">举办时间:</span>
+						<span class="activityInfo-span1">举办时间</span>
 						<span class="activityInfo-span2" data-bind="text: Times">2016.1.24-2016.1.28</span>
 					</li>
 					<li>
-						<span class="activityInfo-span1">地点:</span>
+						<span class="activityInfo-span1">地点</span>
 						<span class="activityInfo-span2" data-bind="text: PlaceName">广州星海音乐厅</span>
 					</li>
 					<!--<li>
 						<span class="activityInfo-span1">限额:</span>
 						<span class="activityInfo-span2">不限</span>
 					</li>-->
-					<li id="activityInfo-li-box" data-bind="visible:common.StrIsNull(Sponsor)!=''">
-						<span class="activityInfo-span1 activityInfo-span-padding">主办方:</span>
+					<div id="activityInfo-li-box" class="activityInfo-box-li" data-bind="visible:common.StrIsNull(Sponsor)!=''">
+						<span class="activityInfo-span1 activityInfo-span-padding">主办方</span>
 						<!--<span class="activityInfo-span2" data-bind="text:Sponsor">主办方</span>-->
 						<div id="activityInfo-div" class="activityInfo-div" data-bind="foreach:sponsors">
 							<p class="activityInfo-p activityInfo-span-padding" data-bind="visible:$data.text != '', event: {tap: gotoOrgInfo}">
 								<!--ko text:$data.text--><!--/ko-->
 								<i class="iconfont activityInfo-next" data-bind="visible: $data.id > 0"></i>
 							</p>
+						
 						</div>
-					</li>
+					</div>
 					<li  data-bind="visible:common.StrIsNull(Organizer)!=''">
-						<span class="activityInfo-span1">承办方:</span>
+						<span class="activityInfo-span1">承办方</span>
 						<!--<span class="activityInfo-span2" data-bind="text:Organizer">承办方</span>-->
 						<div id="activityInfo-div" data-bind="foreach:common.transforArray(Organizer)">
 							<p data-bind="text:$data,visible:$data!='' "></p>
 						</div>
 					</li>
 					<li class="activityInfo-last-li" data-bind="visible:common.StrIsNull(CoSponsor)!=''">
-						<span class="activityInfo-span1">协办方:</span>
+						<span class="activityInfo-span1">协办方</span>
 						<div id="activityInfo-div" data-bind="foreach:common.transforArray(CoSponsor)">
 							<p data-bind="text:$data,visible:$data!='' "></p>
 							
