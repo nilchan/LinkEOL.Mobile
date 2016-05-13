@@ -115,7 +115,7 @@ var viewModel = function() {
 							}
 					}
 				});
-				
+
 			}
 		});
 	}
@@ -144,11 +144,41 @@ var viewModel = function() {
 	mui.back = function() {
 		common.confirmQuit();
 	}
-	
-	window.addEventListener('changeActive',function(e){
-		var activity=document.getElementsByClassName('mui-control-item activityListStub-control-item mui-active');
-		activity.className='mui-control-item activityListStub-control-item';
-		
+
+	window.addEventListener('setActive', function(e) {
+		if (typeof e.detail.activePage != 'undefined') {
+			var activePage=e.detail.activePage;
+			var allList = document.getElementsByClassName('mui-control-item activityListStub-control-item');
+			for (var a = 0; a < allList.length; a++) {
+				if (allList[a].getAttribute('class') == 'mui-control-item activityListStub-control-item mui-active' && a!=activePage) {
+					allList[a].setAttribute('class', 'mui-control-item activityListStub-control-item');
+					allList[activePage].setAttribute('class', 'mui-control-item activityListStub-control-item mui-active');
+					break;
+				}
+			}
+			var pageList=document.getElementsByClassName('mui-slider-item mui-control-content');
+			 
+			for (var i = 0; i < pageList.length; i++) {
+				if (pageList[i].getAttribute('class') == 'mui-slider-item mui-control-content mui-active' && i!=activePage) {
+					pageList[i].setAttribute('class', 'mui-slider-item mui-control-content');
+					pageList[activePage].setAttribute('class', 'mui-slider-item mui-control-content mui-active');
+					console.log(pageList[activePage].getAttribute('class'));
+					break;
+				}
+			}
+			for (var a = 0; a < allList.length; a++) {
+				if (allList[a].getAttribute('class') == 'mui-control-item activityListStub-control-item mui-active' && a!=activePage) {
+					allList[a].setAttribute('class', 'mui-control-item activityListStub-control-item');
+					allList[activePage].setAttribute('class', 'mui-control-item activityListStub-control-item mui-active');
+					break;
+				}
+			}
+			/*var thispage=document.getElementById('item2mobile');
+			var pageList=document.querySelector(".mui-slider-group>.mui-active");
+			pageList.classList.remove('mui-atcive');
+			thispage.classList.add('mui-active');*/
+		}
+
 	})
 
 	//页面初始化

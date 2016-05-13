@@ -24,7 +24,9 @@ var orgCourseInfo = function() {
 		mui.ajax(ajaxUrl, {
 			type: 'GET',
 			success: function(responseText) {
+				console.log(responseText)
 				var result = JSON.parse(responseText);
+				self.ID(result.ID);
 				self.OrgID(result.OrgID);
 				self.CourseName(result.CourseName);
 				self.CourseAbout(result.CourseAbout);
@@ -44,6 +46,14 @@ var orgCourseInfo = function() {
 	//关闭分享窗口
 	self.closeShare = function() {
 		mui('#sharePopover').popover('toggle');
+	}
+	
+	self.showPay=function(){
+		if(userID<0){
+			common.transfer('',true);
+			return ;
+		}
+		mui('#middlePopover').popover('show');
 	}
 
 	//分享功能
@@ -101,15 +111,15 @@ var orgCourseInfo = function() {
 	//支付
 	self.gotoPay = function() {
 		var couresregJson = {
-			OrgCourseID: self.OrgID(),
+			OrgCourseID: self.ID(),
 			UserID: userID,
 			UserName: getLocalItem('DisplayName'),
 			Phone: getLocalItem('UserName'),
 			RegMoney: self.RegMoney()
 		}
-
-		/*var evt = event;
-		if (!common.setDisabled()) return;*/
+		console.log(JSON.stringify(couresregJson))
+		var evt = event;
+		if (!common.setDisabled()) return;
 		if (common.StrIsNull(self.registerId()) == '') {//未报名
 			mui.ajax(common.gServerUrl + 'API/Org/OrgCourseRegAdd', {
 				type: 'POST',
@@ -121,10 +131,11 @@ var orgCourseInfo = function() {
 						ID: self.registerId()
 					};
 					self.orderPay(obj);
-					//common.setEnabled(evt);
+					common.setEnabled(evt);
 				},
 				error: function() {
-					//common.setEnabled(evt);
+					console.log('error');
+					common.setEnabled(evt);
 				}
 			})
 		} else {

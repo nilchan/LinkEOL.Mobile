@@ -239,6 +239,9 @@ var home = function() {
 	
 	//精品班/名师讲座
 	self.goActivityList=function(){
+		mui.fire(plus.webview.getWebviewById('modules/activity/activityList.html'),'setActive',{
+			activePage:1
+		})
 		common.showIndexWebview(1);
 		
 	}

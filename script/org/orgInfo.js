@@ -1,5 +1,9 @@
 var orgInfo = function() {
 	var self = this;
+	
+	var maxLines = 2;
+	self.expanded = ko.observable(false);	//是否已展开
+	
 	var mapobj; //地图
 	var userId = getLocalItem("UserID");
 	self.orgUerId = ko.observable();
@@ -18,7 +22,6 @@ var orgInfo = function() {
 	self.photoList = ko.observableArray([]); //相册
 	self.regLecturesList = ko.observableArray([]); //精品班
 	self.orgToCourseList = ko.observableArray([]); //高考班
-	self.isShowIntroduce = ko.observable(true);
 	self.isFav = ko.observable(false);
 	self.favClass = ko.observable('');
 
@@ -32,6 +35,7 @@ var orgInfo = function() {
 				self.OrgName(result.TbOrg.OrgName);
 				self.Abbreviation(result.TbOrg.Abbreviation);
 				self.Introduce(result.TbOrg.Introduce);
+				self.clampText();
 				self.Address(result.TbOrg.Address);
 				self.Province(result.TbOrg.Province);
 				self.City(result.TbOrg.City);
@@ -43,12 +47,26 @@ var orgInfo = function() {
 				self.regLecturesList(result.RegLecturesList);
 				self.orgToCourseList(result.OrgToCourseList);
 				self.orgUerId(result.TbOrg.UserID);
-				self.clampDes();
 				self.getFavStatus();
 				//self.setMap(self.Lon(),self.Lat());
 				common.showCurrentWebview();
 			}
 		})
+	}
+
+	self.clampText = function(){
+		var para;
+		if(self.expanded() == true){
+			para = 99999;
+		}
+		else{
+			para = maxLines;
+		}
+		
+		$clamp(document.getElementById('pIntroduce'), {
+			clamp: para
+		});
+		self.expanded(!self.expanded());
 	}
 
 	//关闭分享窗口
@@ -66,21 +84,6 @@ var orgInfo = function() {
 			//Share.sendShare(this.id, '今天你学习了吗?', '你新高度的启航点', shareUrl + TUserID,self.PhotoUrl());
 
 		};
-	}
-
-	//改变简介显示
-	self.changeShowInstruct = function() {
-		self.isShowIntroduce(!self.isShowIntroduce());
-	}
-
-	self.clampDes = function() {
-		var intros = document.getElementsByClassName('orgInfo-class-address');
-		var introsLen = intros.length;
-		for (var i = 0; i < introsLen; i++) {
-			$clamp(intros[i], {
-				clamp: 1
-			});
-		}
 	}
 
 	self.addFav = function() {

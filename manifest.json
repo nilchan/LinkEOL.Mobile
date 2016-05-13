@@ -2337,7 +2337,8 @@
 					"modules/activity/activitySchedule.html",
 					"modules/activity/activityRehearsal.html",
 					"modules/activity/activityCalendar.html",
-					"modules/activity/seatMap.html"
+					"modules/activity/seatMap.html",
+					"modules/org/orgInfo.html"
 				],
 				"priority": 0
 			},
@@ -4099,7 +4100,8 @@
 					"script/common/share.js",
 					"script/mui/mui.min-2.9.0.js",
 					"script/mui/gps.js",
-					"script/mui/wgs84.js"
+					"script/mui/wgs84.js",
+					"content/fonts/iconfont.ttf"
 				],
 				"refer": [
 					"modules/activity/activityInfo.html",
@@ -4177,7 +4179,8 @@
 					"script/libs/knockout/knockout-3.3.0.js",
 					"content/fonts/iconfont.css",
 					"content/fonts/iconfont.woff",
-					"script/mui/mui.min-2.9.0.js"
+					"script/mui/mui.min-2.9.0.js",
+					"images/logo-pic.png"
 				],
 				"refer": [
 					"modules/course/orgCourseInfo.html"

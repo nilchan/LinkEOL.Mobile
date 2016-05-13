@@ -653,7 +653,7 @@ li {
 				overflow-y: scroll;
 				width: 100%;
 				background: #F1F1F1;
-				margin-bottom: 55px;
+				margin-bottom: 250px;
 			}
 			.zone-preference{
 				height: 20px;
@@ -973,6 +973,9 @@ li {
 	box-sizing: border-box;
 	overflow: hidden;
 }
+/*.index-orgList-box{
+	padding: 0px!important;
+}*/
 .orgList-box::after{
 	content: '';
 	height: 1px;
@@ -1006,7 +1009,7 @@ li {
 	left: 27%;
 	top: 50%;
 	color: #666;
-	margin-top: -18px;
+	margin-top: -22px;
 	position: absolute;
 }
 .org-comment{
@@ -1014,7 +1017,7 @@ li {
 	color: #999;
 	top: 50%;
 	font-size: 14px;
-	margin-top: 0px;
+	margin-top: 1%;
 	position: absolute;
 }
 .orgList-search{
@@ -1197,7 +1200,7 @@ li {
 }
 
 .orgInf-introduction{
-	padding: 0 15px;
+	padding: 0 15px 25px;
 	color: #666;
 	font-size: 16px;
 	line-height: 24px;
@@ -1248,8 +1251,11 @@ li {
 	width:22.5%;
 	margin-left: 2%;
 	float: left;
-	border: 1px solid #C8C7CC;
 	box-sizing: border-box;
+}
+.orgInfo-album ul li img{
+	width: 100%;
+	vertical-align: middle;
 }
 .ogrInfo-num{
 	color: #666;
@@ -1272,7 +1278,10 @@ li {
 }
 .orgInfo-class-photo{
 	width: 15%;
-	border: 1px solid #C8C7CC;
+}
+.orgInfo-class-photo img{
+	width: 100%;
+	vertical-align: middle;
 }
 .orgInfo-class-time{
 	color: #666;
@@ -1296,7 +1305,11 @@ li {
 	font-size: 13px;
 	left: 24%;
 	bottom:9%;
+	width:77%;
 	position: absolute;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .orgInfo-class-circle{
 	border-radius: 50%;
@@ -1312,9 +1325,10 @@ li {
 	top: 32%;
 }
 .ogrInfo-map-font{
-	height:44px;
+	height:50px;
 	width: 100%;
 	box-sizing: border-box;
+	margin-bottom: 20px;
 }
 .ogrInfo-map-address{
 	color: #666;
@@ -1322,7 +1336,7 @@ li {
 	width: 100%;
 	display: inline-block;
 	height: 100%;
-	line-height: 44px;
+	line-height: 50px;
 	position: relative;
 	float: left;
 	padding-left: 15px;
@@ -1503,18 +1517,20 @@ li {
 	color: #999;
 	text-indent: 2em;
 	line-height: 23px;
-	margin-top: 5px;
+	margin-top: 4px;
 }
-.favUser-introduction-more{
+.orgInf-introduction .orgList-more,.favUser-introduction-more{
 	color: #b6b5b5;
-	font-size: 13px;
+	font-size: 12px;
 	margin-top: 3px;
 	border: 1px solid #C8C7CC;
-	width: 68px;
+	width: 60px;
+	float: right;
+	border-radius: 3px;
 	text-align:center;
 	height: 22px;
 	line-height: 22px;
-	margin-top: 3px;
+	margin-top: 5px;
 }
 .orgCourseInfo-homepage-box{
 	margin-top: 10px;
@@ -1675,8 +1691,8 @@ li {
 	margin-left: 10px;
 }
 .homeWorkGuide-next{
-	height: 18px;
-	width: 18px;
+	height: 19px;
+	width: 19px;
 	border-radius: 50%;
 	position: absolute;
 	right: 20px;
@@ -1687,7 +1703,7 @@ li {
 	color: #fff;
 	font-size: 12px;
 	position: absolute;
-	top: -2px;
+	top: -1.5px;
 	left:4px;
 }
 .next1{
@@ -2362,17 +2378,22 @@ li {
 	width: 50%;
 	float: left;
 	box-sizing: border-box;
-	padding: 10px 0 3px;
+	padding: 50px 0 3px;
 	text-align: center;
 }
 .index-two ul li:active {
 	background: #F1F1F1;
 }
 .iconfton-c {
-	/*height: 2rem;*/	
-	width: 24%;
-	float: right;
-	margin-right: 5%;
+	/*height: 2rem;*/
+	height: auto;
+	width: auto;
+	position: absolute;
+	right: 5%;
+	top: 5.5%;
+}
+.iconfton-c img{
+	width:70%;
 }
 .index-type-float{
 	width: 26%;
@@ -2409,10 +2430,14 @@ li {
 	color: #333;
 	font-size: 16px;
 	line-height: 20px;
-	width: 61%;
-	margin-left: 8%;
+	/*width: 55%;
+	margin-left: 8%;*/
 	text-align: left;
-	float: left;
+	position: absolute;
+	left: 8%;
+	top: 50%;
+	margin-top: -8px;
+	
 }
 .index-type-span {
 	color: #333;
@@ -2511,6 +2536,9 @@ li {
 	display: inline-block;
 	left:-50%;
 	bottom: 0px;
+}
+.index-line-none:before{
+	height: 0px;
 }
 .index-two-second:after{
 	top: -52%;
@@ -3951,9 +3979,7 @@ li {
 	box-sizing: border-box;
 	margin-bottom: 4px;
 }
-.submitClass-bottom{
-	padding-bottom: 15px!important;
-}
+
 .works-list-right {
 	width: 57%;
 	position: absolute;
@@ -6593,7 +6619,7 @@ li {
 .success-title{
 	height: auto;	
 	width: 100%;
-	padding: 20px 0;
+	padding: 5px 0;
 	overflow: hidden;
 	position: relative;
 }
@@ -6656,8 +6682,9 @@ li {
 #examScore-h3{
 	padding: 2px 20px;
 	text-align: center;
-	font-size: 20px;
+	font-size: 16px;
 	line-height: 28px;
+	color: #333;
 }
 .examScore-ul{
 	width: 100%;
@@ -6679,7 +6706,7 @@ li {
 	color: #e44879!important;
 }
 .examScore-left{
-	width: 51%;
+	width: 40%;
 	height: 100%;
 	line-height:34px;
 	display: inline-block;
@@ -6699,7 +6726,7 @@ li {
 	top: 10px;
 }
 .examScore-right{
-	width:49%;
+	width:59%;
 	/*height: 100%;*/
 	line-height: 34px;
 	word-wrap: break-word;

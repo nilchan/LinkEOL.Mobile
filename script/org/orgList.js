@@ -8,13 +8,13 @@ var orgList = function() {
 		work = '',
 		singleSelect = false, //是否单选
 		selectedArray = [], //选中列表
-		userID = getLocalItem('UserID'),
+		userID = getLocalItem('UserID') || 0,
 		initOrg = {};
 
 	self.displayCheck = ko.observable(false); //是否开启选择功能
 	self.orgs = ko.observableArray([]); //机构列表
 	self.selectedProvince = ko.observable('广东省'); //选中省份
-	self.selectedCity = ko.observable(cityData3[18].children[0]); //选中城市
+	self.selectedCity = ko.observable(cityData3[1].children[0]); //选中城市
 	self.selectedDistrict = ko.observable('全城'); //选中地区
 	self.cityList = ko.observableArray([]); //省市区JSON
 

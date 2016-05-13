@@ -82,15 +82,18 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe683;</i>
-			<h1 class="mui-title">报名查询</h1>
+			<h1 class="mui-title">讲座报名列表</h1>
 		</header>
 		<div class="mui-content">
-			<div class="success-title">
+			<!--<div class="success-title">
 				<h3 id="examScore-h3">我的报名记录</h3>
-			</div>
+			</div>-->
 			<div id="apply-list" data-bind="foreach:{data: scores}">
 				<div class="activityEnrollSuccess-con-bg">
 					<ul class="examScore-ul">
+						<div class="success-title">
+							<p id="examScore-h3">我的报名记录我的报名记录我的报名记录</p>
+						</div>
 						<li>
 						<span class="examScore-left">状态</span>
 						<span class="examScore-right examScore-btn-succsee"><!--ko text:IsFinish ?  common.gExamOrderStatus[1].text : common.gExamOrderStatus[0].text--><!--/ko--> <a class="examScore-btn-play" data-bind="visible:IsFinish == false,click:gotoPay">立即支付</a>  </span>

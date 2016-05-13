@@ -185,6 +185,9 @@
 				margin-top: -300px!important;
 				height: 300px!important;
 			}
+			.works-list-works{
+				padding-bottom: 60px;
+			}
 		</style>
 	</head>
 
@@ -234,7 +237,7 @@
 					<div class="teacher-head">
 						<img data-bind="attr: {src: common.getPhotoUrl(teacher().Photo)}" onerror="this.src='../../images/my-default.png';" />
 					</div>
-					<div class="teacher-list-con teacherList-professional">
+					<div class="teacher-list-con teacherList-professional introduction-more">
 						<span class="teacher-list-teacherName" data-bind="text: teacher().DisplayName">张三</span>
 						<em class="professional" data-bind='visible:teacher().IsFamous==true && teacher().ProTitleAuth==true'><i class="iconfont">&#xe696;</i></em>
 						<em class="education" data-bind='visible:teacher().IsFamous==false && teacher().IDAuth==true'><i class="iconfont">&#xe69b;</i></em>

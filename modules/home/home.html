@@ -125,6 +125,18 @@
 				display: inline-block;
 				font-size: 12px!important;
 			}
+			.orgList-li {
+				padding: 0px!important;
+				background: #f9f8f8!important;
+			}
+			
+			.orgList-ul:before {
+				height: 0px;
+			}
+			
+			.orgList-li:after {
+				left: 0px;
+			}
 		</style>
 	</head>
 
@@ -191,7 +203,6 @@
 								<img src="../../images/index_003.png" />
 							</div>
 							<span class="index-two-span">名师点评</span>
-							<span class="index-teacher-select">顶尖名师任你选</span>
 						</div>
 					</li>
 					<li id="help" class="index-line-right" data-bind="click:goHelp">
@@ -199,8 +210,7 @@
 							<div class="iconfton-c">
 								<img src="../../images/index_002.png" />
 							</div>
-							<span class="index-two-span index-teacher-li-second index-two-ipad1">作业小助手</span>
-							<span class="index-teacher-select index-teacher-li-second">作业功能介绍</span>
+							<span class="index-two-span index-two-ipad1">作业小助手</span>
 						</div>
 					</li>
 				</ul>
@@ -213,16 +223,14 @@
 								<img src="../../images/index_001.png" />
 							</div>
 							<span class="index-two-span index-two-ipad">古筝音乐节</span>
-							<span class="index-teacher-select index-two-ipad">广东省古筝音乐节</span>
 						</div>
 					</li>
-					<li data-bind="click:gotoExam">
+					<li class="index-line-right index-line-none" data-bind="click:gotoExam">
 						<div class="index-display">
 							<div class="iconfton-c">
 								<img src="../../images/index_004.png" />
 							</div>
-							<span class="index-two-span index-teacher-li-second index-two-ipad2">考级报名</span>
-							<span class="index-teacher-select index-teacher-li-second index-two-ipad2">中国民族管弦乐</span>
+							<span class="index-two-span index-two-ipad1">考级报名</span>
 						</div>
 					</li>
 				</ul>
@@ -321,12 +329,12 @@
 			</div>
 			<ul class="mui-table-view orgList-ul" data-bind="foreach: {data: Orgs}">
 				<li class="mui-table-view-cell orgList-li" data-bind="event:{tap: gotoOrgDetail}">
-					<div class="orgList-box">
+					<div class="orgList-box index-orgList-box">
 						<!--<span class="teacherList-sc orgList-bd" data-bind='visible: $data.IsBound'>已绑定</span>-->
 						<div class="orgList-logo">
 							<img data-bind="attr:{src: common.getPhotoUrl($data.Photo)}" onerror="this.src='../../images/my-default.png';" />
 						</div>
-						<h3 class="org-title" data-bind="text: $data.OrgName">星海音乐学院</h3>
+						<p class="org-title" data-bind="text: $data.OrgName">星海音乐学院</p>
 						<p class="org-comment" data-bind="text: '关注 ' + $data.UserFavCount"></p>
 					</div>
 				</li>

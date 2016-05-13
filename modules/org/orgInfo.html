@@ -106,8 +106,12 @@
 				<div class="ogrInfo-attention" data-bind='event:{click: addFav},css:favClass'><em class="iconfont" style="margin-right: 5px;">&#xe6ce;</em>关注</div>
 			</div>
 		</div>
-		<div class="orgInf-introduction" id="orgInf-introduction" data-bind='text:Introduce,css:{"introduction-open":isShowIntroduce},click:changeShowInstruct'>
+		<div class="orgInf-introduction introduction-more">
+			<p class="introduction-content" id="pIntroduce" data-bind='text:Introduce'></p>
+			<p class="orgList-more" data-bind="click: clampText, text: expanded() == false ? '隐藏全文' : '展开全文'">展开全文</p>
 		</div>
+		<!--<div class="orgInf-introduction" id="pIntroduce" data-bind='text:Introduce'>
+		</div>-->
 		<div class="ogrInfo-title-bg">
 			<span class="ogrInfo-title-left">相册</span>
 		</div>
@@ -197,6 +201,7 @@
 		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/mui/gps.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/mui/wgs84.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/org/orgInfo.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
