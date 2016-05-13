@@ -16,8 +16,7 @@
 			}
 			
 			.mui-input-row .mui-btn {
-				height: 44px;
-				line-height: 44px!important;
+				line-height: 2.8!important;
 				font-size: 16px!important;
 			}
 			
@@ -55,11 +54,6 @@
 				color: #999;
 			}
 			
-			.mui-input-group:after,
-			.mui-input-group:before {
-				background: #fff;
-			}
-			
 			.mui-btn-blue,
 			.mui-btn-primary,
 			input[type=submit] {
@@ -72,6 +66,7 @@
 				font-size: 16px;
 				text-align: center;
 				margin-top: 20px;
+				margin-bottom: 20px;
 				line-height: 26px;
 				padding: 0px 20px;
 			}
@@ -130,6 +125,24 @@
 			
 			.pi-tx-bg i img {
 				border-radius: 0px;
+			}
+			
+			.th-textarea-div {
+				height: auto;
+				overflow: hidden;
+				border-bottom: 1px solid #C8C7CC;
+			}
+			
+			#selectUserPicker {
+				white-space: normal;
+			}
+			
+			#mui-input-row {
+				height: auto!important;
+			}
+			
+			.mui-btn-block {
+				margin-bottom: 0px!important;
 			}
 			
 			@media only screen and (min-width: 376px) and (max-width: 414px) {
@@ -230,9 +243,9 @@
 					<label>报名费用</label>
 					<input type="text" class=" mui-input reg-mui-input" readonly="readonly" data-bind="value: price() + ' 元'" />
 				</div>
-				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
+				<div class="mui-input-row reg-mui-input-row th-mui-input-row" id="mui-input-row">
 					<label>参赛组别</label>
-					<button id='selectUserPicker' class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:testGroupText, click:selectTestGroup"></button>
+					<button id='selectUserPicker' class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:testGroupText, click:selectTestGroup" style="line-height: 2!important; margin-top: 7px;"></button>
 				</div>
 				<div class="th-textarea-div th-textarea">
 					<label>个人艺术简历</label>

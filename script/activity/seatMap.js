@@ -191,6 +191,12 @@ var seatMap = function() {
 	window.addEventListener('refreshTicket', function(event) {
 		initSeat();
 	})
+	
+	window.addEventListener('payFail', function(event) {
+		orderID = event.detail.orderID;
+		self.ViewOrder(true);
+		maxtime = event.detail.maxtime;
+	})
 
 	window.addEventListener('backAgain', function(event) {
 		mui.back();

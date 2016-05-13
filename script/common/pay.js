@@ -65,7 +65,7 @@ Pay.pay = function(payid, order, successCB, failureCB) {
  * @param {Function} successPayCB		支付成功后的回调
  * @return {Boolean}					成功则返回true，否则返回false
  */
-Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrderCB, successPayCB){
+Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrderCB, successPayCB, failureCB){
 	if(!orderId) orderId = 0;
 	
 	//支付方式的数值
@@ -145,12 +145,14 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 						error: function() {
 							common.setEnabled(evt);
 							plus.nativeUI.closeWaiting();
+							failureCB(orderID, ret.expireMinutes);
 							return true;
 						}
 					})
 				}, function() {
 					common.setEnabled(evt);
 					plus.nativeUI.closeWaiting();
+					failureCB(orderID, ret.expireMinutes);
 					return false;
 				});
 			}

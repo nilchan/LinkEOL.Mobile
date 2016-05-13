@@ -144,6 +144,12 @@ var viewModel = function() {
 	mui.back = function() {
 		common.confirmQuit();
 	}
+	
+	window.addEventListener('changeActive',function(e){
+		var activity=document.getElementsByClassName('mui-control-item activityListStub-control-item mui-active');
+		activity.className='mui-control-item activityListStub-control-item';
+		
+	})
 
 	//页面初始化
 	mui.plusReady(function() {

@@ -113,11 +113,6 @@ var my = function() {
 	self.goMyTicket = function() { //我的购票
 		common.transfer('myTicketsEntrance.html', true);
 	}
-	self.goLocation=function(){
-		common.transfer('mylocation.html',false);
-		//common.transfer('../course/orgCoursesListHeader.html',false,{},false,false);
-		//common.transfer('../org/orgInfo.html');
-	}
 
 	self.getInfo = function() {
 		var ajaxUrl = common.gServerUrl + "API/Account/GetInfo?userid=" + self.UserID() + "&usertype=" + self.UserType();

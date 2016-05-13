@@ -49,7 +49,14 @@
 							top: topPx,
 							bottom: '0px'
 						}
-					}]
+					}],
+					beforeback: function() {
+						var opener = plus.webview.currentWebview().opener();
+						
+						common.refreshHomeworkGuide(opener);
+						
+						return true;
+					}
 				});
 			})
 			var startEdit = false;

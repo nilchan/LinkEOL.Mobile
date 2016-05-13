@@ -103,15 +103,17 @@
 				background: none;
 				margin: -11px -30px;
 			}
+			
 			#marquee-view {
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
 			}
-			.index-read{
+			
+			.index-read {
 				background: #d34777;
 				height: 14px;
-				padding:0 3px;
+				padding: 0 3px;
 				line-height: 14px!important;
 				color: #fff!important;
 				border-radius: 3px;
@@ -168,7 +170,7 @@
 					</div>
 				</div>
 			</div>
-				<!-- 头条-->
+			<!-- 头条-->
 			<div class="pin-blank"></div>
 			<div class="headline" data-bind="event:{tap: gotoNewsList}">
 				<div class="headline-left">
@@ -178,7 +180,7 @@
 					<p data-bind='text:Title'>筝声里的古诗雅韵-王中山古筝独</p>
 				</div>
 			</div>
-			
+
 			<!--上传查找-->
 			<div class="pin-blank"></div>
 			<div class="index-two first-bottom">
@@ -188,7 +190,7 @@
 							<div class="iconfton-c">
 								<img src="../../images/index_003.png" />
 							</div>
-							<span class="index-two-span">查找老师</span>
+							<span class="index-two-span">名师点评</span>
 							<span class="index-teacher-select">顶尖名师任你选</span>
 						</div>
 					</li>
@@ -197,8 +199,8 @@
 							<div class="iconfton-c">
 								<img src="../../images/index_002.png" />
 							</div>
-							<span class="index-two-span index-teacher-li-second index-two-ipad1">用户指南</span>
-							<span class="index-teacher-select index-teacher-li-second">使用流程指引</span>
+							<span class="index-two-span index-teacher-li-second index-two-ipad1">作业小助手</span>
+							<span class="index-teacher-select index-teacher-li-second">作业功能介绍</span>
 						</div>
 					</li>
 				</ul>
@@ -226,7 +228,7 @@
 				</ul>
 
 			</div>
-		
+
 			<!--科目-->
 			<div class="pin-blank"></div>
 			<!--<div class="index-subject">
@@ -244,34 +246,34 @@
 				</ul>
 
 			</div>-->
-			<div class="index-two index-type">
-				<div class="index-type-left" data-bind='click:goOrkList'>
+
+			<div class="index-two">
+				<div class="index-type-l" data-bind='click:goOrgList'>
 					<div class="index-type-img">
 						<img src="../../images/index-022.png" />
 					</div>
 					<span class="index-type-span">教学机构</span>
 					<span class="index-teacher-select">大量优秀师资</span>
 				</div>
-				<div class="index-type-right">
-					<div class="index-type-right-samllBox index-type-line" data-bind='click:goActivityList'>
-						<div class="index-type-float">
+				<div class="index-type-r">
+					<div class="index-type-r-one index-type-line" data-bind='click:goActivityList'>
+						<div class="index-right-dow">
 							<img src="../../images/index-023.png" />
 						</div>
 						<span class="index-type-samllBox-span">精品班</span>
 						<span class="index-type-samllBox-select">精品班报名</span>
 					</div>
-					<div class="index-type-right-samllBox index-type-right-dow" data-bind='click:goorgToCourseList'>
-						<div class="index-type-float">
+					<div class="index-type-r-two" data-bind='click:goorgToCourseList'>
+						<div class="index-right-dow">
 							<img src="../../images/index-021.png" />
 						</div>
 						<span class="index-type-samllBox-span">高考培训</span>
 						<span class="index-type-samllBox-select">专业高考培训</span>
 					</div>
-					
 				</div>
 			</div>
 
-			<div class="pin-blank"></div>
+			<!--<div class="pin-blank"></div>
 			<div class="index-th-div">
 				<em></em>
 				<span class="index-teacher">热门活动</span>
@@ -282,8 +284,8 @@
 				<ul data-bind="foreach: {data: activitys}">
 					<li data-bind="click: gotoActivityInfo"><img data-bind="attr: {src: common.getPhotoUrl2(Thumbnail)}" /></li>
 				</ul>
-			</div>
-			<div class="pin-blank"></div>
+			</div>-->
+			<!--<div class="pin-blank"></div>
 			<div class="index-th-div">
 				<em></em>
 				<span class="index-teacher">名师介绍</span>
@@ -292,7 +294,6 @@
 			</div>
 			<div data-bind="template: {name:'teacherTemplate', foreach: Teachers }">
 			</div>
-			<!--teacher模板页-->
 			<script type="text/html" id="teacherTemplate">
 				<div class="p-teacher-list mui-table-view-cell" data-bind="event:{tap:gotoTeacher}">
 					<a href="javascript:void(0);">
@@ -301,8 +302,6 @@
 						</div>
 						<div class="teacher-list-con teacherList-professional">
 							<span class="teacher-list-teacherName" data-bind="text: DisplayName">张三</span>
-							<!--<i data-bind="css: 'star'+(Star)+' teacher-list-star'"></i>-->
-							<!--<i data-bind="css: 'star'+(5-Star)+' teacher-list-star-c'"></i>-->
 							<em class="professional" data-bind='visible:IsFamous && ProTitleAuth'><i class="iconfont">&#xe696;</i></em>
 							<em class="education" data-bind='visible:IsFamous==false && EduAuth'><i class="iconfont">&#xe69b;</i></em>
 							<em class="identity" data-bind='visible:IsFamous==false && IDAuth'><i class="iconfont">&#xe69e;</i></em>
@@ -312,7 +311,26 @@
 						</div>
 					</a>
 				</div>
-			</script>
+			</script>-->
+			<div class="pin-blank"></div>
+			<div class="index-th-div">
+				<em></em>
+				<span class="index-teacher">教学机构</span>
+				<span class="index-more" data-bind='click:goOrgList'>查看更多<i class="iconfont">&#xe618;</i>
+				</span>
+			</div>
+			<ul class="mui-table-view orgList-ul" data-bind="foreach: {data: Orgs}">
+				<li class="mui-table-view-cell orgList-li" data-bind="event:{tap: gotoOrgDetail}">
+					<div class="orgList-box">
+						<!--<span class="teacherList-sc orgList-bd" data-bind='visible: $data.IsBound'>已绑定</span>-->
+						<div class="orgList-logo">
+							<img data-bind="attr:{src: common.getPhotoUrl($data.Photo)}" onerror="this.src='../../images/my-default.png';" />
+						</div>
+						<h3 class="org-title" data-bind="text: $data.OrgName">星海音乐学院</h3>
+						<p class="org-comment" data-bind="text: '关注 ' + $data.UserFavCount"></p>
+					</div>
+				</li>
+			</ul>
 			<div class="index-content-bg">
 				<div class="index-tel">
 					<a id="phone">官方热线：020-38609216</a>
@@ -328,8 +346,8 @@
 		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			/*document.getElementById('addWorks').addEventListener('click', function() {
-							common.transfer('../works/addWorks.html', true, common.extrasUp(0), false, false);
-						});*/
+													common.transfer('../works/addWorks.html', true, common.extrasUp(0), false, false);
+												});*/
 			document.getElementById('phone').addEventListener('click', function() {
 				var btnArray = ['取消', '确认'];
 				mui.confirm('确认拨打电话？', '客服电话', btnArray, function(e) {
@@ -347,26 +365,23 @@
 						}
 					}, speed);
 				}
-			
-			/**
-			 * 
-			 * @param {Number} height 滚动的高度（px）
-			 * @param {Number} speed  滚动的速度（毫秒）
-			 * @param {Number} inter  滚动的间隔 （毫秒）
-			 * @param {Number} count  滚动的条目数 （毫秒）
-			 */
+				/**
+				 * 
+				 * @param {Number} height 滚动的高度（px）
+				 * @param {Number} speed  滚动的速度（毫秒）
+				 * @param {Number} inter  滚动的间隔 （毫秒）
+				 * @param {Number} count  滚动的条目数 （毫秒）
+				 */
 			function marqueeText(height, speed, inter, count) {
 				scrollRow(height, speed);
-				setInterval(function(){
+				setInterval(function() {
 					scrollRow(height, speed);
-					if( marquee.scrollTop === count * height) {
+					if (marquee.scrollTop === count * height) {
 						marquee.scrollTop = 0;
 					}
 				}, inter);
 			}
 			marqueeText(22, 50, 4000, 8);
-			
-			
 		</script>
 	</body>
 

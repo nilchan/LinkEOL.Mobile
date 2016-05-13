@@ -76,6 +76,7 @@
 			
 			.teacherList-professional .professional-teacherList {
 				padding: 1px 5px;
+				margin-bottom: 50px;
 			}
 			
 			.p-teacher-list:after {
@@ -200,7 +201,7 @@
 			<ul class="mui-input-group submitClass-title-bottom ">
 				<li class="mui-table-view-cell works-list">
 					<a>
-						<div class="works-list-works">
+						<div class="works-list-works submitClass-bottom">
 							<img data-bind="attr: {src: common.getThumbnail(works().VideoThumbnail)}" onerror="this.src='../../images/video-big-default.png';" />
 						</div>
 						<div class="works-list-right">
@@ -228,7 +229,7 @@
 				<span class="change-span">更改</span>
 				<em class="change-em"><i class="iconfont">&#xe672;</i></em>
 			</div>
-			<div class="p-teacher-list mui-table-view-cell" >
+			<div class="p-teacher-list mui-table-view-cell" style="margin-bottom: 60px;" >
 				<a href="javascript:void(0);">
 					<div class="teacher-head">
 						<img data-bind="attr: {src: common.getPhotoUrl(teacher().Photo)}" onerror="this.src='../../images/my-default.png';" />
@@ -239,8 +240,8 @@
 						<em class="education" data-bind='visible:teacher().IsFamous==false && teacher().IDAuth==true'><i class="iconfont">&#xe69b;</i></em>
 						<em class="identity" data-bind='visible:teacher().IsFamous==false && teacher().EduAuth==true'><i class="iconfont">&#xe69e;</i></em>
 						<span class="teacher-list-subject" data-bind="text: teacher().SubjectName">小提琴</span>
-						<p class="teacher-list-p1" data-bind="text: teacher().Introduce">著名演奏家，国家一级演奏员，中国民族管弦乐 学会理事，中国音乐家...
-						</p>
+						<p class="teacher-list-p1" id="pIntroduce" data-bind="text: teacher().Introduce"></p>
+						<p class="favUser-introduction-more" data-bind="click: clampText, text: expanded() == false ? '隐藏全文' : '展开全文'">展开全文</p>
 					</div>
 				</a>
 			</div>
@@ -294,6 +295,7 @@
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/pay.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/student/submitComment.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 

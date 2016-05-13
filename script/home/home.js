@@ -2,6 +2,7 @@ var home = function() {
 	var self = this;
 	var teacherTest;
 	self.Teachers = ko.observableArray([]);
+	self.Orgs = ko.observableArray([]);
 	self.count = 3;
 	self.UnreadCount = ko.observable(0);
 	self.getUserID = ko.observable();
@@ -50,7 +51,11 @@ var home = function() {
 	}
 
 	self.goHelp = function() {
-		common.transfer('userGuide.html', false);
+		var gotoUrl = 'homeworkGuide-S.html';
+		if(getLocalItem('UserType') == common.gDictUserType.teacher){
+			gotoUrl = 'homeworkGuide-T.html';
+		}
+		common.transfer(gotoUrl, false);
 	}
 
 	//跳转至老师详情
@@ -59,6 +64,13 @@ var home = function() {
 			teacherID: this.UserID
 		}, false, false);
 	}
+
+	//跳转机构详情
+	self.gotoOrgDetail = function(data) {
+		common.transfer('../org/orgInfo.html', false, {
+			oid: data.ID
+		}, false, false);
+	};
 
 	//跳转至所有科目
 	self.gotoMore = function() {
@@ -176,7 +188,8 @@ var home = function() {
 				sliderModule: 10,
 				teacherCount: 4,
 				activityCount: 4,
-				msgLastTime: getLocalItem('msgLastTime')
+				msgLastTime: getLocalItem('msgLastTime'),
+				orgCount: 4
 			},
 			success: function(responseText) {
 				var result = responseText;
@@ -184,6 +197,7 @@ var home = function() {
 				self.slideshow(result.Sliders);
 				self.initSlidershow();
 				self.Teachers(result.Teachers);
+				self.Orgs(result.Orgs);
 				self.clampDes();
 				self.UnreadCount(result.MessageCount);
 				plus.runtime.setBadgeNumber(result.MessageCount);
@@ -219,13 +233,14 @@ var home = function() {
 	}
 	
 	//机构
-	self.goOrkList=function(){
+	self.goOrgList=function(){
 		common.transfer('../org/orgList.html');
 	}
 	
 	//精品班/名师讲座
 	self.goActivityList=function(){
 		common.showIndexWebview(1);
+		
 	}
 	
 	//高考培训

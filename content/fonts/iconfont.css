@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1462932549'); /* IE9*/
-  src: url('iconfont.eot?t=1462932549#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1462932549') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1462932549') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1462932549#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1463046273'); /* IE9*/
+  src: url('iconfont.eot?t=1463046273#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1463046273') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1463046273') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1463046273#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -93,6 +93,7 @@
 .icon-yuyue:before { content: "\e63b"; }
 .icon-video:before { content: "\e63a"; }
 .icon-zhanghu:before { content: "\e691"; }
+.icon-jiaoxueguocheng:before { content: "\e6d0"; }
 .icon-zhibo:before { content: "\e62e"; }
 .icon-shangchuanb:before { content: "\e6bb"; }
 .icon-shipin:before { content: "\e61d"; }
@@ -173,6 +174,7 @@
 .icon-weixin:before { content: "\e666"; }
 .icon-touxiang:before { content: "\e64c"; }
 .icon-tixing:before { content: "\e6a3"; }
+.icon-notice:before { content: "\e6d1"; }
 .icon-shenfenrenzheng:before { content: "\e69e"; }
 .icon-xiedianping1:before { content: "\e669"; }
 .icon-chengjichaxun:before { content: "\e6bf"; }
@@ -214,7 +216,9 @@
 .icon-icon2:before { content: "\e68a"; }
 .icon-icon21:before { content: "\e68f"; }
 .icon-biaoqing:before { content: "\e6ab"; }
+.icon-wancheng:before { content: "\e6d2"; }
 .icon-xingxing2:before { content: "\e6c5"; }
+.icon-xueshengqia:before { content: "\e6d3"; }
 .icon-yonghu2:before { content: "\e6c7"; }
 .icon-huatong:before { content: "\e6cc"; }
 .icon-guanlizhengshu:before { content: "\e696"; }
@@ -222,4 +226,6 @@
 .icon-photo-add:before { content: "\e6c1"; }
 .icon-icon1460192298822:before { content: "\e6b4"; }
 .icon-tixian:before { content: "\e6b5"; }
+.icon-jigou:before { content: "\e6d4"; }
 .icon-guanzhu1:before { content: "\e6ce"; }
+.icon-xueshengjiachang:before { content: "\e6d5"; }

@@ -14,13 +14,46 @@
 		<link rel="stylesheet" type="text/css" href="../../content/common/style.css"/>
 	</head>
 	<body>
-		<header id="header" class="mui-bar mui-bar-nav">
-			<i class="iconfont mui-action-back">&#xe683;</i>
-			<h1 class="mui-title">选择</h1>
-		</header>
+		<div class="select-box">
+			<div class="select-font">
+				<img src="../../images/select-font.png" />
+			</div>
+			<div class="select-icon-box">
+				<div class="select-icon" data-bind="event:{tap: gotoAddWorks}">
+					<em class="icon-video-bg iconfont"></em>
+					<div>录制视频</div>
+				</div>
+				<div class="select-icon" data-bind="event:{tap: gotoHomeWork}">
+					<em class="icon-works-bg iconfont"></em>
+					<div>提交作业</div>
+				</div>
+			</div>
+			<div class="select-action-back mui-action-back">
+				<i class="iconfont">&#xe63f;</i>
+			</div>
+		</div>
+		
 		<script src="../../script/mui/mui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			select = function() {
+				var self = this;
+				
+				self.gotoAddWorks = function() {
+					common.transfer('../works/addWorks.html', true);
+				}
+							
+				//交作业
+				self.gotoHomeWork = function() {
+					common.transfer('../works/worksList.html', true, {
+						displayCheck: true,
+						homeWork: true
+					});
+				}
+			}
+			ko.applyBindings(select);
+		</script>
 	</body>
 </html>

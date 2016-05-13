@@ -63,7 +63,16 @@
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init();
+			mui.init({
+				beforeback: function() {
+					var opener = plus.webview.currentWebview().opener();
+					
+					common.refreshHomeworkGuide(opener);
+					
+					return true;
+				}
+			})
+
 			var CommentListHeader = function() {
 				var self = this;
 				self.titleText = ko.observable('作品点评');

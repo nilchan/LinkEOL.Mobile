@@ -1,9 +1,11 @@
 var favUser = function() {
 	var self = this;
-	var qrcodeID, qrcodeType;
+	
+	var qrcodeID, qrcodeType, maxLines = 2;
 	var qrcodeWeb = null;
 	self.Gendervalue = ko.observable('');
 	self.userInfo = ko.observableArray([]);
+	self.expanded = ko.observable(false);	//是否已展开
 
 	var userId = getLocalItem('UserID'); //当前用户id
 	var subjectId = getLocalItem('SubjectID'); //当前用户科目id
@@ -43,7 +45,7 @@ var favUser = function() {
 				plus.webview.close(qrcodeWeb.opener());
 			} else {
 				var ajaxUrl = common.gServerUrl + "API/Account/GetInfo?userid=" + qrcodeID + "&usertype=" + qrcodeType;
-				console.log(ajaxUrl);
+				//console.log(ajaxUrl);
 				mui.ajax(ajaxUrl, {
 					type: "GET",
 					success: function(responseText) {
@@ -55,6 +57,7 @@ var favUser = function() {
 							}
 							
 							self.userInfo(result);
+							self.clampText();
 							self.valid(true);
 						}
 						else{
@@ -73,6 +76,21 @@ var favUser = function() {
 
 		}
 	});
+	
+	self.clampText = function(){
+		var para;
+		if(self.expanded() == true){
+			para = 99999;
+		}
+		else{
+			para = maxLines;
+		}
+		
+		$clamp(document.getElementById('pIntroduce'), {
+			clamp: para
+		});
+		self.expanded(!self.expanded());
+	}
 
 	//设置为我的关注
 	self.addMyAttention = function() {

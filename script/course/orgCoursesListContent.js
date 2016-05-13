@@ -86,14 +86,26 @@ var orgCoursesListContent = function() {
 
 	//跳转详情
 	self.gotoDetail = function(data) {
-		common.transfer();
+		common.transfer("orgCourseInfo.html", false, {
+			cid: data.ID
+		}, false, false);
 	}
 
 	mui.plusReady(function() {
 		self.getCoursesList(function(responseText) {
-			var result = JSON.parse(responseText);
-			self.coursesList(result);
-			self.clampDes();
+			if (responseText && responseText.length > 0) {
+				var result = JSON.parse(responseText);
+				self.coursesList(result);
+				self.clampDes();
+				if (responseText.length < common.gListPageSize) {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				} else {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //false代表还有数据
+				}
+			} else {
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //true代表没有数据了
+			}
+
 			common.showCurrentWebview();
 		});
 	});

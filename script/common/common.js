@@ -14,6 +14,15 @@
 			return "";
 	},
 
+	//获取用户id
+	getUserId: function() {
+		var result = '';
+		if (common.StrIsNull(getLocalItem('UserID')) != '') {
+			result = getLocalItem('UserID')
+		}
+		return result;
+	},
+
 	//是否为ios
 	isIOS: function() {
 		var flag = false;
@@ -224,13 +233,22 @@
 		});
 	},
 
+	runOnlyOnce: function(fn) {
+		var flag = true;
+		return function() {
+			if (flag) {
+				var args = [].slice.call(arguments, 0);
+				fn.apply(this, args);
+				flag = !flag;
+			}
+		}
+	},
+
 	debounce: function(fn, delay) {
 		var timer = null;
 		return function() {
 			var _this = this;
-			for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-				args[_key2] = arguments[_key2];
-			}
+			var args = [].slice.call(arguments, 0);
 			clearTimeout(timer);
 			timer = setTimeout(function() {
 				return fn.apply(_this, args);
@@ -983,6 +1001,12 @@
 			common.refreshMessage();
 		}, timer);
 	},
+	
+	refreshHomeworkGuide: function(subPage){
+		if(subPage.id.indexOf('homeworkGuide') >= 0){
+			mui.fire(subPage, 'refreshGuideInfo');
+		}
+	},
 
 	gContentRefreshDown: '刷新中...', //下拉时显示的文字
 	gContentRefreshUp: '努力加载中...', //上拉时显示的文字
@@ -1085,7 +1109,8 @@
 		Homework: 6, //作业付费
 		RegGame: 7, //赛事报名
 		RegLectures: 8, //讲座报名
-		Recharge: 9 //充值
+		Recharge: 9, //充值
+		CourseReg: 10 //课程报名
 	},
 
 	//课程类型

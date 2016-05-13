@@ -89,8 +89,8 @@
 
 	<body>
 		<div class="orgInfo-header-box">
-			<i class="iconfont orgInfo-back">&#xe683;</i>
-			<a href="#sharePopover"><i class="iconfont orgInfo-share">&#xe670;</i></a>
+			<i class="iconfont orgInfo-back mui-action-back">&#xe683;</i>
+			<!--<a href="#sharePopover"><i class="iconfont orgInfo-share">&#xe670;</i></a>-->
 			<div class="orgInfo-logo-box">
 				<div class="orgInfo-logo">
 					<img data-bind='attr:{src:common.getPhotoUrl(PhotoUrl())}' onerror="this.src='../../images/logo-pic.png';" />
@@ -160,13 +160,11 @@
 			<span class="ogrInfo-title-left">地理位置</span>
 		</div>
 		<div class="ogrInfo-map-font">
-			<span class="ogrInfo-map-address" data-bind='text:Address'>
-				<!--广东省广州市天河区珠江新城华夏路49号津滨腾越大厦南塔2710室-->
+			<span class="ogrInfo-map-address" data-bind='click:sysGuide'>
+				<!--ko text:Address--><!--/ko-->
+ 				<i class="iconfont">&#xe6c6;</i>
 			</span>
-			<span class="ogrInfo-map-navigation">导航</span>
-		</div>
-		<div class="ogrInfo-map-box" id="mapDiv">
-			
+			<div id="mapdiv"></div>
 		</div>
 		<div id="sharePopover" class="mui-popover share-height">
 			<div class="mui-scroll-wrapper">
@@ -191,12 +189,14 @@
 				</div>
 			</div>
 		</div>
-		<script src="../../script/mui/mui.min.js" type="text/javascript " charset="utf-8 "></script>
+		<script src="../../script/mui/mui.min-2.9.0.js" type="text/javascript " charset="utf-8 "></script>
 		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/mui/gps.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/mui/wgs84.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/org/orgInfo.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 

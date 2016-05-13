@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link rel="stylesheet" type="text/css" href="../../content/mui/mui.min.css" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/my/messageList.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../content/common/style.css" />
+		<style>
+			html,
+			.mui-content {
+				background: #F1F1F1!important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe683;</i>
+			<h1 class="mui-title">作业功能介绍</h1>
+		</header>
+		<div class="mui-content">
+			<div class="homeWorkGuide-con" data-bind="foreach: {data: guideInfoS}">
+				<div class="homeWorkGuide-top"></div>
+				<div class="homeWorkGuide-box homeWorkGuide-one" data-bind="event:{tap: gotoMyInfo}">
+					<i class="iconfont">&#xe6d0;</i>
+					<span class="homeWorkGuide-title">绑定机构</span>
+					<span class="homeWorkGuide-assistant" data-bind="text: $data.Orgs == '' ? '[未绑定]' : $data.Orgs"></span>
+					<u class="homeWorkGuide-next next1"><i class="iconfont">&#xe6c6;</i></u>
+				</div>
+				<div class="homeWorkGuide-box homeWorkGuide-two" data-bind="event:{tap: gotoInstructTeacher}, css: {'homeWorkGuide-notFinished': $data.TeachRelations == ''}">
+					<i class="iconfont">&#xe694;</i>
+					<span class="homeWorkGuide-title">设置授课老师</span>
+					<span class="homeWorkGuide-assistant" data-bind="text: $data.TeachRelations == '' ? '[未设置]' : $data.TeachRelations"></span>
+					<u class="homeWorkGuide-next next2"><i class="iconfont">&#xe6c6;</i></u>
+				</div>
+				<div class="homeWorkGuide-box homeWorkGuide-three" data-bind="event:{tap: gotoAddWorks}, css: {'homeWorkGuide-notFinished': $data.Works == ''}">
+					<i class="iconfont">&#xe6ca;</i>
+					<span class="homeWorkGuide-title">录制视频</span>
+					<span class="homeWorkGuide-assistant" data-bind="text: $data.Works == '' ? '[未有上传视频]' : $data.Works"></span>
+					<u class="homeWorkGuide-next next3"><i class="iconfont">&#xe6c6;</i></u>
+				</div>
+				<div class="homeWorkGuide-box homeWorkGuide-four" data-bind="event:{tap: gotoHomeWork}, css: {'homeWorkGuide-notFinished': $data.Comments == ''}">
+					<i class="iconfont">&#xe667;</i>
+					<span class="homeWorkGuide-title">提交作业</span>
+					<span class="homeWorkGuide-assistant" data-bind="text: $data.Comments == '' ? '[无未点评作业]' : $data.Comments"></span>
+					<u class="homeWorkGuide-next next4"><i class="iconfont">&#xe6c6;</i></u>
+				</div>
+				<div class="homeWorkGuide-box homeWorkGuide-five" data-bind="event:{tap: gotoMessageList}, css: {'homeWorkGuide-notFinished': $data.Messages != ''}">
+					<i class="iconfont">&#xe6d1;</i>
+					<span class="homeWorkGuide-title">收到作业点评通知</span>
+					<span class="homeWorkGuide-assistant" data-bind="text: $data.Messages == '' ? '[无未读通知]' : $data.Messages"></span>
+					<u class="homeWorkGuide-next next5"><i class="iconfont">&#xe6c6;</i></u>
+				</div>
+				<div class="homeWorkGuide-dow"></div>
+			</div>
+
+		</div>
+
+		<script src="../../script/mui/mui.min.js"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/home/homeworkGuide.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,8 +1,8 @@
 var orgInfo = function() {
 	var self = this;
-	var mapDiv; //地图
+	var mapobj; //地图
 	var userId = getLocalItem("UserID");
-	self.orgUerId=ko.observable();
+	self.orgUerId = ko.observable();
 	self.ID = ko.observable();
 	self.OrgName = ko.observable(); //机构全称
 	self.Abbreviation = ko.observable(); //机构简称
@@ -23,7 +23,7 @@ var orgInfo = function() {
 	self.favClass = ko.observable('');
 
 	self.getOrgInfo = function() {
-		var ajaxUrl = common.gServerUrl + 'API/Org/OrgInfoByID?orgId='+self.ID();
+		var ajaxUrl = common.gServerUrl + 'API/Org/OrgInfoByID?orgId=' + self.ID();
 		mui.ajax(ajaxUrl, {
 			type: 'GET',
 			success: function(responseText) {
@@ -46,6 +46,7 @@ var orgInfo = function() {
 				self.clampDes();
 				self.getFavStatus();
 				//self.setMap(self.Lon(),self.Lat());
+				common.showCurrentWebview();
 			}
 		})
 	}
@@ -62,7 +63,7 @@ var orgInfo = function() {
 		lis[i].onclick = function() {
 			mui('#sharePopover').popover('toggle');
 			plus.nativeUI.showWaiting();
-			//Share.sendShare(this.id, shareTitle, shareContent, shareUrl + TUserID, shareImg, common.gShareContentType.teacher);
+			//Share.sendShare(this.id, '今天你学习了吗?', '你新高度的启航点', shareUrl + TUserID,self.PhotoUrl());
 
 		};
 	}
@@ -80,14 +81,6 @@ var orgInfo = function() {
 				clamp: 1
 			});
 		}
-	}
-
-	//map setting
-	self.setMap = function(lon, lat) {
-		var thisPoint = new plus.maps.Point(lon, lat);
-		mapDiv = new plus.maps.Map('mapDiv');
-		mapDiv.centerAndZoom(thisPoint, 20);
-		mapDiv.showZoomControls(true);
 	}
 
 	self.addFav = function() {
@@ -165,20 +158,30 @@ var orgInfo = function() {
 			cid: data.ID
 		});
 	}
-	
+
 	//导航
-	self.sysGuide=function(){
-		
+	self.sysGuide = function() {
+		plus.geolocation.getCurrentPosition(function(e) {
+			var thisPoint=GPS.gcj_decrypt_exact(e.coords.longitude, e.coords.latitude);
+			var addressPoint=GPS.gcj_decrypt_exact(self.Lon(),self.Lat());
+			console.log(JSON.stringify(addressPoint));
+			plus.maps.openSysMap(new plus.maps.Point(thisPoint.lon,thisPoint.lat), self.Address(),new plus.maps.Point(thisPoint.lon,thisPoint.lat));
+		})
+	}
+
+	self.addMap = function() {
+		mapobj = new plus.maps.Map('mapdiv');
+		mapobj.hide();
+
 	}
 
 	mui.plusReady(function() {
-		var thiWeb=plus.webview.currentWebview();
-		if(typeof thiWeb.oid !=='undefined'){
+		var thiWeb = plus.webview.currentWebview();
+		if (typeof thiWeb.oid !== 'undefined') {
 			self.ID(thiWeb.oid);
 		}
-
 		self.getOrgInfo();
-		
+		self.addMap();
 	})
 
 }

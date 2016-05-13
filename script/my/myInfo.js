@@ -6,7 +6,8 @@ var myInfo = function() {
 	self.UserType(getLocalItem('UserType'));
 
 	self.IsRegister = ko.observable(false);
-
+	self.orgs = ko.observableArray(["请选择所属机构"]);
+	
 	//self.ID = ko.observable(" ");.//用户id
 	self.UserName = ko.observable(getLocalItem('UserName')); //手机
 	self.DisplayName = ko.observable(''); //姓名
@@ -101,6 +102,9 @@ var myInfo = function() {
 			});
 		});
 	}
+	
+	
+	
 	var genders, places, subjects, useLocation;
 	mui.plusReady(function() {
 		var web = plus.webview.currentWebview();
@@ -116,21 +120,23 @@ var myInfo = function() {
 			layer: 2
 		});
 		self.subjects.setData(common.getAllSubjectsBoth());
-
-		mui.ajax(common.gServerUrl + "API/Account/GetInfo?userid=" + self.UserID() + "&usertype=" + self.UserType(), {
-			type: 'GET',
-			success: function(responseText) {
-				//console.log(responseText);
-				if (responseText != "") {
-					var result = eval("(" + responseText + ")");
-					self.initData(result);
-					common.showCurrentWebview();
-				}
-			}
-		})
+		self.getMyInfo();
+		
 	})
+	
+	self.selectOrgs = function() {
+		var singleSelect = true;
+		if( self.UserType() == common.gDictUserType.teacher ) {
+			singleSelect = false;
+		}
+		common.transfer('../org/orgList.html', true, {
+			displayCheck: true,
+			singleSelect: singleSelect
+		});
+	}
+	
 	self.initData = function(result) {
-		//self.UserName(result.UserName);
+//		self.UserName(result.UserName);
 		self.DisplayName(result.DisplayName);
 		self.Photo(result.Photo);
 		if (common.StrIsNull(result.Photo) != '')
@@ -171,7 +177,26 @@ var myInfo = function() {
 		if (result.OrgPhone)
 			self.OrgPhone(result.OrgPhone);
 		if (result.OrgNumber)
-			self.OrgNumber(result.OrgNumber);	
+			self.OrgNumber(result.OrgNumber);
+		if( result.OrgNameJSON ) {
+			self.orgs(result.OrgNameJSON.split(','));
+		} else {
+			self.orgs(["请选择所属机构"]);
+		}
+	}
+	
+	self.getMyInfo = function() {
+		mui.ajax(common.gServerUrl + "API/Account/GetInfo?userid=" + self.UserID() + "&usertype=" + self.UserType(), {
+			type: 'GET',
+			success: function(responseText) {
+//				console.log(responseText);
+				if (responseText != "") {
+					var result = eval("(" + responseText + ")");
+					self.initData(result);
+					common.showCurrentWebview();
+				}
+			}
+		});
 	}
 
 	self.changeUserName = function() {
@@ -275,7 +300,6 @@ var myInfo = function() {
 			data.OrgPerson = self.OrgPerson();
 			data.OrgPhone = self.OrgPhone();
 			data.OrgNumber = self.OrgNumber();
-			
 		}
 		plus.nativeUI.showWaiting();
 		mui.ajax(infoUrl + self.UserID(), {
@@ -298,18 +322,23 @@ var myInfo = function() {
 	mui.init({
 		beforeback: function() {
 			var myinfo = plus.webview.currentWebview().opener();
-			var infoArray = {
-				IDAuth: self.IDAuth()
-			};
-			if (bValue) {
-				infoArray['imgPath'] = self.Path();
-				infoArray['displayName'] = self.DisplayName();
-				infoArray['userScore'] = self.Score();
-				infoArray['Province'] = self.Province();
-				infoArray['City'] = self.City();
-				infoArray['District'] = self.District();
+			
+			if(myinfo.id.indexOf('my.html') >= 0){
+				var infoArray = {
+					IDAuth: self.IDAuth()
+				};
+				if (bValue) {
+					infoArray['imgPath'] = self.Path();
+					infoArray['displayName'] = self.DisplayName();
+					infoArray['userScore'] = self.Score();
+					infoArray['Province'] = self.Province();
+					infoArray['City'] = self.City();
+					infoArray['District'] = self.District();
+				}
+				mui.fire(myinfo, 'refreshMyinfo', infoArray);
 			}
-			mui.fire(myinfo, 'refreshMyinfo', infoArray);
+			common.refreshHomeworkGuide(myinfo);
+			
 			return true;
 		}
 	})
@@ -321,6 +350,9 @@ var myInfo = function() {
 		if (common.StrIsNull(event.detail.auths) != '') {
 			self.IDAuth(event.detail.auths[0].Approved == common.gDictAuthStatusType.Authed);
 		}
+	})
+	window.addEventListener('refreshOrgs', function(event) {
+		self.getMyInfo();
 	})
 
 }

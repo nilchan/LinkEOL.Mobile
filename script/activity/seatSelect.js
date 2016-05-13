@@ -119,7 +119,7 @@ var seatSelect = function() {
 		mui.ajax(url, {
 			type: 'GET',
 			success: function(responseText) {
-				//				console.log(responseText);
+				console.log(responseText.substring(0, 700));
 				var obj = JSON.parse(responseText);
 
 				obj.forEach(function(item) {
@@ -137,7 +137,7 @@ var seatSelect = function() {
 
 	//选择座位
 	self.selectOne = function(obj) {
-		//		console.log(JSON.stringify(obj));
+//		console.log(JSON.stringify(obj));
 		if (obj.SeatStatus !== 1) return;
 		var thisDom = $('#seatGraph').children().eq(obj.X - 1).children().eq(obj.Y - 1);
 		if (thisDom.length === 0) {
@@ -253,6 +253,18 @@ var seatSelect = function() {
 			function() {
 				removeLocalItem('seatListJSON');
 				isPaid = true;
+				mui.back();
+			},function(newOrderID, expireMinutes) {
+				orderID = newOrderID;
+				if(expireMinutes > 0){
+					var oTime = newDate();
+					maxtime = (newDate(oTime).getTime() + expireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
+				}
+				var my = plus.webview.currentWebview().opener();
+				mui.fire(my, 'payFail', {
+					orderID: orderID,
+					maxtime: maxtime
+				});
 				mui.back();
 			});
 	}

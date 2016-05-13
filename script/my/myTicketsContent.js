@@ -27,18 +27,18 @@ var myTicketsContent = function() {
 			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
 			mui('#pullrefresh').pullRefresh().refresh(true);
 			readPage = 1; //重新加载第1页
-			self.getTickets(function(responseText) {520
+			self.getTickets(function(responseText) {
 				var result = JSON.parse(responseText);
 				self.ticketsArray(result);
 				self.ticketsArray().forEach(function(item) {
 					if (item.IsOnLine && common.StrIsNull(item.Voucher) != '') {
-						self.makeQRCode('qrcode-' + item.Id, 300, 300, common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.orchestraRecruit + '&id=' + item.Id + '&sign=' + encodeURIComponent(item.Voucher));
+						self.makeQRCode('qrcode-' + item.Voucher, 100, 100, common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.orchestraRecruit + '&id=' + item.Id + '&sign=' + encodeURIComponent(item.Voucher));
 					}
 				});
 			});
 		}, 1500);
 	}
-	
+
 	//上拉加载
 	function pullupRefresh() {
 		setTimeout(function() {
@@ -49,10 +49,10 @@ var myTicketsContent = function() {
 					self.ticketsArray(self.ticketsArray().concat(result));
 					result.forEach(function(item) {
 						if (item.IsOnLine && common.StrIsNull(item.Voucher) != '') {
-							self.makeQRCode('qrcode-' + item.Id, 300, 300, common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.orchestraRecruit + '&id=' + item.Id + '&sign=' + encodeURIComponent(item.Voucher));
+							self.makeQRCode('qrcode-' + item.Voucher, 100, 100, common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.orchestraRecruit + '&id=' + item.Id + '&sign=' + encodeURIComponent(item.Voucher));
 						}
 					});
-					
+
 					if (responseText.length < common.gListPageSize) {
 						mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
 					} else {
@@ -99,12 +99,30 @@ var myTicketsContent = function() {
 		self.getTickets(function(responseText) {
 			var result = JSON.parse(responseText);
 			self.ticketsArray(result);
-
+			console.log(JSON.stringify(self.ticketsArray()));
 			self.ticketsArray().forEach(function(item) {
 				if (item.IsOnLine && common.StrIsNull(item.Voucher) != '') {
-					self.makeQRCode('qrcode-' + item.Id, 100, 100, common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.orchestraRecruit + '&id=' + item.Id + '&sign=' + encodeURIComponent(item.Voucher));
+					self.makeQRCode('qrcode-' + item.Voucher, 100, 100, common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.orchestraRecruit + '&id=' + item.Id + '&sign=' + encodeURIComponent(item.Voucher));
 				}
 			});
+
+			/*if (responseText && responseText.length > 0) {
+				var result = JSON.parse(responseText);
+				self.ticketsArray(result);
+				console.log(JSON.stringify(self.ticketsArray()));
+				self.ticketsArray().forEach(function(item) {
+					if (item.IsOnLine && common.StrIsNull(item.Voucher) != '') {
+						self.makeQRCode('qrcode-' + item.Voucher, 300, 300, common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.orchestraRecruit + '&id=' + item.Id + '&sign=' + encodeURIComponent(item.Voucher));
+					}
+				});
+				if (responseText.length < common.gListPageSize) {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				} else {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //false代表还有数据
+				}
+			} else {
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //true代表没有数据了
+			}*/
 			common.showCurrentWebview();
 		});
 	});

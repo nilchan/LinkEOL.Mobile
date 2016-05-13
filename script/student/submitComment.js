@@ -2,7 +2,11 @@ var submitComment = function() {
 	var self = this;
 	var orderID = 0,
 		orderType = 0;
-		
+
+	var maxLines = 2;
+	var web;
+	self.expanded = ko.observable(false); //是否已展开
+
 	self.works = ko.observable({});
 	self.teacher = ko.observableArray([]);
 	self.Amount = ko.observable(50); //点评费用
@@ -11,15 +15,15 @@ var submitComment = function() {
 	self.balance = ko.observable(0); //余额
 	self.isHomeWork = ko.observable(false); //交作业
 	self.freeCount = ko.observable(0); //免费次数
-	self.addtime=ko.observable();	//作品添加时间
+	self.addtime = ko.observable(); //作品添加时间
 	self.PayType = ko.observable('balance'); //支付方式，默认为余额支付
-	self.isChangeTeacher=ko.observable(true);
-	
+	self.isChangeTeacher = ko.observable(true);
+
 	//支付类型切换事件
 	self.checkPayType = function() {
 		PayType(event.srcElement.value);
 	}
-	
+
 	/**
 	 * 为显示订单的点评信息而获取数据
 	 * @param {Int} commentID 点评ID
@@ -37,11 +41,12 @@ var submitComment = function() {
 				}
 				if (data.teacher) {
 					self.teacher(data.teacher);
+					self.clampText();
 				}
 			}
 		});
 	}
-	
+
 	self.getAmount = function() {
 		var ajaxUrl = common.gServerUrl + 'API/Comment/GetCommentPrice?userId=' + self.teacher().UserID;
 		if (self.isHomeWork()) {
@@ -54,7 +59,7 @@ var submitComment = function() {
 			}
 		});
 	}
-	
+
 	//获取余额
 	self.getBalance = function() {
 		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + getLocalItem('UserID');
@@ -76,7 +81,7 @@ var submitComment = function() {
 			}
 		});
 	}
-	
+
 	self.confirmContinue = function() {
 		var message = this;
 		var msgText = '作品已找过该老师点评，是否继续？';
@@ -94,7 +99,7 @@ var submitComment = function() {
 			}
 		});
 	}
-	
+
 	//判断是否已存在类似的点评（相同作品和老师）
 	self.checkComment = function() {
 		var ajaxUrl = common.gServerUrl + "API/Comment/CheckSimilarComment?workId=" + self.works().ID + "&teacherId=" + self.teacher().UserID;
@@ -109,17 +114,16 @@ var submitComment = function() {
 			}
 		});
 	}
-	
+
 	//获取所有授课老师
 	self.getInstructTeacher = function() {
 		mui.ajax(common.gServerUrl + 'API/TeacherToStudent/TeacherToStudentList?StudentID=' + self.works().AuthorID + '&pageSize=999', {
 			type: 'GET',
 			success: function(responseText) {
-				//console.log(responseText);
 				var result = JSON.parse(responseText);
 				var teacherArrayLen = result.length;
 				if (teacherArrayLen == 1) {
-					self.teacher(result);
+					self.teacher(result[0]);
 				} else if (teacherArrayLen > 1) {
 					result.forEach(function(item) {
 						if (item.SubjectID == self.works().SubjectID) {
@@ -128,26 +132,32 @@ var submitComment = function() {
 							self.teacher(result[0]);
 						}
 					});
+				} else {
+					mui.alert('还没有授课老师，快去申请吧', '', '确定', function() {
+						mui.back();
+					});
+
 				}
+				self.clampText();
 				self.checkComment();
 			}
 
 		})
 	}
-	
-	self.changeTeacher=function(){
+
+	self.changeTeacher = function() {
 		common.transfer('../teacher/teacherHomeWorkHeader.html', true, {
 			works: self.works(),
 			displayCheck: true,
-			homeWork:self.isHomeWork(),
-			chooseNewTeacher:true
+			homeWork: self.isHomeWork(),
+			chooseNewTeacher: true
 		});
 	}
-	
+
 	self.gotoRecharge = function() {
 		common.transfer('/modules/my/recharge.html', true);
 	}
-	
+
 	self.Order = ko.observable({}); //由我的订单传递过来的订单参数
 	self.ViewOrder = ko.observable(false); //标记是否由我的订单跳转而来，默认为否
 	self.OrderNO = ko.observable(''); //请求后返回的订单号
@@ -211,22 +221,34 @@ var submitComment = function() {
 	self.closePopover = function() {
 		mui('#middlePopover').popover('hide');
 	}
-	
-	
+
 	//刷新余额
 	window.addEventListener('refeshBalance', function(event) {
 		self.getBalance();
 	});
-	
+
 	//刷新老师
 	window.addEventListener('refreshTeacher', function(event) {
-		console.log(JSON.stringify(event.detail.teacher));
 		self.teacher(event.detail.teacher);
 		self.checkComment();
 	});
-	
-	mui.plusReady(function(){
-		var web = plus.webview.currentWebview();
+
+	self.clampText = function() {
+		var para;
+		if (self.expanded() == true) {
+			para = 99999;
+		} else {
+			para = maxLines;
+		}
+
+		$clamp(document.getElementById('pIntroduce'), {
+			clamp: para
+		});
+		self.expanded(!self.expanded());
+	}
+
+	mui.plusReady(function() {
+		web = plus.webview.currentWebview();
 		//从订单跳转过来
 		if (typeof(web.order) != "undefined") {
 			self.isChangeTeacher(false);
@@ -243,21 +265,25 @@ var submitComment = function() {
 			}
 			if (typeof(web.homeWork) !== "undefined") {
 				self.isHomeWork(web.homeWork);
-				if(self.isHomeWork()){
+				if (self.isHomeWork()) {
 					self.getInstructTeacher();
 				}
 			}
 			if (typeof(web.teacher) !== "undefined") {
 				self.teacher(web.teacher);
+				self.clampText();
 				self.checkComment();
 			}
-			if(typeof web.isChangeTeacher !=='undefined'){
+			/*else{
+							self.getInstructTeacher();
+						}*/
+			if (typeof web.isChangeTeacher !== 'undefined') {
 				self.isChangeTeacher(web.isChangeTeacher);
 			}
-			
+
 		}
 		self.getBalance();
 	});
-	
+
 }
 ko.applyBindings(submitComment);

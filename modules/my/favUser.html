@@ -11,8 +11,8 @@
 		<link href="../../content/common/style.css" rel="stylesheet" />
 		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
 		<style>
-			html,body {
-				background: #F1F1F1;
+			html,body,.mui-content {
+				background: #F1F1F1!important;
 			}
 			.favUser-btn1{
 				margin-top: 5px;
@@ -86,8 +86,8 @@
 				</div>
 				<div class="favUser-introduction" data-bind="visible: isShowOrg">
 					<p class="introduction-font">简介：</p>
-					<p class="introduction-content" data-bind="text: userInfo().Introduce"></p>
-					<p class="favUser-introduction-more">查看全文</p>
+					<p class="introduction-content" id="pIntroduce" data-bind="text: userInfo().Introduce"></p>
+					<p class="favUser-introduction-more" data-bind="click: clampText, text: expanded() == false ? '隐藏全文' : '展开全文'">展开全文</p>
 				</div>
 				<!--<div class="mui-content-padded favUser-div-btn">
 					<button type="button" class="mui-btn mui-btn-success mui-btn-block favUser-btn" data-bind="click:addMyAttention">添加到我的关注</button>
@@ -99,19 +99,20 @@
 					<button type="button" class="mui-btn mui-btn-success mui-btn-block favUser-btn2" data-bind='click:setMyStudent,visible:isShowStudent'>设置为授课学生</button>
 				</div>-->
 				<div class="favUser-btn-box">
-					<div class="favUser-comment">
-						<button data-bind="click:addMyAttention">关注</button>
+					<div class="favUser-comment" data-bind="click:addMyAttention">
+						<button class="favUser-comment-button" >关注</button>
 					</div>
-					<div class="favUser-right-btn">
-						<button data-bind="click:setMyTeacher, visible:isShowTeacher">设置为授课老师</button>
+					<div class="favUser-right-btn" data-bind="click:setMyTeacher, visible:isShowTeacher">
+						<button class="favUser-right-button" >设置为授课老师</button>
 					</div>
-					<div class="favUser-right-btn">
-						<button data-bind="click:setMyStudent, visible:isShowStudent">设置为授课学生</button>
+					<div class="favUser-right-btn" data-bind="click:setMyStudent, visible:isShowStudent">
+						<button class="favUser-right-button" >设置为授课学生</button>
 					</div>
-					<div class="favUser-right-btn">
-						<button data-bind="click:setMyOrg, visible:isShowOrg">绑定该机构</button>
+					<div class="favUser-right-btn" data-bind="click:setMyOrg, visible:isShowOrg">
+						<button class="favUser-right-button" >绑定该机构</button>
 					</div>
 				</div>
+				
 			</div>
 			<div class="favUser-error" data-bind="visible:valid()==false">
 				<i class="iconfont">&#xe64d;</i>
@@ -122,6 +123,7 @@
 		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/my/favUser.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 

@@ -9,7 +9,7 @@ var myOrders = function() {
 	self.Photo = ko.observable("");
 
 	var currentID = 0;
-	
+
 	mui.init({
 		gestureConfig: {
 			longtap: true
@@ -113,10 +113,10 @@ var myOrders = function() {
 		var btnArray = ['取消', '确认'];
 		mui.confirm('确认删除订单？', '删除订单', btnArray, function(e) {
 			if (e.index == 1) {
-				var ajaxUrl=common.gServerUrl+'API/Order/OrderDel?orderId='+order.ID;
-				mui.ajax(ajaxUrl,{
-					type:'DELETE',
-					success:function(responseText){
+				var ajaxUrl = common.gServerUrl + 'API/Order/OrderDel?orderId=' + order.ID;
+				mui.ajax(ajaxUrl, {
+					type: 'DELETE',
+					success: function(responseText) {
 						self.OrdersNotPay.remove(order);
 						self.Sum(common.getArraySum(self.OrdersNotPay(), 'AmountInFact'));
 					}
@@ -125,9 +125,27 @@ var myOrders = function() {
 		});
 	}
 
+	//获取货品信息
+	/*
+	 * @param {String} targetType
+	 * @param {String} targetId
+	 * @param {Function} callback
+	 * */
+	self.getGoodsByTarget = function(targetType, targetId, callback) {
+		var ajaxUrl = common.gServerUrl + 'API/Order/GetGoodsByTarget?targetType=' + targetType + "&targetId=" + targetId;
+		mui.ajax(ajaxUrl, {
+			type: 'GET',
+			success: function(responseText) {
+				callback(responseText);
+			}
+		});
+	}
+
 	self.goDetail = function(order) {
 		//console.log('~'+JSON.stringify(order));
-		var url = '', arg1 = true, arg2 = true;
+		var url = '',
+			arg1 = true,
+			arg2 = true;
 		switch (order.TargetType) {
 			case common.gDictOrderTargetType.Comment:
 				url = '../../modules/student/submitComment.html';
@@ -141,22 +159,17 @@ var myOrders = function() {
 				break;
 			case common.gDictOrderTargetType.Ticket:
 				url = '../../modules/activity/saleTicket.html';
-				var ajaxUrl = common.gServerUrl + 'API/ActTicket/ActTicketInfo?ticketId=' + order.TargetID;
-				mui.ajax(ajaxUrl, {
-					type: 'GET',
-					success: function(responseText) {
-						var result = JSON.parse(responseText);
-						if(result){
-							if(result.IsOnLine){
-								url = '../../modules/activity/seatMap.html';
-							}
-							
-							common.transfer(url, true, {
-								order: order
-							}, arg1, arg2);
+				self.getGoodsByTarget(common.gDictOrderTargetType.Ticket, order.TargetID, function(responseText) {
+					var result = JSON.parse(responseText);
+					if (result) {
+						if (result.IsOnLine) {
+							url = '../../modules/activity/seatMap.html';
 						}
+						common.transfer(url, true, {
+							order: order
+						}, arg1, arg2);
 					}
-				})
+				});
 				break;
 			case common.gDictOrderTargetType.Homework:
 				url = '../../modules/student/submitComment.html';
@@ -174,14 +187,26 @@ var myOrders = function() {
 			case common.gDictOrderTargetType.Recharge:
 				url = '../../modules/my/recharge.html';
 				break;
+			case common.gDictOrderTargetType.CourseReg:
+				url = '../../modules/course/orgCourseInfo.html';
+				self.getGoodsByTarget(common.gDictOrderTargetType.CourseReg, order.TargetID, function(responseText) {
+					var result = JSON.parse(responseText);
+					if (result) {
+						common.transfer(url, true, {
+							order: order,
+							data:result
+						}, arg1, arg2);
+					}
+				});
+				break;
 			default:
 				return;
 		}
-		if(this.IsFinish === true && order.TargetType == common.gDictOrderTargetType.Recharge) {
-			return  ;
+		if (this.IsFinish === true && order.TargetType == common.gDictOrderTargetType.Recharge) {
+			return;
 		}
-		
-		if(order.TargetType != common.gDictOrderTargetType.Ticket){
+
+		if (order.TargetType != common.gDictOrderTargetType.Ticket) {
 			common.transfer(url, true, {
 				order: order
 			}, arg1, arg2);

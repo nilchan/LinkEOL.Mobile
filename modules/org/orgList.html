@@ -36,6 +36,7 @@
 			.mui-content>.orgList-ul:first-child {
 				margin-top: 0px;
 			}
+			
 			.mui-bar-tab .ah-mui-tab-item {
 				display: table-cell;
 				overflow: hidden;
@@ -47,7 +48,6 @@
 				text-overflow: ellipsis;
 				color: #929292;
 			}
-			
 		</style>
 	</head>
 
@@ -61,34 +61,36 @@
 		</header>
 		<div class="mui-content">
 			
-			<div id="pullrefresh" class="mui-scroll-wrapper" style="margin-top: 44px;">
-				<div id="teacher-scroll" class="mui-scroll">
+			<div id="pullrefresh" class="mui-scroll-wrapper" style="bottom: 50px;" data-bind="style: {'bottom': displayCheck() ? '50px' : '0'}">
+				<div id="teacher-scroll" class="mui-scroll" style="margin-top: 44px;">
 					<div class="orgList-search">
-				<input id="seachInput" type="text" placeholder="输入关键字检索" />
-				<i class="iconfont">&#xe603;</i>
-			</div>
+						<input id="seachInput" type="text" placeholder="输入关键字检索" />
+						<i class="iconfont">&#xe603;</i>
+					</div>
 					<ul class="mui-table-view orgList-ul" data-bind="foreach: {data: orgs}">
-						<li class="mui-table-view-cell orgList-li" data-bind="event:{tap: gotoDetail}">
+						<li class="mui-table-view-cell orgList-li" data-bind="event:{tap: clickOne}">
 							<div class="orgList-box">
-								<em class="teacher-list-check">
-										<img src="../../images/radio-check.png" />
+								<span class="teacherList-sc orgList-bd" data-bind='visible: info.IsBound'>已绑定</span>
+								<em class="teacher-list-check" data-bind="visible: displayCheck">
+										<img data-bind="attr:{src: '../../images/radio-check'+(selected() ? '-active' : '')+'.png'}"/>
 									</em>
 								<div class="orgList-logo">
-									<img data-bind="attr:{src: common.getPhotoUrl(Photo)}" src="../../images/Identity.jpg" />
+									<img data-bind="attr:{src: common.getPhotoUrl(info.Photo)}" onerror="this.src='../../images/my-default.png';"/>
 								</div>
-								<h3 class="org-title" data-bind="text: OrgName">星海音乐学院</h3>
-								<p class="org-comment" data-bind="text: '关注 ' + UserFavCount"></p>
+								<h3 class="org-title" data-bind="text: info.OrgName">星海音乐学院</h3>
+								<p class="org-comment" data-bind="text: '关注 ' + info.UserFavCount"></p>
 							</div>
 						</li>
 					</ul>
 				</div>
 			</div>
-				<nav class="mui-bar mui-bar-tab">
-				<a class="ah-mui-tab-item mui-active works-list-mui-tab-label mui-action-back">
+			
+			<nav class="mui-bar mui-bar-tab" data-bind="visible: displayCheck">
+				<a class="ah-mui-tab-item mui-active works-list-mui-tab-label mui-action-back" data-bind='event:{tap: cacelSelect}'>
 					<span class="mui-tab-label ">取消</span>
 				</a>
 
-				<a class="ah-mui-tab-item works-list-mui-tab-btn">
+				<a class="ah-mui-tab-item works-list-mui-tab-btn" data-bind='event:{tap: confirmSelect}'>
 					<span class="mui-tab-label works-list-mui-btn">确定</span>
 				</a>
 			</nav>
@@ -103,16 +105,11 @@
 				<ul class="mui-table-view orgList-ul orgList-address-ul">
 					<li class="orgList-li orgList-address-li">
 						<div class="orgList-address-box current-county">
+							
 							<span data-bind="text: '当前：'+ self.selectedCity().text + selectedDistrict()"></span>
 							<span id="showDistrict" class="orgList-county"><!-- ko text: selectedDistrict -->选择区县<!-- /ko --><i class="iconfont">&#xe66c;</i></span>
 							<div id="district" class="more-county">
 								<ol data-bind="foreach:{data: selectedCity().children}">
-									<!--<li><em class="current-address">全城</em></li>
-									<li><em>番禹区</em></li>
-									<li><em>越秀区</em></li>
-									<li><em>全城</em></li>
-									<li><em>番禹区</em></li>
-									<li><em>越秀区</em></li>-->
 									<li><em data-bind="text: text, css: {'current-address': text === selectedDistrict()}, event:{tap: selectDistrict}">全城</em></li>
 								</ol>
 							</div>
@@ -129,19 +126,13 @@
 						</div>
 					</li>
 					<!--/ko-->
-					<!--<li class="mui-table-view-cell orgList-li orgList-address-li">
-						<div class="orgList-address-box">安阳</div>
-					</li>
-						<li class="mui-table-view-cell orgList-li orgList-address-li">
-						<div class="orgList-address-box">安阳</div>
-					</li>-->
 				</ul>
 			</div>
 		</div>
-		
+
 		<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
-		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/common.js " type="text/javascript " charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>
 		<script src="../../script/common/city.data-3.js" type="text/javascript" charset="utf-8"></script>

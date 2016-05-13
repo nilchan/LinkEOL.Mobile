@@ -252,6 +252,13 @@ var viewModel = function() {
 				contentnomore: common.gContentNomoreUp,
 				callback: pullupRefresh
 			}
+		},
+		beforeback: function() {
+			var opener = plus.webview.currentWebview().opener();
+			
+			common.refreshHomeworkGuide(opener);
+			
+			return true;
 		}
 	});
 

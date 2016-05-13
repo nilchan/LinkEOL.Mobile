@@ -11,6 +11,7 @@ var workList = function() {
 	self.dbSort = ko.observable("排序");
 	self.isChangeTeacher=ko.observable(true);
 	//var receiverId = getLocalItem("UserID");
+	var web;
 
 	self.tmplSubjects = ko.observableArray([]);
 	self.tmplSubjectClasses = ko.observableArray([]);
@@ -165,8 +166,23 @@ var workList = function() {
 		for(var i = 0; i < self.worksList().length; i++){
 			var item = self.worksList()[i];
 			if(item.selected()){
+				//if(web.opener().id)
 				var info = self.teacherInfo();
-				if (typeof(info) === "undefined") {
+				if(web.opener().id=='modules/home/select.html' || typeof(info) !== "undefined" ){
+					common.transfer('../student/submitComment.html', true, {
+						works: item.info,
+						teacher: teacherInfo(),
+						homeWork: self.isHomeWork(),
+						isChangeTeacher:self.isChangeTeacher()
+					},false,true,'submitCommentId');
+				}else{
+					common.transfer('../teacher/teacherListHeader.html', true, {
+						works: item.info,
+						displayCheck: true
+					});
+				}
+				
+				/*if (typeof(info) === "undefined") {
 					common.transfer('../teacher/teacherListHeader.html', true, {
 						works: item.info,
 						displayCheck: true
@@ -179,7 +195,7 @@ var workList = function() {
 						isChangeTeacher:self.isChangeTeacher()
 					});
 				}
-				
+				*/
 				sel = true;
 				break;
 			}
@@ -191,13 +207,15 @@ var workList = function() {
 	}
 
 	mui.plusReady(function() {
-		var web = plus.webview.currentWebview();
+		web = plus.webview.currentWebview();
 		if (typeof(web.displayCheck) !== "undefined") {
-			self.teacherInfo(web.teacher);
 			self.displayCheck(web.displayCheck);
 		}
+		if (typeof(web.teacher) !== "undefined") {
+			self.teacherInfo(web.teacher);
+		}
 		if (typeof(web.homeWork) !== "undefined") {
-				self.isHomeWork(web.homeWork);
+			self.isHomeWork(web.homeWork);
 		}
 		if(typeof web.isChangeTeacher !=='undefined'){
 			self.isChangeTeacher(web.isChangeTeacher);

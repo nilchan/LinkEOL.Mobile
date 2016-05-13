@@ -19,7 +19,7 @@ var myTicketsEntrance=function(){
 	
 	//课程报名
 	self.goCourseRegister=function(){
-		common.transfer('../course/courseRegisterList.html',true,{},false,true);
+		common.transfer('../course/courseApply.html',true,{},false,true);
 	}
 	
 }

@@ -1,6 +1,9 @@
 ﻿var teacherInfo = function() {
 	var self = this;
 
+	var maxLines = 2;
+	self.expanded = ko.observable(false);	//是否已展开
+	
 	self.teacherInfo = ko.observable(); //老师详情对象
 	self.workResolve = ko.observableArray([]); //分解视频  数组
 	self.workFull = ko.observableArray([]); //完整视频  数组
@@ -79,6 +82,7 @@
 				self.SubjectName(result.SubjectName);
 				self.TeachAge(result.TeachAge);
 				self.teacherInfo(result);
+				self.clampText();
 				self.Introduce(result.Introduce);
 				shareTitle = "我在乐评家上分享了" + self.DisplayName() + "老师";
 				shareImg = self.Photo();
@@ -86,6 +90,22 @@
 			}
 		});
 	};
+	
+	self.clampText = function(){
+		var para;
+		if(self.expanded() == true){
+			para = 99999;
+		}
+		else{
+			para = maxLines;
+		}
+		
+		$clamp(document.getElementById('pIntroduce'), {
+			clamp: para
+		});
+		self.expanded(!self.expanded());
+	}
+
 	self.openWork = function(type) {
 		common.transfer('../works/worksListMyHeader.html', false, {
 			workTypeID: 0, //type,

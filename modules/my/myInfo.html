@@ -16,6 +16,7 @@
 			}
 				.mui-input-row label{
 				line-height: 1.6!important;
+				width: 40%!important;
 			}
 			.mui-input-group .mui-input-row:after{
 				background: #C8C7CC!important;
@@ -31,8 +32,10 @@
 			.mui-input-row label ~ textarea{
 				font-size: 16px;
 			}
+			
 			.reg-mui-input-row label ~ input, .th-mui-btn-block{
 				color: #999;
+				width: 60%!important;
 			}
 			.mui-btn-blue, .mui-btn-primary, input[type=submit]{
 				    border: 1px solid #e64578;
@@ -89,7 +92,7 @@
 				</div>
 				<div class="mui-input-row pic-mui-input-row">
 					<label>姓名</label>
-					<input type="text" placeholder="请输入您的姓名" data-bind="value:DisplayName" />
+					<input type="text" placeholder="请输入您的姓名" data-bind="value:DisplayName"/>
 				</div>
 				<div class="mui-input-row reg-mui-input-row th-mui-input-row" data-bind='visible: UserType() == common.gDictUserType.teacher'>
 					<label>科目</label>
@@ -117,17 +120,16 @@
 						<i class="red-point point-left" data-bind="visible:IDAuth()==false"></i>
 					</a>
 				</li>-->
-				<div class="mui-input-row reg-mui-input-row" id="myInfo-organization" data-bind='visible:UserType() == common.gDictUserType.teacher'>
+				<div class="mui-input-row reg-mui-input-row" id="myInfo-organization" data-bind="event:{tap: selectOrgs}">
 					<label>所属机构</label>
-					<!--<input id="address" type="text" class="mui-btn mui-btn-block th-mui-btn-block" data-bind="value:Org" />-->
-					<div class="organization-name">
+					<!-- ko foreach:{data: orgs}-->
+					<div class="organization-name" data-bind="text: $data">
 						辰星音乐培训中心
 					</div>
-						<div class="organization-name">
-						辰星音乐培训中心
-					</div>
+					<!-- /ko -->
+					
 				</div>
-				<div class="mui-input-row reg-mui-input-row" data-bind='visible:UserType() == common.gDictUserType.teacher'>
+				<!--<div class="mui-input-row reg-mui-input-row" data-bind='visible:UserType() == common.gDictUserType.teacher'>
 					<label>机构联系人</label>
 					<input id="address" type="text" class="mui-btn mui-btn-block th-mui-btn-block" data-bind="value:OrgPerson" />
 				</div>
@@ -138,7 +140,7 @@
 				<div class="mui-input-row reg-mui-input-row" data-bind='visible:UserType() == common.gDictUserType.teacher'>
 					<label>机构编码</label>
 					<input id="address" type="text" class="mui-btn mui-btn-block th-mui-btn-block" data-bind="value:OrgNumber" />
-				</div>
+				</div>-->
 				<div class="th-textarea-div th-textarea" style="height: 12rem;" data-bind='visible: UserType() == common.gDictUserType.teacher'>
 					<label class="textarea-label">自我简介</label>
 					<textarea placeholder="输入详细的介绍，能方便学生更快的了解和信任您" data-bind="value:Introduce"></textarea>
