@@ -431,7 +431,10 @@
 					"images/video-big-default.png",
 					"images/index-022.png",
 					"images/index-023.png",
-					"images/index-021.png"
+					"images/index-021.png",
+					"images/index-111.png",
+					"images/index-112.png",
+					"images/index-113.png"
 				],
 				"refer": [
 					"modules/teacher/teacherListHeader.html",
@@ -1015,7 +1018,9 @@
 					"images/activity-photo.png",
 					"content/fonts/iconfont.eot",
 					"content/fonts/iconfont.svg",
-					"images/video-big-default.png"
+					"images/video-big-default.png",
+					"script/libs/jquery.min.js",
+					"images/VIP.png"
 				],
 				"refer": [
 					"modules/activity/activityInfo.html"
@@ -4101,7 +4106,9 @@
 					"script/mui/mui.min-2.9.0.js",
 					"script/mui/gps.js",
 					"script/mui/wgs84.js",
-					"content/fonts/iconfont.ttf"
+					"content/fonts/iconfont.ttf",
+					"images/free.png",
+					"images/VIP.png"
 				],
 				"refer": [
 					"modules/activity/activityInfo.html",

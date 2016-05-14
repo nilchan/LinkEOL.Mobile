@@ -139,10 +139,9 @@
 			</ol>
 		</div>
 		<div class="ogrInfo-title-bg">
-			<span class="ogrInfo-title-left">高考培训班</span>
+			<span class="ogrInfo-title-left">培训课程</span>
 			<span class="ogrInfo-num" data-bind="text:'('+orgToCourseList().length+')'"></span>
 		</div>
-
 		<div class="orgInfo-album">
 			<ol class="mui-table-view orgList-ul orgInfo-album-ol" data-bind='foreach:orgToCourseList'>
 				<li class="mui-table-view-cell orgList-li orgInfo-li" data-bind='click:orgToCourse'>
@@ -150,6 +149,8 @@
 						<div class="orgInfo-class-photo orgInfo-class-circle">
 							<img data-bind='attr:{src:common.getPhotoUrl(Photo)}' onerror="this.src='../../images/logo-pic.png';" />
 						</div>
+						<span style="height: 16px; width:50px; display: inline-block; " data-bind="visible: $data.RegUsingFree == true && $data.IsPublic == false"><img src="../../images/VIP.png" /></span>
+						<span style="height: 16px; width:50px; display: inline-block; position: absolute; left: 24%; top: 2px;" data-bind="visible: $data.IsPublic == true"><img src="../../images/free.png" /></span>
 						<p class="orgInfo-class-title" data-bind='text:CourseName'></p>
 						<p class="orgInfo-class-time orgInfo-class-person">
 							<span data-bind="text:'限'+RegStudent+'人'"></span>

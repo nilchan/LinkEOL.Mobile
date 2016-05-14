@@ -12,7 +12,7 @@
 		<style>
 			html,
 			.mui-content {
-				background: #f0f0f0;
+				background: #f0f0f0!important;
 			}
 			
 			.myInfoTeacher-next {
@@ -26,6 +26,9 @@
 			.mui-input-group:after,
 			.mui-input-group:before {
 				height: 0px!important;
+			}
+			.mui-input-group .mui-input-row:after{
+				background: #C8C7CC!important;
 			}
 		</style>
 	</head>
@@ -50,17 +53,27 @@
 			<div class="recharge-content">
 				<p class="recharge-p">请选择充值金额</p>
 				<ul data-bind="foreach: {data: payList}">
-					<li data-bind="click: toPay, visible: targetID() === 0 || targetID() !== 0 && targetID() == ID">
-						<div class="recharge-box">
-							<span class="face-value" data-bind="text: Amount + '元'">10元</span>
-							<span class="face-value face-font" data-bind="text: '售价' + AmountInFact + '元'">
+					<li data-bind="click: clickOne, visible: targetID() === 0 || targetID() !== 0 && targetID() == ID">
+						<div class="recharge-box" data-bind="css: {'recharge-box-selected': selected}">
+							<span class="face-value" data-bind="text: AmountInFact + '元'">10元</span>
+							<!--<span class="face-value face-font" data-bind="text: '售价' + AmountInFact + '元'">
 								售价12元
-							</span>
+							</span>-->
 						</div>
 					</li>
 				</ul>
 			</div>
-
+			<div class="recharge-liBox">
+				<ul data-bind="foreach: {data: selectedTips}">
+					<li data-bind="text: $data"></li>
+					<!--<li>到账金额<span style="color: #e9457f;">150</span>元</li>
+					<li>到账金额305元</li>
+					<li>到账金额308元</li>-->
+				</ul>
+			</div>
+			<div class="recharge-btnBox">
+				<button data-bind="click: toPay">立即充值</button>
+			</div>
 			<!--弹出付款对话框-->
 			<div id="middlePopover" class="mui-popover submitComment-top">
 				<div class="mui-scroll-wrapper">
@@ -75,7 +88,7 @@
 									<label>
 										<li class="wx-pay">
 											<img src="../../images/submitClass-wx.png" />
-											<span>微信支付</span>
+											<span class="wx-pay-default">微信支付</span>
 											<input name="payType" value="wxpay" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
 										</li>
 									</label>
@@ -84,7 +97,7 @@
 									<label>
 										<li class="wx-pay">
 											<img src="../../images/ali.png" />
-											<span>支付宝</span>
+											<span class="wx-pay-default">支付宝</span>
 											<input name="payType" value="alipay" type="radio" data-bind="event:{change: checkPayType}">
 										</li>
 									</label>

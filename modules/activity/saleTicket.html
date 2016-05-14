@@ -18,6 +18,9 @@
 				background:#a9a9a9;
 				color: write;
 			}
+				.mui-input-group .mui-input-row:after{
+				background: #C8C7CC!important;
+			}
 		</style>
 	</head>
 
@@ -64,12 +67,12 @@
 							<span>付款详情</span>
 						</div>
 						<ul>
-							<form class="mui-input-group">
+							<form class="mui-input-group pay-no-before">
 								<div class="mui-input-row mui-radio mui-left Lesson-radio">
 									<label>
 										<li class="wx-pay">
 											<img src="../../images/submitClass-wx.png" />
-											<span>微信支付</span>
+											<span class="wx-pay-default">微信支付</span>
 											<input name="payType" value="wxpay" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
 										</li>
 									</label>
@@ -78,7 +81,7 @@
 									<label>
 										<li class="wx-pay">
 											<img src="../../images/ali.png" />
-											<span>支付宝</span>
+											<span class="wx-pay-default">支付宝</span>
 											<input name="payType" value="alipay" type="radio" data-bind="event:{change: checkPayType}">
 										</li>
 									</label>
@@ -86,24 +89,31 @@
 								<div class="mui-input-row mui-radio mui-left Lesson-radio">
 									<label>
 									<li class="wx-pay">
-										<img src="../../images/ye.png" />
-										<span>余额支付
+										<img src="../../images/ye.png" />	
+										<span class="wx-pay-span">余额支付
 											<!--ko text: '( ￥ ' + balance() + ' )'-->
 											(￥120.00)
 											<!--/ko-->
 										</span>
+										<span class="wx-pay-favorable">享受8.5折</span>
 										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
 									</li>
 								</label>
 								</div>
 								<li class="lineHeight">
-									总额：￥
-									<!--ko text: TotalAmount-->
+									总额：
+									<span class="lineHeight-span">
+										￥<!--ko text: totalPrice-->
 									<!--/ko-->
+										<span class="lineHeight-decoration">
+											￥100.00
+										</span>
+									
+									</span>
 								</li>
 							</form>
 						</ul>
-						<button class="p-btn-color" data-bind="click: gotoPay">去付款</button>
+						<button class="p-btn-color" data-bind="event:{tap: gotoPay}">去付款</button>
 					</div>
 				</div>
 			</div>

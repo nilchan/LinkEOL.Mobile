@@ -16,6 +16,12 @@
 				display: inline-block;
 				width: 13.33%;
 			}
+			.max-margin-bottom {
+				margin-bottom: 250px;
+			}
+			.mui-input-group .mui-input-row:after{
+				background: #C8C7CC!important;
+			}
 		</style>
 	</head>
 
@@ -40,7 +46,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="buy-ticket">
+			<div class="buy-ticket hide">
 				<div class="count-down" data-bind="visible: ViewOrder()==true && paid()==false">支付剩余时间：
 					<!--ko text: payRemainTime-->
 					<!--/ko-->
@@ -62,7 +68,7 @@
 			<nav class="show-set-nav">
 				<div class="nav-left">
 					<i class="iconfont">&#xe6c8;</i>
-					<em class="iconfont dow-nav"></em>
+					<em class="iconfont dow-nav up-nav"></em>
 				</div>
 				<div class="nav-right">
 					<span class="totil-pay" data-bind="text: '￥' + totalPrice()">1920</span>
@@ -82,12 +88,12 @@
 							<span>付款详情</span>
 						</div>
 						<ul>
-							<form class="mui-input-group">
+							<form class="mui-input-group pay-no-before">
 								<div class="mui-input-row mui-radio mui-left Lesson-radio">
 									<label>
 										<li class="wx-pay">
 											<img src="../../images/submitClass-wx.png" />
-											<span>微信支付</span>
+											<span class="wx-pay-default">微信支付</span>
 											<input name="payType" value="wxpay" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
 										</li>
 									</label>
@@ -96,7 +102,7 @@
 									<label>
 										<li class="wx-pay">
 											<img src="../../images/ali.png" />
-											<span>支付宝</span>
+											<span class="wx-pay-default">支付宝</span>
 											<input name="payType" value="alipay" type="radio" data-bind="event:{change: checkPayType}">
 										</li>
 									</label>
@@ -104,20 +110,27 @@
 								<div class="mui-input-row mui-radio mui-left Lesson-radio">
 									<label>
 									<li class="wx-pay">
-										<img src="../../images/ye.png" />
-										<span>余额支付
+										<img src="../../images/ye.png" />	
+										<span class="wx-pay-span">余额支付
 											<!--ko text: '( ￥ ' + balance() + ' )'-->
 											(￥120.00)
 											<!--/ko-->
 										</span>
+										<span class="wx-pay-favorable">享受8.5折</span>
 										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
 									</li>
 								</label>
 								</div>
 								<li class="lineHeight">
-									总额：￥
-									<!--ko text: totalPrice-->
+									总额：
+									<span class="lineHeight-span">
+										￥<!--ko text: totalPrice-->
 									<!--/ko-->
+										<span class="lineHeight-decoration">
+											￥100.00
+										</span>
+									
+									</span>
 								</li>
 							</form>
 						</ul>
@@ -138,6 +151,7 @@
 				$('.nav-left').on('tap', function() {
 					$('.buy-ticket').toggleClass('hide');
 					$('.nav-left>em').toggleClass('up-nav')
+					$('.zone-box').toggleClass('max-margin-bottom');
 				})
 			});
 		</script>

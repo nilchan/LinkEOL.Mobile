@@ -143,11 +143,13 @@ var handleResult = function(result) {
 							removeLocalItem("Token");
 							removeLocalItem("DisplayName");
 							removeLocalItem("SubjectID");
-							plus.storage.removeItem(common.getPageName() + '.SubjectName');
-							plus.storage.removeItem(common.getPageName() + '.SubjectID');
-							plus.storage.removeItem(common.getPageName() + '.WorkTypeName');
-							plus.storage.removeItem(common.getPageName() + '.WorkTypeID');
-							plus.storage.removeItem(common.getPageName() + '.DisplayName');
+							mui.plusReady(function() {
+								plus.storage.removeItem(common.getPageName() + '.SubjectName');
+								plus.storage.removeItem(common.getPageName() + '.SubjectID');
+								plus.storage.removeItem(common.getPageName() + '.WorkTypeName');
+								plus.storage.removeItem(common.getPageName() + '.WorkTypeID');
+								plus.storage.removeItem(common.getPageName() + '.DisplayName');
+							})
 							mui.toast('帐号已在其它设备登录，当前设备将退出。');
 							//var myInfo=viewModelIndex.MyHref;
 							//mui.toast(viewModelIndex().MyHref());
@@ -197,11 +199,11 @@ var handleResult = function(result) {
 					setLocalItem('Version.Confirming', 'true');	//标记提示中
 					if (mustUpdate == 'true') {
 						//console.log('发现新版本，赶紧下载体验吧~');
-						plus.nativeUI.alert("发现新版本，赶紧下载体验吧~", function() {
-							mui.plusReady(function() {
-								common.installUpdateWgt(VersionUrl);
-							})
-						}, "更新提醒", "确定");
+						mui.plusReady(function() {
+							plus.nativeUI.alert("发现新版本，赶紧下载体验吧~", function() {
+									common.installUpdateWgt(VersionUrl);
+							}, "更新提醒", "确定");
+						})
 					} else {
 						//console.log('发现新版本，是否更新？');
 						var btnArray = ['确定', '取消'];

@@ -311,10 +311,46 @@ li {
 	padding: 15px 20px;
 	background: #f0f0f0;
 }
+.recharge-content{
+	height: auto;
+	width: 100%;
+	overflow: hidden;
+	background: #F1F1F1;
+	padding-bottom: 30px;
+}
 .recharge-content ul{
 	height: auto;
 	width: 100%;
+
 	
+}
+.recharge-liBox{
+	height: auto;
+	width: 100%;
+	overflow: hidden;
+}
+.recharge-liBox ul li{
+	height: 44px;
+	line-height: 44px;
+	padding: 0px 15px;
+	color: #666;
+	font-size: 16px;
+	background: #fff;
+	position: relative;
+}
+.recharge-liBox ul li:after{
+	height: 1px;
+	width: 220%;
+	position: absolute;
+	content: '';
+	left: -55%;
+	bottom: 0;
+	background: #C8C7CC;
+	transform: scale(0.5);
+	-webkit-transform: scale(0.5);
+}
+.recharge-liBox ul li:active{
+	background: #eee;
 }
 .recharge-content ul li{
 	width: 33.333%;
@@ -326,12 +362,30 @@ li {
 	width: 90%;
 	margin: 10px auto;
 	height: auto;
-	padding: 15px 0;
+	padding: 20px 0;
 	text-align: center;
 	background: #fff;
 	border: 1px solid #f46a98;
 	color: #f46a98;
 	border-radius: 8px;
+}
+.recharge-box-selected{
+	background:#f46a98;
+	color: #fff;
+}
+.recharge-btnBox{
+	height: 46px;
+	width: 86%;
+	margin: 40px auto;
+}
+.recharge-btnBox button{
+	background: #e9457f;
+	height: 100%;
+	width: 100%;
+	border: none;
+	font-family: "微软雅黑";
+	color: #fff;
+	font-size: 16px;
 }
 .face-value{
 	width: 100%;
@@ -653,7 +707,7 @@ li {
 				overflow-y: scroll;
 				width: 100%;
 				background: #F1F1F1;
-				margin-bottom: 250px;
+				margin-bottom: 55px;
 			}
 			.zone-preference{
 				height: 20px;
@@ -1296,7 +1350,7 @@ li {
 .orgInfo-class-title{
 	color: #666;
 	font-size: 15px;
-	left: 24%;
+	left: 30%;
 	top: -3px;
 	position: absolute;
 }
@@ -2148,7 +2202,7 @@ li {
 .mui-radio input[type=radio]:checked:before {
 	color: #e64578;
 }
-.mui-checkbox input[type=checkbox]:before,
+/*.mui-checkbox input[type=checkbox]:before,
 .mui-radio input[type=radio]:before {
 	font-family: "iconfont" !important;
 	font-size: 20px;
@@ -2160,7 +2214,7 @@ li {
 	border-radius: 0;
 	-webkit-font-smoothing: antialiased;
 	line-height: 25px;
-}
+}*/
 .reg-radio {
 	height: 40px;
 	width: 96%;
@@ -2363,17 +2417,64 @@ li {
 	width: 100%;
 	overflow: hidden;
 }
-.index-two {
+.index-two,.index-three {
 	height: auto;
 	width: 100%;
 	overflow: hidden;
 	margin: 0 auto;
 	position: relative;
 }
-.index-two ul {
+.index-two ul,.index-three ul {
 	width: 100%;
 	height: auto;
 }
+.index-three ul li{
+	width: 33.333%;
+	float: left;
+	text-align: center;
+	height: auto;
+	padding: 20px 0px;
+	box-sizing: border-box;
+	overflow: hidden;
+	position: relative;
+}
+.index-three ul li:nth-of-type(2):before{
+	content: '';
+	position: absolute;
+	left: 0px;
+	top: -52%;
+	height: 210%;
+	width: 1px;
+	background: #C8C7CC;
+	transform: scale(0.5);
+	-webkit-transform: scale(0.5);
+}
+.index-three ul li:nth-of-type(2):after{
+	content: '';
+	position: absolute;
+	right: 0px;
+	top: -52%;
+	height: 210%;
+	width: 1px;
+	background: #C8C7CC;
+	transform: scale(0.5);
+	-webkit-transform: scale(0.5);
+}
+.index-three ul li h4{
+	padding-bottom: 20px;
+	text-align: center;
+}
+.index-three-imgBox{
+	height: auto;
+	width: 100%;
+	text-align: center;
+	
+}
+.index-three-imgBox img{
+	width: 70%;
+	vertical-align: middle;
+}
+
 .index-two ul li {
 	width: 50%;
 	float: left;
@@ -2381,7 +2482,7 @@ li {
 	padding: 50px 0 3px;
 	text-align: center;
 }
-.index-two ul li:active {
+.index-two ul li:active,.index-three ul li:active {
 	background: #F1F1F1;
 }
 .iconfton-c {
@@ -2989,10 +3090,10 @@ li {
 	position: absolute;
 	right: 35px;
 	top: 50%;
-	width: 9.3%!important;
-	margin-top: -5%;
+	width: 9.4%!important;
+	margin-top: -4.7%;
 	display: inline-block;
-	z-index: 999;
+	z-index: 994;
 }
 .agree-btn{
 	background: #13b113;
@@ -3095,7 +3196,45 @@ li {
 }
 
 /*-------首页结束-------*/
-
+/*-----教与学通道-----*/
+.gallery-box{
+	height: auto;
+	width: 100%;
+}
+.gallery-box img{
+	display: block;
+	vertical-align: middle;
+	width: 100%;
+}
+.gallery-position{
+	position: relative;
+}
+.gallery-btn-box{
+	position: absolute;
+	width: 70%;
+	left: 15%;
+	top:0px;
+	height: 46px;	
+}
+.gallery-btn-box button{
+	background: #e9457f;
+	height: 100%;
+	width: 100%;
+	border: none;
+	font-family: "微软雅黑";
+	color: #fff;
+	font-size: 16px;
+}
+.gallery-finger{
+	position: absolute;
+	bottom: 0;
+	right: 15%;
+	z-index: 22;
+	width: 25%;
+}
+.gallery-finger img{
+	width: 100%;
+}
 /*-------我的-学生开始-------*/
 .my-content {
 	padding-top: 0!important;
@@ -5920,7 +6059,6 @@ li {
 .mui-scroll-title {
 	height: 44px;
 	width: 100%;
-	border-bottom: 1px solid #C8C7CC;
 	padding: 0 15px;
 	line-height: 44px;
 	color: #666;
@@ -5929,6 +6067,18 @@ li {
 	position: relative;
 	box-sizing: border-box;
 }
+.mui-scroll-title:after{
+	content: '';
+	position: absolute;
+	left: -55%;
+	bottom: 0px;
+	width: 220%;
+	height: 1px;
+	background: #C8C7CC;
+	transform: scale(0.5);
+	-webkit-transform: scale(0.5);
+}
+
 .mui-scroll-title i {
 	font-size: 18px;
 	position: absolute;
@@ -5984,7 +6134,6 @@ li {
 	line-height: 44px;
 	text-align: center;
 	margin-left: 10%;
-	margin-top: 15px;
 }
 
 /*----约课-----*/
@@ -7395,6 +7544,9 @@ li {
 	left: 0px!important;
 	border-radius: 5px;
 }
+.pay-no-before:before,.pay-no-before:after{
+	height: 0px;
+}
 .worksDetails-after:after{
 	content: '\e660';
 }
@@ -7410,12 +7562,41 @@ li {
 	border-radius: 5px;
 }
 .Lesson-radio input[type=radio] {
-	top: 13px!important;
+	top: 2px!important;
 	left: 16.6rem!important;
 }
 .wx-pay {
 	color: #444!important;
-	border-bottom: 1px solid #C8C7CC!important;
+	position: relative;
+}
+.wx-pay-default{
+	position: absolute;
+	left: 2.5rem;
+	color: #333;
+	top: 12px;
+	font-size: 16px;
+}
+.wx-pay-span{
+	position: absolute;
+	left: 2.5rem;
+	top: 2px;
+	color: #333;
+	font-size: 16px;
+}
+.wx-pay-favorable{
+	height: 18px;
+	width: 60px;
+	display: inline-block;
+	border: 1px solid #e9457f;
+	border-radius: 3px;
+	position: absolute;
+	left: 2.5rem;
+	text-align: center;
+	top: 18px;
+	font-size: 12px;
+	line-height: 17px;
+	color: #e9457f;
+	
 }
 .mui-radio input[type=radio]:checked:before {
 	content: "\e637";
@@ -7424,9 +7605,8 @@ li {
 	padding-left: 0px!important;
 }
 .Lesson-radio {
-	height: 50px!important;
-	line-height: 50px;
-	border-bottom: 1px solid #C8C7CC;
+	height: 58px!important;
+	line-height: 54px!important;
 }
 .Lesson-mui ul li {
 	line-height: 0!important;
@@ -7434,6 +7614,16 @@ li {
 .Lesson-mui ul li.lineHeight {
 	line-height: 3.52rem!important;
 }
+.lineHeight-span{
+	float: right;
+}
+.lineHeight-decoration{
+	text-decoration:line-through;
+	float: right;
+	margin-right: 15px;
+	color: #999;
+	margin-left: 7px;
+} 
 .about-lesson .fontcolor {
 	color: #999!important;
 	font-size: 16px!important;
@@ -8320,7 +8510,7 @@ li {
 	margin-top: 40px;
 }
 .activity-con-right-h2{
-	font-size: 18px;
+	font-size: 16px;
 	color: #333;
 	line-height: 22px;
 }

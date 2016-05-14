@@ -3,6 +3,7 @@ var recharge = function() {
 	var ID, orderID = 0, orderError = true;
 	
 	self.payList = ko.observableArray([]);
+	self.selectedTips = ko.observableArray([]);
 	self.balance = ko.observable();
 	self.price = ko.observable();
 	self.targetID = ko.observable(0);
@@ -13,24 +14,58 @@ var recharge = function() {
 			type: 'GET',
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
-				self.payList(result);
-				self.payList().forEach(function(item){
-					if( self.targetID() == item.ID ) {
-						orderError = false;
-					}
-					if( orderError && self.targetID() != 0 ) {
-						alert('该订单的充值套餐已失效！');
-						mui.back();
-						return;
+				var hasThePay = false;
+				
+				result.forEach(function(item){
+					item.selected = ko.observable(false);
+					self.payList.push(item);
+					
+					if(self.targetID() != 0 && self.targetID() == item.ID){
+						self.clickOne(item);	//选中订单对应的套餐
+						hasThePay = true;
 					}
 				});
+				if(self.payList().length > 0 && self.targetID() == 0){	//非订单跳转，选中第一个
+					//self.payList()[0].selected(true);
+					self.clickOne(self.payList()[0]);
+				}
+				
+				if( self.targetID() != 0 && !hasThePay) {
+					alert('该订单的充值套餐已失效！');
+					mui.back();
+					return;
+				}
 			}
 		})
 	};
 	
+	self.clickOne = function(data){
+		data.selected(true);
+		self.payList().forEach(function(item){
+			if(item != data)
+				item.selected(false);
+		})
+		if(common.StrIsNull(data.Tips) == ''){
+			self.selectedTips([]);
+		}
+		else{
+			var arr = data.Tips.split(',');
+			self.selectedTips(arr);
+		}
+		self.selectedTips.unshift('到账余额'+data.Amount+'元');
+	}
+	
 	self.toPay = function() {
-		ID = this.ID;
-		self.price(this.AmountInFact);
+		var data = null;
+		self.payList().forEach(function(item){
+			if(item.selected() == true){
+				data = item;
+			}
+		})
+		if(data == null) return;
+		
+		ID = data.ID;
+		self.price(data.AmountInFact);
 		mui('#middlePopover').popover("show");
 	}
 	

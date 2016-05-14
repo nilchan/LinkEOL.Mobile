@@ -152,7 +152,10 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 				}, function() {
 					common.setEnabled(evt);
 					plus.nativeUI.closeWaiting();
-					failureCB(orderID, ret.expireMinutes);
+					if(typeof failureCB != 'undefined'){
+						failureCB(orderID, ret.expireMinutes);
+					}
+						
 					return false;
 				});
 			}
