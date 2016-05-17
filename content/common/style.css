@@ -1019,6 +1019,8 @@ li {
 	color: #efa900!important;
 }
 /*----教学机构列表-----*/
+
+			
 .orgList-box{
 	height: auto;
 	width: 100%;
@@ -1191,6 +1193,10 @@ li {
 .more-county ol li em.current-address{
 	background: #e9e9ea;
 }
+.orgList-li.mui-active {
+				background: #e6e5e5!important;
+				color: #666!important;
+			}
 /*------教学机构详情------*/
 .orgInfo-header-box{
 	width: 100%;
@@ -1279,6 +1285,9 @@ li {
 	line-height: 42px;
 	margin-top: 10px;
 }
+.orgCouresInfo-mapBg{
+	background: #fff;
+}
 .ogrInfo-title-left{
 	font-size: 16px;
 	color: #666;
@@ -1293,12 +1302,10 @@ li {
 	line-height: 28px!important;
 }
 .orgInfo-album{
-	margin-top: 10px;
 	width: 100%;
 	box-sizing: border-box;
 	height: auto;
 	overflow: hidden;
-
 }
 
 .orgInfo-album ul li{
@@ -1318,18 +1325,18 @@ li {
 .orgInfo-class{
 	height: auto;
 	width: 100%;
+	position: relative;
 	box-sizing: border-box;
 	
 }
 
 .mui-table-view .orgInfo-li{
-	padding: 0px 15px 12px!important;
+	padding: 15px 15px 18px!important;
 	position: relative;
-	margin-top: 15px;
 }
-.orgInfo-album-ol:first-child{
+/*.orgInfo-album-ol:first-child{
 	margin-top: -12px!important;
-}
+}*/
 .orgInfo-class-photo{
 	width: 15%;
 }
@@ -1341,24 +1348,26 @@ li {
 	color: #666;
 	font-size: 13px;
 	left: 24%;
-	bottom:33%;
+	bottom:30%;
 	position: absolute;
 }
 .orgInfo-album .orgInfo-album-ol:last-child::after{
 	height: 0px!important;
 }
+.orgInfo-VIP-box{
+	left: 24%;
+	top: -8%;
+	position: absolute;
+}
 .orgInfo-class-title{
 	color: #666;
-	font-size: 15px;
-	left: 30%;
-	top: -3px;
-	position: absolute;
+	font-size: 15px;	
 }
 .orgInfo-class-address{
 	color: #666;
 	font-size: 13px;
 	left: 24%;
-	bottom:9%;
+	bottom:0%;
 	width:77%;
 	position: absolute;
 	overflow: hidden;
@@ -1376,13 +1385,27 @@ li {
 	vertical-align: middle;
 }
 .orgInfo-class-person{
-	top: 32%;
+	top: 33%;
 }
 .ogrInfo-map-font{
-	height:50px;
+	height:44px;
 	width: 100%;
 	box-sizing: border-box;
 	margin-bottom: 20px;
+}
+.orgCouresInfo-line{
+	position: relative;
+}
+.orgCouresInfo-line:before{
+	content: '';
+	height: 1px;
+	position: absolute;
+	background: #C8C7CC;
+	width: 206%;
+	left: -55%;
+	top: 0px;
+	transform: scale(0.5);
+	-webkit-transform: scale(0.5);
 }
 .ogrInfo-map-address{
 	color: #666;
@@ -1498,7 +1521,7 @@ li {
 }
 /*----高考培训班详情------*/
 .orgCourseInfo-title-box{
-	height: 76px;
+	height: 86px;
 	width: 100%;
 	position: relative;
 	background: #fff;
@@ -1524,7 +1547,7 @@ li {
 .orgCourseInfo-title-left p{
 	color: #666;
 	font-size: 17px;
-	padding-top: 15px;
+	padding-top: 22px;
 	padding-bottom: 3px;
 }
 .orgCourseInfo-title-left span{
@@ -1539,18 +1562,33 @@ li {
 	float: left;
 	width: 28%;
 	text-align: center;
-	line-height: 76px;
+	/*line-height: 76px;*/
 	color:#e64578 ;
 	font-size: 22px;
 }
+.orgCourseInfo-lineHeight-right{
+	line-height: 76px;
+}
+.orgCourseInfo-lineHeight{
+	padding-top: 22px;
+	height: 22px;
+	line-height:22px;
+	width: 100%;
+	text-align: center;
+}
+.orgCourseInfo-lineHeight-decoration{
+	    text-decoration: line-through;
+	    color: #999;
+	    font-size: 16px;
+}
 .orgCourseInfo-title-right:before{
 	width: 1px;
-	height: 146px;
+	height: 170px;
 	background: #C8C7CC;
 	content: '';
 	position: absolute;
 	left: 0;
-	top:-35px;
+	top:-42px;
 	transform: scale(0.5);
 	-webkit-transform: scale(0.5);
 	
@@ -2463,6 +2501,7 @@ li {
 .index-three ul li h4{
 	padding-bottom: 20px;
 	text-align: center;
+	font-size: 16px;
 }
 .index-three-imgBox{
 	height: auto;
@@ -6906,30 +6945,30 @@ li {
 	color: #fff!important;
 }
 /*----课程报名-----*/
-.courseApply-box{
+.orgCourseApplyList-box{
 	height: auto;
 	width: 100%;
 	background: #fff;
 }
 
-.courseApply-logo{
+.orgCourseApplyList-logo{
 	width: 16%;
 	border-radius: 50%;
 	float: left;
 	border: 1px solid #C8C7CC;
 }
-.courseApply-logo img{
+.orgCourseApplyList-logo img{
 	vertical-align: middle;
 	border-radius: 50%;
 }
-.courseApply-title{
+.orgCourseApplyList-title{
 	position: absolute;
 	left: 22%;
 	color: #666;
 	top: 19%;
 	font-size: 16px;	
 }
-.courseApply-time{
+.orgCourseApplyList-time{
 	height: 50%;
 	padding-top:1.5%;
 	box-sizing: border-box;
@@ -6939,7 +6978,7 @@ li {
 	color: #999;
 	font-size: 13px;	
 }
-.courseApply-apply{
+.orgCourseApplyList-apply{
 	color: #e64578;
 	font-size: 16px;
 	position: absolute;
@@ -6947,8 +6986,70 @@ li {
 	right: 15px;
 	margin-top: -12px;
 }
-.courseApply-li:after{
+.orgCourseApplyList-li:after{
 	left: 0px;
+}
+.orgCourseApplyList-h4{
+	color: #666;
+	font-size: 17px;
+	padding-bottom: 4px;
+}
+.orgCourseApplyList-span{
+	color: #999;
+	font-size: 13px;
+}
+.orgCourseApplyList-num{
+	height: 16px;
+	width: auto;
+	display: inline-block;
+	padding: 0px 3px;
+	font-size: 12px;
+	margin-right: 4px;
+	border-radius: 3px;
+	line-height: 15px;
+	color: #e64578;
+	border:1px solid #e64578;
+}
+.org-box{
+	height: auto;
+	margin-top: 15px;
+	width: 100%;
+	position: relative;
+}
+.orgCourseApplyList-orgLogo{
+	width: 9%;
+	border-radius: 50%;
+	float: left;
+	border: 1px solid #C8C7CC;
+}
+.orgCourseApplyList-orgLogo img{
+	width: 100%;
+	vertical-align: middle;
+}
+.orgCourseApplyList-orgName{
+	float: left;
+	color: #999;
+	font-size: 14px;
+	position: absolute;
+	left: 12%;
+	top: 50%;
+	margin-top: 7px;
+}
+.orgCourseApplyList-pay{
+	position: absolute;
+	right: 15px;
+	color: #e64578;
+	font-size: 17px;
+	top: 50%;
+	margin-top: -24px;
+}
+.orgCourseApplyList-agoPay{
+	position: absolute;
+	right: 15px;
+	color: #999;
+	font-size: 16px;
+	top: 50%;
+	text-decoration:line-through; 
 }
 /*----发布----*/
 .select-box{
@@ -7539,8 +7640,8 @@ li {
 	width: 100%!important;
 	position: fixed!important;
 	top: 100%!important;
-	margin-top: -360px!important;
-	height: 400px!important;
+	margin-top: -400px!important;
+	min-height: 400px!important;
 	left: 0px!important;
 	border-radius: 5px;
 }
@@ -7565,21 +7666,201 @@ li {
 	top: 2px!important;
 	left: 16.6rem!important;
 }
+/*----弹出支付页面----*/
+#PayBox{
+	height: 100%;
+	width: 100%;
+}
+#PayBox .opacity-bg{
+	background: #000;
+	opacity: 0.3;
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 100%;	
+}
+#PayBox .pay-popup{
+	max-height: 500px;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background: #fff;
+	z-index: 3333;
+}
+#PayBox .payment-title{
+	height: 44px;
+	width: 100%;
+	text-align: center;
+	line-height: 44px;
+	position: relative;
+}
+#PayBox .payment-title:after{
+	content: '';
+	height: 1px;
+	width: 202%;
+	background: #C8C7CC;
+	position: absolute;
+	left:-52%;
+	bottom:0px;
+	transform: scale(0.4);
+	-webkit-transform: scale(0.5);
+	
+}
+.close-pay{
+	float: left;
+	margin-left: 15px;
+	font-size:20px;
+}
+#PayBox .pay-method{
+	height: auto;
+	width: 100%;
+	overflow: hidden;
+}
+#PayBox .pay-method li{
+	height: auto;
+	overflow: hidden;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	width: 100%;
+	padding-left: 8%;
+	box-sizing: border-box;
+	position: relative;
+	
+}
+#PayBox .pay-method li:after{
+	content: '';
+	height: 1px;
+	width: 182%;
+	background: #C8C7CC;
+	position: absolute;
+	left:-38%;
+	bottom:0px;
+	transform: scale(0.4);
+	-webkit-transform: scale(0.5);
+}
+#PayBox .method-logo{
+	height:100%;
+	width: 32px;
+	float: left;
+	text-align: center;
+}
+
+#PayBox .method-logo img{
+	width: 32px;
+	height: 32px;
+	vertical-align:middle;
+}
+#PayBox .default-lineHiegt{
+	line-height: 30px;
+	font-size: 15px;
+	color: #666;
+	margin-left: 12px;
+}
+#PayBox .discount-lineHiegt{
+	line-height: 15px;
+	font-size: 15px;
+	color: #666;
+	width:78%;
+	float: left;
+	margin-top: -3px;
+	display: inline-block;
+	margin-left: 12px;
+}
+#PayBox .discount-span{
+	height: 16px;
+	width: auto;
+	padding: 0px 4px;
+	margin-top: 6px;
+	float: left;
+	display: inline-block;
+	border:1px solid #E64578;
+	border-radius: 3px;
+	color: #E64578;
+	line-height: 15px;
+	font-size: 12px;
+	margin-left: 12px;
+}
+#PayBox .pay-total{
+	margin-top: 20px;
+	height: 26px;
+	width: 100%;
+	color: #E64578;
+	box-sizing: border-box;
+	padding-left: 8%;
+	padding-right: 15px;
+}
+#PayBox .total-value{
+	float: right;
+}
+#PayBox .pay-total-btn{
+	width: 84%;
+	height: 44px;
+	letter-spacing: 4px;
+	border: none;
+	font-size: 16px;
+	margin-left: 8%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.recharge{
+	float: right;
+	margin-right: 8%;
+	margin-bottom: 20px;
+	color: #666;
+	margin-top: -10px;
+	font-size: 14px;
+}
+.recharge em{
+	color: #E64578;
+}
+#PayBox .default-icon:after{
+	content: '\e634';
+	color: #E64578;
+	font-size: 22px;
+	position: absolute;
+	right: 15px;
+	top: 17px;
+	
+}
+#PayBox .check-icon:after{
+	content: '\e637';
+	color: #E64578;
+	font-size: 26px;
+	position: absolute;
+	right: 15px;
+	top: 17px;
+}
+.pay-box-line:before,.pay-box-line:after{
+	height: 0px!important;
+}
 .wx-pay {
 	color: #444!important;
 	position: relative;
 }
+.wx-pay:after{
+	content: '';
+	height: 1px;
+	width: 180%;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	background: #C8C7CC;
+	transform: scale(0.5);
+	-webkit-transform: scale(0.5);
+}
 .wx-pay-default{
 	position: absolute;
-	left: 2.5rem;
+	left:2.5rem;
 	color: #333;
 	top: 12px;
 	font-size: 16px;
 }
 .wx-pay-span{
 	position: absolute;
-	left: 2.5rem;
-	top: 2px;
+	left: 1.9rem;
+	top: 3px;
 	color: #333;
 	font-size: 16px;
 }
@@ -7590,7 +7871,7 @@ li {
 	border: 1px solid #e9457f;
 	border-radius: 3px;
 	position: absolute;
-	left: 2.5rem;
+	left: 1.9rem;
 	text-align: center;
 	top: 18px;
 	font-size: 12px;
@@ -7613,6 +7894,7 @@ li {
 }
 .Lesson-mui ul li.lineHeight {
 	line-height: 3.52rem!important;
+	padding-right: 15px;
 }
 .lineHeight-span{
 	float: right;
@@ -7620,7 +7902,6 @@ li {
 .lineHeight-decoration{
 	text-decoration:line-through;
 	float: right;
-	margin-right: 15px;
 	color: #999;
 	margin-left: 7px;
 } 
@@ -8500,14 +8781,42 @@ li {
 }
 .activity-con-right{
 	width: 70%;
-	padding: 6px 10px;
+	padding:0px 10px 6px;
 	box-sizing: border-box;
 	float: left;
 }
 .activityInfo-con-right{
 	width: 65.4%;
-	padding: 6px 0px 0px 15px;
+	padding:6px 0px 0px 15px;
 	margin-top: 40px;
+}
+.activity-right-box{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+.VIP-box{
+	height: 16px; width: 56px; display: inline-block; float: left; 
+	margin-right: 3px;
+	background: url(../../images/VIP.png) no-repeat;
+	background-size: cover;
+	
+}
+.free-box{
+	height: 16px;
+	background: url(../../images/free.png) no-repeat;
+	width: 35px;
+	background-size: cover;
+	margin-right: 3px;
+	display: inline-block; float: left; 
+}
+.discount-box{
+	height: 16px;
+	background: url(../../images/discount.png) no-repeat;
+	width: 35px;
+	background-size: cover;
+	margin-right: 3px;
+	display: inline-block; float: left; 
 }
 .activity-con-right-h2{
 	font-size: 16px;
@@ -8515,7 +8824,7 @@ li {
 	line-height: 22px;
 }
 .activityInfo-con-right-h2{
-	font-size: 18px;
+	font-size: 16px;
 	color: #fff;
 	line-height: 22px;
 }
@@ -8569,7 +8878,7 @@ li {
 			}
 .activityInfo-subhead{
 		color: #fff;
-		font-size: 14px;
+		font-size: 13px;
 			}
 .activity-con-set-1{
 	color: #21b8c5;

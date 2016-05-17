@@ -3,8 +3,8 @@
 	//gServerUrl: "http://cloud.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
 	//gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
 	//gServerUrl: "http://192.168.1.88:8090/",gVideoServerUrl: "http://192.168.1.88:8099/",gWebsiteUrl: "http://192.168.1.88:8081/",
-	gServerUrl: "http://192.168.1.66:8190/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8181/",
-	//gServerUrl: "http://nilchan.f3322.net:8190/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
+	//gServerUrl: "http://192.168.1.66:8190/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8181/",
+	gServerUrl: "http://nilchan.f3322.net:8090/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
 
 	//判断字符串是否为空，空则返回""
 	StrIsNull: function(str) {
@@ -1006,6 +1006,25 @@
 		if(subPage.id.indexOf('homeworkGuide') >= 0){
 			mui.fire(subPage, 'refreshGuideInfo');
 		}
+	},
+	
+	//地图导航
+	/*
+	 * 
+	 * @param {String} address  机构地址
+	 * * */
+	mapGuide:function(address){
+		plus.nativeUI.showWaiting();
+		plus.geolocation.getCurrentPosition(function(e) {
+			plus.nativeUI.closeWaiting();
+			var thisPoint=GPS.gcj_decrypt_exact(e.coords.longitude, e.coords.latitude);
+			//console.log(JSON.stringify(thisPoint))
+			var addressPoint=GPS.gcj_decrypt_exact(113.324587,23.106487);
+			plus.maps.openSysMap(new plus.maps.Point(addressPoint.lon,addressPoint.lat), address,new plus.maps.Point(thisPoint.lon,thisPoint.lat));
+		},function(){
+			plus.nativeUI.closeWaiting();
+			
+		})
 	},
 
 	gContentRefreshDown: '刷新中...', //下拉时显示的文字

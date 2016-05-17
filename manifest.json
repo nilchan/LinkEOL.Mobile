@@ -1020,7 +1020,8 @@
 					"content/fonts/iconfont.svg",
 					"images/video-big-default.png",
 					"script/libs/jquery.min.js",
-					"images/VIP.png"
+					"images/VIP.png",
+					"images/discount.png"
 				],
 				"refer": [
 					"modules/activity/activityInfo.html"
@@ -1810,11 +1811,13 @@
 					"script/libs/knockout/knockout-3.3.0.min.js",
 					"images/my-default.png",
 					"content/fonts/iconfont.eot",
-					"content/fonts/iconfont.svg"
+					"content/fonts/iconfont.svg",
+					"images/logo-pic.png"
 				],
 				"refer": [
 					"modules/works/WorksDetails.html",
-					"modules/news/myNewsList.html"
+					"modules/news/myNewsList.html",
+					"modules/org/orgInfo.html"
 				]
 			},
 			"modules/my/myAttended.html": {
@@ -2327,7 +2330,8 @@
 					"content/fonts/iconfont.eot",
 					"images/my-bg.png",
 					"images/video-big-default.png",
-					"images/test.jpg"
+					"images/test.jpg",
+					"images/VIP.png"
 				],
 				"refer": [
 					"modules/works/worksListAllHeader.html",
@@ -3106,8 +3110,7 @@
 					"images/video-big-default.png"
 				],
 				"refer": [
-					"modules/my/classmateListHeader.html",
-					"modules/works/classmateWorks.html"
+					"modules/my/classmateListHeader.html"
 				],
 				"priority": 0
 			},
@@ -3165,9 +3168,7 @@
 					"images/my-bg.png",
 					"images/video-big-default.png"
 				],
-				"refer": [
-					"modules/my/classmateList.html"
-				],
+				"refer": [],
 				"priority": 0
 			},
 			"modules/my/classmateList.html": {
@@ -3907,7 +3908,8 @@
 					"modules/my/myTicketsHeader.html",
 					"modules/activity/XSBRegister/applyList.html",
 					"modules/activity/teacherFTF/applyList.html",
-					"modules/course/courseApply.html"
+					"modules/course/courseApply.html",
+					"modules/course/orgCourseApplyList.html"
 				],
 				"priority": 0
 			},
@@ -4108,7 +4110,9 @@
 					"script/mui/wgs84.js",
 					"content/fonts/iconfont.ttf",
 					"images/free.png",
-					"images/VIP.png"
+					"images/VIP.png",
+					"images/ewm.png",
+					"images/discount.png"
 				],
 				"refer": [
 					"modules/activity/activityInfo.html",
@@ -4138,10 +4142,13 @@
 					"script/common/pay.js",
 					"images/submitClass-wx.png",
 					"images/ali.png",
-					"images/ye.png"
+					"images/ye.png",
+					"content/fonts/iconfont.ttf",
+					"script/mui/gps.js"
 				],
 				"refer": [
-					"modules/org/orgInfo.html"
+					"modules/org/orgInfo.html",
+					"modules/account/login.html"
 				],
 				"priority": 0
 			},
@@ -4238,6 +4245,19 @@
 					"modules/my/messageList.html",
 					"modules/comment/commentListHeader.html",
 					"modules/my/myInfo.html"
+				],
+				"priority": 0
+			},
+			"modules/course/orgCourseApplyList.html": {
+				"resources": [
+					"script/course/orgCourseApplyList.js",
+					"content/fonts/mui.ttf",
+					"content/mui/mui.css",
+					"images/logo-pic.png",
+					"content/common/Tf_global.css"
+				],
+				"refer": [
+					"modules/course/orgCourseInfo.html"
 				],
 				"priority": 0
 			}

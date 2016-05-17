@@ -91,6 +91,7 @@ var viewModel = function() {
 			dataType: 'json',
 			type: "GET",
 			success: function(responseText) {
+				console.log(JSON.stringify(responseText));
 				responseText.forEach(function(item) {
 					switch (item.ActProperty) {
 						case 1:

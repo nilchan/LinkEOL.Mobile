@@ -77,7 +77,6 @@ var GPS = {
 
 			if (++i > 10000) break;
 		}
-		//console.log(i);
 		return {
 			'lat': wgsLat,
 			'lon': wgsLon

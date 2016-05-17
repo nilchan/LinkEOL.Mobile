@@ -87,7 +87,11 @@ var home = function() {
 		//			mui.fire(page5, 'refreshMessageStatusFalse', {});
 		//		}
 	}
-
+	
+	self.gotoCourseList = function() {
+		common.transfer('../course/orgCourseList.html', false);
+	}
+	
 	//获取未读消息数量
 	self.getUnreadCount = function() {
 		common.getUnreadCount(function(count) {

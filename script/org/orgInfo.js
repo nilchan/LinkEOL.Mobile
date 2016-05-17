@@ -4,7 +4,7 @@ var orgInfo = function() {
 	var maxLines = 2;
 	self.expanded = ko.observable(false);	//是否已展开
 	
-	var mapobj; //地图
+	//var mapobj; //地图
 	var userId = getLocalItem("UserID");
 	self.orgUerId = ko.observable();
 	self.ID = ko.observable();
@@ -46,6 +46,7 @@ var orgInfo = function() {
 				self.photoList(result.PhotoList.length > 4 ? result.PhotoList.slice(0, 4) : result.PhotoList);
 				self.regLecturesList(result.RegLecturesList);
 				self.orgToCourseList(result.OrgToCourseList);
+				//console.log(JSON.stringify(result.OrgToCourseList));
 				self.orgUerId(result.TbOrg.UserID);
 				self.getFavStatus();
 				//self.setMap(self.Lon(),self.Lat());
@@ -164,18 +165,20 @@ var orgInfo = function() {
 
 	//导航
 	self.sysGuide = function() {
+		/*plus.nativeUI.showWaiting();
 		plus.geolocation.getCurrentPosition(function(e) {
+			plus.nativeUI.closeWaiting();
 			var thisPoint=GPS.gcj_decrypt_exact(e.coords.longitude, e.coords.latitude);
 			var addressPoint=GPS.gcj_decrypt_exact(self.Lon(),self.Lat());
-			console.log(JSON.stringify(addressPoint));
 			plus.maps.openSysMap(new plus.maps.Point(thisPoint.lon,thisPoint.lat), self.Address(),new plus.maps.Point(thisPoint.lon,thisPoint.lat));
-		})
-	}
-
-	self.addMap = function() {
-		mapobj = new plus.maps.Map('mapdiv');
-		mapobj.hide();
-
+		},function(){
+			plus.nativeUI.closeWaiting();
+			
+		})*/
+		//common.mapGuide(self.Lon(),self.Lat(),self.Address());
+		//common.mapGuide('137.2222222','23.5555555','津滨腾跃大厦');
+		//plus.maps.openSysMap('0','津滨腾跃大厦','0')
+		common.mapGuide(self.Address());
 	}
 
 	mui.plusReady(function() {
@@ -184,7 +187,7 @@ var orgInfo = function() {
 			self.ID(thiWeb.oid);
 		}
 		self.getOrgInfo();
-		self.addMap();
+		
 	})
 
 }

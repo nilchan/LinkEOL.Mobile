@@ -215,9 +215,12 @@
 						<!--<em class="activity-photo-font">敬请期待</em>-->
 					</div>
 					<div class="activity-con-right">
-						<span style="height: 16px; width:50px; display: inline-block; " data-bind="visible: $data.RegUsingFree == true"><img src="../../images/VIP.png" /></span>
+						<div class="activity-right-box">
+						<span class="VIP-box" style="margin-top: 2px;" data-bind="visible: $data.RegUsingFree == true && common.StrIsNull($data.VIPDiscountJson) == ''"></span>
+						<span class="discount-box" style="margin-top: 2px;" data-bind="visible: common.StrIsNull($data.VIPDiscountJson) != ''"></span>
 						<h2 class="activity-con-right-h2" data-bind="text: Title">
 							2016年广州星海音乐厅专场音乐会</h2>
+						</div>
 						<p class="activity-subhead" data-bind='text:SubTitle'>副标题副标题副标题副标题副标题副标题副</p>
 					</div>
 					<p class="activity-con-time" data-bind="text:Times">2016.1.23 - 2016.1.28</p>

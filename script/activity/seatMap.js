@@ -15,6 +15,17 @@ var seatMap = function() {
 	self.paid = ko.observable(false); //是否已支付
 	self.payRemainTime = ko.observable('');
 	
+    self.totalPricePay = ko.observable(0);
+    self.vipLevel = ko.observable(0);
+    self.freeActivityCount = ko.observable(0);
+    self.regUsingFree = ko.observable(false);
+    self.vipDiscounts = ko.observableArray([]);
+    self.discount = ko.observable(1);
+    self.discountText = ko.observable('无折扣');
+	
+	//支付方式，默认为微信支付
+	self.PayType = ko.observable('wxpay');
+	
 	//初始化格式化座位列表
 	for (var i = 0; i < MAX_REGIONLIST; i++) {
 		self.selectFormatList()[i] = ko.observableArray([]);
@@ -107,11 +118,16 @@ var seatMap = function() {
 
 	//获取余额
 	self.getBalance = function() {
-		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + getLocalItem('UserID');
+		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount2?UserID=' + getLocalItem('UserID');
 		mui.ajax(url, {
 			type: 'GET',
 			success: function(responseText) {
-				self.balance(JSON.parse(responseText).Amount);
+				var result = JSON.parse(responseText);
+				self.balance(result.Amount);
+				self.freeActivityCount(result.FreeActivityCount);
+				self.vipLevel(result.VIPLevel);
+				self.initPayInfo();
+				
 				common.showCurrentWebview();
 			},
 			error: function() {
@@ -126,8 +142,6 @@ var seatMap = function() {
 		common.setEnabled(event);
 	}
 
-	//支付方式，默认为微信支付
-	self.PayType = ko.observable('wxpay');
 	self.checkPayType = function() {
 		PayType(event.srcElement.value);
 	}
@@ -137,6 +151,12 @@ var seatMap = function() {
 		var ticketJSON = "",
 			submitTicketArray = [];
 
+		if (self.selectSeatList().length === 0) {
+			mui.toast('请至少选择一张票');
+			mui('#middlePopover').popover("hide");
+			return;
+		}
+		
 		if (self.selectSeatList().length === 0) {
 			mui.toast('请至少选择一张票');
 			mui('#middlePopover').popover("hide");

@@ -34,15 +34,33 @@
 					position: absolute;
 					left: 24%;
 					color: #fff;
-					top: 4%;
+					top: 1%;
 					font-size: 17px;
+				}
+				.orgInfo-class-time{
+					color: #666;
+					font-size: 13px;
+					left: 24%;
+					bottom:22%;
+					position: absolute;
 				}
 				.ogrInfo-address {
 					position: absolute;
 					left: 24%;
 					color: #fff;
-					bottom: -10%;
+					bottom: -6%;
 					font-size: 12px;
+				}
+				.orgInfo-class-address{
+					color: #666;
+					font-size: 13px;
+					left: 24%;
+					bottom:-16%;
+					width:77%;
+					position: absolute;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
 				}
 			}
 			
@@ -68,14 +86,14 @@
 					position: absolute;
 					left: 24%;
 					color: #fff;
-					top: 12%;
+					top: 10%;
 					font-size: 17px;
 				}
 				.ogrInfo-address {
 					position: absolute;
 					left: 24%;
 					color: #fff;
-					bottom: 10%;
+					bottom: 8%;
 					font-size: 12px;
 				}
 				.shareTeacher-pic ul li img {
@@ -112,7 +130,7 @@
 		</div>
 		<!--<div class="orgInf-introduction" id="pIntroduce" data-bind='text:Introduce'>
 		</div>-->
-		<div class="ogrInfo-title-bg">
+		<div class="ogrInfo-title-bg" style="margin-bottom: 10px;">
 			<span class="ogrInfo-title-left">相册</span>
 		</div>
 		<div class="orgInfo-album" data-bind='click:goAlbum'>
@@ -130,10 +148,13 @@
 					<div class="orgInfo-class">
 						<div class="orgInfo-class-photo">
 							<img data-bind='attr:{src:common.getPhotoUrl(Thumbnail)}' onerror="this.src='../../images/logo-pic.png';" />
+							
 						</div>
-						<p class="orgInfo-class-title" data-bind='text:Title'></p>
-						<p class="orgInfo-class-time" data-bind='text:Times'></p>
-						<p class="orgInfo-class-address" data-bind='text:PlaceName'></p>
+						<div class="activity-right-box orgInfo-VIP-box">
+							<p class="orgInfo-class-title" data-bind='text:Title'>广州音乐学院</p>
+						</div>
+						<p class="orgInfo-class-time" data-bind='text:Times'>2016-05-11</p>
+						<p class="orgInfo-class-address" data-bind='text:PlaceName'>广州</p>
 					</div>
 				</li>
 			</ol>
@@ -149,12 +170,15 @@
 						<div class="orgInfo-class-photo orgInfo-class-circle">
 							<img data-bind='attr:{src:common.getPhotoUrl(Photo)}' onerror="this.src='../../images/logo-pic.png';" />
 						</div>
-						<span style="height: 16px; width:50px; display: inline-block; " data-bind="visible: $data.RegUsingFree == true && $data.IsPublic == false"><img src="../../images/VIP.png" /></span>
-						<span style="height: 16px; width:50px; display: inline-block; position: absolute; left: 24%; top: 2px;" data-bind="visible: $data.IsPublic == true"><img src="../../images/free.png" /></span>
-						<p class="orgInfo-class-title" data-bind='text:CourseName'></p>
+						<div class="activity-right-box orgInfo-VIP-box">
+							<span class="free-box" style="margin-top: 1px;" data-bind="visible: $data.CourseLabel == 1"></span>
+							<span class="discount-box"  style="margin-top: 1px;" data-bind="visible: $data.CourseLabel == 2"></span>
+							<span class="VIP-box" style="margin-top: 1px;" data-bind="visible: $data.CourseLabel == 3"></span>
+							<p class="orgInfo-class-title" data-bind='text:CourseName'></p>
+						</div>
 						<p class="orgInfo-class-time orgInfo-class-person">
 							<span data-bind="text:'限'+RegStudent+'人'"></span>
-							<em class="orgInfo-pay" data-bind="text:'￥'+RegMoney"></em>
+							<em class="orgInfo-pay" data-bind="text:'￥'+Amount"></em>
 						</p>
 						<p class="orgInfo-class-address" data-bind='text:Introduce'>11</p>
 					</div>
@@ -201,8 +225,7 @@
 		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/mui/gps.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../script/mui/wgs84.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/org/orgInfo.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 

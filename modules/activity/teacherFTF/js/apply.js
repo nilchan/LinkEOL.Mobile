@@ -31,9 +31,19 @@ var teacherFTF = function() {
 	self.Address = ko.observable(self.Province() + ' ' + self.City() + ' ' + self.District());
 	self.Chapter = ko.observableArray([]);
 	self.price = ko.observable(0);
+    self.pricePay = ko.observable(0);
 	self.balance = ko.observable(0);
+    self.vipLevel = ko.observable(0);
+    self.freeActivityCount = ko.observable(0);
 	self.isFinish = ko.observable(false);
+    self.regUsingFree = ko.observable(false);
+    self.vipDiscounts = ko.observableArray([]);
+    self.discount = ko.observable(1);
+    self.discountText = ko.observable('无折扣');
 
+	//支付方式，默认为微信支付
+	self.PayType = ko.observable('wxpay');
+	
 	//获取JSON
 	self.getJson = function() {
 		var ajaxUrl = common.gServerUrl + "Common/RegGame/RegGameInfoByActivityID?ActivityID=" + aid;
@@ -41,6 +51,12 @@ var teacherFTF = function() {
 			type: "GET",
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
+                self.regUsingFree(result.RegUsingFree);
+                if(common.StrIsNull(result.VIPDiscountJson) != ''){
+                	self.vipDiscounts(JSON.parse(result.VIPDiscountJson));
+                }
+                self.initPayInfo();
+                
 				var ChapterOptionJSON = JSON.parse(result.ChapterOptionJSON);
 				var CommentNameJSON = JSON.parse(result.CommentNameJSON);
 				var ChapterOption = common.JsonConvert(ChapterOptionJSON, 'Id', 'ChapterOption');
@@ -84,6 +100,10 @@ var teacherFTF = function() {
 				self.ChapterOptionText(items[0].text); //赛区
 				self.ChapterOption(items[0].value); //赛区id
 				self.price(self.Chapter()[items[0].value - 1].Price);
+	            if(self.PayType() == 'free')
+	            	self.pricePay(0);
+	            else
+	            	self.pricePay(self.price());
 			});
 		});
 	}
@@ -128,19 +148,50 @@ var teacherFTF = function() {
 
 	//获取余额
 	self.getBalance = function() {
-		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + getLocalItem('UserID');
+		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount2?UserID=' + getLocalItem('UserID');
 		mui.ajax(url, {
 			type: 'GET',
 			success: function(responseText) {
-				self.balance(JSON.parse(responseText).Amount);
+				var result = JSON.parse(responseText);
+				self.balance(result.Amount);
+				self.freeActivityCount(result.FreeActivityCount);
+				self.vipLevel(result.VIPLevel);
+				self.initPayInfo();
+				
 				common.showCurrentWebview();
 			},
-			error: function() {
+			error: function(){
 				common.showCurrentWebview();
 			}
 		});
 	}
-
+	
+	//计算可获取的折扣
+	self.initPayInfo = function(){
+		if(self.vipDiscounts().length > 0 && self.vipLevel() > 0){
+			self.vipDiscounts().forEach(function(item){
+				if(item.VIPLevel == self.vipLevel()){
+					self.discount(item.Discount);
+					if(self.discount() >= 1){
+						self.discountText('无折扣');
+					}
+					else if (self.discount() <= 0){
+						self.discountText('免费报名');
+					}
+					else{
+						self.discountText('享受'+(self.discount() * 10)+'折');
+					}
+					return;
+				}
+			})
+		}
+		
+		if(self.regUsingFree() == true && self.freeActivityCount() > 0){
+			self.pricePay(0);
+			self.PayType('free');
+		}
+	}
+	
 	//获取老师
 	var timeEvent;
 	var teaPhone;
@@ -258,15 +309,28 @@ var teacherFTF = function() {
 
 	}
 
-	//支付方式，默认为微信支付
-	self.PayType = ko.observable('wxpay');
 	self.checkPayType = function() {
 		PayType(event.srcElement.value);
+		
+		switch(self.PayType()){
+			case 'balance':
+				self.pricePay(self.price() * self.discount());
+				break;
+			case 'free':
+				self.pricePay(0);
+				break;
+			default:
+				self.pricePay(self.price());
+				break;
+		}
 	}
 
 	//支付
 	self.gotoPay = function() {
-
+		if(self.freeActivityCount() <= 0 && self.PayType() == 'free'){
+			mui.toast('免费报名次数不足，如需增加可查看充值优惠');
+			return;
+		}
 		var obj = {
 			ID: rid
 		};
@@ -320,8 +384,14 @@ var teacherFTF = function() {
 				self.Address(obj.TbActivityRegLectures.Address);
 				//self.ChapterArray([]);
 				self.price(obj.TbActivityRegLectures.Amount);
-				self.balance(0);
+				self.pricePay(obj.TbActivityRegLectures.Amount);
 				self.isFinish(obj.TbActivityRegLectures.IsFinish);
+				self.regUsingFree(obj.TbActivityRegLectures.RegUsingFree);
+				
+				if(common.StrIsNull(obj.TbActivityRegLectures.VIPDiscountJson) != ''){
+                	self.vipDiscounts(JSON.parse(obj.TbActivityRegLectures.VIPDiscountJson));
+                }
+                self.initPayInfo();
 			}
 		});
 	}

@@ -12,6 +12,7 @@ var studentInfo = function() {
 			type: 'GET',
 			success: function(responseText) {
 				var result = eval("(" + responseText + ")");
+				console.log(JSON.stringify(result));
 				self.userInfo(result);
 				common.showCurrentWebview();
 			}
@@ -110,6 +111,13 @@ var studentInfo = function() {
 			userid: sUserID,
 			userName:self.userInfo().DisplayName
 		}, false, false);
+	}
+	
+	//机构详情
+	self.goOrgInfo=function(){
+		common.transfer('../org/orgInfo.html',false,{
+			oid:self.userInfo().OrgID
+		},false,false);
 	}
 
 	mui.plusReady(function() {

@@ -253,8 +253,8 @@
 				<div class="mui-content-padded availableTime-sure">
 					<a data-bind="attr:{href:(freeCount() <= 0 ?'#middlePopover':'javascript:void(0);')}">
 						<button type="button" class="mui-btn mui-btn-primary availableTime-mui-btn p-btn-color" data-bind="text: freeCount() <= 0 ? '提交' : '免费提交（剩余'+ freeCount() +'次）', click: freeCount() <= 0 ? '' : gotoPay">
-					付款
-				</button>
+							付款
+						</button>
 					</a>
 				</div>
 			</nav>
@@ -272,12 +272,12 @@
 									<label>
 									<li class="wx-pay">
 										<img src="../../images/ye.png" />
-										<span class="wx-pay-span">余额支付
+										<span class="wx-pay-default">余额支付
 											<!--ko text: '( ￥ ' + balance() + ' )'-->
 											(￥120.00)
 											<!--/ko-->
 										</span>
-										<span class="wx-pay-favorable">享受8.5折</span>
+										<!--<span class="wx-pay-favorable">享受8.5折</span>-->
 										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
 									</li>
 								</label>

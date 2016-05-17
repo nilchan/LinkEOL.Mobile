@@ -1,27 +1,47 @@
 var saleTicket = function() {
 	var self = this;
-	var orderID = 0;	//保存成功后返回的订单ID（若未能支付成功，亦可立刻再次支付）
-	
+	var orderID = 0; //保存成功后返回的订单ID（若未能支付成功，亦可立刻再次支付）
+
 	self.custormPriceList = ko.observableArray([]); //票价信息
 	self.TotalAmount = ko.observable(0); //票价总价
 	self.paid = ko.observable(false); //是否已支付
-	self.isHaveTicket=ko.observable(false);
+	self.isHaveTicket = ko.observable(false);
 
 	self.ViewOrder = ko.observable(false); //标记是否由我的订单跳转而来，默认为否
 
 	self.payRemainTime = ko.observable('');
-	self.ticketUrl = ko.observable('');	//座位示意图URL
+	self.ticketUrl = ko.observable(''); //座位示意图URL
 	self.balance = ko.observable(0); //余额
-	
+
+	self.TotalAmountPay = ko.observable(0);
+	self.vipLevel = ko.observable(0);
+	self.freeActivityCount = ko.observable(0);
+	self.regUsingFree = ko.observable(false);
+	self.vipDiscounts = ko.observableArray([]);
+	self.discount = ko.observable(1);
+	self.discountText = ko.observable('无折扣');
+
+	//支付方式，默认为微信支付
+	self.PayType = ko.observable('wxpay');
+
 	var ActivityID;
 	var SeatPrice = [];
 	var ticketInfo;
 
-
-	//支付方式，默认为微信支付
-	self.PayType = ko.observable('wxpay');
 	self.checkPayType = function() {
 		PayType(event.srcElement.value);
+		
+		switch(self.PayType()){
+			case 'balance':
+				self.TotalAmountPay(self.TotalAmount() * self.discount());
+				break;
+			case 'free':
+				self.TotalAmountPay(0);
+				break;
+			default:
+				self.TotalAmountPay(self.TotalAmount());
+				break;
+		}
 	}
 
 	//减少票
@@ -36,14 +56,14 @@ var saleTicket = function() {
 			return;
 		}
 		self.custormPriceList().forEach(function(item) {
-				var tmp = common.clone(item);
-				if (item.Id == data.Id) {
-					tmp.BuySeatNum = data.BuySeatNum;
-					self.custormPriceList.replace(item, tmp);
-				}
-			})
-			
-			calcPrice();
+			var tmp = common.clone(item);
+			if (item.Id == data.Id) {
+				tmp.BuySeatNum = data.BuySeatNum;
+				self.custormPriceList.replace(item, tmp);
+			}
+		})
+
+		calcPrice();
 	}
 
 	//增加票
@@ -53,18 +73,18 @@ var saleTicket = function() {
 			return;
 		}
 		data.BuySeatNum = data.BuySeatNum + 1;
-		
+
 		if (data.BuySeatNum > data.SeatRemain) {
 			data.BuySeatNum = data.SeatRemain;
 			return;
 		}
 		self.custormPriceList().forEach(function(item) {
-				var tmp = common.clone(item);
-				if (item.Id == data.Id) {
-					tmp.BuySeatNum = data.BuySeatNum;
-					self.custormPriceList.replace(item, tmp);
-				}
-			})
+			var tmp = common.clone(item);
+			if (item.Id == data.Id) {
+				tmp.BuySeatNum = data.BuySeatNum;
+				self.custormPriceList.replace(item, tmp);
+			}
+		})
 		calcPrice();
 
 	}
@@ -96,10 +116,10 @@ var saleTicket = function() {
 	//计算
 	var calcPrice = function() {
 		var count = 0;
-		for(var i=0;i<self.custormPriceList().length;i++){
-			if(self.custormPriceList()[i].BuySeatNum<=0){
+		for (var i = 0; i < self.custormPriceList().length; i++) {
+			if (self.custormPriceList()[i].BuySeatNum <= 0) {
 				self.isHaveTicket(false);
-			}else{
+			} else {
 				self.isHaveTicket(true);
 				break;
 			}
@@ -109,16 +129,62 @@ var saleTicket = function() {
 		});
 		self.TotalAmount(count);
 	}
-	
+
 	//获取余额
 	self.getBalance = function() {
-		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + getLocalItem('UserID');
+		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount2?UserID=' + getLocalItem('UserID');
 		mui.ajax(url, {
 			type: 'GET',
 			success: function(responseText) {
-				self.balance(JSON.parse(responseText).Amount);
+				var result = JSON.parse(responseText);
+				console.log(responseText);
+				self.balance(result.Amount);
+				self.freeActivityCount(result.FreeActivityCount);
+				self.vipLevel(result.VIPLevel);
+				self.initPayInfo();
 			}
 		});
+	}
+
+    //获取活动的支付相关信息
+    self.getPayJson = function() {
+        var url = common.gServerUrl + 'Common/RegGame/RegGameInfoByActivityID?ActivityID=' + ActivityID;
+        mui.ajax(url,{
+            type: 'GET',
+            success: function(result) {
+            	console.log(result);
+                var obj = JSON.parse(result);
+                self.regUsingFree(obj.RegUsingFree);
+                if(common.StrIsNull(obj.VIPDiscountJson) != ''){
+                	self.vipDiscounts(JSON.parse(obj.VIPDiscountJson));
+                }
+                self.initPayInfo();
+            }
+        });
+    };
+    
+	//初始化支付信息：计算可获取的折扣、若支持免费次数且有免费次数则默认选中次数支付
+	self.initPayInfo = function() {
+		if (self.vipDiscounts().length > 0 && self.vipLevel() > 0) {
+			self.vipDiscounts().forEach(function(item) {
+				if (item.VIPLevel == self.vipLevel()) {
+					self.discount(item.Discount);
+					if (self.discount() >= 1) {
+						self.discountText('无折扣');
+					} else if (self.discount() <= 0) {
+						self.discountText('免费报名');
+					} else {
+						self.discountText('享受' + (self.discount() * 10) + '折');
+					}
+					return;
+				}
+			})
+		}
+
+		if (self.regUsingFree() == true && self.freeActivityCount() > 0) {
+			self.TotalAmountPay(0);
+			self.PayType('free');
+		}
 	}
 
 	//支付
@@ -143,7 +209,7 @@ var saleTicket = function() {
 				return;
 			}
 
-			SeatPrice = [];	//清空原有的票信息
+			SeatPrice = []; //清空原有的票信息
 			self.custormPriceList().forEach(function(item) {
 				SeatPrice.push({
 					"Id": item.Id,
@@ -162,15 +228,17 @@ var saleTicket = function() {
 			};
 			ticketJson = JSON.stringify(ticket);
 		}
-		
-		Pay.preparePay(ticketJson, self.PayType(), common.gDictOrderTargetType.Ticket, 
-			orderID, function(newOrderID, expireMinutes){
+
+		Pay.preparePay(ticketJson, self.PayType(), common.gDictOrderTargetType.Ticket,
+			orderID,
+			function(newOrderID, expireMinutes) {
 				orderID = newOrderID;
-				if(expireMinutes > 0){
+				if (expireMinutes > 0) {
 					var oTime = newDate();
 					maxtime = (newDate(oTime).getTime() + expireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
 				}
-			}, function(){
+			},
+			function() {
 				mui.back();
 			});
 	};
@@ -197,8 +265,8 @@ var saleTicket = function() {
 					self.custormPriceList([]); //先清除
 					self.custormPriceList(arr);
 					//console.log(JSON.stringify(self.custormPriceList()));
-					self.custormPriceList().forEach(function(item){
-						if(item.BuySeatNum>0){
+					self.custormPriceList().forEach(function(item) {
+						if (item.BuySeatNum > 0) {
 							self.isHaveTicket(true);
 							return;
 						}
@@ -267,6 +335,7 @@ var saleTicket = function() {
 			//console.log(JSON.stringify(customPrice));
 			self.custormPriceList(CustomPrice);
 			self.ticketUrl(thisWebview.TicketUrl);
+			self.getPayJson();
 		}
 		//console.log(typeof(thisWebview.order));
 		if (typeof(thisWebview.order) != "undefined") { //从订单跳转进来

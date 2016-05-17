@@ -80,6 +80,9 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 		case 'balance':
 			payTypeId = 4;
 			break;
+		case 'free':
+			payTypeId = 6;
+			break;
 	}
 	if (payTypeId <= 0) {
 		mui.toast('请选择正确的支付方式');
