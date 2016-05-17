@@ -3,6 +3,7 @@ var teacherFTF = function() {
 
 	var aid = 0,
 		rid = 0,
+		targetType = 0,
 		orderID = 0;
 	self.canChange = ko.observable(true);
 
@@ -70,6 +71,25 @@ var teacherFTF = function() {
 		})
 	}
 
+    //获取活动的支付相关信息
+    self.getPayJson = function() {
+        var url = common.gServerUrl + 'API/Order/GetPayInfoByTarget?targetType=' + targetType + '&targetId=' + rid;
+        
+        console.log(url);
+        mui.ajax(url,{
+            type: 'GET',
+            success: function(result) {
+            	console.log(result);
+                var obj = JSON.parse(result);
+                self.regUsingFree(obj.RegUsingFree);
+                if(common.StrIsNull(obj.VIPDiscountJson) != ''){
+                	self.vipDiscounts(JSON.parse(obj.VIPDiscountJson));
+                }
+                self.initPayInfo();
+            }
+        });
+    };
+    
 	//性别设置
 	self.setGender = function() {
 		if (self.canChange() == false) return;
@@ -314,7 +334,7 @@ var teacherFTF = function() {
 		
 		switch(self.PayType()){
 			case 'balance':
-				self.pricePay(self.price() * self.discount());
+				self.pricePay((self.price() * self.discount()).toFixed(2));
 				break;
 			case 'free':
 				self.pricePay(0);
@@ -420,6 +440,7 @@ var teacherFTF = function() {
 		if (typeof(web.order) != "undefined") { //从订单跳转进来
 			//console.log(JSON.stringify(web.order));
 			rid = web.order.TargetID;
+			targetType = web.order.TargetType;
 		}
 
 		if (rid === 0) {
@@ -427,6 +448,7 @@ var teacherFTF = function() {
 			self.UserName(getLocalItem('DisplayName'));
 			self.UserPhone(getLocalItem('UserName'));
 		} else {
+			self.getPayJson();
 			self.canChange(false);
 			self.setChange();
 			self.getRegInfo();

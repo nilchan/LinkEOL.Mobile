@@ -10,6 +10,7 @@ var seatSelect = function() {
 		count = 20,
 		initalScale = 1,
 		initalHeight = 21;
+	
 	self.seatLevelList = ko.observableArray([]); //座位等级列表
 	self.regionName = ko.observable(''); //区域名称
 	self.seatList = ko.observable([]); //座位图
@@ -20,6 +21,17 @@ var seatSelect = function() {
 	self.totalCount = ko.observable(0); //总数量
 	self.balance = ko.observable(0);
 
+    self.totalPricePay = ko.observable(0);
+    self.vipLevel = ko.observable(0);
+    self.freeActivityCount = ko.observable(0);
+    self.regUsingFree = ko.observable(false);
+    self.vipDiscounts = ko.observableArray([]);
+    self.discount = ko.observable(1);
+    self.discountText = ko.observable('无折扣');
+	
+	//支付方式，默认为微信支付
+	self.PayType = ko.observable('wxpay');
+	
 	//初始化座位列表
 	for (var i = 0; i < row; i++) {
 		self.seatList()[i] = ko.observableArray([]);
@@ -81,6 +93,8 @@ var seatSelect = function() {
 
 		self.totalPrice(tmpPrice);
 		self.totalCount(self.selectSeatList().length);
+		self.totalPricePay(self.totalPrice());
+		self.initPayInfo();
 	}
 
 	//初始化座位图
@@ -186,11 +200,16 @@ var seatSelect = function() {
 
 	//获取余额
 	self.getBalance = function() {
-		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + getLocalItem('UserID');
+		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount2?UserID=' + getLocalItem('UserID');
 		mui.ajax(url, {
 			type: 'GET',
 			success: function(responseText) {
-				self.balance(JSON.parse(responseText).Amount);
+				var result = JSON.parse(responseText);
+				self.balance(result.Amount);
+				self.freeActivityCount(result.FreeActivityCount);
+				self.vipLevel(result.VIPLevel);
+				self.initPayInfo();
+				
 				common.showCurrentWebview();
 			},
 			error: function() {
@@ -199,16 +218,68 @@ var seatSelect = function() {
 		});
 	}
 
+    //获取活动的支付相关信息
+    self.getPayJson = function() {
+        var url = common.gServerUrl + 'Common/RegGame/RegGameInfoByActivityID?ActivityID=' + aid;
+        console.log(url);
+        mui.ajax(url,{
+            type: 'GET',
+            success: function(result) {
+            	console.log(result);
+                var obj = JSON.parse(result);
+                self.regUsingFree(obj.RegUsingFree);
+                if(common.StrIsNull(obj.VIPDiscountJson) != ''){
+                	self.vipDiscounts(JSON.parse(obj.VIPDiscountJson));
+                }
+                self.initPayInfo();
+            }
+        });
+    };
+    
+	//初始化支付信息：计算可获取的折扣、若支持免费次数且有免费次数则默认选中次数支付
+	self.initPayInfo = function() {
+		if (self.vipDiscounts().length > 0 && self.vipLevel() > 0) {
+			self.vipDiscounts().forEach(function(item) {
+				if (item.VIPLevel == self.vipLevel()) {
+					self.discount(item.Discount);
+					if (self.discount() >= 1) {
+						self.discountText('无折扣');
+					} else if (self.discount() <= 0) {
+						self.discountText('免费报名');
+					} else {
+						self.discountText('享受' + (self.discount() * 10) + '折');
+					}
+					return;
+				}
+			})
+		}
+
+		if (self.regUsingFree() == true && self.freeActivityCount() > 0) {
+			self.totalPricePay(0);
+			self.PayType('free');
+		}
+	}
+
 	//关闭支付界面
 	self.closePopover = function() {
 		mui('#middlePopover').popover("hide");
 		common.setEnabled(event);
 	}
 
-	//支付方式，默认为微信支付
-	self.PayType = ko.observable('wxpay');
 	self.checkPayType = function() {
 		PayType(event.srcElement.value);
+		
+		switch(self.PayType()){
+			case 'balance':
+				self.totalPricePay((self.totalPrice() * self.discount()).toFixed(2));
+				break;
+			case 'free':
+				self.totalPricePay(0);
+				break;
+			default:
+				self.totalPricePay(self.totalPrice());
+				break;
+		}
 	}
 
 	//支付
@@ -223,6 +294,11 @@ var seatSelect = function() {
 			return;
 		}
 
+		if (self.PayType() == 'free' && ticketCount > self.freeActivityCount()) {
+			mui.toast("总票数不能超出免费次数");
+			return;
+		}
+		
 		var i = 1;
 		self.selectSeatList().forEach(function(item) {
 			submitTicketArray.push({
@@ -343,6 +419,7 @@ var seatSelect = function() {
 		self.getSeatLevelList();
 		self.getSeatList();
 		self.getBalance();
+		self.getPayJson();
 	});
 
 	mui.init({

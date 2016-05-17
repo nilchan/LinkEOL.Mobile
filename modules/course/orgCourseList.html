@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>乐评家</title>
+		<link href="../../content/mui/mui.css" rel="stylesheet" />
+		<link href="../../content/common/style.css" rel="stylesheet" />
+		<link href="../../content/common/global.css" rel="stylesheet" />
+		<link href="../../content/fonts/iconfont.css" rel="stylesheet" />
+		<link href="../../content/common/Tf_global.css" rel="stylesheet" />
+		<link href="../../content/mui/mui.picker.min.css" rel="stylesheet" />
+		<style>
+
+			.orgCourseApplyList-content> .mui-table-view:first-child {
+				margin-top: 0px;
+			}
+			.mui-active {
+				background: #eee!important;
+			}
+			@media only screen and (min-width: 320px) and (max-width:374px) {
+				.orgCourseApplyList-orgName {
+				    float: left;
+				    color: #999;
+				    font-size: 14px;
+				    position: absolute;
+				    left: 12%;
+				    top: 50%;
+				    margin-top: 3px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
+			<i class="iconfont mui-action-back">&#xe602;</i>
+			<h1 class="mui-title">课程列表</h1>
+			<div class="orgList-address" onclick="$('#address-box').show();">
+				<!-- ko text: selectedDistrict() === '全城' ? selectedCity().text : selectedDistrict() -->天河区
+				<!-- /ko --><i class="iconfont">&#xe66c;</i></div>
+		</header>
+		<div class="mui-content">
+			
+			<div id="pullrefresh" class="mui-scroll-wrapper" style="bottom: 50px;">
+				<div id="teacher-scroll" class="orgCourseApplyList-content" style="margin-top: 52px;">
+					<div class="orgList-search">
+						<input id="seachInput" type="text" placeholder="输入关键字检索" />
+						<i class="iconfont">&#xe603;</i>
+					</div>
+					<ul class="mui-table-view" data-bind="foreach:{data: orgCourses}">
+						<li class="mui-table-view-cell">
+							<h4 class="orgCourseApplyList-h4" data-bind="text: CourseName">辰星超级公益课程1</h4>
+							<span class="orgCourseApplyList-span">
+								<span class="orgCourseApplyList-num" data-bind="text: '限' + RegStudent + '人'">限200人</span>
+								<span data-bind="text: Times">2016-07-07 09:00~17:00</span>
+							</span>
+							<div class="org-box">
+								<div class="orgCourseApplyList-orgLogo">
+									<img  data-bind="attr:{src: common.getPhotoUrl(Photo)}" onerror="this.src='../../images/my-default.png';"/>
+								</div>
+								<span class="orgCourseApplyList-orgName" data-bind="text: OrgName">辰星音乐培训机构</span>
+							</div>
+							<span class="orgCourseApplyList-pay" data-bind="text: Amount">120元</span>
+							<span class="orgCourseApplyList-agoPay" data-bind="text: AmountPublic">288元</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="address-box" class="address-box" style="display: none;">
+			<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
+				<i id="closeSelect" class="iconfont" style="color: #e64578;" onclick="$('#address-box').hide();">&#xe63f;</i>
+				<h1 class="mui-title">选择地区</h1>
+			</header>
+			<div class="orgList-address-content">
+				<ul class="mui-table-view orgList-ul orgList-address-ul">
+					<li class="orgList-li orgList-address-li">
+						<div class="orgList-address-box current-county">
+							
+							<span data-bind="text: '当前：'+ self.selectedCity().text + selectedDistrict()"></span>
+							<span id="showDistrict" class="orgList-county"><!-- ko text: selectedDistrict -->选择区县<!-- /ko --><i class="iconfont">&#xe66c;</i></span>
+							<div id="district" class="more-county">
+								<ol data-bind="foreach:{data: selectedCity().children}">
+									<li><em data-bind="text: text, css: {'current-address': text === selectedDistrict()}, event:{tap: selectDistrict}">全城</em></li>
+								</ol>
+							</div>
+						</div>
+
+					</li>
+					<!-- ko foreach: {data: cityList} -->
+					<li class="orgList-li orgList-address-li">
+						<div class="orgList-address-box city-list" data-bind="text: text">安阳</div>
+						<div class="more-county more-county-display">
+							<ol data-bind="foreach: {data: $data.children}">
+								<li data-bind="event: {tap: selectCity}"><em data-bind="text: text">全城</em></li>
+							</ol>
+						</div>
+					</li>
+					<!--/ko-->
+				</ul>
+			</div>
+		</div>
+
+		<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../script/common/common.js " type="text/javascript " charset="utf-8"></script>
+		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="../../script/common/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/course/orgCourseList.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

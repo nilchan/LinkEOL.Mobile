@@ -271,7 +271,7 @@ var applay = function() {
 		
 		switch(self.PayType()){
 			case 'balance':
-				self.pricePay(self.price() * self.discount());
+				self.pricePay((self.price() * self.discount()).toFixed(2));
 				break;
 			case 'free':
 				self.pricePay(0);

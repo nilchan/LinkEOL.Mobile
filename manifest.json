@@ -2331,7 +2331,8 @@
 					"images/my-bg.png",
 					"images/video-big-default.png",
 					"images/test.jpg",
-					"images/VIP.png"
+					"images/VIP.png",
+					"images/discount.png"
 				],
 				"refer": [
 					"modules/works/worksListAllHeader.html",

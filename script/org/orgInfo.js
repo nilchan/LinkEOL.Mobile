@@ -178,7 +178,7 @@ var orgInfo = function() {
 		//common.mapGuide(self.Lon(),self.Lat(),self.Address());
 		//common.mapGuide('137.2222222','23.5555555','津滨腾跃大厦');
 		//plus.maps.openSysMap('0','津滨腾跃大厦','0')
-		common.mapGuide(self.Address());
+		common.mapGuide(self.City(),self.Address());
 	}
 
 	mui.plusReady(function() {

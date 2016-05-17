@@ -3,6 +3,7 @@ var seatMap = function() {
 	var aid = 78;
 	var MAX_REGIONLIST = 30;
 	var orderID = 0;
+	var targetID = 0, targetType = 0;	//订单对应的货品ID，货品类型
 
 	self.seatRegionList = ko.observableArray([]);
 	self.selectSeatList = ko.observableArray([]); //选择座位列表
@@ -47,6 +48,8 @@ var seatMap = function() {
 
 		self.totalPrice(tmpPrice);
 		self.totalCount(self.selectSeatList().length);
+		self.totalPricePay(self.totalPrice());
+		self.initPayInfo();
 	}
 
 	//初始化座位
@@ -136,6 +139,51 @@ var seatMap = function() {
 		});
 	}
 
+    //获取活动的支付相关信息
+    self.getPayJson = function() {
+        var url = common.gServerUrl + 'Common/RegGame/RegGameInfoByActivityID?ActivityID=' + aid;
+        if(self.ViewOrder()){
+        	url = common.gServerUrl + 'API/Order/GetPayInfoByTarget?targetType=' + targetType + '&targetId=' + targetID;
+        }
+        console.log(url);
+        mui.ajax(url,{
+            type: 'GET',
+            success: function(result) {
+            	console.log(result);
+                var obj = JSON.parse(result);
+                self.regUsingFree(obj.RegUsingFree);
+                if(common.StrIsNull(obj.VIPDiscountJson) != ''){
+                	self.vipDiscounts(JSON.parse(obj.VIPDiscountJson));
+                }
+                self.initPayInfo();
+            }
+        });
+    };
+    
+	//初始化支付信息：计算可获取的折扣、若支持免费次数且有免费次数则默认选中次数支付
+	self.initPayInfo = function() {
+		if (self.vipDiscounts().length > 0 && self.vipLevel() > 0) {
+			self.vipDiscounts().forEach(function(item) {
+				if (item.VIPLevel == self.vipLevel()) {
+					self.discount(item.Discount);
+					if (self.discount() >= 1) {
+						self.discountText('无折扣');
+					} else if (self.discount() <= 0) {
+						self.discountText('免费报名');
+					} else {
+						self.discountText('享受' + (self.discount() * 10) + '折');
+					}
+					return;
+				}
+			})
+		}
+
+		if (self.regUsingFree() == true && self.freeActivityCount() > 0) {
+			self.totalPricePay(0);
+			self.PayType('free');
+		}
+	}
+
 	//关闭支付界面
 	self.closePopover = function() {
 		mui('#middlePopover').popover("hide");
@@ -144,6 +192,18 @@ var seatMap = function() {
 
 	self.checkPayType = function() {
 		PayType(event.srcElement.value);
+
+		switch(self.PayType()){
+			case 'balance':
+				self.totalPricePay((self.totalPrice() * self.discount()).toFixed(2));
+				break;
+			case 'free':
+				self.totalPricePay(0);
+				break;
+			default:
+				self.totalPricePay(self.totalPrice());
+				break;
+		}
 	}
 
 	//支付
@@ -157,12 +217,11 @@ var seatMap = function() {
 			return;
 		}
 		
-		if (self.selectSeatList().length === 0) {
-			mui.toast('请至少选择一张票');
-			mui('#middlePopover').popover("hide");
+		if (self.PayType() == 'free' && self.totalCount() > self.freeActivityCount()) {
+			mui.toast("总票数不能超出免费次数");
 			return;
 		}
-
+		
 		var i = 1;
 		self.selectSeatList().forEach(function(item) {
 			submitTicketArray.push({
@@ -278,6 +337,8 @@ var seatMap = function() {
 			self.ViewOrder(true);
 			self.paid(orderTmp.IsFinish);
 			self.totalPrice(orderTmp.Amount);
+			targetID = orderTmp.TargetID;
+			targetType = orderTmp.TargetType;
 			self.getDataForOrder(orderTmp.TargetID);
 			var oTime = orderTmp.OrderTime;
 			maxtime = (newDate(oTime).getTime() + orderTmp.ExpireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
@@ -287,6 +348,7 @@ var seatMap = function() {
 		}
 		
 		self.getBalance();
+		self.getPayJson();
 	});
 };
 

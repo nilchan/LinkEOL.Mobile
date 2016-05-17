@@ -29,6 +29,7 @@ var orgCourseInfo = function() {
     self.discount = ko.observable(1);
     self.discountText = ko.observable('无折扣');
     self.address=ko.observable('');
+    self.city=ko.observable();
 
 	//支付方式，默认为微信支付
 	self.PayType = ko.observable('wxpay');
@@ -40,7 +41,7 @@ var orgCourseInfo = function() {
 			type: 'GET',
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
-				//console.log(JSON.stringify(result));
+				console.log(JSON.stringify(result));
 				self.ID(result.ID);
 				self.CanBeReg(result.CanBeReg);
 				self.OrgID(result.OrgID);
@@ -55,6 +56,7 @@ var orgCourseInfo = function() {
 				self.UserFavCount(result.UserFavCount);
 				self.Photo(result.Photo);
 				self.address(result.Address);
+				self.city(result.City);
 				self.isPublic(result.IsPublic);
 				if(self.isPublic() == true){
 					self.amountPublic(result.AmountPublic);
@@ -184,7 +186,7 @@ var orgCourseInfo = function() {
 		
 		switch(self.PayType()){
 			case 'balance':
-				self.AmountPay(tmpAmount * self.discount());
+				self.AmountPay((tmpAmount * self.discount()).toFixed(2));
 				break;
 			case 'free':
 				self.AmountPay(0);
@@ -260,7 +262,7 @@ var orgCourseInfo = function() {
 	//导航
 	self.sysGuide = function() {
 		//common.mapGuide('','',self.address());113.324587,23.106487
-		common.mapGuide(self.address());
+		common.mapGuide(self.city(),self.address());
 	}
 
 	mui.plusReady(function() {

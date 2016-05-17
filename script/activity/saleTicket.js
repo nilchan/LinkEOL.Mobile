@@ -1,6 +1,8 @@
 var saleTicket = function() {
 	var self = this;
-	var orderID = 0; //保存成功后返回的订单ID（若未能支付成功，亦可立刻再次支付）
+	var orderID = 0; 					//保存成功后返回的订单ID（若未能支付成功，亦可立刻再次支付）
+	var targetID = 0, targetType = 0;	//订单对应的货品ID，货品类型
+	var ticketCount = 0;				//总票数
 
 	self.custormPriceList = ko.observableArray([]); //票价信息
 	self.TotalAmount = ko.observable(0); //票价总价
@@ -33,7 +35,7 @@ var saleTicket = function() {
 		
 		switch(self.PayType()){
 			case 'balance':
-				self.TotalAmountPay(self.TotalAmount() * self.discount());
+				self.TotalAmountPay((self.TotalAmount() * self.discount()).toFixed(2));
 				break;
 			case 'free':
 				self.TotalAmountPay(0);
@@ -124,10 +126,14 @@ var saleTicket = function() {
 				break;
 			}
 		}
+		ticketCount = 0;
 		self.custormPriceList().forEach(function(item) {
 			count += item.SeatPrice * item.BuySeatNum;
+			ticketCount += item.BuySeatNum;
 		});
 		self.TotalAmount(count);
+		self.TotalAmountPay(self.TotalAmount());
+		self.initPayInfo();
 	}
 
 	//获取余额
@@ -149,6 +155,10 @@ var saleTicket = function() {
     //获取活动的支付相关信息
     self.getPayJson = function() {
         var url = common.gServerUrl + 'Common/RegGame/RegGameInfoByActivityID?ActivityID=' + ActivityID;
+        if(self.ViewOrder()){
+        	url = common.gServerUrl + 'API/Order/GetPayInfoByTarget?targetType=' + targetType + '&targetId=' + targetID;
+        }
+        console.log(url);
         mui.ajax(url,{
             type: 'GET',
             success: function(result) {
@@ -185,6 +195,10 @@ var saleTicket = function() {
 			self.TotalAmountPay(0);
 			self.PayType('free');
 		}
+		/*else{
+			self.TotalAmountPay(self.TotalAmount());
+			self.PayType('wxpay');
+		}*/
 	}
 
 	//支付
@@ -209,6 +223,11 @@ var saleTicket = function() {
 				return;
 			}
 
+			if (self.PayType() == 'free' && ticketCount > self.freeActivityCount()) {
+				mui.toast("总票数不能超出免费次数");
+				return;
+			}
+			
 			SeatPrice = []; //清空原有的票信息
 			self.custormPriceList().forEach(function(item) {
 				SeatPrice.push({
@@ -335,7 +354,6 @@ var saleTicket = function() {
 			//console.log(JSON.stringify(customPrice));
 			self.custormPriceList(CustomPrice);
 			self.ticketUrl(thisWebview.TicketUrl);
-			self.getPayJson();
 		}
 		//console.log(typeof(thisWebview.order));
 		if (typeof(thisWebview.order) != "undefined") { //从订单跳转进来
@@ -345,10 +363,13 @@ var saleTicket = function() {
 			self.ViewOrder(true);
 			self.paid(orderTmp.IsFinish);
 			self.TotalAmount(orderTmp.Amount);
+			targetID = orderTmp.TargetID;
+			targetType = orderTmp.TargetType;
 			self.getDataForOrder(orderTmp.TargetID);
 			var oTime = orderTmp.OrderTime;
 			maxtime = (newDate(oTime).getTime() + orderTmp.ExpireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
 		}
+		self.getPayJson();
 	})
 }
 ko.applyBindings(saleTicket);

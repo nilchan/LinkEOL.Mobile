@@ -16,10 +16,12 @@
 				display: inline-block;
 				width: 13.33%;
 			}
+			
 			.max-margin-bottom {
 				margin-bottom: 250px;
 			}
-			.mui-input-group .mui-input-row:after{
+			
+			.mui-input-group .mui-input-row:after {
 				background: #C8C7CC!important;
 			}
 		</style>
@@ -109,27 +111,41 @@
 								</div>
 								<div class="mui-input-row mui-radio mui-left Lesson-radio">
 									<label>
-									<li class="wx-pay">
-										<img src="../../images/ye.png" />	
-										<span class="wx-pay-span">余额支付
-											<!--ko text: '( ￥ ' + balance() + ' )'-->
-											(￥120.00)
-											<!--/ko-->
-										</span>
-										<span class="wx-pay-favorable">享受8.5折</span>
-										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
-									</li>
-								</label>
+										<li class="wx-pay">
+											<img src="../../images/ye.png" />	
+											<span class="wx-pay-span">余额支付
+												<!--ko text: '( ￥ ' + balance() + ' )'-->
+												(￥120.00)
+												<!--/ko-->
+											</span>
+											<span class="wx-pay-favorable" data-bind="text: discountText">享受8.5折</span>
+											<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
+										</li>
+									</label>
+								</div>
+								<div class="mui-input-row mui-radio mui-left Lesson-radio" data-bind="visible: regUsingFree() == true">
+									<label>
+										<li class="wx-pay">
+											<img src="../../images/ye.png" />
+											<span class="wx-pay-span">免费报名
+												<!--ko text: '( 剩余' + freeActivityCount() + '次 )'-->
+												( 剩余1次 )
+												<!--/ko-->
+											</span>
+											<span class="wx-pay-favorable">会员独享</span>
+											<input name="payType" value="free" type="radio" data-bind="event:{change: checkPayType}, checked: PayType">
+										</li>
+									</label>
 								</div>
 								<li class="lineHeight">
 									总额：
 									<span class="lineHeight-span">
-										￥<!--ko text: totalPrice-->
-									<!--/ko-->
-										<span class="lineHeight-decoration">
-											￥100.00
+										￥<!--ko text: totalPricePay-->
+										<!--/ko-->
+										<span class="lineHeight-decoration" data-bind="visible: totalPrice() != totalPricePay()">
+											￥<!--ko text: totalPrice-->
+											<!--/ko-->
 										</span>
-									
 									</span>
 								</li>
 							</form>
