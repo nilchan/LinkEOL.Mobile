@@ -1103,10 +1103,22 @@ li {
 }
 .addWorks-mui-bar-nav .orgList-address{
 	position: absolute;
+	width: 27%;
+	height: 44px;
+	text-align: right;
 	right: 15px;
 	color: #666;
 	top: 0px;
-	font-size: 16px;
+	font-size: 14px;
+}
+.addWorks-mui-bar-nav .orgList-address .orgList-address-city{
+	width: 78%;overflow: hidden;white-space: nowrap;
+	text-overflow: ellipsis; height: 44px; line-height: 44px; text-align: right;
+}
+.addWorks-mui-bar-nav  .city-icon{
+	position: absolute!important;
+	right: 0px!important;
+	top: 0px!important;
 }
 .addWorks-mui-bar-nav .orgList-address i{
 	font-size: 14px!important;
@@ -6881,7 +6893,9 @@ li {
 	padding: 10px 0;
 }
 .examScore-ul li{
-	height: 34px;
+	height: auto;
+	line-height: 34px;
+	overflow: hidden;
 	width: 100%;
 	font-size: 16px;	
 }
@@ -9562,7 +9576,7 @@ li {
 	right: 0px;
 	top: 6px;
 	padding-left: 50px;
-	padding-top: 6px;
+	padding-top: 14px;
 	width: 100px;
 	display: inline-block;
 	font-size: 20px;

@@ -15,7 +15,9 @@ var orgCourseInfo = function() {
 	var self = this;
 	var cid = 0,
 		orderID = 0;
+		shareUrl = common.gWebsiteUrl + "modules/course/orgCourseInfo.html?cid=";
 	var thisWeb;
+	
 	self.ID = ko.observable(0);
 	self.CanBeReg = ko.observable(false);	//是否可被当前用户报名
 	self.OrgID = ko.observable(0); //机构id
@@ -43,7 +45,7 @@ var orgCourseInfo = function() {
     self.discountText = ko.observable('无折扣');
     self.address=ko.observable('');
     self.city=ko.observable();
-
+	
 	//支付方式，默认为微信支付
 	self.PayType = ko.observable('wxpay');
 	
@@ -54,7 +56,7 @@ var orgCourseInfo = function() {
 			type: 'GET',
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
-				console.log(JSON.stringify(result));
+				//console.log(JSON.stringify(result));
 				self.ID(result.ID);
 				self.CanBeReg(result.CanBeReg);
 				self.OrgID(result.OrgID);
@@ -117,7 +119,7 @@ var orgCourseInfo = function() {
 		lis[i].onclick = function() {
 			mui('#sharePopover').popover('toggle');
 			plus.nativeUI.showWaiting();
-			//Share.sendShare(this.id, shareTitle, shareContent, shareUrl + TUserID, shareImg, common.gShareContentType.teacher);
+			Share.sendShare(this.id, '是可以达成你所愿的!', '您的心有多高,学习的路就有多长。', shareUrl + self.ID() , self.Photo());
 
 		};
 	}

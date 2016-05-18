@@ -6,19 +6,19 @@ var orgInfo = function() {
 	
 	//var mapobj; //地图
 	var userId = getLocalItem("UserID");
-	self.orgUerId = ko.observable();
-	self.ID = ko.observable();
-	self.OrgName = ko.observable(); //机构全称
-	self.Abbreviation = ko.observable(); //机构简称
-	self.Introduce = ko.observable(); //机构简介
-	self.Address = ko.observable(); //详细地址
-	self.Province = ko.observable();
-	self.City = ko.observable();
-	self.District = ko.observable();
-	self.PhotoUrl = ko.observable();
-	self.Lon = ko.observable(); //经度
-	self.Lat = ko.observable(); //维度
-	self.UserFavCount = ko.observable(); //关注数
+	self.OrgUserID = ko.observable(0);
+	self.ID = ko.observable(0);
+	self.OrgName = ko.observable(''); //机构全称
+	self.Abbreviation = ko.observable(''); //机构简称
+	self.Introduce = ko.observable(''); //机构简介
+	self.Address = ko.observable(''); //详细地址
+	self.Province = ko.observable('');
+	self.City = ko.observable('');
+	self.District = ko.observable('');
+	self.PhotoUrl = ko.observable('');
+	self.Lon = ko.observable(''); //经度
+	self.Lat = ko.observable(''); //维度
+	self.UserFavCount = ko.observable(''); //关注数
 	self.photoList = ko.observableArray([]); //相册
 	self.regLecturesList = ko.observableArray([]); //精品班
 	self.orgToCourseList = ko.observableArray([]); //高考班
@@ -26,12 +26,17 @@ var orgInfo = function() {
 	self.favClass = ko.observable('');
 
 	self.getOrgInfo = function() {
-		var ajaxUrl = common.gServerUrl + 'API/Org/OrgInfoByID?orgId=' + self.ID();
+		var ajaxUrl = '';
+		if(self.ID() > 0)
+			ajaxUrl = common.gServerUrl + 'API/Org/OrgInfoByID?orgId=' + self.ID();
+		else
+			ajaxUrl = common.gServerUrl + 'API/Org/OrgInfoByUserID?UserID=' + self.OrgUserID();
+			
 		mui.ajax(ajaxUrl, {
 			type: 'GET',
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
-				//console.log(JSON.stringify(result));
+				console.log(JSON.stringify(result));
 				self.OrgName(result.TbOrg.OrgName);
 				self.Abbreviation(result.TbOrg.Abbreviation);
 				self.Introduce(result.TbOrg.Introduce);
@@ -47,7 +52,7 @@ var orgInfo = function() {
 				self.regLecturesList(result.RegLecturesList);
 				self.orgToCourseList(result.OrgToCourseList);
 				//console.log(JSON.stringify(result.OrgToCourseList));
-				self.orgUerId(result.TbOrg.UserID);
+				self.OrgUserID(result.TbOrg.UserID);
 				self.getFavStatus();
 				//self.setMap(self.Lon(),self.Lat());
 				common.showCurrentWebview();
@@ -94,7 +99,7 @@ var orgInfo = function() {
 		}
 		if (self.isFav() == true) { //取消关注
 			//console.log('do this');
-			var ret = common.deleteAction(common.gDictActionType.Favorite, common.gDictActionTargetType.User, self.orgUerId(), userId);
+			var ret = common.deleteAction(common.gDictActionType.Favorite, common.gDictActionTargetType.User, self.OrgUserID(), userId);
 			if (ret) {
 				//self.FavCount(self.FavCount() - 1);
 				self.isFav(false);
@@ -107,7 +112,7 @@ var orgInfo = function() {
 				})
 			}
 		} else {
-			var ret = common.postAction(common.gDictActionType.Favorite, common.gDictActionTargetType.User, self.orgUerId());
+			var ret = common.postAction(common.gDictActionType.Favorite, common.gDictActionTargetType.User, self.OrgUserID());
 			if (ret) {
 				//self.FavCount(self.FavCount() + 1);
 				self.isFav(true);
@@ -123,14 +128,14 @@ var orgInfo = function() {
 	}
 
 	self.getFavStatus = function() {
-		common.getActions(common.gDictActionType.Favorite, common.gDictActionTargetType.User, self.orgUerId(), function(result) {
+		common.getActions(common.gDictActionType.Favorite, common.gDictActionTargetType.User, self.OrgUserID(), function(result) {
 			if (common.StrIsNull(result) != '') {
 				var arr = JSON.parse(result);
 				for (var i = 0; i < arr.length; i++) {
 					var item = arr[i];
 					if (item.UserID.toString() != userId ||
 						item.TargetType.toString() != common.gDictActionTargetType.User ||
-						item.TargetID.toString() != self.orgUerId()) {
+						item.TargetID.toString() != self.OrgUserID()) {
 						continue;
 					}
 					if (item.ActionType.toString() == common.gDictActionType.Favorite) {
@@ -145,7 +150,7 @@ var orgInfo = function() {
 	//相册
 	self.goAlbum = function() {
 		common.transfer("../my/myAlbum.html", false, {
-			userID: self.orgUerId()
+			userID: self.OrgUserID()
 		})
 	}
 
@@ -185,6 +190,9 @@ var orgInfo = function() {
 		var thiWeb = plus.webview.currentWebview();
 		if (typeof thiWeb.oid !== 'undefined') {
 			self.ID(thiWeb.oid);
+		}
+		if (typeof thiWeb.uid !== 'undefined') {
+			self.OrgUserID(thiWeb.uid);
 		}
 		self.getOrgInfo();
 		

@@ -44,6 +44,10 @@ var myAttention = function() {
 			common.transfer('../../modules/student/studentInfo.html', false, {
 				studentID: user.ID
 			}, false, false);
+		} else if (user.UserType == common.gDictUserType.org) {
+			common.transfer('../../modules/org/orgInfo.html', false, {
+				uid: user.ID
+			}, false, true);
 		}
 
 	}

@@ -36,6 +36,7 @@ var seatMap = function() {
     self.vipDiscounts = ko.observableArray([]);
     self.discount = ko.observable(1);
     self.discountText = ko.observable('无折扣');
+	self.FilePath = ko.observable('');
 	
 	//支付方式，默认为微信支付
 	self.PayType = ko.observable('wxpay');
@@ -343,6 +344,7 @@ var seatMap = function() {
 		var thisWebview = plus.webview.currentWebview();
 		if (typeof thisWebview.ActivityID != "undefined") {
 			aid = thisWebview.ActivityID;
+			self.FilePath(thisWebview.FilePath);
 		}
 		
 		if (typeof(thisWebview.order) != "undefined") { //从订单跳转进来

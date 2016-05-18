@@ -51,14 +51,17 @@
 		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe602;</i>
 			<h1 class="mui-title">教学机构列表</h1>
-			<div class="orgList-address" onclick="$('#address-box').show();">
-				<!-- ko text: selectedDistrict() === '全城' ? selectedCity().text : selectedDistrict() -->天河区
-				<!-- /ko --><i class="iconfont">&#xe66c;</i></div>
+			<div class="orgList-address specialHeader" onclick="$('#address-box').show();">
+				<div class="orgList-address-city" data-bind=" text: selectedDistrict() === '全城' ? selectedCity().text : selectedDistrict()">
+					天河区
+				</div>
+				<i class="iconfont city-icon">&#xe66c;</i>
+			</div>
 		</header>
 		<div class="mui-content">
 			
-			<div id="pullrefresh" class="mui-scroll-wrapper" style="bottom: 50px;" data-bind="style: {'bottom': displayCheck() ? '50px' : '0'}">
-				<div id="teacher-scroll" class="mui-scroll" style="margin-top: 44px;">
+			<div id="pullrefresh" class="mui-scroll-wrapper" data-bind="style: {'bottom': displayCheck() ? '50px' : '0'}">
+				<div id="teacher-scroll" class="mui-scroll">
 					<div class="orgList-search">
 						<input id="seachInput" type="text" placeholder="输入关键字检索" />
 						<i class="iconfont">&#xe603;</i>

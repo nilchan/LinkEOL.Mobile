@@ -98,8 +98,8 @@
 			<div id='pullrefresh' class="mui-scroll-wrapper">
 				<div class="openedCourses-ys" data-bind="visible:ticketsArray().length <= 0">
 					<i>
-					<img src="../../images/logo-pic.png" />
-				</i>
+						<img src="../../images/logo-pic.png" />
+					</i>
 					<span>还没有购买过票~</span>
 					<!--<div class="mui-content-padded">
 						<button type="button" class="mui-btn mui-btn-block mui-btn-primary th-btn th-mui-f p-btn-color p-btn-padding" data-bind="click: selectImage">添加照片</button>
@@ -120,7 +120,7 @@
 								<img src="../../images/used.png" />
 							</div>
 						</div>
-						<div class="myTickets-ewm" data-bind="attr:{'id': 'qrcode-'+Voucher},visible:IsOnLine=='true'">
+						<div class="myTickets-ewm" data-bind="attr:{'id': 'qrcode-'+TicketId+'-'+Id},visible:IsOnLine=='true'">
 							<!--<img src="../../images/ewm.png" />-->
 						</div>
 					</div>

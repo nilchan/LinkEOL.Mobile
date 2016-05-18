@@ -2,10 +2,10 @@
 	//Web API地址
 	//gServerUrl: "http://cloud.linkeol.com/",gVideoServerUrl: "http://video.linkeol.com/",gWebsiteUrl: "http://www.linkeol.com/",
 	//gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
-	gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
-//	gServerUrl: "http://192.168.1.88:8090/",gVideoServerUrl: "http://192.168.1.88:8099/",gWebsiteUrl: "http://192.168.1.88:8081/",
+	//gServerUrl: "http://192.168.1.99:8090/",gVideoServerUrl: "http://192.168.1.99:8099/",gWebsiteUrl: "http://192.168.1.99:8081/",
+	//gServerUrl: "http://192.168.1.88:8090/",gVideoServerUrl: "http://192.168.1.88:8099/",gWebsiteUrl: "http://192.168.1.88:8081/",
 	//gServerUrl: "http://192.168.1.66:8190/",gVideoServerUrl: "http://192.168.1.66:8099/",gWebsiteUrl: "http://192.168.1.66:8181/",
-//	gServerUrl: "http://nilchan.f3322.net:8090/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
+	gServerUrl: "http://nilchan.f3322.net:8090/",gVideoServerUrl: "http://nilchan.f3322.net:8099/",gWebsiteUrl: "http://nilchan.f3322.net:8081/",
 
 	//判断字符串是否为空，空则返回""
 	StrIsNull: function(str) {
@@ -1030,9 +1030,11 @@
 				plus.maps.openSysMap(new plus.maps.Point(addressPoint.lon, addressPoint.lat), address, new plus.maps.Point(thisPoint.lon, thisPoint.lat));
 			}
 			})
-		}, function() {
+		}, function(locationError) {
 			plus.nativeUI.closeWaiting();
-
+			if(locationError.code==2){
+				mui.alert('请检查是否允许获取定位信息','','确定');
+			}
 		})
 
 	},
@@ -1064,7 +1066,8 @@
 		instructModule: 10, //授课关系通知
 		accountModule: 11, //账户通知
 		submitHomeworkModule: 12, //交作业提醒
-		activityRegister: 13 //活动报名
+		activityRegister: 13, //活动报名
+		orgCourseRegister: 14	//课程报名
 	},
 
 	//性别类型枚举

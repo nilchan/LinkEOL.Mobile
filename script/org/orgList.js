@@ -206,6 +206,8 @@ var orgList = function() {
 		mui.plusReady(function() {
 			if (plus.os.vendor == 'Apple') {
 				mui('.mui-scroll-wrapper').scroll();
+				document.getElementById('teacher-scroll').style.marginTop = '67px';
+				document.getElementById('teacher-scroll').style.paddingBottom = '50px';
 			}
 		});
 	}
@@ -274,7 +276,7 @@ var orgList = function() {
 		}, 1500)
 	};
 
-	//		self.getOrgs();
+//			self.getOrgs();
 	self.cityList(cityData3);
 
 	mui.plusReady(function() {

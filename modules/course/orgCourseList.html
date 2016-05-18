@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 	<head>
@@ -36,14 +36,17 @@
 		<header class="mui-bar mui-bar-nav addWorks-mui-bar-nav">
 			<i class="iconfont mui-action-back">&#xe602;</i>
 			<h1 class="mui-title">课程列表</h1>
-			<div class="orgList-address" onclick="$('#address-box').show();">
-				<!-- ko text: selectedDistrict() === '全城' ? selectedCity().text : selectedDistrict() -->天河区
-				<!-- /ko --><i class="iconfont">&#xe66c;</i></div>
+			<div class="orgList-address specialHeader" onclick="$('#address-box').show();">
+				<div class="orgList-address-city" data-bind=" text: selectedDistrict() === '全城' ? selectedCity().text : selectedDistrict()">
+					天河区
+				</div>
+				<i class="iconfont city-icon">&#xe66c;</i>
+			</div>
 		</header>
 		<div class="mui-content">
 			
-			<div id="pullrefresh" class="mui-scroll-wrapper" style="bottom: 50px;">
-				<div id="teacher-scroll" class="orgCourseApplyList-content" style="margin-top: 52px;">
+			<div id="pullrefresh" class="mui-scroll-wrapper">
+				<div id="teacher-scroll" class="orgCourseApplyList-content specialHeader">
 					<div class="orgList-search">
 						<input id="seachInput" type="text" placeholder="输入关键字检索" />
 						<i class="iconfont">&#xe603;</i>
@@ -104,7 +107,7 @@
 		</div>
 
 		<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
-		<script src="../../script/common/common.js " type="text/javascript " charset="gbk"></script>
+		<script src="../../script/common/common.js " type="text/javascript " charset="utf-8"></script>
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>

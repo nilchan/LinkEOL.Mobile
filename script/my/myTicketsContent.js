@@ -32,7 +32,10 @@ var myTicketsContent = function() {
 				self.ticketsArray(result);
 				self.ticketsArray().forEach(function(item) {
 					if (item.IsOnLine && common.StrIsNull(item.Voucher) != '') {
-						self.makeQRCode('qrcode-' + item.Voucher, 100, 100, common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.orchestraRecruit + '&id=' + item.Id + '&sign=' + encodeURIComponent(item.Voucher));
+						var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property='+common.gJsonActivityActProperty.concert+
+							'&targetType='+common.gDictOrderTargetType.Ticket+
+							'&id=' + item.TicketId + '&sign=' + encodeURIComponent(item.Voucher);
+						self.makeQRCode('qrcode-'+item.TicketId+'-'+item.Id, 120, 120, tmpUrl);
 					}
 				});
 			});
@@ -49,7 +52,10 @@ var myTicketsContent = function() {
 					self.ticketsArray(self.ticketsArray().concat(result));
 					result.forEach(function(item) {
 						if (item.IsOnLine && common.StrIsNull(item.Voucher) != '') {
-							self.makeQRCode('qrcode-' + item.Voucher, 100, 100, common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.orchestraRecruit + '&id=' + item.Id + '&sign=' + encodeURIComponent(item.Voucher));
+							var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property='+common.gJsonActivityActProperty.concert+
+								'&targetType='+common.gDictOrderTargetType.Ticket+
+								'&id=' + item.TicketId + '&sign=' + encodeURIComponent(item.Voucher);
+							self.makeQRCode('qrcode-'+item.TicketId+'-'+item.Id, 120, 120, tmpUrl);
 						}
 					});
 
@@ -102,7 +108,11 @@ var myTicketsContent = function() {
 			console.log(JSON.stringify(self.ticketsArray()));
 			self.ticketsArray().forEach(function(item) {
 				if (item.IsOnLine && common.StrIsNull(item.Voucher) != '') {
-					self.makeQRCode('qrcode-' + item.Voucher, 100, 100, common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.orchestraRecruit + '&id=' + item.Id + '&sign=' + encodeURIComponent(item.Voucher));
+					var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property='+common.gJsonActivityActProperty.concert+
+						'&targetType='+common.gDictOrderTargetType.Ticket+
+						'&id=' + item.TicketId + '&sign=' + encodeURIComponent(item.Voucher);
+					console.log(tmpUrl);
+					self.makeQRCode('qrcode-'+item.TicketId+'-'+item.Id, 120, 120, tmpUrl);
 				}
 			});
 

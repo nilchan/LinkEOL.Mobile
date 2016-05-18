@@ -62,7 +62,7 @@
 			<nav class="mui-bar mui-bar-tab" data-bind="visible:paid()==false">
 				<a class="mui-tab-item works-list-mui-tab-btn"  data-bind="attr:{href:(isHaveTicket() ?'#middlePopover':'')}">
 					<span class="mui-tab-label myAccount-mui-tab-label">
-                		<button class="saleTicket-btn" data-bind="css:isHaveTicket() ? '':'saleTicket-btn-default'">确认</button>
+                		<button class="saleTicket-btn" data-bind="css:isHaveTicket() ? '':'saleTicket-btn-default', event:{tap: openPaybox}">确认</button>
                 	</span>
 				</a>
 			</nav>

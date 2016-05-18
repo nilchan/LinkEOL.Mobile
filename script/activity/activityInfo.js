@@ -22,7 +22,6 @@ var viewModel = function() {
 			dataType: 'json',
 			type: "GET",
 			success: function(responseText) {
-//				console.log(JSON.stringify(responseText));
 				self.CanRegGame(responseText.CanRegGame);
 				self.RegGameURL(responseText.RegGameUrl);
 				var tmp = common.transforArray(responseText.Sponsor);
@@ -143,6 +142,7 @@ var viewModel = function() {
 		if( self.activity().IsOnLine ) {
 			common.transfer('seatMap.html', true, {
 				ActivityID: self.activity().ID,
+				FilePath: self.activity().FilePath
 			});
 		} else {
 			common.transfer('saleTicket.html', true, {

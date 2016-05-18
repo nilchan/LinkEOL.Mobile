@@ -218,7 +218,9 @@ var saleTicket = function() {
 	}
 
 	self.openPaybox = function(){
-		payBox.show();
+		if( self.isHaveTicket() == true ) {
+			payBox.show();
+		}
 	}
 	
 	//支付

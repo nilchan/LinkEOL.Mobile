@@ -25,7 +25,10 @@ var applyList = function() {
                 self.scores(JSON.parse(result));
 				self.scores().forEach(function(item){
 					if( item.IsVoucher && common.StrIsNull(item.Voucher) != '') {
-						self.makeQRCode('qrcode-'+item.ID, 100, 100, common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property='+common.gJsonActivityActProperty.teacherLectures+'&id=' + item.ID + '&sign=' + encodeURIComponent(item.Voucher));
+						var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property='+common.gJsonActivityActProperty.teacherLectures+
+							'&targetType='+common.gDictOrderTargetType.RegLectures+
+							'&id=' + item.ID + '&sign=' + encodeURIComponent(item.Voucher);
+						self.makeQRCode('qrcode-'+item.ID, 120, 120, tmpUrl);
 					}
 				});
                 common.showCurrentWebview();

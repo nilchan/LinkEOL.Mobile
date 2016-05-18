@@ -116,12 +116,12 @@ var my = function() {
 
 	self.getInfo = function() {
 		var ajaxUrl = common.gServerUrl + "API/Account/GetInfo?userid=" + self.UserID() + "&usertype=" + self.UserType();
-		console.log(ajaxUrl);
+		//console.log(ajaxUrl);
 		mui.ajax(ajaxUrl, {
 			dataType: 'json',
 			type: 'GET',
 			success: function(responseText) {
-				console.log(JSON.stringify(responseText));
+				//console.log(JSON.stringify(responseText));
 				self.ID(responseText.ID);
 				self.DisplayName(responseText.DisplayName);
 				self.Province(setStr('Province', responseText, ''));

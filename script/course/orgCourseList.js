@@ -6,7 +6,6 @@ var orgCourseList = function() {
 		city = '广州市',
 		district = '全城',
 		keyword = '';
-
 	self.orgCourses = ko.observableArray([]); //机构列表
 	self.selectedProvince = ko.observable('广东省'); //选中省份
 	self.selectedCity = ko.observable(cityData3[1].children[0]); //选中城市
@@ -34,6 +33,9 @@ var orgCourseList = function() {
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
 				self.orgCourses(result);
+				
+				mui('#pullrefresh').pullRefresh().refresh(true);
+				
 			}
 		});
 	};
@@ -62,8 +64,8 @@ var orgCourseList = function() {
 
 		pageNum = 1;
 		self.getOrgs();
-		mui('#pullrefresh').pullRefresh().refresh(true);
 		$('#address-box').hide();
+		//mui('#pullrefresh').pullRefresh().refresh(true);
 	};
 
 	//选择地区
@@ -72,9 +74,8 @@ var orgCourseList = function() {
 		district = this.text;
 		pageNum = 1;
 		self.getOrgs();
-		//		mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-		mui('#pullrefresh').pullRefresh().refresh(true);
 		$('#address-box').hide();
+		//mui('#pullrefresh').pullRefresh().refresh(true);
 	};
 
 	$(function() {
@@ -98,6 +99,8 @@ var orgCourseList = function() {
 		mui.plusReady(function() {
 			if (plus.os.vendor == 'Apple') {
 				mui('.mui-scroll-wrapper').scroll();
+				document.getElementById('teacher-scroll').style.marginTop = '67px';
+				document.getElementById('teacher-scroll').style.paddingBottom = '50px';
 			}
 		});
 	}
@@ -106,18 +109,19 @@ var orgCourseList = function() {
 		pullRefresh: {
 			container: '#pullrefresh',
 			down: {
-				contentdown: "下拉可以刷新",
-				contentover: "释放立即刷新",
-				contentrefresh: common.gContentRefreshDown,
+				contentdown : escape('下拉可以刷新'),//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+      			contentover : escape('释放立即刷新'),//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+				contentrefresh: '刷新中...',
 				callback: pulldownRefresh
 			},
 			up: {
-				contentrefresh: common.gContentRefreshUp,
-				contentnomore: common.gContentNomoreUp,
+				contentrefresh:common.gContentRefreshUp,
+				contentnomore:common.gContentNomoreUp,
 				callback: pullupRefresh
 			}
 		}
 	});
+	
 
 	function pulldownRefresh() {
 		setTimeout(function() {
@@ -130,6 +134,7 @@ var orgCourseList = function() {
 					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 					self.orgCourses(result);
 					mui('#pullrefresh').pullRefresh().refresh(true); //重置上拉加载
+					console.log(document.querySelector(".mui-pull-caption").innerHTML);
 				}
 			});
 		}, 1500)

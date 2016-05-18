@@ -280,7 +280,6 @@ var PayBox = function(id, deep, payJson, textJson, vipDiscount, payAction) {
 	//隐藏插件
 	self.hide = function() {
 		document.getElementById(id).style.cssText = "display: none";
-		document.getElementsByClassName('mui-content')[0].style.cssText = "overflow: scroll";
 		document.removeEventListener('touchmove', stopscroll);
 	}
 	

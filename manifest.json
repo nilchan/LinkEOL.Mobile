@@ -814,7 +814,8 @@
 					"modules/teacher/teacherInfo.html",
 					"modules/my/qrcodeEvent.html",
 					"modules/student/studentInfo.html",
-					"modules/works/WorksDetails.html"
+					"modules/works/WorksDetails.html",
+					"modules/org/orgInfo.html"
 				],
 				"priority": 0
 			},
@@ -1361,7 +1362,9 @@
 					"modules/my/accountDetails.html",
 					"modules/my/accountDetailsHeader.html",
 					"modules/works/worksListMyHeader.html",
-					"modules/exam/examList.html"
+					"modules/exam/examList.html",
+					"modules/course/orgCourseInfo.html",
+					"modules/course/orgCourseApplyList.html"
 				],
 				"priority": 2
 			},
@@ -2775,7 +2778,8 @@
 					"content/fonts/iconfont.eot",
 					"content/fonts/iconfont.svg",
 					"images/my-bg.png",
-					"images/video-big-default.png"
+					"images/video-big-default.png",
+					"images/free-pay.png"
 				],
 				"refer": [
 					"modules/activity/showSet.html",
@@ -4154,7 +4158,8 @@
 					"images/ali.png",
 					"images/ye.png",
 					"content/fonts/iconfont.ttf",
-					"script/mui/gps.js"
+					"script/mui/gps.js",
+					"images/free-pay.png"
 				],
 				"refer": [
 					"modules/org/orgInfo.html",
@@ -4264,7 +4269,16 @@
 					"content/fonts/mui.ttf",
 					"content/mui/mui.css",
 					"images/logo-pic.png",
-					"content/common/Tf_global.css"
+					"content/common/Tf_global.css",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/fonts/iconfont.ttf",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"script/mui/mui.min.js",
+					"content/common/global.css",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/fonts/iconfont.css"
 				],
 				"refer": [
 					"modules/course/orgCourseInfo.html"
@@ -4302,7 +4316,8 @@
 					"script/common/share.js",
 					"images/my-default.png",
 					"script/libs/knockout/knockout-3.3.0.min.js",
-					"content/fonts/iconfont.woff"
+					"content/fonts/iconfont.woff",
+					"content/fonts/mui.ttf"
 				],
 				"refer": [
 					"modules/org/orgInfo.html",
