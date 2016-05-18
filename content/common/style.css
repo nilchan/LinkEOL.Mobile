@@ -7708,9 +7708,10 @@ li {
 	-webkit-transform: scale(0.5);
 	
 }
-.close-pay{
-	float: left;
-	margin-left: 15px;
+#PayBox .close-pay{
+	position: absolute;
+	left: 15px;
+	top: -1px;
 	font-size:20px;
 }
 #PayBox .pay-method{
@@ -7752,13 +7753,13 @@ li {
 	height: 32px;
 	vertical-align:middle;
 }
-#PayBox .default-lineHiegt{
+#PayBox .default-lineHeight{
 	line-height: 30px;
 	font-size: 15px;
 	color: #666;
 	margin-left: 12px;
 }
-#PayBox .discount-lineHiegt{
+#PayBox .discount-lineHeight{
 	line-height: 15px;
 	font-size: 15px;
 	color: #666;
@@ -7804,7 +7805,7 @@ li {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
-.recharge{
+#PayBox .recharge{
 	float: right;
 	margin-right: 8%;
 	margin-bottom: 20px;
@@ -7812,7 +7813,7 @@ li {
 	margin-top: -10px;
 	font-size: 14px;
 }
-.recharge em{
+#PayBox .recharge em{
 	color: #E64578;
 }
 #PayBox .default-icon:after{
@@ -7827,11 +7828,17 @@ li {
 #PayBox .check-icon:after{
 	content: '\e637';
 	color: #E64578;
-	font-size: 26px;
+	font-size: 24px;
 	position: absolute;
-	right: 15px;
+	right: 14px;
 	top: 17px;
 }
+#PayBox .lineHeight-decoration{
+	text-decoration:line-through;
+	float: right;
+	color: #999;
+	margin-left: 7px;
+} 
 .pay-box-line:before,.pay-box-line:after{
 	height: 0px!important;
 }

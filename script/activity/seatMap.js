@@ -1,3 +1,16 @@
+var payBox = new PayBox('PayBox', 3, {
+		"wxpay": "true",
+		"alipay": "true",
+		"balance": "true",
+		"free": "regUsingFree"
+	}, {
+		"discountText": "discountText",
+		"balanceText": "balance",
+		"freeTimesText": "freeActivityCount",
+		"pricePay": "totalPricePay",
+		"price": "totalPrice"
+	}, true, 'gotoPay');
+
 var seatMap = function() {
 	var self = this;
 	var aid = 78;
@@ -182,12 +195,7 @@ var seatMap = function() {
 			self.totalPricePay(0);
 			self.PayType('free');
 		}
-	}
-
-	//关闭支付界面
-	self.closePopover = function() {
-		mui('#middlePopover').popover("hide");
-		common.setEnabled(event);
+		payBox.selectPay(self.PayType());
 	}
 
 	self.checkPayType = function() {
@@ -205,6 +213,8 @@ var seatMap = function() {
 				break;
 		}
 	}
+	payBox.selectPay(self.PayType());
+
 
 	//支付
 	self.gotoPay = function() {
@@ -213,7 +223,8 @@ var seatMap = function() {
 
 		if (self.selectSeatList().length === 0) {
 			mui.toast('请至少选择一张票');
-			mui('#middlePopover').popover("hide");
+			payBox.hide();
+			//mui('#middlePopover').popover("hide");
 			return;
 		}
 		

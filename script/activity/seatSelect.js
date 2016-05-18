@@ -1,3 +1,16 @@
+var payBox = new PayBox('PayBox', 3, {
+		"wxpay": "true",
+		"alipay": "true",
+		"balance": "true",
+		"free": "regUsingFree"
+	}, {
+		"discountText": "discountText",
+		"balanceText": "balance",
+		"freeTimesText": "freeActivityCount",
+		"pricePay": "totalPricePay",
+		"price": "totalPrice"
+	}, true, 'gotoPay');
+
 var seatSelect = function() {
 	var self = this;
 
@@ -258,12 +271,7 @@ var seatSelect = function() {
 			self.totalPricePay(0);
 			self.PayType('free');
 		}
-	}
-
-	//关闭支付界面
-	self.closePopover = function() {
-		mui('#middlePopover').popover("hide");
-		common.setEnabled(event);
+		payBox.selectPay(self.PayType());
 	}
 
 	self.checkPayType = function() {
@@ -281,6 +289,7 @@ var seatSelect = function() {
 				break;
 		}
 	}
+	payBox.selectPay(self.PayType());
 
 	//支付
 	self.gotoPay = function() {
@@ -290,11 +299,12 @@ var seatSelect = function() {
 
 		if (self.selectSeatList().length === 0) {
 			mui.toast('请至少选择一张票');
-			mui('#middlePopover').popover("hide");
+			//mui('#middlePopover').popover("hide");
+			payBox.hide();
 			return;
 		}
 
-		if (self.PayType() == 'free' && ticketCount > self.freeActivityCount()) {
+		if (self.PayType() == 'free' && self.totalCount() > self.freeActivityCount()) {
 			mui.toast("总票数不能超出免费次数");
 			return;
 		}

@@ -1,3 +1,16 @@
+var payBox = new PayBox('PayBox', 2, {
+		"wxpay": "isHomeWork() == false",
+		"alipay": "isHomeWork() == false",
+		"balance": "true",
+		"free": "isHomeWork"
+	}, {
+		"discountText": "ko.observable('无折扣')",
+		"balanceText": "balance",
+		"freeTimesText": "freeCount",
+		"pricePay": "Amount",
+		"price": "Amount"
+	}, true, 'gotoPay');
+
 var submitComment = function() {
 	var self = this;
 	var orderID = 0,
@@ -23,6 +36,7 @@ var submitComment = function() {
 	self.checkPayType = function() {
 		PayType(event.srcElement.value);
 	}
+	payBox.changePay(self.checkPayType);
 
 	/**
 	 * 为显示订单的点评信息而获取数据
@@ -158,6 +172,10 @@ var submitComment = function() {
 		common.transfer('/modules/my/recharge.html', true);
 	}
 
+	self.openPaybox = function(){
+		payBox.show();
+	}
+	
 	self.Order = ko.observable({}); //由我的订单传递过来的订单参数
 	self.ViewOrder = ko.observable(false); //标记是否由我的订单跳转而来，默认为否
 	self.OrderNO = ko.observable(''); //请求后返回的订单号
@@ -217,11 +235,6 @@ var submitComment = function() {
 			});
 	};
 
-	//popover的关闭功能
-	self.closePopover = function() {
-		mui('#middlePopover').popover('hide');
-	}
-
 	//刷新余额
 	window.addEventListener('refeshBalance', function(event) {
 		self.getBalance();
@@ -267,6 +280,10 @@ var submitComment = function() {
 				self.isHomeWork(web.homeWork);
 				if (self.isHomeWork()) {
 					self.getInstructTeacher();
+					self.PayType('balance');
+				}
+				else{
+					self.PayType('wxpay');
 				}
 			}
 			if (typeof(web.teacher) !== "undefined") {
@@ -283,6 +300,7 @@ var submitComment = function() {
 
 		}
 		self.getBalance();
+		payBox.selectPay(self.PayType());
 	});
 
 }

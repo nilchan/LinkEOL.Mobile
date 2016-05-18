@@ -1,3 +1,16 @@
+var payBox = new PayBox('PayBox', 3, {
+		"wxpay": "true",
+		"alipay": "true",
+		"balance": "true",
+		"free": "regUsingFree"
+	}, {
+		"discountText": "discountText",
+		"balanceText": "balance",
+		"freeTimesText": "freeCourseCount",
+		"pricePay": "AmountPay",
+		"price": "Amount"
+	}, true, 'gotoPay');
+
 var orgCourseInfo = function() {
 	var self = this;
 	var cid = 0,
@@ -93,7 +106,7 @@ var orgCourseInfo = function() {
 			self.gotoPay();
 		}
 		else{
-			mui('#middlePopover').popover('show');
+			payBox.show();
 		}
 	}
 
@@ -174,6 +187,7 @@ var orgCourseInfo = function() {
 				self.PayType('free');
 			}
 		}
+		payBox.selectPay(self.PayType());
 	}
 	
 	self.checkPayType = function() {
@@ -196,6 +210,7 @@ var orgCourseInfo = function() {
 				break;
 		}
 	}
+	payBox.selectPay(self.PayType());
 
 	self.Order = ko.observable({}); //由我的订单传递过来的订单参数
 	self.ViewOrder = ko.observable(false); //标记是否由我的订单跳转而来，默认为否

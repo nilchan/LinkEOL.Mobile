@@ -1,5 +1,19 @@
+var payBox = new PayBox('PayBox', 3, {
+		"wxpay": "true",
+		"alipay": "true",
+		"balance": "true",
+		"free": "regUsingFree"
+	}, {
+		"discountText": "discountText",
+		"balanceText": "balance",
+		"freeTimesText": "freeActivityCount",
+		"pricePay": "pricePay",
+		"price": "price"
+	}, true, 'gotoPay');
+
 var applay = function() {
     var self = this;
+	
 
     var aid = 0, rid = 0, orderID = 0;
     self.canChange = ko.observable(true);
@@ -194,11 +208,16 @@ var applay = function() {
 			self.pricePay(0);
 			self.PayType('free');
 		}
+		payBox.selectPay(self.PayType());
+	}
+	
+	self.openPaybox = function(){
+		payBox.show();
 	}
 	
 	//关闭支付界面
 	self.closePopover = function() {
-		mui('#middlePopover').popover("hide");
+		//mui('#middlePopover').popover("hide");
 		common.setEnabled(event);
 	}
 	
@@ -251,7 +270,7 @@ var applay = function() {
             	var btnArray = ['取消', '确认'];
 				mui.confirm('是否现在完成支付？', '报名成功', btnArray, function(e) {
 					if (e.index == 1) {
-						mui('#middlePopover').popover('toggle');
+						payBox.show();
 					}
 					else{
 						mui.back();
@@ -266,8 +285,9 @@ var applay = function() {
         });
     };
 	
-	self.checkPayType = function() {
-		self.PayType(event.srcElement.value);
+	self.checkPayType = function(value) {
+		console.log('~'+value);
+		self.PayType(value);
 		
 		switch(self.PayType()){
 			case 'balance':
@@ -281,6 +301,7 @@ var applay = function() {
 				break;
 		}
 	}
+	payBox.changePay(self.checkPayType);
 	
 	//支付
 	self.gotoPay = function() {

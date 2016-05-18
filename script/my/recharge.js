@@ -1,3 +1,16 @@
+var payBox = new PayBox('PayBox', 2, {
+		"wxpay": "true",
+		"alipay": "true",
+		"balance": "false",
+		"free": "false"
+	}, {
+		"discountText": "ko.observable('')",
+		"balanceText": "ko.observable(0)",
+		"freeTimesText": "ko.observable(0)",
+		"pricePay": "price",
+		"price": "price"
+	}, true, 'gotoPay');
+
 var recharge = function() {
 	var self = this;
 	var ID, orderID = 0, orderError = true;
@@ -66,7 +79,8 @@ var recharge = function() {
 		
 		ID = data.ID;
 		self.price(data.AmountInFact);
-		mui('#middlePopover').popover("show");
+		//mui('#middlePopover').popover("show");
+		payBox.show();
 	}
 	
 	//支付方式，默认为微信支付
@@ -74,6 +88,7 @@ var recharge = function() {
 	self.checkPayType = function() {
 		PayType(event.srcElement.value);
 	}
+	payBox.changePay(self.checkPayType);
 	
 	//关闭支付界面
 	self.closePopover = function() {
@@ -115,6 +130,8 @@ var recharge = function() {
 		}
 		self.getPayList();
 	 	self.getBalance();
+	 	
+	 	payBox.selectPay(self.PayType());
 	 });
 	
 	mui.init({

@@ -251,56 +251,21 @@
 
 			<nav class="mui-bar mui-bar-tab" data-bind="visible: paid() == false && balanceGot() == true">
 				<div class="mui-content-padded availableTime-sure">
-					<a data-bind="attr:{href:(freeCount() <= 0 ?'#middlePopover':'javascript:void(0);')}">
-						<button type="button" class="mui-btn mui-btn-primary availableTime-mui-btn p-btn-color" data-bind="text: freeCount() <= 0 ? '提交' : '免费提交（剩余'+ freeCount() +'次）', click: freeCount() <= 0 ? '' : gotoPay">
-							付款
-						</button>
-					</a>
+					<button type="button" class="mui-btn mui-btn-primary availableTime-mui-btn p-btn-color" data-bind="text: freeCount() <= 0 ? '提交' : '免费提交（剩余'+ freeCount() +'次）', click: freeCount() <= 0 ? openPaybox : gotoPay">
+						付款
+					</button>
 				</div>
 			</nav>
-
-			<div id="middlePopover" class="mui-popover submitComment-top">
-				<div class="mui-scroll-wrapper">
-					<div class="mui-scroll submitClass-mui-scroll Lesson-mui">
-						<div class="mui-scroll-title">
-							<i class="iconfont" data-bind="click:closePopover">&#xe63f;</i>
-							<span>付款详情</span>
-						</div>
-						<ul>
-							<form class="mui-input-group">
-								<div class="mui-input-row mui-radio mui-left Lesson-radio">
-									<label>
-									<li class="wx-pay">
-										<img src="../../images/ye.png" />
-										<span class="wx-pay-default">余额支付
-											<!--ko text: '( ￥ ' + balance() + ' )'-->
-											(￥120.00)
-											<!--/ko-->
-										</span>
-										<!--<span class="wx-pay-favorable">享受8.5折</span>-->
-										<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
-									</li>
-								</label>
-								</div>
-								<div class="lineHeight" style="height: 50px; line-height: 50px;">
-									总额：￥
-									<!--ko text: Amount-->
-									<!--/ko-->
-								</div>
-								<p data-bind="click: gotoRecharge" style=" text-align: center; margin-top: 30px; padding-right: 40px;">余额不足？<span style="color: #e64578;">立即充值</span></p>
-							</form>
-						</ul>
-						<button class="p-btn-color" data-bind="click: gotoPay, text: Amount() > 0 ? '去付款' : '免费点评，直接提交'"></button>
-					</div>
-				</div>
-			</div>
+			
+			<div id="PayBox" style="display: none;"></div>
+			
 		</div>
 		<script src="../../script/mui/mui.min.js"></script>
 		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/libs/knockout/knockout-3.3.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/pay.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../script/libs/clamp/clamp.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/student/submitComment.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 

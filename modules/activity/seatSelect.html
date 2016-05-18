@@ -80,78 +80,7 @@
 				 <a href="#middlePopover"><button class="settle-accounts">结算</button></a>
 			</nav>
 			
-			<div id="middlePopover" class="mui-popover submitComment-top">
-				<div class="mui-scroll-wrapper">
-					<div class="mui-scroll submitClass-mui-scroll Lesson-mui">
-						<div class="mui-scroll-title">
-							<i class="iconfont" data-bind="click:closePopover">&#xe63f;</i>
-							<span>付款详情</span>
-						</div>
-						<ul>
-							<form class="mui-input-group pay-no-before">
-								<div class="mui-input-row mui-radio mui-left Lesson-radio">
-									<label>
-										<li class="wx-pay">
-											<img src="../../images/submitClass-wx.png" />
-											<span class="wx-pay-default">微信支付</span>
-											<input name="payType" value="wxpay" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
-										</li>
-									</label>
-								</div>
-								<div class="mui-input-row mui-radio mui-left Lesson-radio ">
-									<label>
-										<li class="wx-pay">
-											<img src="../../images/ali.png" />
-											<span class="wx-pay-default">支付宝</span>
-											<input name="payType" value="alipay" type="radio" data-bind="event:{change: checkPayType}">
-										</li>
-									</label>
-								</div>
-								<div class="mui-input-row mui-radio mui-left Lesson-radio">
-									<label>
-										<li class="wx-pay">
-											<img src="../../images/ye.png" />	
-											<span class="wx-pay-span">余额支付
-												<!--ko text: '( ￥ ' + balance() + ' )'-->
-												(￥120.00)
-												<!--/ko-->
-											</span>
-											<span class="wx-pay-favorable" data-bind="text: discountText">享受8.5折</span>
-											<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
-										</li>
-									</label>
-								</div>
-								<div class="mui-input-row mui-radio mui-left Lesson-radio" data-bind="visible: regUsingFree() == true">
-									<label>
-										<li class="wx-pay">
-											<img src="../../images/ye.png" />
-											<span class="wx-pay-span">免费报名
-												<!--ko text: '( 剩余' + freeActivityCount() + '次 )'-->
-												( 剩余1次 )
-												<!--/ko-->
-											</span>
-											<span class="wx-pay-favorable">会员独享</span>
-											<input name="payType" value="free" type="radio" data-bind="event:{change: checkPayType}, checked: PayType">
-										</li>
-									</label>
-								</div>
-								<li class="lineHeight">
-									总额：
-									<span class="lineHeight-span">
-										￥<!--ko text: totalPricePay-->
-										<!--/ko-->
-										<span class="lineHeight-decoration" data-bind="visible: totalPrice() != totalPricePay()">
-											￥<!--ko text: totalPrice-->
-											<!--/ko-->
-										</span>
-									</span>
-								</li>
-							</form>
-						</ul>
-						<button class="p-btn-color" data-bind="event:{tap: gotoPay}">去付款</button>
-					</div>
-				</div>
-			</div>
+			<div id="PayBox" style="display: none;"></div>
 		</div>
 		<script type="text/javascript" src="../../script/libs/jquery.min.js"></script>
 		<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>

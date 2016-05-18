@@ -1,3 +1,16 @@
+var payBox = new PayBox('PayBox', 3, {
+		"wxpay": "true",
+		"alipay": "true",
+		"balance": "true",
+		"free": "regUsingFree"
+	}, {
+		"discountText": "discountText",
+		"balanceText": "balance",
+		"freeTimesText": "freeActivityCount",
+		"pricePay": "TotalAmountPay",
+		"price": "TotalAmount"
+	}, true, 'gotoPay');
+
 var saleTicket = function() {
 	var self = this;
 	var orderID = 0; 					//保存成功后返回的订单ID（若未能支付成功，亦可立刻再次支付）
@@ -45,6 +58,8 @@ var saleTicket = function() {
 				break;
 		}
 	}
+	payBox.changePay(self.checkPayType);
+
 
 	//减少票
 	self.sub = function(data) {
@@ -199,8 +214,13 @@ var saleTicket = function() {
 			self.TotalAmountPay(self.TotalAmount());
 			self.PayType('wxpay');
 		}*/
+		payBox.selectPay(self.PayType());
 	}
 
+	self.openPaybox = function(){
+		payBox.show();
+	}
+	
 	//支付
 	self.gotoPay = function() {
 		var ticketJson = "";
@@ -215,7 +235,8 @@ var saleTicket = function() {
 			})
 			if (!isSaleticket) {
 				mui.toast("请至少选择一张票");
-				mui('#middlePopover').popover("hide");
+				//mui('#middlePopover').popover("hide");
+				payBox.hide();
 				return;
 			}
 			if (self.PayType() == '') {
@@ -261,12 +282,6 @@ var saleTicket = function() {
 				mui.back();
 			});
 	};
-
-	//关闭支付界面
-	self.closePopover = function() {
-		mui('#middlePopover').popover("hide");
-		common.setEnabled(event);
-	}
 
 	/**
 	 * 为显示订单的购票信息而获取数据

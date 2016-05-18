@@ -65,12 +65,12 @@ Pay.pay = function(payid, order, successCB, failureCB) {
  * @param {Function} successPayCB		支付成功后的回调
  * @return {Boolean}					成功则返回true，否则返回false
  */
-Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrderCB, successPayCB, failureCB){
-	if(!orderId) orderId = 0;
-	
+Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrderCB, successPayCB, failureCB) {
+	if (!orderId) orderId = 0;
+
 	//支付方式的数值
 	var payTypeId = 0;
-	switch(payType){
+	switch (payType) {
 		case 'wxpay':
 			payTypeId = 1;
 			break;
@@ -88,18 +88,20 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 		mui.toast('请选择正确的支付方式');
 		return false;
 	}
-	
+
 	var evt = event;
 	if (!common.setDisabled()) return;
-	
+
 	plus.nativeUI.showWaiting();
-	var ajaxUrl = common.gServerUrl + "API/Order/SubmitOrder?payType=" + payTypeId + "&targetType=" + 
+	var ajaxUrl = common.gServerUrl + "API/Order/SubmitOrder?payType=" + payTypeId + "&targetType=" +
 		targetType + "&orderId=" + orderId;
-	
+
 	//新增则保存下载信息；修改则保存新的支付方式。均返回订单信息
 	mui.ajax(ajaxUrl, {
 		type: 'POST',
-		data: {"": targetJson},
+		data: {
+			"": targetJson
+		},
 		success: function(responseText) { //responseText为微信支付所需的json
 			var ret = JSON.parse(responseText);
 			var orderID = ret.orderID;
@@ -111,11 +113,11 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 					valueType: 'balance',
 				});
 				//mui('#middlePopover').popover("hide");
-				common.refreshOrder();//刷新订单
+				common.refreshOrder(); //刷新订单
 				successPayCB();
 			} else {
 				var requestJson = '';
-				if(self.PayType() == 'alipay')
+				if (self.PayType() == 'alipay')
 					requestJson = ret.requestJson;
 				else
 					requestJson = JSON.stringify(ret.requestJson);
@@ -124,14 +126,14 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 				//根据支付方式、订单信息，调用支付操作
 				Pay.pay(payType, requestJson, function(tradeno) { //成功后的回调函数
 					//plus的pay有可能在微信支付成功的同步返回时，并未返回tradeno
-					if(tradeno == '' || typeof tradeno == 'undefined'){
+					if (tradeno == '' || typeof tradeno == 'undefined') {
 						plus.nativeUI.closeWaiting();
 						mui('#middlePopover').popover("toggle");
-						common.refreshOrder();//刷新订单
+						common.refreshOrder(); //刷新订单
 						successPayCB();
 						return true;
 					}
-					
+
 					var aurl = common.gServerUrl + 'API/Order/SetOrderSuccess?id=' + orderID + '&otherOrderNO=' + tradeno;
 					mui.ajax(aurl, {
 						type: 'PUT',
@@ -141,7 +143,7 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 								valueType: 'balance',
 							})
 							mui('#middlePopover').popover("toggle");
-							common.refreshOrder();//刷新订单
+							common.refreshOrder(); //刷新订单
 							successPayCB();
 							return true;
 						},
@@ -155,10 +157,10 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 				}, function() {
 					common.setEnabled(evt);
 					plus.nativeUI.closeWaiting();
-					if(typeof failureCB != 'undefined'){
+					if (typeof failureCB != 'undefined') {
 						failureCB(orderID, ret.expireMinutes);
 					}
-						
+
 					return false;
 				});
 			}
@@ -171,3 +173,119 @@ Pay.preparePay = function(targetJson, payType, targetType, orderId, successsOrde
 	})
 }
 
+/**
+ * 
+ * @param {String} id     			dom id
+ * @param {Number} deep   			html页面深度
+ * @param {JSON} payJson			支付方式的显示，支持空、"true"/"false"、ko变量或表达式，如{"alipay": "true", "balance": "regUsingFree() == false", "free": "regUsingFree"}
+ * @param {JSON} textJson			文字的绑定，支持ko变量或定义，如{"discountText": "discountText", "balanceText": "ko.observable(888.88)", "freeTimesText": "freeActivityCount", "pricePay": "pricePay", "price": "price"}
+ * @param {Boolean} vipDiscount		是否显示余额支付的折扣信息
+ * @param {String} payAction		点击付款响应的方法
+ */
+
+var PayBox = function(id, deep, payJson, textJson, vipDiscount, payAction) {
+	var self = this;
+
+	id = id || 'PayBox';
+	deep = deep || 0;
+	payJson = payJson || {};
+	vipDiscount = vipDiscount || false;
+	payAction = payAction || 'gotoPay';
+
+	//初始化
+	self.initBox = function() {
+		var strTmp = '', strClass = '', strSpan = '';
+		var deepHtml = '';
+		for (var i = 0; i < deep; i++) {
+			deepHtml += '../';
+		}
+		var payBox = document.getElementById(id);
+		var payBoxHtml = '<div id="opacity-bg" class="opacity-bg"></div><div class="pay-popup"><div class="payment-title"><i class="iconfont close-pay">&#xe63f;</i> <span>付款详情</span></div><ul id="payList" class="pay-method">';
+		
+		//############控制支付方式的显示############### BEGIN
+		if(common.StrIsNull(payJson.wxpay) != ''){
+			strTmp = ' data-bind="visible: '+payJson.wxpay+'"';
+		}
+		payBoxHtml += '<li value="wxpay"'+strTmp+'><div class="method-logo"><img src="' + deepHtml + 'images/submitClass-wx.png"></div><span class="default-lineHeight">微信支付</span> <i class="iconfont default-icon"></i></li>';
+		
+		if(common.StrIsNull(payJson.alipay) != ''){
+			strTmp = ' data-bind="visible: '+payJson.alipay+'"';
+		}
+		payBoxHtml += '<li value="alipay"'+strTmp+'><div class="method-logo"><img src="' + deepHtml + 'images/ali.png"></div><span class="default-lineHeight">支付宝</span> <i class="iconfont default-icon"></i></li>';
+		
+		if(common.StrIsNull(payJson.balance) != ''){
+			strTmp = ' data-bind="visible: '+payJson.balance+'"';
+		}
+		if (!vipDiscount) {
+			strClass = 'default-lineHeight';
+			strSpan = '';
+		} else {
+			strClass = 'discount-lineHeight';
+			strSpan = '<span class="discount-span" data-bind="text: '+textJson.discountText+'">享8.5折</span>';
+		}
+		payBoxHtml += '<li value="balance"'+strTmp+'><div class="method-logo"><img src="' + deepHtml + 'images/ye.png"></div><span class="'+strClass+'" data-bind="text: &apos;余额支付( ￥ &apos; + '+textJson.balanceText+'() + &apos; )&apos;">余额支付( ￥999.00 )</span> <i class="iconfont default-icon"></i>'+strSpan+'</li>';
+		
+		if(common.StrIsNull(payJson.free) != ''){
+			strTmp = ' data-bind="visible: '+payJson.free+'"';
+		}
+		payBoxHtml += '<li value="free"'+strTmp+'><div class="method-logo"><img src="' + deepHtml + 'images/free-pay.png"></div><span class="discount-lineHeight" data-bind="text: &apos;免支付( 剩余&apos; + '+textJson.freeTimesText+'() + &apos;次 )&apos;">免费报名( 剩余2次 )</span> <i class="iconfont default-icon"></i><span class="discount-span">会员独享</span> </li>';
+		//############控制支付方式的显示############### END
+		
+		payBoxHtml += '</ul><div class="pay-total"><span>总价：</span> <span class="total-value"><em data-bind="text: &apos;￥&apos;+'+textJson.pricePay+'()">200.00</em> <em class="lineHeight-decoration" data-bind="text: &apos;￥&apos;+'+textJson.price+'(), visible: '+textJson.pricePay+'() != '+textJson.price+'()">￥300.00</em></span></div><button class="p-btn-color pay-total-btn" data-bind="event: {tap: ' + payAction + '}">付款</button> <span class="recharge">余额不足，<em id="gotoRecharge">去充值</em></span></div>';
+		payBox.innerHTML = payBoxHtml;
+	}();
+
+	//选择回调并初始选择
+	self.changePay = function(callback) {
+		self.callback = callback;
+	}
+
+	var payList = document.getElementById('payList');
+	payList.addEventListener('tap', function(ev) {
+		var ev = ev || window.event;
+		var target = ev.target || ev.srcElement;
+		while (target.nodeName.toLowerCase() !== "li") {
+			target = target.parentNode;
+		}
+		var pl = target.parentNode.childNodes;
+		for (var i = 0; i < pl.length; i++) {
+			pl[i].childNodes[3].classList.remove('check-icon');
+		}
+		target.childNodes[3].classList.add('check-icon');
+		//console.log(target.childNodes[3].classList);
+		//console.log(target.getAttribute('value'));
+		var value = target.getAttribute('value');
+		self.callback(value);
+	});
+
+	//显示插件
+	self.show = function() {
+		document.getElementById(id).style.cssText = "display: block";
+	}
+
+	//隐藏插件
+	self.hide = function() {
+		document.getElementById(id).style.cssText = "display: none";
+	}
+	
+	//选择支付方式
+	self.selectPay = function(payType){
+		var pl = document.querySelectorAll('#payList li');
+		for (var i = 0; i < pl.length; i++) {
+			if (pl[i].getAttribute('value') === payType) {
+				pl[i].childNodes[3].classList.add('check-icon');
+				self.callback(payType);
+				//break;
+			}
+			else{
+				pl[i].childNodes[3].classList.remove('check-icon');
+			}
+		}
+	}
+
+	//点击背景隐藏
+	var payBackgroud = document.getElementById('opacity-bg');
+	payBackgroud.addEventListener('tap', function() {
+		self.hide();
+	});
+};

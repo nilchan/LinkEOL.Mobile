@@ -710,7 +710,8 @@
 					"content/fonts/iconfont.eot",
 					"content/fonts/iconfont.svg",
 					"images/my-bg.png",
-					"images/video-big-default.png"
+					"images/video-big-default.png",
+					"images/free-pay.png"
 				],
 				"refer": [
 					"modules/account/login.html",
@@ -1193,7 +1194,9 @@
 					"content/fonts/iconfont.eot",
 					"content/fonts/iconfont.svg",
 					"images/my-bg.png",
-					"script/libs/clamp/clamp.min.js"
+					"script/libs/clamp/clamp.min.js",
+					"images/ali.png",
+					"images/free-pay.png"
 				],
 				"refer": [
 					"modules/works/worksListMyHeader.html",
@@ -3545,7 +3548,8 @@
 					"content/fonts/iconfont.eot",
 					"content/fonts/iconfont.svg",
 					"images/my-bg.png",
-					"images/video-big-default.png"
+					"images/video-big-default.png",
+					"images/free-pay.png"
 				],
 				"refer": [
 					"modules/activity/XSBRegister/applyList.html"
@@ -3699,7 +3703,9 @@
 					"content/fonts/iconfont.eot",
 					"content/fonts/iconfont.svg",
 					"images/my-bg.png",
-					"images/video-big-default.png"
+					"images/video-big-default.png",
+					"images/free-pay.png",
+					"images/ye.png"
 				],
 				"refer": [],
 				"priority": 0

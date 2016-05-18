@@ -1,3 +1,16 @@
+var payBox = new PayBox('PayBox', 2, {
+		"wxpay": "true",
+		"alipay": "true",
+		"balance": "true",
+		"free": "false"
+	}, {
+		"discountText": "ko.observable('无折扣')",
+		"balanceText": "balance",
+		"freeTimesText": "ko.observable(0)",
+		"pricePay": "DownloadAmount",
+		"price": "DownloadAmount"
+	}, true, 'gotoPay');
+
 var _bought = false;
 var player = null;
 
@@ -249,7 +262,8 @@ var worksDetails = function() {
 			common.transfer("../account/login.html");
 		} else {
 			//弹出支付框
-			mui('#middlePopover').popover('toggle');
+			//mui('#middlePopover').popover('toggle');
+			payBox.show();
 		}
 	}
 
@@ -258,6 +272,7 @@ var worksDetails = function() {
 	self.checkPayType = function() {
 		PayType(event.srcElement.value);
 	}
+	payBox.changePay(self.checkPayType);
 
 	self.Order = ko.observable({}); //由我的订单传递过来的订单参数
 	self.ViewOrder = ko.observable(false); //标记是否由我的订单跳转而来，默认为否
@@ -392,7 +407,7 @@ var worksDetails = function() {
 				if (responseText.toLowerCase() == "true") { //不用付费,直接下载
 					self.downWork();
 				} else {
-					mui('#middlePopover').popover('toggle');
+					payBox.show();
 				}
 
 				plus.nativeUI.closeWaiting();
@@ -698,6 +713,8 @@ var worksDetails = function() {
 				self.getWorkDetail(workVaule.works.ID);
 			}
 		}
+		
+		payBox.selectPay(self.PayType());
 	});
 
 	//页面初始化

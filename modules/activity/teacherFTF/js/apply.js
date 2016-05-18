@@ -1,9 +1,21 @@
+var payBox = new PayBox('PayBox', 3, {
+		"wxpay": "true",
+		"alipay": "true",
+		"balance": "true",
+		"free": "regUsingFree"
+	}, {
+		"discountText": "discountText",
+		"balanceText": "balance",
+		"freeTimesText": "freeActivityCount",
+		"pricePay": "pricePay",
+		"price": "price"
+	}, true, 'gotoPay');
+
 var teacherFTF = function() {
 	var self = this;
 
 	var aid = 0,
 		rid = 0,
-		targetType = 0,
 		orderID = 0;
 	self.canChange = ko.observable(true);
 
@@ -71,25 +83,6 @@ var teacherFTF = function() {
 		})
 	}
 
-    //获取活动的支付相关信息
-    self.getPayJson = function() {
-        var url = common.gServerUrl + 'API/Order/GetPayInfoByTarget?targetType=' + targetType + '&targetId=' + rid;
-        
-        console.log(url);
-        mui.ajax(url,{
-            type: 'GET',
-            success: function(result) {
-            	console.log(result);
-                var obj = JSON.parse(result);
-                self.regUsingFree(obj.RegUsingFree);
-                if(common.StrIsNull(obj.VIPDiscountJson) != ''){
-                	self.vipDiscounts(JSON.parse(obj.VIPDiscountJson));
-                }
-                self.initPayInfo();
-            }
-        });
-    };
-    
 	//性别设置
 	self.setGender = function() {
 		if (self.canChange() == false) return;
@@ -210,6 +203,7 @@ var teacherFTF = function() {
 			self.pricePay(0);
 			self.PayType('free');
 		}
+		payBox.selectPay(self.PayType());
 	}
 	
 	//获取老师
@@ -237,6 +231,10 @@ var teacherFTF = function() {
 		}, 500);
 	}
 
+	self.openPaybox = function(){
+		payBox.show();
+	}
+	
 	//关闭支付界面
 	self.closePopover = function() {
 		mui('#middlePopover').popover("hide");
@@ -314,7 +312,8 @@ var teacherFTF = function() {
 				var btnArray = ['取消', '确认'];
 				mui.confirm('是否现在完成支付？', '报名成功', btnArray, function(e) {
 					if (e.index == 1) {
-						mui('#middlePopover').popover('toggle');
+						//mui('#middlePopover').popover('toggle');
+						payBox.show();
 					} else {
 						mui.back();
 					}
@@ -344,6 +343,7 @@ var teacherFTF = function() {
 				break;
 		}
 	}
+	payBox.changePay(self.checkPayType);
 
 	//支付
 	self.gotoPay = function() {
@@ -440,15 +440,13 @@ var teacherFTF = function() {
 		if (typeof(web.order) != "undefined") { //从订单跳转进来
 			//console.log(JSON.stringify(web.order));
 			rid = web.order.TargetID;
-			targetType = web.order.TargetType;
 		}
-
+		console.log(rid);
 		if (rid === 0) {
 			self.getJson();
 			self.UserName(getLocalItem('DisplayName'));
 			self.UserPhone(getLocalItem('UserName'));
 		} else {
-			self.getPayJson();
 			self.canChange(false);
 			self.setChange();
 			self.getRegInfo();
