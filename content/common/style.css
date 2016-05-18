@@ -7835,7 +7835,7 @@ li {
 }
 #PayBox .lineHeight-decoration{
 	text-decoration:line-through;
-	float: right;
+	float: none;
 	color: #999;
 	margin-left: 7px;
 } 
