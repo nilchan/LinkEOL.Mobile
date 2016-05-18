@@ -44,6 +44,13 @@ var orgCourseList = function() {
 			oid: data.info.ID
 		}, false, false);
 	};
+	
+	//
+	self.goCourseInfo=function(data){
+		common.transfer('orgCourseInfo.html',false,{
+			cid:data.ID
+		},false,false)
+	}
 
 	//选择城市
 	self.selectCity = function(obj, e) {

@@ -269,8 +269,8 @@ var worksDetails = function() {
 
 	//支付方式，默认为微信支付
 	self.PayType = ko.observable('wxpay');
-	self.checkPayType = function() {
-		PayType(event.srcElement.value);
+	self.checkPayType = function(value) {
+		PayType(value);
 	}
 	payBox.changePay(self.checkPayType);
 

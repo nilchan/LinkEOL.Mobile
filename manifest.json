@@ -456,7 +456,9 @@
 					"modules/course/orgCoursesListHeader.html",
 					"modules/home/homeworkGuide-S.html",
 					"modules/home/homeworkGuide-T.html",
-					"modules/org/orgInfo.html"
+					"modules/org/orgInfo.html",
+					"modules/home/gallery.html",
+					"modules/course/orgCourseList.html"
 				],
 				"priority": 0
 			},
@@ -3552,7 +3554,8 @@
 					"images/free-pay.png"
 				],
 				"refer": [
-					"modules/activity/XSBRegister/applyList.html"
+					"modules/activity/XSBRegister/applyList.html",
+					"modules/my/recharge.html"
 				],
 				"priority": 0
 			},
@@ -4264,6 +4267,45 @@
 					"content/common/Tf_global.css"
 				],
 				"refer": [
+					"modules/course/orgCourseInfo.html"
+				],
+				"priority": 0
+			},
+			"modules/home/gallery.html": {
+				"resources": [
+					"images/gallery-1.jpg",
+					"images/gallery-4.png",
+					"images/gallery-3.jpg",
+					"images/gallery-2.jpg"
+				],
+				"refer": [
+					"modules/account/login.html",
+					"modules/my/recharge.html"
+				],
+				"priority": 0
+			},
+			"modules/course/orgCourseList.html": {
+				"resources": [
+					"script/libs/jquery.min.js",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"script/common/city.data-3.js",
+					"script/mui/mui.min.js",
+					"content/common/global.css",
+					"content/mui/mui.css",
+					"content/fonts/iconfont.css",
+					"content/common/Tf_global.css",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/fonts/iconfont.ttf",
+					"script/course/orgCourseList.js",
+					"script/common/share.js",
+					"images/my-default.png",
+					"script/libs/knockout/knockout-3.3.0.min.js",
+					"content/fonts/iconfont.woff"
+				],
+				"refer": [
+					"modules/org/orgInfo.html",
 					"modules/course/orgCourseInfo.html"
 				],
 				"priority": 0

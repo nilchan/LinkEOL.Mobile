@@ -1,4 +1,4 @@
-var payBox = new PayBox('PayBox', 3, {
+var payBox = new PayBox('PayBox', 2, {
 		"wxpay": "true",
 		"alipay": "true",
 		"balance": "true",
@@ -230,7 +230,11 @@ var seatSelect = function() {
 			}
 		});
 	}
-
+	
+	self.showPayBox = function() {
+		payBox.show();
+	}
+	
     //获取活动的支付相关信息
     self.getPayJson = function() {
         var url = common.gServerUrl + 'Common/RegGame/RegGameInfoByActivityID?ActivityID=' + aid;
@@ -274,8 +278,8 @@ var seatSelect = function() {
 		payBox.selectPay(self.PayType());
 	}
 
-	self.checkPayType = function() {
-		PayType(event.srcElement.value);
+	self.checkPayType = function(value) {
+		self.PayType(value);
 		
 		switch(self.PayType()){
 			case 'balance':
@@ -289,8 +293,7 @@ var seatSelect = function() {
 				break;
 		}
 	}
-	payBox.selectPay(self.PayType());
-
+	payBox.changePay(self.checkPayType);
 	//支付
 	self.gotoPay = function() {
 		var ticketJSON = "",

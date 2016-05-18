@@ -1,4 +1,4 @@
-var payBox = new PayBox('PayBox', 3, {
+var payBox = new PayBox('PayBox', 2, {
 		"wxpay": "true",
 		"alipay": "true",
 		"balance": "true",
@@ -190,8 +190,8 @@ var orgCourseInfo = function() {
 		payBox.selectPay(self.PayType());
 	}
 	
-	self.checkPayType = function() {
-		PayType(event.srcElement.value);
+	self.checkPayType = function(value) {
+		PayType(value);
 		var tmpAmount = 0;
 		if(self.isPublic())
 			tmpAmount = self.amountPublic();
@@ -210,8 +210,8 @@ var orgCourseInfo = function() {
 				break;
 		}
 	}
-	payBox.selectPay(self.PayType());
-
+	payBox.changePay(self.checkPayType);
+	
 	self.Order = ko.observable({}); //由我的订单传递过来的订单参数
 	self.ViewOrder = ko.observable(false); //标记是否由我的订单跳转而来，默认为否
 	self.OrderNO = ko.observable(''); //请求后返回的订单号
@@ -282,7 +282,7 @@ var orgCourseInfo = function() {
 
 	mui.plusReady(function() {
 		thisWeb = plus.webview.currentWebview();
-		if(typeof(thisWeb.regData) != "undefined"){
+		if(typeof(thisWeb.regData) != "undefined"){ // 报名跳转进来
 			self.paid(thisWeb.regData.IsFinish);
 			self.ID(thisWeb.regData.OrgCourseID);
 			self.registerId(thisWeb.regData.ID);

@@ -328,8 +328,8 @@ var teacherFTF = function() {
 
 	}
 
-	self.checkPayType = function() {
-		PayType(event.srcElement.value);
+	self.checkPayType = function(value) {
+		self.PayType(value);
 		
 		switch(self.PayType()){
 			case 'balance':

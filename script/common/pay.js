@@ -191,16 +191,17 @@ var PayBox = function(id, deep, payJson, textJson, vipDiscount, payAction) {
 	payJson = payJson || {};
 	vipDiscount = vipDiscount || false;
 	payAction = payAction || 'gotoPay';
+	
+	var deepHtml = '';
+	for (var i = 0; i < deep; i++) {
+		deepHtml += '../';
+	}
 
 	//初始化
 	self.initBox = function() {
 		var strTmp = '', strClass = '', strSpan = '';
-		var deepHtml = '';
-		for (var i = 0; i < deep; i++) {
-			deepHtml += '../';
-		}
 		var payBox = document.getElementById(id);
-		var payBoxHtml = '<div id="opacity-bg" class="opacity-bg"></div><div class="pay-popup"><div class="payment-title"><i class="iconfont close-pay">&#xe63f;</i> <span>付款详情</span></div><ul id="payList" class="pay-method">';
+		var payBoxHtml = '<div id="opacity-bg" class="opacity-bg"></div><div class="pay-popup"><div class="payment-title"><i class="iconfont close-pay" id="closeIcon">&#xe63f;</i> <span>付款详情</span></div><ul id="payList" class="pay-method">';
 		
 		//############控制支付方式的显示############### BEGIN
 		if(common.StrIsNull(payJson.wxpay) != ''){
@@ -231,7 +232,7 @@ var PayBox = function(id, deep, payJson, textJson, vipDiscount, payAction) {
 		payBoxHtml += '<li value="free"'+strTmp+'><div class="method-logo"><img src="' + deepHtml + 'images/free-pay.png"></div><span class="discount-lineHeight" data-bind="text: &apos;免支付( 剩余&apos; + '+textJson.freeTimesText+'() + &apos;次 )&apos;">免费报名( 剩余2次 )</span> <i class="iconfont default-icon"></i><span class="discount-span">会员独享</span> </li>';
 		//############控制支付方式的显示############### END
 		
-		payBoxHtml += '</ul><div class="pay-total"><span>总价：</span> <span class="total-value"><em data-bind="text: &apos;￥&apos;+'+textJson.pricePay+'()">200.00</em> <em class="lineHeight-decoration" data-bind="text: &apos;￥&apos;+'+textJson.price+'(), visible: '+textJson.pricePay+'() != '+textJson.price+'()">￥300.00</em></span></div><button class="p-btn-color pay-total-btn" data-bind="event: {tap: ' + payAction + '}">付款</button> <span class="recharge">余额不足，<em id="gotoRecharge">去充值</em></span></div>';
+		payBoxHtml += '</ul><div class="pay-total"><span>总价：</span> <span class="total-value"><em data-bind="text: &apos;￥&apos;+'+textJson.pricePay+'()">200.00</em> <em class="lineHeight-decoration" data-bind="text: &apos;￥&apos;+'+textJson.price+'(), visible: '+textJson.pricePay+'() != '+textJson.price+'()">￥300.00</em></span></div><button class="p-btn-color pay-total-btn" data-bind="event: {tap: ' + payAction + '}">付款</button> <span class="recharge" id="gotoRecharge">余额不足，<em>去充值</em></span></div>';
 		payBox.innerHTML = payBoxHtml;
 	}();
 
@@ -257,15 +258,30 @@ var PayBox = function(id, deep, payJson, textJson, vipDiscount, payAction) {
 		var value = target.getAttribute('value');
 		self.callback(value);
 	});
+	
+	document.getElementById('gotoRecharge').addEventListener('tap', function(ev) {
+		common.transfer(deepHtml + 'modules/my/recharge.html', true);
+	});
 
+	document.getElementById('closeIcon').addEventListener('tap', function(ev) {
+		self.hide();
+	});
+	
+	function stopscroll(e) {
+		e.preventDefault(); 
+	}
+	
 	//显示插件
 	self.show = function() {
 		document.getElementById(id).style.cssText = "display: block";
+		document.addEventListener('touchmove', stopscroll);
 	}
 
 	//隐藏插件
 	self.hide = function() {
 		document.getElementById(id).style.cssText = "display: none";
+		document.getElementsByClassName('mui-content')[0].style.cssText = "overflow: scroll";
+		document.removeEventListener('touchmove', stopscroll);
 	}
 	
 	//选择支付方式

@@ -92,6 +92,10 @@ var home = function() {
 		common.transfer('../course/orgCourseList.html', false);
 	}
 	
+	self.gotoVIP = function() {
+		common.transfer('../home/gallery.html', false);
+	}
+	
 	//获取未读消息数量
 	self.getUnreadCount = function() {
 		common.getUnreadCount(function(count) {

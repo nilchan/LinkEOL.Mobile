@@ -7024,6 +7024,7 @@ li {
 }
 .orgCourseApplyList-orgLogo img{
 	width: 100%;
+	border-radius: 50%;
 	vertical-align: middle;
 }
 .orgCourseApplyList-orgName{

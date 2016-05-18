@@ -77,9 +77,7 @@
 					<span class="amount" data-bind="text: '(' + totalCount() + '张)'">(4张)</span>
 
 				</div>
-				<a data-bind="attr:{href:(paid() == true ?'':'#middlePopover')}">
-					<button class="settle-accounts" data-bind="enable: paid() == false">结算</button>
-				</a>
+				<button class="settle-accounts" data-bind="enable: paid() == false, event:{tap: showPayBox}">结算</button>
 			</nav>
 		
 			<div id="PayBox" style="display: none;"></div>

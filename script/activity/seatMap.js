@@ -1,4 +1,4 @@
-var payBox = new PayBox('PayBox', 3, {
+var payBox = new PayBox('PayBox', 2, {
 		"wxpay": "true",
 		"alipay": "true",
 		"balance": "true",
@@ -197,9 +197,13 @@ var seatMap = function() {
 		}
 		payBox.selectPay(self.PayType());
 	}
-
-	self.checkPayType = function() {
-		PayType(event.srcElement.value);
+	
+	self.showPayBox = function() {
+		payBox.show();
+	}
+	
+	self.checkPayType = function(value) {
+		self.PayType(value);
 
 		switch(self.PayType()){
 			case 'balance':
@@ -213,8 +217,8 @@ var seatMap = function() {
 				break;
 		}
 	}
-	payBox.selectPay(self.PayType());
-
+	
+	payBox.changePay(self.checkPayType);
 
 	//支付
 	self.gotoPay = function() {

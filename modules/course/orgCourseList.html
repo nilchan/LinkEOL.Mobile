@@ -49,7 +49,7 @@
 						<i class="iconfont">&#xe603;</i>
 					</div>
 					<ul class="mui-table-view" data-bind="foreach:{data: orgCourses}">
-						<li class="mui-table-view-cell">
+						<li class="mui-table-view-cell" data-bind="event:{tap: goCourseInfo}">
 							<h4 class="orgCourseApplyList-h4" data-bind="text: CourseName">辰星超级公益课程1</h4>
 							<span class="orgCourseApplyList-span">
 								<span class="orgCourseApplyList-num" data-bind="text: '限' + RegStudent + '人'">限200人</span>
@@ -61,8 +61,8 @@
 								</div>
 								<span class="orgCourseApplyList-orgName" data-bind="text: OrgName">辰星音乐培训机构</span>
 							</div>
-							<span class="orgCourseApplyList-pay" data-bind="text: Amount">120元</span>
-							<span class="orgCourseApplyList-agoPay" data-bind="text: AmountPublic">288元</span>
+							<span class="orgCourseApplyList-pay" data-bind="text: AmountPublic">120元</span>
+							<span class="orgCourseApplyList-agoPay" data-bind="text: Amount">288元</span>
 						</li>
 					</ul>
 				</div>
@@ -104,7 +104,7 @@
 		</div>
 
 		<script src="../../script/mui/mui.min.js " type="text/javascript " charset="utf-8 "></script>
-		<script src="../../script/common/common.js " type="text/javascript " charset="utf-8"></script>
+		<script src="../../script/common/common.js " type="text/javascript " charset="gbk"></script>
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/libs/knockout/knockout-3.3.0.min.js " type="text/javascript " charset="utf-8 "></script>

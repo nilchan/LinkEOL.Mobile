@@ -2,7 +2,7 @@ var payBox = new PayBox('PayBox', 2, {
 		"wxpay": "isHomeWork() == false",
 		"alipay": "isHomeWork() == false",
 		"balance": "true",
-		"free": "isHomeWork"
+		"free": "isHomeWork() == true && freeCount() > 0"
 	}, {
 		"discountText": "ko.observable('无折扣')",
 		"balanceText": "balance",
@@ -33,8 +33,8 @@ var submitComment = function() {
 	self.isChangeTeacher = ko.observable(true);
 
 	//支付类型切换事件
-	self.checkPayType = function() {
-		PayType(event.srcElement.value);
+	self.checkPayType = function(value) {
+		PayType(value);
 	}
 	payBox.changePay(self.checkPayType);
 

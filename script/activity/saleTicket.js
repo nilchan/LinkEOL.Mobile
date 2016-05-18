@@ -1,4 +1,4 @@
-var payBox = new PayBox('PayBox', 3, {
+var payBox = new PayBox('PayBox', 2, {
 		"wxpay": "true",
 		"alipay": "true",
 		"balance": "true",
@@ -43,8 +43,8 @@ var saleTicket = function() {
 	var SeatPrice = [];
 	var ticketInfo;
 
-	self.checkPayType = function() {
-		PayType(event.srcElement.value);
+	self.checkPayType = function(value) {
+		PayType(value);
 		
 		switch(self.PayType()){
 			case 'balance':
