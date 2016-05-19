@@ -3643,7 +3643,8 @@
 					"content/fonts/iconfont.svg",
 					"images/my-bg.png",
 					"images/video-big-default.png",
-					"script/common/qrcode.js"
+					"script/common/qrcode.js",
+					"images/logo-pic.png"
 				],
 				"refer": [
 					"modules/activity/teacherFTF/apply.html"
@@ -4286,7 +4287,8 @@
 					"script/mui/mui.min.js",
 					"content/common/global.css",
 					"script/libs/knockout/knockout-3.3.0.js",
-					"content/fonts/iconfont.css"
+					"content/fonts/iconfont.css",
+					"content/fonts/iconfont.woff"
 				],
 				"refer": [
 					"modules/course/orgCourseInfo.html"

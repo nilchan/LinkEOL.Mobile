@@ -170,30 +170,15 @@ var orgInfo = function() {
 
 	//导航
 	self.sysGuide = function() {
-		/*plus.nativeUI.showWaiting();
-		plus.geolocation.getCurrentPosition(function(e) {
-			plus.nativeUI.closeWaiting();
-			var thisPoint=GPS.gcj_decrypt_exact(e.coords.longitude, e.coords.latitude);
-			var addressPoint=GPS.gcj_decrypt_exact(self.Lon(),self.Lat());
-			plus.maps.openSysMap(new plus.maps.Point(thisPoint.lon,thisPoint.lat), self.Address(),new plus.maps.Point(thisPoint.lon,thisPoint.lat));
-		},function(){
-			plus.nativeUI.closeWaiting();
-			
-		})*/
+		
 		//common.mapGuide(self.Lon(),self.Lat(),self.Address());
 		//common.mapGuide('137.2222222','23.5555555','津滨腾跃大厦');
 		//plus.maps.openSysMap('0','津滨腾跃大厦','0')
-		common.mapGuide(self.City(),self.Address());
-		//common.transfer('mapHeader.html',false);
-		/*plus.runtime.launchApplication({
-			pname:'',
-			extra:{
-				url:'http://m.amap.com/?k=嘉谊轩艺术培训中心'
-			}
-		},function(){
-			
-		})*/
-		
+		//common.mapGuide(self.City(),self.Address());
+//		plus.runtime.openURL('androidamap://poi?sourceApplication=softname&keywords=嘉谊轩艺术培训中心',function(e){
+//			console.log(JSON.stringify(e));
+//		},'com.autonavi.minimap')
+		common.mapGuide('',self.Address());
 	}
 
 	mui.plusReady(function() {

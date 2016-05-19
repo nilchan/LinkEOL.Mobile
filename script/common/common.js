@@ -1010,12 +1010,37 @@
 
 	//地图导航
 	/*
-	 * @param {String} city 机构所在城市
+	 * @param {String} city 机构所在城市 ios必须
 	 * @param {String} address  机构地址
 	 * * */
 	mapGuide: function(city, address) {
 		plus.nativeUI.showWaiting();
-		plus.geolocation.getCurrentPosition(function(e) {
+		if (common.isIOS()) {
+			plus.geolocation.getCurrentPosition(function(e) {
+				plus.maps.Map.geocode(address, {
+					city: city
+				}, function(a) {
+					plus.nativeUI.closeWaiting();
+					plus.maps.openSysMap(new plus.maps.Point(a.coord.longitude, a.coord.latitude), address, new plus.maps.Point(e.coords.longitude, e.coords.latitude));
+				}, function(geoError) {
+					plus.nativeUI.closeWaiting();
+					mui.alert(JSON.stringify(geoError), '', '确定');
+				})
+			}, function(locationError) {
+				plus.nativeUI.closeWaiting();
+				mui.alert(JSON.stringify(locationError), '', '确定');
+				if (locationError.code == 2) {
+					mui.alert('请检查是否允许获取定位信息', '', '确定');
+				}
+			})
+		} else {
+			plus.nativeUI.closeWaiting();
+			plus.runtime.openURL('androidamap://poi?sourceApplication=softname&keywords=' + address, function(e) {
+				mui.alert('打开高德地图失败，请检测是否有安装高德地图','','确定');
+			}, 'com.autonavi.minimap')
+		}
+
+		/*plus.geolocation.getCurrentPosition(function(e) {
 			plus.maps.Map.geocode(address, {
 				city: city
 			}, function(a) {
@@ -1041,7 +1066,7 @@
 			if (locationError.code == 2) {
 				mui.alert('请检查是否允许获取定位信息', '', '确定');
 			}
-		})
+		})*/
 
 	},
 

@@ -13,6 +13,7 @@ var orgCoursesListContent = function() {
 				callback: pulldownRefresh
 			},
 			up: {
+				contentdown:decodeURI(encodeURI("上拉显示更多")),
 				contentrefresh: common.gContentRefreshUp,
 				contentnomore: common.gContentNomoreUp,
 				callback: pullupRefresh

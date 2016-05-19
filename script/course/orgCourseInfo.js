@@ -122,7 +122,7 @@ var orgCourseInfo = function() {
 		lis[i].onclick = function() {
 			mui('#sharePopover').popover('toggle');
 			plus.nativeUI.showWaiting();
-			Share.sendShare(this.id, '是可以达成你所愿的!', '您的心有多高,学习的路就有多长。', shareUrl + self.ID() , self.Photo());
+			Share.sendShare(this.id, '能达成你所愿的！', '您的心有多高，学习的路就有多长。', shareUrl + self.ID() , self.Photo());
 
 		};
 	}

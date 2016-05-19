@@ -4,7 +4,7 @@ var viewModel = function() {
 	var page = 1;
 	var userId = getLocalItem('UserID');
 	self.classmateListLength = ko.observable(1);
-	self.classmateText = ko.observable('你还没有授课老师，现在去设置吧');
+	self.classmateText = ko.observable('还没有授课老师，现在去设置吧');
 	self.isHaveTeacher = ko.observable(false);
 
 	var shareUrl = common.gWebsiteUrl; //分享附上的链接，为公司主页
@@ -65,7 +65,7 @@ var viewModel = function() {
 		mui.ajax(thisUrl, {
 			type: 'GET',
 			success: function(responseText) {
-				self.isHaveTeacher(responseText);
+				self.isHaveTeacher(responseText == 'true');
 				if(self.isHaveTeacher()==true){
 					self.classmateText('还没有其他同学呢，现在邀请他们过来吧');
 				}

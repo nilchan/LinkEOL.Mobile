@@ -88,7 +88,14 @@
 			<!--<div class="success-title">
 				<h3 id="examScore-h3">我的报名记录</h3>
 			</div>-->
-			<div id="apply-list" data-bind="foreach:{data: scores}">
+			<div class="openedCourses-ys" data-bind="visible:scores().length <= 0">
+				<i>
+					<img src="../../../images/logo-pic.png" />
+				</i>
+				<span>还没有过讲座报名呢~</span>
+			</div>
+
+			<div id="apply-list" data-bind="foreach:{data: scores}, visible:scores().length > 0">
 				<div class="activityEnrollSuccess-con-bg">
 					<ul class="examScore-ul">
 						<div class="success-title">
