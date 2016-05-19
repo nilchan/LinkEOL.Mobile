@@ -251,7 +251,7 @@
 				<!--/ko-->
 			</div>
 		</div>
-			<li class="mui-table-view-cell mui-collapse info-li">
+			<li class="mui-table-view-cell mui-collapse info-li" data-bind='visible:userInfo().OrgID>0'>
 				<a class="mui-navigate-right info-pic" data-bind="event:{tap:goOrgInfo}">
 					<div class="studentIndo-logo">
 						<img data-bind="attr:{src:common.getPhotoUrl(userInfo().OrgPhoto)}" onerror="this.src='../../images/logo-pic.png';"/>

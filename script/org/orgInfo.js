@@ -184,6 +184,16 @@ var orgInfo = function() {
 		//common.mapGuide('137.2222222','23.5555555','津滨腾跃大厦');
 		//plus.maps.openSysMap('0','津滨腾跃大厦','0')
 		common.mapGuide(self.City(),self.Address());
+		//common.transfer('mapHeader.html',false);
+		/*plus.runtime.launchApplication({
+			pname:'',
+			extra:{
+				url:'http://m.amap.com/?k=嘉谊轩艺术培训中心'
+			}
+		},function(){
+			
+		})*/
+		
 	}
 
 	mui.plusReady(function() {

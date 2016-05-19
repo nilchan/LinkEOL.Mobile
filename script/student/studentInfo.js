@@ -12,7 +12,7 @@ var studentInfo = function() {
 			type: 'GET',
 			success: function(responseText) {
 				var result = eval("(" + responseText + ")");
-				console.log(JSON.stringify(result));
+				//console.log(JSON.stringify(result));
 				self.userInfo(result);
 				common.showCurrentWebview();
 			}

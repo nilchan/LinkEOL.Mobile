@@ -136,6 +136,7 @@ var myInfo = function() {
 	}
 	
 	self.initData = function(result) {
+		console.log(JSON.stringify(result))
 //		self.UserName(result.UserName);
 		self.DisplayName(result.DisplayName);
 		self.Photo(result.Photo);

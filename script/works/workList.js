@@ -168,7 +168,10 @@ var workList = function() {
 			if(item.selected()){
 				//if(web.opener().id)
 				var info = self.teacherInfo();
-				if(web.opener().id=='modules/home/select.html' || typeof(info) !== "undefined" ){
+				//console.log(web.opener().id);
+				if(web.opener().id=='modules/home/select.html'
+					|| web.opener().id.indexOf('homeworkGuide') >=0 
+					|| typeof(info) !== "undefined" ){
 					common.transfer('../student/submitComment.html', true, {
 						works: item.info,
 						teacher: teacherInfo(),

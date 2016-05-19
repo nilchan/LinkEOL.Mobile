@@ -386,32 +386,7 @@
 					}
 				});
 			});
-			var marquee = $A.gI('marquee-view');
-			var scrollRow = function(height, speed) {
-					setTimeout(function() {
-						marquee.scrollTop++;
-						if (marquee.scrollTop % height !== 0) {
-							scrollRow(height, speed);
-						}
-					}, speed);
-				}
-				/**
-				 * 
-				 * @param {Number} height 滚动的高度（px）
-				 * @param {Number} speed  滚动的速度（毫秒）
-				 * @param {Number} inter  滚动的间隔 （毫秒）
-				 * @param {Number} count  滚动的条目数 （毫秒）
-				 */
-			function marqueeText(height, speed, inter, count) {
-				scrollRow(height, speed);
-				setInterval(function() {
-					scrollRow(height, speed);
-					if (marquee.scrollTop === count * height) {
-						marquee.scrollTop = 0;
-					}
-				}, inter);
-			}
-			marqueeText(22, 50, 4000, 8);
+			
 		</script>
 	</body>
 

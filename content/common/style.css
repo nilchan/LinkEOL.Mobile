@@ -1081,8 +1081,8 @@ li {
 	position: absolute;
 }
 .orgList-search{
-	width: 86%;
-	height: 28px;
+	width: 70%;
+	height: 32px;
 	margin: 10px auto;
 	position: relative;
 }
@@ -1101,7 +1101,7 @@ li {
 .orgList-search i{
 	position: absolute;
 	left: 8px;
-	top: 3px;
+	top: 5px;
 	font-size: 16px;
 	color: #a8a8a8!important;
 }
@@ -1458,8 +1458,10 @@ li {
 	line-height: 44px;
 	position: relative;
 	float: left;
-	padding-left: 15px;
-	padding-right: 25px;
+	white-space:nowrap;
+	overflow:hidden; 
+	text-overflow:ellipsis;
+	padding-right: 15px;
 	box-sizing: border-box;
 }
 .ogrInfo-map-address i{
@@ -3310,12 +3312,12 @@ li {
 .gallery-finger{
 	position: absolute;
 	bottom: 0;
-	right: 15%;
+	right: 0%;
 	z-index: 22;
 	width: 25%;
 }
 .gallery-finger img{
-	width: 100%;
+	width:50%;
 }
 /*-------我的-学生开始-------*/
 .my-content {

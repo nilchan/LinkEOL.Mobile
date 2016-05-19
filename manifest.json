@@ -4068,7 +4068,8 @@
 					"content/fonts/iconfont.ttf",
 					"content/mui/mui.min.css",
 					"script/libs/knockout/knockout-3.3.0.min.js",
-					"images/free-pay.png"
+					"images/free-pay.png",
+					"content/fonts/iconfont.woff"
 				],
 				"refer": [
 					"modules/activity/seatSelect.html"
@@ -4093,7 +4094,9 @@
 					"script/mui/mui.min.js",
 					"script/common/common.js",
 					"script/common/base.js",
-					"script/libs/knockout/knockout-3.3.0.min.js"
+					"script/libs/knockout/knockout-3.3.0.min.js",
+					"images/free-pay.png",
+					"content/fonts/iconfont.woff"
 				],
 				"refer": [],
 				"priority": 0
@@ -4133,7 +4136,8 @@
 				"refer": [
 					"modules/activity/activityInfo.html",
 					"modules/my/myAlbum.html",
-					"modules/course/orgCourseInfo.html"
+					"modules/course/orgCourseInfo.html",
+					"modules/org/mapHeader.html"
 				],
 				"priority": 0
 			},
@@ -4294,7 +4298,18 @@
 					"images/gallery-1.jpg",
 					"images/gallery-4.png",
 					"images/gallery-3.jpg",
-					"images/gallery-2.jpg"
+					"images/gallery-2.jpg",
+					"content/common/style.css",
+					"content/mui/mui.picker.min.css",
+					"script/mui/mui.min.js",
+					"content/common/global.css",
+					"content/mui/mui.css",
+					"content/fonts/iconfont.css",
+					"content/common/Tf_global.css",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/fonts/iconfont.woff",
+					"script/libs/knockout/knockout-3.3.0.min.js"
 				],
 				"refer": [
 					"modules/account/login.html",
@@ -4328,6 +4343,22 @@
 					"modules/org/orgInfo.html",
 					"modules/course/orgCourseInfo.html"
 				],
+				"priority": 0
+			},
+			"modules/org/mapHeader.html": {
+				"resources": [
+					"script/mui/mui.min.js",
+					"script/libs/knockout/knockout-3.3.0.js",
+					"content/common/Tf_global.css",
+					"script/common/common.js",
+					"script/common/base.js",
+					"content/common/style.css",
+					"content/common/global.css",
+					"content/mui/mui.css",
+					"content/fonts/iconfont.css",
+					"content/fonts/iconfont.woff"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

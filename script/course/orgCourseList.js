@@ -34,7 +34,11 @@ var orgCourseList = function() {
 				console.log(responseText);
 				var result = JSON.parse(responseText);
 				self.orgCourses(result);
-				
+				/*if(result.length<3){
+					mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+				}else{
+					mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+				}*/
 				mui('#pullrefresh').pullRefresh().refresh(true);
 				
 			}
@@ -95,7 +99,7 @@ var orgCourseList = function() {
 			mui('#pullrefresh').pullRefresh().refresh(true);
 		}, 1000));
 	});
-
+	
 	if (mui.os.plus) {
 		mui.plusReady(function() {
 			if (plus.os.vendor == 'Apple') {
@@ -113,12 +117,13 @@ var orgCourseList = function() {
 		pullRefresh: {
 			container: '#pullrefresh',
 			down: {
-				contentdown : escape('下拉可以刷新'),//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
-      			contentover : escape('释放立即刷新'),//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
-				contentrefresh: '刷新中...',
+				contentdown : decodeURI(encodeURI('下拉可以刷新')),//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+      			contentover : decodeURI(encodeURI('释放立即刷新')),//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+				contentrefresh: decodeURI(encodeURI('刷新中...')),
 				callback: pulldownRefresh
 			},
 			up: {
+				contentdown:decodeURI(encodeURI("上拉显示更多")),
 				contentrefresh:common.gContentRefreshUp,
 				contentnomore:common.gContentNomoreUp,
 				callback: pullupRefresh

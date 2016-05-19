@@ -52,7 +52,7 @@ var home = function() {
 
 	self.goHelp = function() {
 		var gotoUrl = 'homeworkGuide-S.html';
-		if(getLocalItem('UserType') == common.gDictUserType.teacher){
+		if (getLocalItem('UserType') == common.gDictUserType.teacher) {
 			gotoUrl = 'homeworkGuide-T.html';
 		}
 		common.transfer(gotoUrl, false);
@@ -87,15 +87,15 @@ var home = function() {
 		//			mui.fire(page5, 'refreshMessageStatusFalse', {});
 		//		}
 	}
-	
+
 	self.gotoCourseList = function() {
 		common.transfer('../course/orgCourseList.html', false);
 	}
-	
+
 	self.gotoVIP = function() {
 		common.transfer('../home/gallery.html', false);
 	}
-	
+
 	//获取未读消息数量
 	self.getUnreadCount = function() {
 		common.getUnreadCount(function(count) {
@@ -123,7 +123,7 @@ var home = function() {
 			teacherTest = common.preload('../../modules/teacher/teacherListHeader.html', {}, 'teacherListHeader.html')
 		}
 		teacherTest.show();*/
-		common.transfer('../../modules/teacher/teacherListHeader.html', false, {},false,false,'teacherListHeader.html');
+		common.transfer('../../modules/teacher/teacherListHeader.html', false, {}, false, false, 'teacherListHeader.html');
 	}
 
 	self.initSlidershow = function() {
@@ -169,8 +169,10 @@ var home = function() {
 			type: 'GET',
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
+				marqueeText(22, 50, 4000, result.length);
 				self.newsTitleArray(result);
 				self.newsTitleArray.push(result[0]);
+				
 			}
 		})
 	}
@@ -239,24 +241,24 @@ var home = function() {
 		}
 
 	}
-	
+
 	//机构
-	self.goOrgList=function(){
+	self.goOrgList = function() {
 		common.transfer('../org/orgList.html');
 	}
-	
+
 	//精品班/名师讲座
-	self.goActivityList=function(){
-		mui.fire(plus.webview.getWebviewById('modules/activity/activityList.html'),'setActive',{
-			activePage:1
+	self.goActivityList = function() {
+		mui.fire(plus.webview.getWebviewById('modules/activity/activityList.html'), 'setActive', {
+			activePage: 1
 		})
 		common.showIndexWebview(1);
-		
+
 	}
-	
+
 	//高考培训
-	self.goorgToCourseList=function(){
-		common.transfer('../course/orgCoursesListHeader.html',false,{},false,false);
+	self.goorgToCourseList = function() {
+		common.transfer('../course/orgCoursesListHeader.html', false, {}, false, false);
 	}
 
 	//跳转至考级页面
@@ -283,6 +285,33 @@ var home = function() {
 	mui.back = function() {
 		common.confirmQuit();
 	}
+
+	var marquee = $A.gI('marquee-view');
+	var scrollRow = function(height, speed) {
+			setTimeout(function() {
+				marquee.scrollTop++;
+				if (marquee.scrollTop % height !== 0) {
+					scrollRow(height, speed);
+				}
+			}, speed);
+		}
+		/**
+		 * 
+		 * @param {Number} height 滚动的高度（px）
+		 * @param {Number} speed  滚动的速度（毫秒）
+		 * @param {Number} inter  滚动的间隔 （毫秒）
+		 * @param {Number} count  滚动的条目数 （毫秒）
+		 */
+	function marqueeText(height, speed, inter, count) {
+		scrollRow(height, speed);
+		setInterval(function() {
+			scrollRow(height, speed);
+			if (marquee.scrollTop === count * height) {
+				marquee.scrollTop = 0;
+			}
+		}, inter);
+	}
+	
 
 	window.addEventListener("refreshMessage", function(event) {
 		self.UnreadCount(event.detail.count);

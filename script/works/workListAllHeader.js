@@ -1,6 +1,6 @@
 var worksHeader = function() {
 	var self = this;
-	self.allWorksTitle = ko.observable('名师作品');
+	self.allWorksTitle = ko.observable('老师作品');
 	self.actID = ko.observable(0); //具体某个活动ID
 	self.seachValue = ko.observable('');
 	var isFamous; //是否为名师

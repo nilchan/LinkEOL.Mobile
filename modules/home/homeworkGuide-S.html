@@ -47,7 +47,7 @@
 					<span class="homeWorkGuide-assistant" data-bind="text: $data.Works == '' ? '[未有上传视频]' : $data.Works"></span>
 					<u class="homeWorkGuide-next next3"><i class="iconfont">&#xe6c6;</i></u>
 				</div>
-				<div class="homeWorkGuide-box homeWorkGuide-four" data-bind="event:{tap: gotoHomeWork}, css: {'homeWorkGuide-notFinished': $data.Comments == ''}">
+				<div class="homeWorkGuide-box homeWorkGuide-four" data-bind="event:{tap: gotoHomeWork}, css: {'homeWorkGuide-notFinished': $data.Comments != ''}">
 					<i class="iconfont">&#xe667;</i>
 					<span class="homeWorkGuide-title">提交作业</span>
 					<span class="homeWorkGuide-assistant" data-bind="text: $data.Comments == '' ? '[无未点评作业]' : $data.Comments"></span>
