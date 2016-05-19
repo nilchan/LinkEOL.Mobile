@@ -45,6 +45,7 @@ var orgCourseInfo = function() {
     self.discountText = ko.observable('无折扣');
     self.address=ko.observable('');
     self.city=ko.observable();
+    self.regOrgs = ko.observableArray([]);	//允许报名的机构列表
 	
 	//支付方式，默认为微信支付
 	self.PayType = ko.observable('wxpay');
@@ -72,6 +73,8 @@ var orgCourseInfo = function() {
 				self.Photo(result.Photo);
 				self.address(result.Address);
 				self.city(result.City);
+				if(common.StrIsNull(result.RegOrgJson) != '')
+					self.regOrgs(JSON.parse(result.RegOrgJson));
 				self.isPublic(result.IsPublic);
 				if(self.isPublic() == true){
 					self.amountPublic(result.AmountPublic);

@@ -275,6 +275,7 @@ var saleTicket = function() {
 			orderID,
 			function(newOrderID, expireMinutes) {
 				orderID = newOrderID;
+				self.ViewOrder(true);
 				if (expireMinutes > 0) {
 					var oTime = newDate();
 					maxtime = (newDate(oTime).getTime() + expireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
@@ -339,6 +340,31 @@ var saleTicket = function() {
 		}
 	});
 
+	//检查是否有未支付的订单
+	self.checkOrderExist = function(){
+		var url = common.gServerUrl + 'API/ActTicket/GetNotFinishedTicketOrder?ActivityID=' + ActivityID + 
+			'&userId='+getLocalItem('UserID');
+		mui.ajax(url, {
+			type: 'GET',
+			success: function(responseText) {
+				//var hasOrder = false;
+				if(common.StrIsNull(responseText) != ''){
+					var result = JSON.parse(responseText);
+					console.log(responseText);
+					if(result){	//存在已有的订单
+						mui.alert('存在未支付的订单，请先完成支付','提示','确定');
+						self.initOrderInfo(result);
+						//hasOrder = true;
+					}
+				}
+				
+				/*if(!hasOrder){
+					self.getSeatRegionList();
+				}*/
+			}
+		});
+	}
+	
 	var maxtime = 30 * 60;
 	self.CountDown = function() {
 		//console.log(maxtime);
@@ -354,6 +380,18 @@ var saleTicket = function() {
 		}
 	}
 	var timer = setInterval("CountDown()", 1000);
+
+	self.initOrderInfo = function(order){
+		orderID = order.ID;
+		self.ViewOrder(true);
+		self.paid(order.IsFinish);
+		self.TotalAmount(order.Amount);
+		targetID = order.TargetID;
+		targetType = order.TargetType;
+		self.getDataForOrder(order.TargetID);
+		var oTime = order.OrderTime;
+		maxtime = (newDate(oTime).getTime() + order.ExpireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
+	}
 
 	mui.plusReady(function() {
 		var thisWebview = plus.webview.currentWebview();
@@ -371,20 +409,13 @@ var saleTicket = function() {
 			//console.log(JSON.stringify(customPrice));
 			self.custormPriceList(CustomPrice);
 			self.ticketUrl(thisWebview.TicketUrl);
+			
+			self.checkOrderExist();
 		}
-		//console.log(typeof(thisWebview.order));
+		
 		if (typeof(thisWebview.order) != "undefined") { //从订单跳转进来
-			//console.log(JSON.stringify(thisWebview.order));
 			var orderTmp = thisWebview.order;
-			orderID = orderTmp.ID;
-			self.ViewOrder(true);
-			self.paid(orderTmp.IsFinish);
-			self.TotalAmount(orderTmp.Amount);
-			targetID = orderTmp.TargetID;
-			targetType = orderTmp.TargetType;
-			self.getDataForOrder(orderTmp.TargetID);
-			var oTime = orderTmp.OrderTime;
-			maxtime = (newDate(oTime).getTime() + orderTmp.ExpireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
+			self.initOrderInfo(orderTmp);
 		}
 		self.getPayJson();
 	})

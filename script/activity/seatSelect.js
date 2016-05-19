@@ -419,7 +419,8 @@ var seatSelect = function() {
 			}
 		});
 	}
-
+//	self.getSeatLevelList();
+//	self.getSeatList();
 	mui.plusReady(function() {
 		var thisWebview = plus.webview.currentWebview();
 		if (typeof thisWebview.ActivityID != "undefined") {

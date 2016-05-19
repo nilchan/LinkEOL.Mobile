@@ -219,7 +219,7 @@ var register = function() {
 						setLocalItem("UserType", result.UserType);
 						setLocalItem('DisplayName', result.DisplayName);
 						//plus.webview.close(index); //关闭首页webview
-						if(common.StrIsNull(result.Tips)){
+						if(common.StrIsNull(result.Tips) != ''){
 							mui.alert(result.Tips,'','确定');
 						}
 						if (ID) {

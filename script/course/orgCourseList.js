@@ -31,6 +31,7 @@ var orgCourseList = function() {
 		mui.ajax(self.getAjaxUrl(), {
 			type: 'GET',
 			success: function(responseText) {
+				console.log(responseText);
 				var result = JSON.parse(responseText);
 				self.orgCourses(result);
 				

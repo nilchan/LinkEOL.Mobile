@@ -60,9 +60,9 @@
 							</span>
 							<div class="org-box">
 								<div class="orgCourseApplyList-orgLogo">
-									<img  data-bind="attr:{src: common.getPhotoUrl(Photo)}" onerror="this.src='../../images/my-default.png';"/>
+									<img  data-bind="attr:{src: OrgID > 0 ? common.getPhotoUrl(Photo) : '../../images/linkPhoto.png'}" onerror="this.src='../../images/my-default.png';"/>
 								</div>
-								<span class="orgCourseApplyList-orgName" data-bind="text: OrgName">辰星音乐培训机构</span>
+								<span class="orgCourseApplyList-orgName" data-bind="text: OrgID > 0 ? OrgName : '乐评家'">辰星音乐培训机构</span>
 							</div>
 							<span class="orgCourseApplyList-pay" data-bind="text: AmountPublic">120元</span>
 							<span class="orgCourseApplyList-agoPay" data-bind="text: Amount">288元</span>

@@ -323,7 +323,32 @@ var seatMap = function() {
 
 		});
 	}
-
+	
+	//检查是否有未支付的订单
+	self.checkOrderExist = function(){
+		var url = common.gServerUrl + 'API/ActTicket/GetNotFinishedTicketOrder?ActivityID=' + aid + 
+			'&userId='+getLocalItem('UserID');
+		mui.ajax(url, {
+			type: 'GET',
+			success: function(responseText) {
+				var hasOrder = false;
+				if(common.StrIsNull(responseText) != ''){
+					var result = JSON.parse(responseText);
+					console.log(responseText);
+					if(result){	//存在已有的订单
+						mui.alert('请先完成未支付的订单','提示','确定');
+						self.initOrderInfo(result);
+						hasOrder = true;
+					}
+				}
+				
+				if(!hasOrder){
+					self.getSeatRegionList();
+				}
+			}
+		});
+	}
+	
 	var maxtime = 30 * 60;
 	self.CountDown = function() {
 		//console.log(maxtime);
@@ -340,28 +365,32 @@ var seatMap = function() {
 	}
 	var timer = setInterval("CountDown()", 1000);
 
+	self.initOrderInfo = function(order){
+		orderID = order.ID;
+		self.ViewOrder(true);
+		self.paid(order.IsFinish);
+		self.totalPrice(order.Amount);
+		targetID = order.TargetID;
+		targetType = order.TargetType;
+		self.getDataForOrder(order.TargetID);
+		var oTime = order.OrderTime;
+		maxtime = (newDate(oTime).getTime() + order.ExpireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
+	}
+
 	mui.plusReady(function() {
 		var thisWebview = plus.webview.currentWebview();
 		if (typeof thisWebview.ActivityID != "undefined") {
 			aid = thisWebview.ActivityID;
 			self.FilePath(thisWebview.FilePath);
+			
+			self.checkOrderExist();
+			//self.getSeatRegionList();
 		}
 		
 		if (typeof(thisWebview.order) != "undefined") { //从订单跳转进来
 			var orderTmp = thisWebview.order;
-			//console.debug(JSON.stringify(orderTmp));
-			orderID = orderTmp.ID;
-			self.ViewOrder(true);
-			self.paid(orderTmp.IsFinish);
-			self.totalPrice(orderTmp.Amount);
-			targetID = orderTmp.TargetID;
-			targetType = orderTmp.TargetType;
-			self.getDataForOrder(orderTmp.TargetID);
-			var oTime = orderTmp.OrderTime;
-			maxtime = (newDate(oTime).getTime() + orderTmp.ExpireMinutes * 60 * 1000 - newDate().getTime()) / 1000;
-		}
-		else{
-			self.getSeatRegionList();
+			console.log(JSON.stringify(orderTmp));
+			self.initOrderInfo(orderTmp);
 		}
 		
 		self.getBalance();

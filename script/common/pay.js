@@ -199,7 +199,7 @@ var PayBox = function(id, deep, payJson, textJson, vipDiscount, payAction) {
 
 	//初始化
 	self.initBox = function() {
-		var strTmp = '', strClass = '', strSpan = '';
+		var strTmp = '', strClass = '', strSpan = '', strBalanceVisible;
 		var payBox = document.getElementById(id);
 		var payBoxHtml = '<div id="opacity-bg" class="opacity-bg"></div><div class="pay-popup"><div class="payment-title"><i class="iconfont close-pay" id="closeIcon">&#xe63f;</i> <span>付款详情</span></div><ul id="payList" class="pay-method">';
 		
@@ -215,7 +215,7 @@ var PayBox = function(id, deep, payJson, textJson, vipDiscount, payAction) {
 		payBoxHtml += '<li value="alipay"'+strTmp+'><div class="method-logo"><img src="' + deepHtml + 'images/ali.png"></div><span class="default-lineHeight">支付宝</span> <i class="iconfont default-icon"></i></li>';
 		
 		if(common.StrIsNull(payJson.balance) != ''){
-			strTmp = ' data-bind="visible: '+payJson.balance+'"';
+			strBalanceVisible = ' data-bind="visible: '+payJson.balance+'"';
 		}
 		if (!vipDiscount) {
 			strClass = 'default-lineHeight';
@@ -224,7 +224,7 @@ var PayBox = function(id, deep, payJson, textJson, vipDiscount, payAction) {
 			strClass = 'discount-lineHeight';
 			strSpan = '<span class="discount-span" data-bind="text: '+textJson.discountText+'">享8.5折</span>';
 		}
-		payBoxHtml += '<li value="balance"'+strTmp+'><div class="method-logo"><img src="' + deepHtml + 'images/ye.png"></div><span class="'+strClass+'" data-bind="text: &apos;余额支付( ￥ &apos; + '+textJson.balanceText+'() + &apos; )&apos;">余额支付( ￥999.00 )</span> <i class="iconfont default-icon"></i>'+strSpan+'</li>';
+		payBoxHtml += '<li value="balance"'+strBalanceVisible+'><div class="method-logo"><img src="' + deepHtml + 'images/ye.png"></div><span class="'+strClass+'" data-bind="text: &apos;余额支付( ￥ &apos; + '+textJson.balanceText+'() + &apos; )&apos;">余额支付( ￥999.00 )</span> <i class="iconfont default-icon"></i>'+strSpan+'</li>';
 		
 		if(common.StrIsNull(payJson.free) != ''){
 			strTmp = ' data-bind="visible: '+payJson.free+'"';
@@ -232,7 +232,7 @@ var PayBox = function(id, deep, payJson, textJson, vipDiscount, payAction) {
 		payBoxHtml += '<li value="free"'+strTmp+'><div class="method-logo"><img src="' + deepHtml + 'images/free-pay.png"></div><span class="discount-lineHeight" data-bind="text: &apos;免支付( 剩余&apos; + '+textJson.freeTimesText+'() + &apos;次 )&apos;">免费报名( 剩余2次 )</span> <i class="iconfont default-icon"></i><span class="discount-span">会员独享</span> </li>';
 		//############控制支付方式的显示############### END
 		
-		payBoxHtml += '</ul><div class="pay-total"><span>总价：</span> <span class="total-value"><em data-bind="text: &apos;￥&apos;+'+textJson.pricePay+'()">200.00</em> <em class="lineHeight-decoration" data-bind="text: &apos;￥&apos;+'+textJson.price+'(), visible: '+textJson.pricePay+'() != '+textJson.price+'()">￥300.00</em></span></div><button class="p-btn-color pay-total-btn" data-bind="event: {tap: ' + payAction + '}">付款</button> <span class="recharge" id="gotoRecharge">余额不足，<em>去充值</em></span></div>';
+		payBoxHtml += '</ul><div class="pay-total"><span>总价：</span> <span class="total-value"><em data-bind="text: &apos;￥&apos;+'+textJson.pricePay+'()">200.00</em> <em class="lineHeight-decoration" data-bind="text: &apos;￥&apos;+'+textJson.price+'(), visible: '+textJson.pricePay+'() != '+textJson.price+'()">￥300.00</em></span></div><button class="p-btn-color pay-total-btn" data-bind="event: {tap: ' + payAction + '}">付款</button> <span class="recharge" id="gotoRecharge"'+strBalanceVisible+'>余额不足，<em>去充值</em></span></div>';
 		payBox.innerHTML = payBoxHtml;
 	}();
 

@@ -48,10 +48,10 @@
 				top: 100%!important;
 				margin-top: -178px!important;
 			}
-			.mui-input-group .mui-input-row:after{
+			
+			.mui-input-group .mui-input-row:after {
 				background: #C8C7CC!important;
 			}
-			
 		</style>
 	</head>
 
@@ -70,12 +70,13 @@
 				<div class="orgCourseInfo-title-right ">
 					<div class="orgCourseInfo-lineHeight-right orgCourseInfo-lineHeight">
 						<!--ko text: '￥'+ (isPublic() == true && regUsingFree() == false ? amountPublic() : Amount())-->
-					<!--/ko-->
+						<!--/ko-->
 					</div>
 					<div class="orgCourseInfo-lineHeight-right orgCourseInfo-lineHeight-decoration " data-bind="visible: isPublic() == true && regUsingFree() == false && Amount() != amountPublic()">
-						￥<!--ko text: Amount-->
+						￥
+						<!--ko text: Amount-->
 						<!--/ko-->
-				
+
 					</div>
 				</div>
 			</div>
@@ -83,28 +84,35 @@
 				<p class="introduction-font">简介：</p>
 				<p class="introduction-content" data-bind='text:CourseAbout'></p>
 			</div>
-			<div class="orgCourseInfo-homepage-box" data-bind='click:goOrg'>
+			<div class="orgCourseInfo-homepage-box" data-bind="click: OrgID() > 0 ? goOrg : ''">
 				<div class="orgCourseInfo-homepage-logo">
-					<img data-bind='attr:{src:common.getPhotoUrl(Photo)}' onerror="this.src='../../images/logo-pic.png';"/>
+					<img data-bind="attr:{src: OrgID() > 0 ? common.getPhotoUrl(Photo) : '../../images/linkPhoto.png'}" onerror="this.src='../../images/logo-pic.png';" />
 				</div>
-				<span class="orgCourseInfo-homepage-title" data-bind='text:OrgName'></span>
-				<span class="orgCourseInfo-homepage-comment" data-bind='text:"关注"+UserFavCount()'></span>
-				<span class="orgCourseInfo-homepage-page">进入主页<i class="iconfont">&#xe672;</i></span>
+				<span class="orgCourseInfo-homepage-title" data-bind="text:OrgID() > 0 ? OrgName : '乐评家'"></span>
+				<span class="orgCourseInfo-homepage-comment" data-bind='text:"关注"+UserFavCount(), visible: OrgID() > 0'></span>
+				<span class="orgCourseInfo-homepage-page" data-bind="visible: OrgID() > 0">进入主页<i class="iconfont">&#xe672;</i></span>
 			</div>
 			<div class="orgCourseInfo-introduction">
 				<p class="introduction-font">课程说明：</p>
 				<p class="introduction-content" data-bind='text:Introduce'>
 				</p>
 			</div>
+			<div class="ogrInfo-title-bg orgCouresInfo-mapBg" data-bind="visible: regOrgs.length > 0">
+				<span class="ogrInfo-title-left">可报名机构范围</span>
+			</div>
+			<div class="ogrInfo-map-font orgCouresInfo-mapBg orgCouresInfo-line" data-bind="foreach:{data: regOrgs}, visible: regOrgs.length > 0">
+				<span class="ogrInfo-org orgCouresInfo-span-line" data-bind="text: $data.OrgName"></span>
+			</div>
+
 			<div class="ogrInfo-title-bg orgCouresInfo-mapBg">
-			<span class="ogrInfo-title-left">上课地点</span>
-		</div>
-		<div class="ogrInfo-map-font orgCouresInfo-mapBg orgCouresInfo-line" data-bind='click:sysGuide'>
-			<span class="ogrInfo-map-address">
+				<span class="ogrInfo-title-left">上课地点</span>
+			</div>
+			<div class="ogrInfo-map-font orgCouresInfo-mapBg orgCouresInfo-line" data-bind='click:sysGuide'>
+				<span class="ogrInfo-map-address">
 				<!--ko text:address--> <!--/ko-->
  				<i class="iconfont">&#xe6c6;</i>
 			</span>
-		</div>
+			</div>
 		</div>
 
 		<nav class="mui-bar mui-bar-tab orgCourseInfo-nav" data-bind='visible:!paid(),click:showPay'>
@@ -117,9 +125,9 @@
 				</button>
 			</a>-->
 		</nav>
-		
+
 		<div id="PayBox" style="display: none;"></div>
-		
+
 		<!--分享-->
 		<div id="sharePopover" class="mui-popover share-height">
 			<div class="mui-scroll-wrapper">
@@ -153,4 +161,5 @@
 	<script src="../../script/common/share.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../script/mui/gps.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../script/course/orgCourseInfo.js" type="text/javascript" charset="utf-8"></script>
+
 </html>

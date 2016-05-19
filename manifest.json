@@ -2784,7 +2784,8 @@
 				"refer": [
 					"modules/activity/showSet.html",
 					"modules/activity/activityInfo.html",
-					"modules/home/webModer.html"
+					"modules/home/webModer.html",
+					"modules/my/recharge.html"
 				],
 				"priority": 0
 			},
@@ -4066,7 +4067,8 @@
 					"script/common/base.js",
 					"content/fonts/iconfont.ttf",
 					"content/mui/mui.min.css",
-					"script/libs/knockout/knockout-3.3.0.min.js"
+					"script/libs/knockout/knockout-3.3.0.min.js",
+					"images/free-pay.png"
 				],
 				"refer": [
 					"modules/activity/seatSelect.html"
@@ -4159,7 +4161,9 @@
 					"images/ye.png",
 					"content/fonts/iconfont.ttf",
 					"script/mui/gps.js",
-					"images/free-pay.png"
+					"images/free-pay.png",
+					"script/common/share.js",
+					"images/linkPhoto.png"
 				],
 				"refer": [
 					"modules/org/orgInfo.html",
@@ -4317,7 +4321,8 @@
 					"images/my-default.png",
 					"script/libs/knockout/knockout-3.3.0.min.js",
 					"content/fonts/iconfont.woff",
-					"content/fonts/mui.ttf"
+					"content/fonts/mui.ttf",
+					"images/linkPhoto.png"
 				],
 				"refer": [
 					"modules/org/orgInfo.html",
