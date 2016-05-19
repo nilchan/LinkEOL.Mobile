@@ -1229,7 +1229,13 @@ li {
 	top: 20px;
 }
 .orgInfo-back{
-	left: 15px;
+	left: 0px;
+	top: 0px!important;
+	padding-top: 20px;
+	padding-left: 15px;
+	height: 60px;
+	display: inline-block;
+	width: 80px;
 }
 .orgInfo-share{
 	right: 20px;
@@ -2235,7 +2241,8 @@ li {
 
 /*-----register注册页面开始------*/
 .mui-input-row {
-	height: 44px!important;
+	height: auto!important;
+	overflow: hidden;
 	line-height: 44px!important;
 }
 .mui-input-row label {
@@ -9608,6 +9615,9 @@ li {
 	color: #fff;
 	text-align: right;
 	padding-right: 20px;
+}
+.sharePopover-icon{
+	top: 0px;
 }
 .techerInfo-teacher-mesg {
 	width: 100%;

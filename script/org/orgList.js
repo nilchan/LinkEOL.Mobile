@@ -208,6 +208,9 @@ var orgList = function() {
 				mui('.mui-scroll-wrapper').scroll();
 				document.getElementById('teacher-scroll').style.marginTop = '67px';
 				document.getElementById('teacher-scroll').style.paddingBottom = '50px';
+				document.getElementById('address-box-header').style.height = '59px';
+				document.getElementById('address-box-header').style.paddingTop = '15px';
+				document.getElementById('address-box-content').style.marginTop = '15px';
 			}
 		});
 	}

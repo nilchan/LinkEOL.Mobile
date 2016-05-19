@@ -149,38 +149,15 @@ var viewModel = function() {
 	window.addEventListener('setActive', function(e) {
 		if ( !!e.detail.activePage ) {
 			var activePage=e.detail.activePage;
-			$('#sliderSegmentedControl > .mui-scroll').children().eq(0).removeClass('mui-active').parent().children().eq(activePage).addClass('mui-active');
+			$('#sliderSegmentedControl > .mui-scroll').children().each(function(index){
+				if( index === activePage ) {
+					$(this).addClass('mui-active');
+				} else {
+					$(this).removeClass('mui-active');
+				}
+			});
 			var width = document.body.clientWidth;
-			$('#activity-list-page')[0].style.cssText = 'transform: translate3d(-'+ width * activePage +'px, 0px, 0px) translateZ(0px); transition-duration: 0ms;'; 
-//			var allList = document.getElementsByClassName('mui-control-item activityListStub-control-item');
-//			for (var a = 0; a < allList.length; a++) {
-//				if (allList[a].getAttribute('class') == 'mui-control-item activityListStub-control-item mui-active' && a!=activePage) {
-//					allList[a].setAttribute('class', 'mui-control-item activityListStub-control-item');
-//					allList[activePage].setAttribute('class', 'mui-control-item activityListStub-control-item mui-active');
-//					break;
-//				}
-//			}
-//			var pageList=document.getElementsByClassName('mui-slider-item mui-control-content');
-//			 
-//			for (var i = 0; i < pageList.length; i++) {
-//				if (pageList[i].getAttribute('class') == 'mui-slider-item mui-control-content mui-active' && i!=activePage) {
-//					pageList[i].setAttribute('class', 'mui-slider-item mui-control-content');
-//					pageList[activePage].setAttribute('class', 'mui-slider-item mui-control-content mui-active');
-//					console.log(pageList[activePage].getAttribute('class'));
-//					break;
-//				}
-//			}
-//			for (var a = 0; a < allList.length; a++) {
-//				if (allList[a].getAttribute('class') == 'mui-control-item activityListStub-control-item mui-active' && a!=activePage) {
-//					allList[a].setAttribute('class', 'mui-control-item activityListStub-control-item');
-//					allList[activePage].setAttribute('class', 'mui-control-item activityListStub-control-item mui-active');
-//					break;
-//				}
-//			}
-			/*var thispage=document.getElementById('item2mobile');
-			var pageList=document.querySelector(".mui-slider-group>.mui-active");
-			pageList.classList.remove('mui-atcive');
-			thispage.classList.add('mui-active');*/
+			$('#activity-list-page')[0].style.cssText = 'transform: translate3d(-'+ width * activePage +'px, 0px, 0px) translateZ(0px);-webkit-transform: translate3d(-'+ width * activePage +'px, 0px, 0px) translateZ(0px); transition-duration: 0ms;'; 
 		}
 
 	})

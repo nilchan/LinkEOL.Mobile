@@ -72,7 +72,7 @@
 				text-align: right;
 			}
 			
-			.info-li:after {
+			/*.info-li:after {
 				height: 0!important;
 				background: none!important;
 			}
@@ -83,7 +83,7 @@
 				line-height: 24px!important;
 				margin-top: 26px;
 			}
-			
+			*/
 			.mui-table-view-cell.mui-collapse.mui-active >.info-pic {
 				color: #666;
 				line-height: 24px!important;
@@ -162,6 +162,48 @@
 				width: 100%;
 				text-indent: 2em;
 				line-height: 23px;
+			}
+			.teacherInfo-li{
+				height: 50px;
+				width: 100%;
+				padding-left: 15px;
+				box-sizing: border-box;
+				line-height: 50px;
+				margin-top: 28px;
+				position: relative;
+			}
+			.teacherInfo-li:active{
+				background: #eee;
+			}
+			.teacherInfo-li:after{
+				content: '';
+				height: 1px;
+				width: 204%;
+				left: -52%;
+				top: 0px;
+				position: absolute;
+				background: #C8C7CC;
+				transform: scale(0.5);
+				-webkit-transform: scale(0.5);
+			}
+			.teacherInfo-li:before{
+				content: '';
+				height: 1px;
+				width: 204%;
+				left: -52%;
+				bottom: 0px;
+				position: absolute;
+				background: #C8C7CC;
+				transform: scale(0.5);
+				-webkit-transform: scale(0.5);
+			}
+			.teacherInfo-li i:after{
+				content: '\e6c6';
+				position: absolute;
+				right: 15px;
+				top: 0px;
+				color: #999;
+				font-size: 18px;
 			}
 		</style>
 	</head>
@@ -304,12 +346,10 @@
 				<p class="favUser-introduction-more" data-bind="click: clampText, text: expanded() == false ? '隐藏全文' : '展开全文'">展开全文</p>
 			</div>
 
-			<li class="mui-table-view-cell mui-collapse info-li" data-bind='event:{tap:goUserNews}'>
-				<a class="mui-navigate-right info-pic" href="#">
+				<div class="teacherInfo-li" data-bind='event:{tap:goUserNews}'>
 					<!--ko text:DisplayName--><!--/ko-->的资讯
-				</a>
-			</li>
-
+					<i class="iconfont"></i>
+				</div>
 			<div id="slider" class="mui-slider teacheeInfo-slider">
 				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted teacherInfo-table">
 					<a class="mui-control-item teacheeInfo-item mui-active" href="#item1mobile">
