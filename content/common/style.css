@@ -3110,6 +3110,18 @@ li {
 .worksIndex-footer-div img{
 	display: block;
 }
+/*.worksIndex-footer-div:after{
+	height: 1px;
+	background: #C8C7CC;
+	width: 210%;
+	left: -52%;
+	position: absolute;
+	bottom: 0;
+	transform: scale(0.5);
+	-webkit-transform: scale(0.5);
+	content: '';
+	
+}*/
 .worksIndex-teacher{
 	height: auto;
 	width: 55%;
@@ -10340,6 +10352,50 @@ li {
 	color: #fff;
 }
 @media only screen and (min-width: 415px) and (max-width: 1025px) {	
+	.select-font{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	margin-top: 14%;
+	margin-bottom: 24%;
+	}
+	.select-font img{
+		width: 100%;
+		vertical-align: middle;
+	}
+	.select-icon-box{
+		width: 100%;
+		height: auto;
+		overflow: hidden;
+		text-align: center;
+	}
+	.select-icon{
+	width: 49%;
+	height: 100%;
+	display: inline-block;
+}
+.icon-video-bg{
+	width: 36%;
+	height: 1px;
+	text-align: center;
+	border-radius: 50%;
+	padding-bottom: 36%;
+	display: inline-block;
+	position: relative;
+	background: #f36a91;
+	margin-bottom: 5px;
+}
+	.icon-works-bg{
+	width: 36%;
+	height: 1px;
+	text-align: center;
+	border-radius: 50%;
+	padding-bottom: 36%;
+	display: inline-block;
+	position: relative;
+	background: #66cccc;
+	margin-bottom: 5px;
+}
 	.index-title {
 		width: 8%!important;
 		height: auto;
@@ -10485,10 +10541,10 @@ li {
 	margin-left: 5%;
 	text-align: left;
 	float: left;
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 }
 .index-two-ipad{
-	margin-left: 2%;
+	margin-left: 5%;
 }
 .index-two-ipad1{
 	margin-left: 10%;

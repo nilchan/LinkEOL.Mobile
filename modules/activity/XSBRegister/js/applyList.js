@@ -23,12 +23,14 @@ var applyList = function() {
             success: function(result) {
                 self.scores(JSON.parse(result));
              
-              	self.scores().forEach(function(item){
+              	self.scores().forEach(function(item, index){
 					if( item.IsVoucher && common.StrIsNull(item.Voucher) != '') {
 						var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property='+common.gJsonActivityActProperty.orchestraRecruit+
 							'&targetType='+common.gDictOrderTargetType.RegGame+
 							'&id=' + item.ID + '&sign=' + encodeURIComponent(item.Voucher);
-						self.makeQRCode('qrcode-'+item.ID, 120, 120, tmpUrl);
+						setTimeout(function(){
+							self.makeQRCode('qrcode-'+item.ID, 120, 120, tmpUrl);
+						}, 50*index);
 					}
 				});
 				 common.showCurrentWebview();
