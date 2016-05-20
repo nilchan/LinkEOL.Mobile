@@ -35,25 +35,25 @@
 					<span class="homeWorkGuide-assistant" data-bind="text: $data.Orgs == '' ? '[未绑定]' : $data.Orgs"></span>
 					<u class="homeWorkGuide-next next1"><i class="iconfont">&#xe6c6;</i></u>
 				</div>
-				<div class="homeWorkGuide-box homeWorkGuide-two" data-bind="event:{tap: gotoInstructTeacher}, css: {'homeWorkGuide-notFinished': $data.TeachRelations == ''}">
+				<div class="homeWorkGuide-box homeWorkGuide-two" data-bind="event:{tap: gotoInstructTeacher}, css: {'homeWorkGuide-notFinished': getLocalItem('UserID') > 0 && $data.TeachRelations == ''}">
 					<i class="iconfont">&#xe694;</i>
 					<span class="homeWorkGuide-title">设置授课老师</span>
 					<span class="homeWorkGuide-assistant" data-bind="text: $data.TeachRelations == '' ? '[未设置]' : $data.TeachRelations"></span>
 					<u class="homeWorkGuide-next next2"><i class="iconfont">&#xe6c6;</i></u>
 				</div>
-				<div class="homeWorkGuide-box homeWorkGuide-three" data-bind="event:{tap: gotoAddWorks}, css: {'homeWorkGuide-notFinished': $data.Works == ''}">
+				<div class="homeWorkGuide-box homeWorkGuide-three" data-bind="event:{tap: gotoAddWorks}, css: {'homeWorkGuide-notFinished': getLocalItem('UserID') > 0 && $data.Works == ''}">
 					<i class="iconfont">&#xe6ca;</i>
 					<span class="homeWorkGuide-title">录制视频</span>
 					<span class="homeWorkGuide-assistant" data-bind="text: $data.Works == '' ? '[未有上传视频]' : $data.Works"></span>
 					<u class="homeWorkGuide-next next3"><i class="iconfont">&#xe6c6;</i></u>
 				</div>
-				<div class="homeWorkGuide-box homeWorkGuide-four" data-bind="event:{tap: gotoHomeWork}, css: {'homeWorkGuide-notFinished': $data.Comments != ''}">
+				<div class="homeWorkGuide-box homeWorkGuide-four" data-bind="event:{tap: gotoHomeWork}, css: {'homeWorkGuide-notFinished': getLocalItem('UserID') > 0 && $data.Comments != ''}">
 					<i class="iconfont">&#xe667;</i>
 					<span class="homeWorkGuide-title">提交作业</span>
 					<span class="homeWorkGuide-assistant" data-bind="text: $data.Comments == '' ? '[无未点评作业]' : $data.Comments"></span>
 					<u class="homeWorkGuide-next next4"><i class="iconfont">&#xe6c6;</i></u>
 				</div>
-				<div class="homeWorkGuide-box homeWorkGuide-five" data-bind="event:{tap: gotoMessageList}, css: {'homeWorkGuide-notFinished': $data.Messages != ''}">
+				<div class="homeWorkGuide-box homeWorkGuide-five" data-bind="event:{tap: gotoMessageList}, css: {'homeWorkGuide-notFinished': getLocalItem('UserID') > 0 && $data.Messages != ''}">
 					<i class="iconfont">&#xe6d1;</i>
 					<span class="homeWorkGuide-title">收到作业点评通知</span>
 					<span class="homeWorkGuide-assistant" data-bind="text: $data.Messages == '' ? '[无未读通知]' : $data.Messages"></span>

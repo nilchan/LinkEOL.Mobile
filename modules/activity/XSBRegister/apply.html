@@ -139,6 +139,7 @@
 			
 			#mui-input-row {
 				height: auto!important;
+				overflow: hidden;
 			}
 			
 			.mui-btn-block {
@@ -235,7 +236,7 @@
 					<label>培训机构</label>
 					<input type="text" class=" mui-input reg-mui-input" placeholder="请输入培训机构（选填）" data-bind="value:train" />
 				</div>
-				<div class="mui-input-row reg-mui-input-row th-mui-input-row">
+				<div class="mui-input-row reg-mui-input-row th-mui-input-row" id="mui-input-row">
 					<label>参赛形式</label>
 					<button id='selectUserPicker' class="mui-btn mui-btn-block th-mui-btn-block" type='button' data-bind="text:testStyleText, click:selectTestStyle"></button>
 					

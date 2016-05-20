@@ -1,6 +1,8 @@
 var orgInfo = function() {
 	var self = this;
 	
+	var shareUrl=common.gWebsiteUrl+'modules/org/orgInfo.html?oid=';
+	
 	var maxLines = 2;
 	self.expanded = ko.observable(false);	//是否已展开
 	
@@ -24,6 +26,8 @@ var orgInfo = function() {
 	self.orgToCourseList = ko.observableArray([]); //高考班
 	self.isFav = ko.observable(false);
 	self.favClass = ko.observable('');
+	
+	
 
 	self.getOrgInfo = function() {
 		var ajaxUrl = '';
@@ -87,7 +91,7 @@ var orgInfo = function() {
 		lis[i].onclick = function() {
 			mui('#sharePopover').popover('toggle');
 			plus.nativeUI.showWaiting();
-			//Share.sendShare(this.id, '今天你学习了吗?', '你新高度的启航点', shareUrl + TUserID,self.PhotoUrl());
+			Share.sendShare(this.id, '今天你学习了吗?', '你新高度的启航点', shareUrl + self.ID(),common.getPhotoUrl(self.PhotoUrl()));
 
 		};
 	}
@@ -182,6 +186,7 @@ var orgInfo = function() {
 	}
 
 	mui.plusReady(function() {
+		Share.updateSerivces(); 
 		var thiWeb = plus.webview.currentWebview();
 		if (typeof thiWeb.oid !== 'undefined') {
 			self.ID(thiWeb.oid);

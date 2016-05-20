@@ -1452,7 +1452,7 @@ li {
 	color: #666;
 	text-indent: 2em;
 	font-size: 14px;
-	width: 100%;
+	width: 96%;
 	display: inline-block;
 	height: 100%;
 	line-height: 44px;
@@ -1464,11 +1464,11 @@ li {
 	padding-right: 15px;
 	box-sizing: border-box;
 }
-.ogrInfo-map-address i{
+.ogrInfo-map-address-i{
 	position: absolute;
 	color: #666;
 	font-size: 16px;
-	top:0px;
+	top:-3px;
 	right: 15px;
 }
 .ogrInfo-map-address:active{
@@ -2243,8 +2243,7 @@ li {
 
 /*-----register注册页面开始------*/
 .mui-input-row {
-	height: auto!important;
-	overflow: hidden;
+	height: 44px!important;
 	line-height: 44px!important;
 }
 .mui-input-row label {

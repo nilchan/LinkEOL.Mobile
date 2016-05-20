@@ -1024,7 +1024,7 @@
 					plus.maps.openSysMap(new plus.maps.Point(a.coord.longitude, a.coord.latitude), address, new plus.maps.Point(e.coords.longitude, e.coords.latitude));
 				}, function(geoError) {
 					plus.nativeUI.closeWaiting();
-					mui.alert(JSON.stringify(geoError), '', '确定');
+					//mui.alert(JSON.stringify(geoError), '', '确定');
 				})
 			}, function(locationError) {
 				plus.nativeUI.closeWaiting();

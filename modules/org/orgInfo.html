@@ -108,7 +108,7 @@
 	<body>
 		<div class="orgInfo-header-box">
 			<i class="iconfont orgInfo-back mui-action-back">&#xe683;</i>
-			<!--<a href="#sharePopover"><i class="iconfont orgInfo-share">&#xe670;</i></a>-->
+			<a href="#sharePopover"><i class="iconfont orgInfo-share">&#xe670;</i></a>
 			<div class="orgInfo-logo-box">
 				<div class="orgInfo-logo">
 					<img data-bind='attr:{src:common.getPhotoUrl(PhotoUrl())}' onerror="this.src='../../images/logo-pic.png';" />
@@ -188,12 +188,11 @@
 		<div class="ogrInfo-title-bg">
 			<span class="ogrInfo-title-left">地理位置</span>
 		</div>
-		<div class="ogrInfo-map-font">
-			<!--<a href="http://m.amap.com/?pid=B0FFFAB6J2">-->
+		<div class="ogrInfo-map-font" style="position: relative;">
 			<span class="ogrInfo-map-address" data-bind='click:sysGuide'>
 				<!--ko text:Address--><!--/ko-->
- 				<i class="iconfont">&#xe6c6;</i>
 			</span>
+			 	<i class="iconfont ogrInfo-map-address-i">&#xe6c6;</i>
 			</a>
 			<div id="mapdiv"></div>
 		</div>
