@@ -304,3 +304,13 @@ var PayBox = function(id, deep, payJson, textJson, vipDiscount, payAction) {
 		self.hide();
 	});
 };
+
+
+/**
+ * 刷新余额（必须在js中有getBalance这个方法）
+ */
+window.addEventListener('refeshBalance', function(event) {
+	if(typeof self.getBalance != 'undefined'){
+		self.getBalance();
+	}
+});

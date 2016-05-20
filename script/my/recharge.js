@@ -122,7 +122,7 @@ var recharge = function() {
 			});
 	}
 	
-	 mui.plusReady(function(){
+	mui.plusReady(function(){
 	 	var web = plus.webview.currentWebview();
 		if (typeof(web.order) !== "undefined") {
 			orderID = web.order.ID;
@@ -132,7 +132,7 @@ var recharge = function() {
 	 	self.getBalance();
 	 	
 	 	payBox.selectPay(self.PayType());
-	 });
+	});
 	
 	mui.init({
 		beforeback: function() {

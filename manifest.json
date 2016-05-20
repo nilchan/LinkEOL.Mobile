@@ -2547,10 +2547,12 @@
 					"content/fonts/iconfont.svg",
 					"images/my-bg.png",
 					"images/video-big-default.png",
-					"images/ali.png"
+					"images/ali.png",
+					"images/free-pay.png"
 				],
 				"refer": [
-					"modules/exam/examEnrollList.html"
+					"modules/exam/examEnrollList.html",
+					"modules/my/recharge.html"
 				],
 				"priority": 0
 			},

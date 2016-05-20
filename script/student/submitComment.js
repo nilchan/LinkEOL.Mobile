@@ -80,6 +80,7 @@ var submitComment = function() {
 		if (self.isHomeWork()) {
 			url = common.gServerUrl + 'API/AccountDetails/GetUserAmount2?UserID=' + getLocalItem('UserID');
 		}
+		//console.log(url);
 		mui.ajax(url, {
 			type: 'GET',
 			success: function(responseText) {
@@ -234,11 +235,6 @@ var submitComment = function() {
 				}, false, false);
 			});
 	};
-
-	//刷新余额
-	window.addEventListener('refeshBalance', function(event) {
-		self.getBalance();
-	});
 
 	//刷新老师
 	window.addEventListener('refreshTeacher', function(event) {

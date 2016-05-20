@@ -209,67 +209,9 @@
 				
 			</div>
 		</div>
-		<div id="middlePopover" class="mui-popover examEnroll-top">
-					<div class="mui-scroll-wrapper">
-						<div class="mui-scroll submitClass-mui-scroll Lesson-mui">
-							<div class="mui-scroll-title">
-								<i class="iconfont" data-bind="click:closePopover">&#xe63f;</i>
-								<span>付款详情</span>
-							</div>
-							<ul>
-								<form class="mui-input-group addCourse-form">
-									<div class="mui-input-row mui-radio mui-left Lesson-radio">
-										<label>
-											<li class="wx-pay">
-												<img src="../../images/submitClass-wx.png" />
-												<span class="wx-pay-default">微信支付</span>
-												<input name="payType" value="wxpay" type="radio" data-bind="event:{change: checkPayType}" checked="checked">
-											</li>
-										</label>
-									</div>
-									<div class="mui-input-row mui-radio mui-left Lesson-radio ">
-										<label>
-											<li class="wx-pay">
-												<img src="../../images/ali.png" />
-												<span class="wx-pay-default">支付宝</span>
-												<input name="payType" value="alipay" type="radio" data-bind="event:{change: checkPayType}">
-											</li>
-										</label>
-									</div>
-									<div class="mui-input-row mui-radio mui-left Lesson-radio">
-										<label>
-											<li class="wx-pay">
-												<img src="../../images/ye.png" />
-												<span class="wx-pay-default">余额支付
-													<!--ko text: '( ￥ ' + balance() + ' )'-->
-													(￥120.00)
-													<!--/ko-->
-												</span>
-												<!--<span class="wx-pay-favorable">享受8.5折</span>-->
-												<input name="payType" value="balance" type="radio" data-bind="event:{change: checkPayType}">
-											</li>
-										</label>
-									</div>
-									<!--<div class="mui-input-row mui-radio mui-left Lesson-radio">
-								<label>
-									<li class="wx-pay">
-										<img src="../../images/submitClass-zf.png" />
-										<span>支付宝</span>
-										<input name="payType" value="alipay" type="radio" data-bind="event:{change: checkPayType}">
-									</li>
-								</label>
-							</div>-->
-									<li class="lineHeight">
-										总额：￥
-										<!--ko text: ExamFee-->
-										<!--/ko-->
-									</li>
-								</form>
-							</ul>
-							<button class="p-btn-color" data-bind="click: gotoPay">去付款</button>
-						</div>
-					</div>
-				</div>
+		
+		<div id="PayBox" style="display: none;"></div>
+
 		<script src="../../script/mui/mui.js"></script>
 		<script src="../../script/mui/mui.picker.min.js"></script>
 		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>

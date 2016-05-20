@@ -1,3 +1,16 @@
+var payBox = new PayBox('PayBox', 2, {
+		"wxpay": "true",
+		"alipay": "true",
+		"balance": "true",
+		"free": "false"
+	}, {
+		"discountText": "ko.observable('无折扣')",
+		"balanceText": "balance",
+		"freeTimesText": "ko.observable(0)",
+		"pricePay": "ExamFee",
+		"price": "ExamFee"
+	}, true, 'gotoPay');
+
 var examEnroll = function() {
 	var self = this;
 	
@@ -28,13 +41,14 @@ var examEnroll = function() {
 	//考级订单信息
 	//self.examAmount=ko.observable(0);//考评价格
 	self.PayType = ko.observable('wxpay'); //默认为微信支付
-	self.checkPayType = function() {
-		PayType(event.srcElement.value);
+	self.checkPayType = function(value) {
+		PayType(value);
+		console.log(self.PayType());
 	}
+	payBox.changePay(self.checkPayType);
 
 	//保存报名信息
 	self.saveEnroll = function() {
-		//mui('#middlePopover').popover('toggle');
 		if (common.StrIsNull(self.UserName()) == "") {
 			mui.toast("姓名不能为空");
 			return;
@@ -130,7 +144,7 @@ var examEnroll = function() {
 					var btnArray = ['是', '否'];
 					mui.confirm('是否在线缴纳报名费', '报名信息保存成功', btnArray, function(e) {
 						if (e.index == 0) {
-							mui('#middlePopover').popover('toggle');
+							payBox.show();
 						} else {
 							common.transfer('examEnrollList.html', true, {
 								examid: self.ExamID()
@@ -143,16 +157,10 @@ var examEnroll = function() {
 				}
 			})
 		} else {
-			mui('#middlePopover').popover('toggle');
+			payBox.show();
 			common.setEnabled(evt);
 		}
 
-	}
-
-	//关闭支付界面
-	self.closePopover = function() {
-		mui('#middlePopover').popover("hide");
-		common.setEnabled(event);
 	}
 
 	window.addEventListener('disableReset', function() {
@@ -364,6 +372,8 @@ var examEnroll = function() {
 		if (typeof(thiswebview.fromList) != "undefined") {
 			self.fromList(true);
 		}
+		
+		payBox.selectPay(self.PayType());
 	})
 
 	var old_back = mui.back;
