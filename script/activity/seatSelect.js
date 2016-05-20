@@ -213,6 +213,11 @@ var seatSelect = function() {
 
 	//获取余额
 	self.getBalance = function() {
+		if(common.hasLogined() == false){
+			common.showCurrentWebview();
+			return;
+		}
+		
 		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount2?UserID=' + getLocalItem('UserID');
 		mui.ajax(url, {
 			type: 'GET',

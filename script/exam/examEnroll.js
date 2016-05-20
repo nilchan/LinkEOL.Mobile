@@ -169,6 +169,11 @@ var examEnroll = function() {
 
 	//获取余额
 	self.getBalance = function() {
+		if(common.hasLogined() == false){
+			common.showCurrentWebview();
+			return;
+		}
+		
 		var url = common.gServerUrl + 'API/AccountDetails/GetUserAmount?UserID=' + getLocalItem('UserID');
 		mui.ajax(url, {
 			type: 'GET',
