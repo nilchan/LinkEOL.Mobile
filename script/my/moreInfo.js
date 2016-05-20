@@ -38,6 +38,13 @@ var moreInfo = function() {
 			isGetStudent: false
 		}, false, false);
 	}
+	self.qrcodeEvent = function() { //扫一扫
+		if (UserID > 0) {
+			common.transfer("qrcodeEvent.html", false, {}, false, false);
+		} else {
+			mui.toast("亲~登录后才能扫一扫哦")
+		}
+	}
 	self.quitLogin = function() {
 		//退出登录
 		if (getLocalItem('UserID') < 0 || getLocalItem('UserID') == "") {

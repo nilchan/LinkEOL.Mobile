@@ -86,7 +86,7 @@
 			</div>
 			<div class="orgCourseInfo-homepage-box" data-bind="click: OrgID() > 0 ? goOrg : ''">
 				<div class="orgCourseInfo-homepage-logo">
-					<img data-bind="attr:{src: OrgID() > 0 ? common.getPhotoUrl(Photo) : '../../images/linkPhoto.png'}" onerror="this.src='../../images/logo-pic.png';" />
+					<img data-bind="attr:{src: OrgID() > 0 ? Photo : '../../images/linkPhoto.png'}" onerror="this.src='../../images/logo-pic.png';" />
 				</div>
 				<span class="orgCourseInfo-homepage-title" data-bind="text:OrgID() > 0 ? OrgName : '乐评家'"></span>
 				<span class="orgCourseInfo-homepage-comment" data-bind='text:"关注"+UserFavCount(), visible: OrgID() > 0'></span>
@@ -94,8 +94,8 @@
 			</div>
 			<div class="orgCourseInfo-introduction">
 				<p class="introduction-font">课程说明：</p>
-				<p class="introduction-content" data-bind='html:Introduce'>
-				</p>
+				<div class="introduction-content" data-bind='html:Introduce'>
+				</div>
 			</div>
 			<div class="ogrInfo-title-bg orgCouresInfo-mapBg" data-bind="visible: regOrgs.length > 0">
 				<span class="ogrInfo-title-left">可报名机构范围</span>

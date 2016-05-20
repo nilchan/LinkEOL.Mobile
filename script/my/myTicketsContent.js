@@ -30,12 +30,14 @@ var myTicketsContent = function() {
 			self.getTickets(function(responseText) {
 				var result = JSON.parse(responseText);
 				self.ticketsArray(result);
-				self.ticketsArray().forEach(function(item) {
+				self.ticketsArray().forEach(function(item, index) {
 					if (item.IsOnLine && common.StrIsNull(item.Voucher) != '') {
-						var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property='+common.gJsonActivityActProperty.concert+
-							'&targetType='+common.gDictOrderTargetType.Ticket+
+						var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.concert +
+							'&targetType=' + common.gDictOrderTargetType.Ticket +
 							'&id=' + item.TicketId + '&sign=' + encodeURIComponent(item.Voucher);
-						self.makeQRCode('qrcode-'+item.TicketId+'-'+item.Id, 120, 120, tmpUrl);
+						setTimeout(function() {
+							self.makeQRCode('qrcode-' + item.TicketId + '-' + item.Id, 120, 120, tmpUrl);
+						}, 50 * index);
 					}
 				});
 			});
@@ -50,12 +52,14 @@ var myTicketsContent = function() {
 				if (responseText && responseText.length > 0) {
 					var result = JSON.parse(responseText);
 					self.ticketsArray(self.ticketsArray().concat(result));
-					result.forEach(function(item) {
+					result.forEach(function(item, index) {
 						if (item.IsOnLine && common.StrIsNull(item.Voucher) != '') {
-							var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property='+common.gJsonActivityActProperty.concert+
-								'&targetType='+common.gDictOrderTargetType.Ticket+
+							var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.concert +
+								'&targetType=' + common.gDictOrderTargetType.Ticket +
 								'&id=' + item.TicketId + '&sign=' + encodeURIComponent(item.Voucher);
-							self.makeQRCode('qrcode-'+item.TicketId+'-'+item.Id, 120, 120, tmpUrl);
+							setTimeout(function() {
+								self.makeQRCode('qrcode-' + item.TicketId + '-' + item.Id, 120, 120, tmpUrl);
+							}, 50 * index);
 						}
 					});
 
@@ -105,14 +109,16 @@ var myTicketsContent = function() {
 		self.getTickets(function(responseText) {
 			var result = JSON.parse(responseText);
 			self.ticketsArray(result);
-			console.log(JSON.stringify(self.ticketsArray()));
-			self.ticketsArray().forEach(function(item) {
+			//console.log(JSON.stringify(self.ticketsArray()));
+			self.ticketsArray().forEach(function(item, index) {
 				if (item.IsOnLine && common.StrIsNull(item.Voucher) != '') {
-					var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property='+common.gJsonActivityActProperty.concert+
-						'&targetType='+common.gDictOrderTargetType.Ticket+
+					var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.concert +
+						'&targetType=' + common.gDictOrderTargetType.Ticket +
 						'&id=' + item.TicketId + '&sign=' + encodeURIComponent(item.Voucher);
-					console.log(tmpUrl);
-					self.makeQRCode('qrcode-'+item.TicketId+'-'+item.Id, 120, 120, tmpUrl);
+					//console.log(tmpUrl);
+					setTimeout(function() {
+						self.makeQRCode('qrcode-' + item.TicketId + '-' + item.Id, 120, 120, tmpUrl);
+					}, 50 * index);
 				}
 			});
 

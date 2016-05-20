@@ -21,6 +21,7 @@ var orgCourseList = function() {
 		if (district !== '全城') {
 			ajaxUrl += "&district=" + encodeURI(district);
 		}
+		ajaxUrl+='&onlyPublic=true';
 		ajaxUrl += '&keyword=' + keyword;
 		return ajaxUrl;
 	};

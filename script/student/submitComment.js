@@ -229,10 +229,11 @@ var submitComment = function() {
 				orderID = newOrderID;
 			},
 			function() {
-				//mui.back();
-				common.transfer('../works/WorksDetails.html', true, {
+				mui.back();
+				/*common.transfer('../works/WorksDetails.html', true, {
 					works: self.works()
-				}, false, false);
+				}, false, false);*/
+				
 			});
 	};
 
@@ -254,6 +255,16 @@ var submitComment = function() {
 			clamp: para
 		});
 		self.expanded(!self.expanded());
+	}
+	
+	var old_back=mui.back;
+	mui.back=function(){
+		if(web.opener().id=='teacherListID'){
+			mui.fire(web.opener(),'backUp');
+			old_back();
+		}else{
+			old_back();
+		}
 	}
 
 	mui.plusReady(function() {
@@ -298,6 +309,6 @@ var submitComment = function() {
 		self.getBalance();
 		payBox.selectPay(self.PayType());
 	});
-
+	
 }
 ko.applyBindings(submitComment);

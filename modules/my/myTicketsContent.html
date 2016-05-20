@@ -96,32 +96,34 @@
 	<body>
 		<div class="mui-content">
 			<div id='pullrefresh' class="mui-scroll-wrapper">
-				<div class="openedCourses-ys" data-bind="visible:ticketsArray().length <= 0">
-					<i>
+				<div class="mui-scroll">
+					<div class="openedCourses-ys" data-bind="visible:ticketsArray().length <= 0">
+						<i>
 						<img src="../../images/logo-pic.png" />
 					</i>
-					<span>还没有购买过票~</span>
-					<!--<div class="mui-content-padded">
+						<span>还没有购买过票~</span>
+						<!--<div class="mui-content-padded">
 						<button type="button" class="mui-btn mui-btn-block mui-btn-primary th-btn th-mui-f p-btn-color p-btn-padding" data-bind="click: selectImage">添加照片</button>
 					</div>-->
-				</div>
+					</div>
 
-				<div class="mui-scroll" data-bind='foreach:{data:ticketsArray},visible:ticketsArray().length >0'>
-					<div class="myTickets-content">
-						<div class="myTickets-con">
-							<p class="myTickets-title" data-bind='text:Title'></p>
-							<p class="myTickets-subhead" data-bind='text:PlaceName'></p>
-							<p class="myTickets-subhead" data-bind='text:SeatName,visible:IsOnLine=="true"'>A区　4排15座 　一等座 </p>
-							<div data-bind="foreach:common.transforArray(SeatName),visible:IsOnLine =='false'">
-								<p class="myTickets-subhead" data-bind='text:$data'></p>
+					<div data-bind='foreach:{data:ticketsArray},visible:ticketsArray().length >0'>
+						<div class="myTickets-content">
+							<div class="myTickets-con">
+								<p class="myTickets-title" data-bind='text:Title'></p>
+								<p class="myTickets-subhead" data-bind='text:PlaceName'></p>
+								<p class="myTickets-subhead" data-bind='text:SeatName,visible:IsOnLine=="true"'>A区　4排15座 　一等座 </p>
+								<div data-bind="foreach:common.transforArray(SeatName),visible:IsOnLine =='false'">
+									<p class="myTickets-subhead" data-bind='text:$data'></p>
+								</div>
+								<p class="myTickets-time" data-bind='text:Times'></p>
+								<div class="used-img" data-bind="visible:IsUse=='true'">
+									<img src="../../images/used.png" />
+								</div>
 							</div>
-							<p class="myTickets-time" data-bind='text:Times'></p>
-							<div class="used-img" data-bind="visible:IsUse=='true'">
-								<img src="../../images/used.png" />
+							<div class="myTickets-ewm" data-bind="attr:{'id': 'qrcode-'+TicketId+'-'+Id},visible:IsOnLine=='true'">
+								<!--<img src="../../images/ewm.png" />-->
 							</div>
-						</div>
-						<div class="myTickets-ewm" data-bind="attr:{'id': 'qrcode-'+TicketId+'-'+Id},visible:IsOnLine=='true'">
-							<!--<img src="../../images/ewm.png" />-->
 						</div>
 					</div>
 				</div>

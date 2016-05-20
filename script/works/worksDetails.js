@@ -17,6 +17,8 @@ var player = null;
 function hidePlayer() {
 	document.getElementById("videoBuy").style.display = "block";
 	document.getElementById("videoPos").style.display = "none";
+	var child=document.getElementById("videoPos");
+	child.parentNode.removeChild(child);
 }
 
 function s2j_onPlayOver() {
@@ -615,7 +617,8 @@ var worksDetails = function() {
 						'height': height,
 						'vid': work.VidPolyvPreview,
 						'ts': ts,
-						'sign': hash
+						'sign': hash,
+						'beta_test': 'on'
 					});
 				}
 			},

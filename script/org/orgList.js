@@ -83,6 +83,7 @@ var orgList = function() {
 			type: 'GET',
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
+				//console.log(responseText);
 				initResult(result);
 				if (singleSelect) {
 					onceFun(result[0]);
@@ -225,6 +226,7 @@ var orgList = function() {
 				callback: pulldownRefresh
 			},
 			up: {
+				contentdown:decodeURI(encodeURI("上拉显示更多")),
 				contentrefresh: common.gContentRefreshUp,
 				contentnomore: common.gContentNomoreUp,
 				callback: pullupRefresh

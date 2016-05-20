@@ -8866,7 +8866,6 @@ li {
 	margin-right: 3px;
 	background: url(../../images/VIP.png) no-repeat;
 	background-size: cover;
-	
 }
 .free-box{
 	height: 16px;
@@ -8877,9 +8876,9 @@ li {
 	display: inline-block; float: left; 
 }
 .discount-box{
-	height: 16px;
+	height: 17px;
 	background: url(../../images/discount.png) no-repeat;
-	width: 35px;
+	width: 53px;
 	background-size: cover;
 	margin-right: 3px;
 	display: inline-block; float: left; 
@@ -10352,6 +10351,26 @@ li {
 	color: #fff;
 }
 @media only screen and (min-width: 415px) and (max-width: 1025px) {	
+	.orgCourseApplyList-orgLogo{
+	width: 6%;
+	border-radius: 50%;
+	float: left;
+	border: 1px solid #C8C7CC;
+}
+.orgCourseApplyList-orgLogo img{
+	width: 100%;
+	border-radius: 50%;
+	vertical-align: middle;
+}
+.orgCourseApplyList-orgName {
+				    float: left;
+				    color: #999;
+				    font-size: 14px;
+				    position: absolute;
+				    left: 7.6%;
+				    top: 50%;
+				    margin-top:12px;
+			}
 	.select-font{
 	width: 100%;
 	height: auto;
@@ -10543,6 +10562,61 @@ li {
 	float: left;
 	/*margin-top: 10px;*/
 }
+.teacher-list-check {
+	position: absolute;
+	right: 35px;
+	top: 50%;
+	width: 6%!important;
+	margin-top: -3%;
+	display: inline-block;  accelerator: ;
+	z-index: 9;
+}
+#PayBox .discount-lineHeight{
+	line-height: 15px;
+	font-size: 15px;
+	color: #666;
+	width:90%;
+	float: left;
+	margin-top: -3px;
+	display: inline-block;
+	margin-left: 12px;
+}
+.ogrInfo-title {
+		position: absolute;
+		left: 24%;
+		color: #fff;
+		top: 33%;
+		font-size: 17px;
+		}
+.ogrInfo-address {
+		position: absolute;
+		left: 24%;
+		color: #fff;
+		bottom: 15%;
+		font-size: 13px;
+		}
+.shareTeacher-pic ul li img {
+		height: 3rem;
+		width: 3rem;
+				}
+.ogrInfo-attention{
+	height: 30px;
+	width: 58px;
+	background: #fff;
+	border-radius: 5px;
+	line-height: 30px;
+	text-align: center;
+	color: #e64578;
+	font-size: 12px;
+	position: absolute;
+	right: 15px;
+	top: 33%;
+}
+/*.orgInfo-VIP-box{
+	left: 24%;
+	top: 8%;
+	position: absolute;
+}*/
 .index-two-ipad{
 	margin-left: 5%;
 }

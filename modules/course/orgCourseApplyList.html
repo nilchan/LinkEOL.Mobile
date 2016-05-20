@@ -33,27 +33,29 @@
 			<h1 class="mui-title">课程报名列表</h1>
 		</header>
 		<div class="mui-content orgCourseApplyList-content">
-			<div id="pullrefresh" class="mui-scroll-wrapper" style="top: 60px">
-				<div class="openedCourses-ys" data-bind="visible:couresList().length <= 0">
-					<i>
+			<div class="mui-scroll-wrapper" style="top: 60px" id="pullrefresh">
+				<div class="mui-scroll">
+					<div class="openedCourses-ys" data-bind="visible:couresList().length <= 0">
+						<i>
 						<img src="../../images/logo-pic.png" />
 					</i>
-					<span>还没有报过课程呢~</span>
-				</div>
+						<span>还没有报过课程呢~</span>
+					</div>
 
-				<div class="mui-scroll" data-bind='visible:couresList().length >0'>
-					<ul class="mui-table-view" data-bind='foreach:couresList'>
-						<li class="mui-table-view-cell orgCourseApplyList-li" data-bind='click:goCalssDetail'>
-							<div class="orgCourseApplyList-box">
-								<div class="orgCourseApplyList-logo">
-									<img  onerror="this.src='../../images/logo-pic.png';" data-bind='attr:{src:common.getPhotoUrl(Photo)}'/>
+					<div data-bind='visible:couresList().length >0'>
+						<ul class="mui-table-view" data-bind='foreach:couresList'>
+							<li class="mui-table-view-cell orgCourseApplyList-li" data-bind='click:goCalssDetail'>
+								<div class="orgCourseApplyList-box">
+									<div class="orgCourseApplyList-logo">
+										<img onerror="this.src='../../images/logo-pic.png';" data-bind='attr:{src:common.getPhotoUrl(Photo)}' />
+									</div>
+									<span class="orgCourseApplyList-title" data-bind='text:CourseName'></span>
+									<span class="orgCourseApplyList-time" data-bind='text:AddTime'></span>
+									<span class="orgCourseApplyList-apply" data-bind='text:IsFinish?"已完成":"未完成"'></span>
 								</div>
-								<span class="orgCourseApplyList-title" data-bind='text:CourseName'></span>
-								<span class="orgCourseApplyList-time" data-bind='text:AddTime'></span>
-								<span class="orgCourseApplyList-apply" data-bind='text:IsFinish?"已完成":"未完成"'></span>
-							</div>
-						</li>
-					</ul>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -40,7 +40,7 @@ var orgInfo = function() {
 			type: 'GET',
 			success: function(responseText) {
 				var result = JSON.parse(responseText);
-				console.log(JSON.stringify(result));
+				//console.log(JSON.stringify(result));
 				self.OrgName(result.TbOrg.OrgName);
 				self.Abbreviation(result.TbOrg.Abbreviation);
 				self.Introduce(result.TbOrg.Introduce);
@@ -54,6 +54,7 @@ var orgInfo = function() {
 				self.Lat(result.TbOrg.Lat);
 				self.photoList(result.PhotoList.length > 4 ? result.PhotoList.slice(0, 4) : result.PhotoList);
 				self.regLecturesList(result.RegLecturesList);
+				console.log(JSON.stringify(self.regLecturesList()))
 				self.orgToCourseList(result.OrgToCourseList);
 				//console.log(JSON.stringify(result.OrgToCourseList));
 				self.OrgUserID(result.TbOrg.UserID);

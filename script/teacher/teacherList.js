@@ -359,6 +359,12 @@ var viewModel = function() {
 		refreshPull();
 
 	})
+	
+	//提交点评回到此页面立即返回
+	window.addEventListener('backUp', function(event) {
+		mui.back();
+	})
+	
 
 	//刷新关注
 	window.addEventListener('refreshFav', function(event) {

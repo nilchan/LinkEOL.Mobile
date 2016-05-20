@@ -114,7 +114,7 @@
 					<img data-bind='attr:{src:common.getPhotoUrl(PhotoUrl())}' onerror="this.src='../../images/logo-pic.png';" />
 				</div>
 				<span class="ogrInfo-title" data-bind='text:OrgName'>辰星音乐培训机构</span>
-				<span class="ogrInfo-address">
+				<span class="ogrInfo-address" >
 					<!--省市区-->
 					<!--ko text:Province-->
 					<!--/ko--><!--ko text:(common.StrIsNull(City())==''?'':'·'+City())-->
@@ -147,7 +147,7 @@
 				<li class="mui-table-view-cell orgList-li orgInfo-li" data-bind='click:regLectures'>
 					<div class="orgInfo-class">
 						<div class="orgInfo-class-photo">
-							<img data-bind='attr:{src:common.getPhotoUrl(Thumbnail)}' onerror="this.src='../../images/logo-pic.png';" />
+							<img data-bind='attr:{src:common.getPhotoUrl2(Thumbnail)}' onerror="this.src='../../images/logo-pic.png';" />
 							
 						</div>
 						<div class="activity-right-box orgInfo-VIP-box">
@@ -180,7 +180,7 @@
 							<span data-bind="text:'限'+RegStudent+'人'"></span>
 							<em class="orgInfo-pay" data-bind="text:'￥'+Amount"></em>
 						</p>
-						<p class="orgInfo-class-address" data-bind='text:Introduce'>11</p>
+						<p class="orgInfo-class-address" data-bind='text:CourseAbout'>11</p>
 					</div>
 				</li>
 			</ol>

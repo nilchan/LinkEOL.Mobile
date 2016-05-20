@@ -20,6 +20,7 @@ var orgCourseApplyList=function(){
 		pullRefresh: {
 			container: '#pullrefresh',
 			up: {
+				contentdown:decodeURI(encodeURI("上拉显示更多")),
 				contentrefresh:'努力加载中...',
 				contentnomore:'没有更多数据了',
 				callback: pullupRefresh

@@ -70,7 +70,8 @@ var orgCourseInfo = function() {
 				self.NowRegStudent(result.NowRegStudent);
 				self.OrgName(result.OrgName);
 				self.UserFavCount(result.UserFavCount);
-				self.Photo(result.Photo);
+				if (common.StrIsNull(result.Photo) != '')
+					self.Photo(common.getPhotoUrl(result.Photo));
 				self.address(result.Address);
 				self.city(result.City);
 				if(common.StrIsNull(result.RegOrgJson) != '')
@@ -122,7 +123,7 @@ var orgCourseInfo = function() {
 		lis[i].onclick = function() {
 			mui('#sharePopover').popover('toggle');
 			plus.nativeUI.showWaiting();
-			Share.sendShare(this.id, self.CourseName(), self.CourseAbout(), shareUrl + self.ID() , common.getPhotoUrl(self.Photo()));
+			Share.sendShare(this.id, self.CourseName(), self.CourseAbout(), shareUrl + self.ID() ,self.Photo());
 
 		};
 	}

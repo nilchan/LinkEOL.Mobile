@@ -134,9 +134,9 @@
 				},
 				"push": {
 					"igexin": {
-						"appid": "lF4qzFcxnw79mDhUKTc057",
-						"appkey": "IF6Szqlsbi8JsUQbABDrYA",
-						"appsecret": "xJQCCFnt2e9lMkjhhxP6E6"
+						"appid": "1Pr9L0qEjW7Okk0YYqdI03",
+						"appkey": "gGCspILMRm5fIMRoJDHxX8",
+						"appsecret": "Wz9LARf0Fn8uB8aAIjD3G3"
 					}
 				},
 				"payment": {
@@ -887,7 +887,8 @@
 					"modules/my/myTeacherList.html",
 					"modules/my/teacherAuth.html",
 					"modules/home/userGuide.html",
-					"modules/my/moreInfo.html"
+					"modules/my/moreInfo.html",
+					"modules/my/qrcodeEvent.html"
 				],
 				"priority": 0
 			},
@@ -3587,7 +3588,8 @@
 					"content/fonts/iconfont.eot",
 					"content/fonts/iconfont.svg",
 					"images/my-bg.png",
-					"images/video-big-default.png"
+					"images/video-big-default.png",
+					"images/logo-pic.png"
 				],
 				"refer": [
 					"modules/activity/XSBRegister/apply.html"
