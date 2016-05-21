@@ -4,6 +4,7 @@ var myTicketsContent = function() {
 	var readPage = 1;
 
 	self.ticketsArray = ko.observableArray([]);
+	self.noData = ko.observable(false);
 
 	mui.init({
 		//刷新控件
@@ -30,6 +31,8 @@ var myTicketsContent = function() {
 			self.getTickets(function(responseText) {
 				var result = JSON.parse(responseText);
 				self.ticketsArray(result);
+				self.noData(self.ticketsArray().length <= 0);
+			
 				self.ticketsArray().forEach(function(item, index) {
 					if (item.IsOnLine && common.StrIsNull(item.Voucher) != '') {
 						var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.concert +
@@ -52,6 +55,8 @@ var myTicketsContent = function() {
 				if (responseText && responseText.length > 0) {
 					var result = JSON.parse(responseText);
 					self.ticketsArray(self.ticketsArray().concat(result));
+					self.noData(self.ticketsArray().length <= 0);
+					
 					result.forEach(function(item, index) {
 						if (item.IsOnLine && common.StrIsNull(item.Voucher) != '') {
 							var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.concert +
@@ -101,6 +106,9 @@ var myTicketsContent = function() {
 				if (typeof callback == 'function') {
 					callback(responseText);
 				}
+			},
+			error: function(){
+				self.noData(self.ticketsArray().length <= 0);
 			}
 		})
 	}
@@ -109,7 +117,8 @@ var myTicketsContent = function() {
 		self.getTickets(function(responseText) {
 			var result = JSON.parse(responseText);
 			self.ticketsArray(result);
-			//console.log(JSON.stringify(self.ticketsArray()));
+			self.noData(self.ticketsArray().length <= 0);
+			
 			self.ticketsArray().forEach(function(item, index) {
 				if (item.IsOnLine && common.StrIsNull(item.Voucher) != '') {
 					var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property=' + common.gJsonActivityActProperty.concert +

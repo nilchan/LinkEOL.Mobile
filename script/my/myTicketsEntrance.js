@@ -4,7 +4,7 @@ var myTicketsEntrance=function(){
 	//我的购票
 	self.goMyTicket=function(){
 		common.transfer('myTicketsHeader.html',true,{
-		},false,false);
+		},false,true);
 	}
 	
 	//赛事报名

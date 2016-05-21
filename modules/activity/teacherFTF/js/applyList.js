@@ -4,6 +4,7 @@ var applyList = function() {
     self.hasActivity = ko.observable(false);
 	
     self.scores = ko.observableArray([]);
+	self.noData = ko.observable(false);
 	
 	//生成二维码
     self.makeQRCode = function(id, w, h, code) {
@@ -23,6 +24,7 @@ var applyList = function() {
             success: function(result) {
             	//console.log(result);
                 self.scores(JSON.parse(result));
+				self.noData(self.scores().length <= 0);
 				self.scores().forEach(function(item, index){
 					if( item.IsVoucher && common.StrIsNull(item.Voucher) != '') {
 						var tmpUrl = common.gWebsiteUrl + 'mobile/modules/activity/verifyInfo.html?property='+common.gJsonActivityActProperty.teacherLectures+
@@ -34,9 +36,9 @@ var applyList = function() {
 					}
 				});
                 common.showCurrentWebview();
-                
             },
             error: function(){
+				self.noData(self.scores().length <= 0);
             	common.showCurrentWebview();
             }
         });
