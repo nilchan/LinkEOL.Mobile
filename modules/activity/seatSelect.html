@@ -34,11 +34,17 @@
 		</header>
 		<div class="mui-content">
 			<div class="grade-box">
-				<ul data-bind="foreach:{data: seatLevelList}">
+				<ul>
+					<!-- ko foreach:{data: seatLevelList}-->
 					<li>
 						<button class="grade-btn" data-bind="text: '￥' + Price, style: {'backgroundColor': Color}">￥580</button>
 						<span class="grade-span" data-bind="text: LevelName">VIP</span>
 					</li>
+					<!-- /ko -->
+					<li>
+						<button class="grade-btn" style="background-color: #999;"></button>
+						<span class="grade-span">已售</span>
+					</li> 
 				</ul>
 			</div>
 
