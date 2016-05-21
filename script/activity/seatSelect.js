@@ -350,6 +350,7 @@ var seatSelect = function() {
 				mui.back();
 			},function(newOrderID, expireMinutes) {
 				orderID = newOrderID;
+				var maxtime = 15 * 60;
 				if(expireMinutes > 0){
 					var oTime = newDate();
 					maxtime = (newDate(oTime).getTime() + expireMinutes * 60 * 1000 - newDate().getTime()) / 1000;

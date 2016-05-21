@@ -354,7 +354,7 @@ var seatMap = function() {
 		});
 	}
 	
-	var maxtime = 30 * 60;
+	var maxtime = 15 * 60;
 	self.CountDown = function() {
 		//console.log(maxtime);
 		if (maxtime >= 0) {
