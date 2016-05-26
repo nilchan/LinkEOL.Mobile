@@ -7,7 +7,7 @@ var myInfo = function() {
 
 	self.IsRegister = ko.observable(false);
 	self.orgs = ko.observableArray(["请选择所属机构"]);
-	
+
 	//self.ID = ko.observable(" ");.//用户id
 	self.UserName = ko.observable(getLocalItem('UserName')); //手机
 	self.DisplayName = ko.observable(''); //姓名
@@ -102,13 +102,11 @@ var myInfo = function() {
 			});
 		});
 	}
-	
-	
-	
+
 	var genders, places, subjects, useLocation;
 	mui.plusReady(function() {
 		var web = plus.webview.currentWebview();
-		
+
 		self.genders = new mui.PopPicker();
 		self.genders.setData(common.gJsonGenderType);
 
@@ -121,12 +119,12 @@ var myInfo = function() {
 		});
 		self.subjects.setData(common.getAllSubjectsBoth());
 		self.getMyInfo();
-		
+
 	})
-	
+
 	self.selectOrgs = function() {
 		var singleSelect = true;
-		if( self.UserType() == common.gDictUserType.teacher ) {
+		if (self.UserType() == common.gDictUserType.teacher) {
 			singleSelect = false;
 		}
 		common.transfer('../org/orgList.html', true, {
@@ -134,10 +132,10 @@ var myInfo = function() {
 			singleSelect: singleSelect
 		});
 	}
-	
+
 	self.initData = function(result) {
 		console.log(JSON.stringify(result))
-//		self.UserName(result.UserName);
+			//		self.UserName(result.UserName);
 		self.DisplayName(result.DisplayName);
 		self.Photo(result.Photo);
 		if (common.StrIsNull(result.Photo) != '')
@@ -179,18 +177,18 @@ var myInfo = function() {
 			self.OrgPhone(result.OrgPhone);
 		if (result.OrgNumber)
 			self.OrgNumber(result.OrgNumber);
-		if( result.OrgNameJSON ) {
+		if (result.OrgNameJSON) {
 			self.orgs(result.OrgNameJSON.split(','));
 		} else {
 			self.orgs(["请选择所属机构"]);
 		}
 	}
-	
+
 	self.getMyInfo = function() {
 		mui.ajax(common.gServerUrl + "API/Account/GetInfo?userid=" + self.UserID() + "&usertype=" + self.UserType(), {
 			type: 'GET',
 			success: function(responseText) {
-//				console.log(responseText);
+				//				console.log(responseText);
 				if (responseText != "") {
 					var result = eval("(" + responseText + ")");
 					self.initData(result);
@@ -205,10 +203,10 @@ var myInfo = function() {
 	}
 
 	self.goAuth = function() { //资料认证
-//		var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID'); //取消“我”红点
-//		if (!self.hasNewMessage() && UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed == IDAuthApproved()) {
-//			mui.fire(index, 'refreshMessageStatusFalse', {});
-//		}
+		//		var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID'); //取消“我”红点
+		//		if (!self.hasNewMessage() && UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed == IDAuthApproved()) {
+		//			mui.fire(index, 'refreshMessageStatusFalse', {});
+		//		}
 		common.transfer('teacherAuth.html', true, {
 			authMessage: self.auths()
 		}, false, false);
@@ -229,15 +227,15 @@ var myInfo = function() {
 								break;
 						}
 					});
-//					if (UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed != self.IDAuthApproved()) {
-//						var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID');
-//						mui.fire(index, 'refreshMessageStatus', {});
-//					}
-				} 
-//				else {
-//					var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID');
-//					mui.fire(index, 'refreshMessageStatus', {});
-//				}
+					//					if (UserType() == common.gDictUserType.teacher && common.gDictAuthStatusType.Authed != self.IDAuthApproved()) {
+					//						var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID');
+					//						mui.fire(index, 'refreshMessageStatus', {});
+					//					}
+				}
+				//				else {
+				//					var index = plus.webview.getLaunchWebview() || plus.webview.getWebviewById('indexID');
+				//					mui.fire(index, 'refreshMessageStatus', {});
+				//				}
 			}
 		})
 	}
@@ -253,7 +251,7 @@ var myInfo = function() {
 				mui.toast('请选择科目');
 				return;
 			}
-			
+
 		}
 		/*if (common.StrIsNull(self.GenderText()) == "") {
 			mui.toast('请选择性别');
@@ -320,11 +318,17 @@ var myInfo = function() {
 		})
 	}
 
+	/*mui.plusReady(function(){
+		plus.key.addEventListener('backbutton',function(){
+		alert('click back');
+	},false);
+	})*/
+
 	mui.init({
 		beforeback: function() {
 			var myinfo = plus.webview.currentWebview().opener();
-			
-			if(myinfo.id.indexOf('my.html') >= 0){
+
+			if (myinfo.id.indexOf('my.html') >= 0) {
 				var infoArray = {
 					IDAuth: self.IDAuth()
 				};
@@ -339,7 +343,7 @@ var myInfo = function() {
 				mui.fire(myinfo, 'refreshMyinfo', infoArray);
 			}
 			common.refreshHomeworkGuide(myinfo);
-			
+
 			return true;
 		}
 	})

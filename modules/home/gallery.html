@@ -19,13 +19,13 @@
 		</header>
 		<div class="mui-content">
 			<div class="gallery-box">
-				<img src="../../images/gallery-1.jpg" />
+				<img data-bind="attr:{'src': server() + 'mobile/images/gallery-1.jpg'}" onerror="this.style.display = 'none';"/>
 			</div>
 			<div class="gallery-box">
-				<img src="../../images/gallery-2.jpg" />
+				<img  data-bind="attr:{'src': server() + 'mobile/images/gallery-2.jpg'}" onerror="this.style.display = 'none';"/>
 			</div>
 			<div class="gallery-box gallery-position">
-				<img src="../../images/gallery-3.jpg" />
+				<img  data-bind="attr:{'src': server() + 'mobile/images/gallery-3.jpg'}" onerror="this.style.display = 'none';"/>
 				<div class="gallery-btn-box">
 					<button onclick="common.transfer('../../modules/my/recharge.html', true);">立即开通</button>
 				</div>
@@ -40,7 +40,10 @@
 		<script src="../../script/common/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../script/common/base.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			
+			var viewModel = function() {
+				this.server = ko.observable(common.gWebsiteUrl);
+			};
+			ko.applyBindings(viewModel);
 		</script>
 	</body>
 </html>

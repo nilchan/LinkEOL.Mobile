@@ -51,7 +51,7 @@
 			</div>-->
 
 			<div class="recharge-content">
-				<p class="recharge-p">请选择充值金额</p>
+				<p class="recharge-p">请选择金额</p>
 				<ul data-bind="foreach: {data: payList}">
 					<li data-bind="click: clickOne, visible: targetID() === 0 || targetID() !== 0 && targetID() == ID">
 						<div class="recharge-box" data-bind="css: {'recharge-box-selected': selected}">
@@ -72,7 +72,7 @@
 				</ul>
 			</div>
 			<div class="recharge-btnBox">
-				<button data-bind="click: toPay">立即充值</button>
+				<button data-bind="click: toPay">立即支付</button>
 			</div>
 			
 			<div id="PayBox" style="display: none;"></div>

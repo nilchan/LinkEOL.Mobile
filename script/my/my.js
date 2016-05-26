@@ -199,6 +199,7 @@ var my = function() {
 	}
 	
 	mui.plusReady(function() {
+		console.log(self.UserID());
 		if (self.UserID() > 0) {
 			self.getInfo();
 			common.getUnreadCount(function(count) {

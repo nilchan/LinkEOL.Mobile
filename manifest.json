@@ -3621,7 +3621,8 @@
 					"content/fonts/iconfont.svg",
 					"images/my-bg.png",
 					"images/video-big-default.png",
-					"images/ali.png"
+					"images/ali.png",
+					"images/free-pay.png"
 				],
 				"refer": [
 					"modules/activity/teacherFTF/applyList.html"
@@ -4265,7 +4266,8 @@
 					"script/common/base.js",
 					"script/home/homeworkGuide.js",
 					"script/mui/mui.min.js",
-					"script/libs/knockout/knockout-3.3.0.min.js"
+					"script/libs/knockout/knockout-3.3.0.min.js",
+					"content/fonts/iconfont.woff"
 				],
 				"refer": [
 					"modules/my/myStudentList.html",

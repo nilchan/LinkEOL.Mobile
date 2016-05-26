@@ -252,6 +252,11 @@ var teacherFTF = function() {
 			mui.toast("报名手机号码不能为空");
 			return;
 		}
+		
+		if(!common.isPhone(self.UserPhone())){
+        	mui.toast('请填写正确的手机号码');
+        	return ;
+        }
 		if (common.StrIsNull(self.UserName()) == "") {
 			mui.toast("姓名不能为空");
 			return;

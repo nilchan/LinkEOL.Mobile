@@ -238,6 +238,11 @@ var applay = function() {
         if( !validateS(self.sexID(), '性别') ) return ;
         if( !validateS(self.testStyleID(), '参赛形式') ) return ;
         if( !validateS(self.testGroupID(), '参赛组别') ) return ;
+        
+        if(!common.isPhone(self.phone())){
+        	mui.toast('请填写正确的手机号码');
+        	return ;
+        }
 		
 		
         var evt = event;

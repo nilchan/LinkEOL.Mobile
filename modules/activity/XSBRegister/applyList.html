@@ -134,6 +134,10 @@
 							<span class="examScore-left">比赛时间</span>
 							<span class="examScore-right" data-bind="text:GameTime"></span>
 						</li>
+						<li data-bind="visible: common.StrIsNull(GradeNum)!=''">
+							<span class="examScore-left">比赛成绩</span>
+							<span class="examScore-right" data-bind="text:GradeNum"></span>
+						</li>
 						<li data-bind="visible: IsVoucher">
 							<span class="examScore-left">入场凭证</span>
 							<span class="examScore-right"><div style="padding-top: 10px;" data-bind="attr:{'id': 'qrcode-'+ID}"></div></span>
