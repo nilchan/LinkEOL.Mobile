@@ -58,14 +58,14 @@ var recharge = function() {
 			if(item != data)
 				item.selected(false);
 		})
-		if(common.StrIsNull(data.Tips) == ''){
+		if(common.StrIsNull(data.Remark) == ''){
 			self.selectedTips([]);
 		}
 		else{
-			var arr = data.Tips.split(',');
+			var arr = data.Remark.split(',');
 			self.selectedTips(arr);
 		}
-		self.selectedTips.unshift('到账余额'+data.Amount+'元');
+		//self.selectedTips.unshift('到账余额'+data.Amount+'元');
 	}
 	
 	self.toPay = function() {

@@ -63,7 +63,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="recharge-liBox">
+			<div class="recharge-liBox" data-bind='visible:selectedTips().length>0'>
 				<ul data-bind="foreach: {data: selectedTips}">
 					<li data-bind="text: $data"></li>
 					<!--<li>到账金额<span style="color: #e9457f;">150</span>元</li>
