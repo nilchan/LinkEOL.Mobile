@@ -314,7 +314,7 @@ var viewModel = function() {
 		//console.log(thisUrl+curl);
 		if (self.displayCheck()) {
 			if (self.isHomeWork()) {
-				return common.gServerUrl + "API/TeacherToStudent/TeacherToStudentList?StudentID=" + getLocalItem('UserID') + "&page=" + pageID;
+				return common.gServerUrl + "API/TeacherToStudent/TeacherToStudentList?StudentID=" + getLocalItem('UserID') + "&page=" + pageID + '&onlyConfirm=1';
 			} else {
 				return common.gServerUrl + "API/Teacher/GetFamousTeacherList?UserID=" + getLocalItem('UserID') + "&page=" + pageID;
 

@@ -132,7 +132,7 @@ var submitComment = function() {
 
 	//获取所有授课老师
 	self.getInstructTeacher = function() {
-		mui.ajax(common.gServerUrl + 'API/TeacherToStudent/TeacherToStudentList?StudentID=' + self.works().AuthorID + '&pageSize=999', {
+		mui.ajax(common.gServerUrl + 'API/TeacherToStudent/TeacherToStudentList?StudentID=' + self.works().AuthorID + '&pageSize=999&onlyConfirm=1', {
 			type: 'GET',
 			success: function(responseText) {
 				var result = JSON.parse(responseText);

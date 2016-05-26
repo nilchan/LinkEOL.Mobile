@@ -24,7 +24,7 @@ var registeredList = function() {
 			self.selectOnly(true);
 		
 		//获取我的授课学生列表
-		var ajaxUrl = common.gServerUrl + "API/TeacherToStudent/TeacherToStudentList?TeacherID=" + getLocalItem("UserID");
+		var ajaxUrl = common.gServerUrl + "API/TeacherToStudent/TeacherToStudentList?TeacherID=" + getLocalItem("UserID") + '&onlyConfirm=1';
 		mui.ajax(ajaxUrl, {
 			type: 'GET',
 			success: function(responseText) {
